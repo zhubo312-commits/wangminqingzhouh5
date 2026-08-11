@@ -1,0 +1,16 @@
+{
+  "yearNongLi": "癸卯年乙丑月戊戌日午时",
+  "direction": ["子山", "艮", "震", "巽", "午向", "坤", "兑", "乾"],
+  "palaces": [
+    {"index": 1, "trigram": "坎", "direction": "北方", "element": "水", "star": "贪狼星", "yun": 5, "mountain": 9, "facing": 9, "year": 9, "month": 2, "day": 4, "hour": 6, "facingPosition": "子"},
+    {"index": 2, "trigram": "坤", "direction": "西南", "element": "土", "star": "巨门星", "yun": 6, "mountain": 8, "facing": 1, "year": 1, "month": 3, "day": 5, "hour": 7},
+    {"index": 3, "trigram": "震", "direction": "东方", "element": "木", "star": "禄存星", "yun": 7, "mountain": 7, "facing": 2, "year": 2, "month": 4, "day": 6, "hour": 8},
+    {"index": 4, "trigram": "巽", "direction": "东南", "element": "木", "star": "文曲星", "yun": 8, "mountain": 6, "facing": 3, "year": 3, "month": 5, "day": 7, "hour": 9},
+    {"index": 5, "trigram": "中", "direction": "中央", "element": "土", "star": "廉贞星", "yun": 9, "mountain": 5, "facing": 4, "year": 4, "month": 6, "day": 8, "hour": 1},
+    {"index": 6, "trigram": "乾", "direction": "西北", "element": "金", "star": "武曲星", "yun": 1, "mountain": 4, "facing": 5, "year": 5, "month": 7, "day": 9, "hour": 2},
+    {"index": 7, "trigram": "兑", "direction": "西方", "element": "金", "star": "破军星", "yun": 2, "mountain": 3, "facing": 6, "year": 6, "month": 8, "day": 1, "hour": 3},
+    {"index": 8, "trigram": "艮", "direction": "东北", "element": "土", "star": "左辅星", "yun": 3, "mountain": 2, "facing": 7, "year": 7, "month": 9, "day": 2, "hour": 4},
+    {"index": 9, "trigram": "离", "direction": "南方", "element": "火", "star": "右弼星", "yun": 4, "mountain": 1, "facing": 8, "year": 8, "month": 1, "day": 3, "hour": 5, "facingPosition": "午"}
+  ]
+}
+

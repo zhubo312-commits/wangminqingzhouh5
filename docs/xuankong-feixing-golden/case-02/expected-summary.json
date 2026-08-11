@@ -1,0 +1,16 @@
+{
+  "yearNongLi": "癸卯年乙丑月戊戌日午时",
+  "mode": "替盘",
+  "palaces": [
+    {"index": 1, "yun": 5, "mountain": 5, "facing": 2, "year": 9, "month": 2, "day": 4, "hour": 6},
+    {"index": 2, "yun": 6, "mountain": 4, "facing": 3, "year": 1, "month": 3, "day": 5, "hour": 7},
+    {"index": 3, "yun": 7, "mountain": 3, "facing": 4, "year": 2, "month": 4, "day": 6, "hour": 8},
+    {"index": 4, "yun": 8, "mountain": 2, "facing": 5, "year": 3, "month": 5, "day": 7, "hour": 9},
+    {"index": 5, "yun": 9, "mountain": 1, "facing": 6, "year": 4, "month": 6, "day": 8, "hour": 1},
+    {"index": 6, "yun": 1, "mountain": 9, "facing": 7, "year": 5, "month": 7, "day": 9, "hour": 2},
+    {"index": 7, "yun": 2, "mountain": 8, "facing": 8, "year": 6, "month": 8, "day": 1, "hour": 3},
+    {"index": 8, "yun": 3, "mountain": 7, "facing": 9, "year": 7, "month": 9, "day": 2, "hour": 4},
+    {"index": 9, "yun": 4, "mountain": 6, "facing": 1, "year": 8, "month": 1, "day": 3, "hour": 5}
+  ]
+}
+
