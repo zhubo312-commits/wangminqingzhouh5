@@ -26,7 +26,7 @@ export default defineConfig({
     screenshot: "only-on-failure",
   },
   webServer: {
-    command: `PUBLIC_BASE_PATH=${publicBasePath} npm run dev --workspace @guoxue/web -- --host 127.0.0.1 --port ${webPort}`,
+    command: `VITE_ENABLE_JUECE_VALIDATION=true PUBLIC_BASE_PATH=${publicBasePath} npm run dev --workspace @guoxue/web -- --host 127.0.0.1 --port ${webPort}`,
     url: `${webOrigin}${publicBasePath}`,
     reuseExistingServer: true,
     timeout: 120_000,

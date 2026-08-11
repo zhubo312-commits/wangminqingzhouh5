@@ -1,0 +1,14 @@
+{
+  "chartDateTime": "2026-01-15 08:40",
+  "time": {
+    "mode": "standard"
+  },
+  "pan": {
+    "style": "flying",
+    "directionRule": "all_forward"
+  },
+  "bureau": {
+    "method": "zhi_run"
+  },
+  "voidBasis": "day"
+}

@@ -104,6 +104,28 @@ describe("homepage", () => {
     expect(screen.getAllByText("即将上线")).toHaveLength(9);
   });
 
+  it("keeps the decision validation route closed without the local gate", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (input: RequestInfo | URL) => {
+        if (String(input).endsWith("/api/v1/home")) {
+          return new Response(JSON.stringify(homeData), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
+        return new Response(null, { status: 204 });
+      }),
+    );
+    window.history.pushState({}, "", "/paipan/juece");
+
+    render(<App />);
+
+    expect(await screen.findByRole("region", { name: "今日指引" })).toBeVisible();
+    await waitFor(() => expect(window.location.pathname).toBe("/"));
+    expect(screen.queryByText("时家决策校验版")).not.toBeInTheDocument();
+  });
+
   it("shows a recoverable error instead of a blank page", async () => {
     vi.stubGlobal(
       "fetch",

@@ -1,0 +1,758 @@
+{
+  "result": "differences_found",
+  "mappingNotes": [
+    "旧版 panHead/panBody 已映射为新版 overview/palaces。",
+    "新版新增标准化中文标签、宫位方向五行、值符值使宫位与时区核验字段。",
+    "旧版调试字段、样式字段和算法过程对象不进入公开响应。"
+  ],
+  "comparisons": [
+    {
+      "field": "overview.effectiveDateTime",
+      "legacy": "2026-08-11 16:00",
+      "current": "2026-08-11 16:00",
+      "status": "equal",
+      "note": "真太阳时沿用当前 Java 地区与校正能力；旧包只保留到分钟。"
+    },
+    {
+      "field": "overview.pillars",
+      "legacy": {
+        "year": "丙午",
+        "month": "丙申",
+        "day": "丁巳",
+        "hour": "戊申"
+      },
+      "current": {
+        "year": "丙午",
+        "month": "丙申",
+        "day": "丁巳",
+        "hour": "戊申"
+      },
+      "status": "equal"
+    },
+    {
+      "field": "overview.voidBranches",
+      "legacy": {
+        "year": "寅卯",
+        "month": "辰巳",
+        "day": "子丑",
+        "hour": "寅卯"
+      },
+      "current": {
+        "year": "寅卯",
+        "month": "辰巳",
+        "day": "子丑",
+        "hour": "寅卯"
+      },
+      "status": "equal"
+    },
+    {
+      "field": "overview.selectedVoidBranches",
+      "legacy": "寅卯",
+      "current": "寅卯",
+      "status": "equal"
+    },
+    {
+      "field": "overview.previousSolarTerm",
+      "legacy": {
+        "name": "立秋",
+        "dateTime": "2026-08-07 19:42:32"
+      },
+      "current": {
+        "name": "立秋",
+        "dateTime": "2026-08-07 19:42:40"
+      },
+      "status": "different",
+      "note": "节气秒值来自不同历法数据源，名称与用于起局的边界需教师核验。"
+    },
+    {
+      "field": "overview.nextSolarTerm",
+      "legacy": {
+        "name": "处暑",
+        "dateTime": "2026-08-23 10:18:38"
+      },
+      "current": {
+        "name": "处暑",
+        "dateTime": "2026-08-23 10:18:46"
+      },
+      "status": "different",
+      "note": "节气秒值来自不同历法数据源，名称与用于起局的边界需教师核验。"
+    },
+    {
+      "field": "overview.dunType",
+      "legacy": "阴",
+      "current": "阴",
+      "status": "equal",
+      "note": "旧版以 juNum 正负表示阴阳遁，新版拆为 dunType 与正整数 juNumber。"
+    },
+    {
+      "field": "overview.juNumber",
+      "legacy": 5,
+      "current": 5,
+      "status": "equal"
+    },
+    {
+      "field": "overview.xunShou",
+      "legacy": "甲辰壬",
+      "current": "甲辰壬",
+      "status": "equal"
+    },
+    {
+      "field": "overview.chiefStar",
+      "legacy": {
+        "name": "天蓬",
+        "palace": 2
+      },
+      "current": {
+        "name": "天蓬",
+        "palace": 2
+      },
+      "status": "equal"
+    },
+    {
+      "field": "overview.chiefDoor",
+      "legacy": {
+        "name": "休门",
+        "palace": 6
+      },
+      "current": {
+        "name": "休门",
+        "palace": 6
+      },
+      "status": "equal"
+    },
+    {
+      "field": "overview.horse",
+      "legacy": {
+        "branch": "寅",
+        "palace": 8
+      },
+      "current": {
+        "branch": "寅",
+        "palace": 8
+      },
+      "status": "equal"
+    },
+    {
+      "field": "palaces[1].heavenPlate",
+      "legacy": {
+        "stem": "己",
+        "star": "天辅",
+        "door": "生门",
+        "deity": "玄武"
+      },
+      "current": {
+        "stem": "己",
+        "star": "天辅",
+        "door": "生门",
+        "deity": "玄武"
+      },
+      "status": "equal"
+    },
+    {
+      "field": "palaces[1].earthPlate",
+      "legacy": {
+        "stem": "壬",
+        "star": "天蓬",
+        "door": "休门",
+        "deity": null
+      },
+      "current": {
+        "stem": "壬",
+        "star": "天蓬",
+        "door": "休门",
+        "deity": null
+      },
+      "status": "equal"
+    },
+    {
+      "field": "palaces[1].attached",
+      "legacy": null,
+      "current": null,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[1].hiddenGanZhi",
+      "legacy": null,
+      "current": null,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[1].isVoid",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[1].isHorse",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[1].isChief",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[1].isChiefDoor",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[2].heavenPlate",
+      "legacy": {
+        "stem": "壬",
+        "star": "天蓬",
+        "door": "惊门",
+        "deity": "值符"
+      },
+      "current": {
+        "stem": "壬",
+        "star": "天蓬",
+        "door": "惊门",
+        "deity": "值符"
+      },
+      "status": "equal"
+    },
+    {
+      "field": "palaces[2].earthPlate",
+      "legacy": {
+        "stem": "辛",
+        "star": "天芮",
+        "door": "死门",
+        "deity": null
+      },
+      "current": {
+        "stem": "辛",
+        "star": "天芮",
+        "door": "死门",
+        "deity": null
+      },
+      "status": "equal"
+    },
+    {
+      "field": "palaces[2].attached",
+      "legacy": {
+        "earthStem": "戊",
+        "earthStar": "天禽",
+        "heavenStem": null,
+        "heavenStar": null
+      },
+      "current": {
+        "earthStem": "戊",
+        "earthStar": "天禽",
+        "heavenStem": null,
+        "heavenStar": null
+      },
+      "status": "equal"
+    },
+    {
+      "field": "palaces[2].hiddenGanZhi",
+      "legacy": null,
+      "current": null,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[2].isVoid",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[2].isHorse",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[2].isChief",
+      "legacy": true,
+      "current": true,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[2].isChiefDoor",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[3].heavenPlate",
+      "legacy": {
+        "stem": "辛",
+        "star": "天芮",
+        "door": "杜门",
+        "deity": "六合"
+      },
+      "current": {
+        "stem": "辛",
+        "star": "天芮",
+        "door": "杜门",
+        "deity": "六合"
+      },
+      "status": "equal"
+    },
+    {
+      "field": "palaces[3].earthPlate",
+      "legacy": {
+        "stem": "庚",
+        "star": "天冲",
+        "door": "伤门",
+        "deity": null
+      },
+      "current": {
+        "stem": "庚",
+        "star": "天冲",
+        "door": "伤门",
+        "deity": null
+      },
+      "status": "equal"
+    },
+    {
+      "field": "palaces[3].attached",
+      "legacy": null,
+      "current": null,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[3].hiddenGanZhi",
+      "legacy": null,
+      "current": null,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[3].isVoid",
+      "legacy": true,
+      "current": true,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[3].isHorse",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[3].isChief",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[3].isChiefDoor",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[4].heavenPlate",
+      "legacy": {
+        "stem": "丙",
+        "star": "天柱",
+        "door": "景门",
+        "deity": "太阴"
+      },
+      "current": {
+        "stem": "丙",
+        "star": "天柱",
+        "door": "景门",
+        "deity": "太阴"
+      },
+      "status": "equal"
+    },
+    {
+      "field": "palaces[4].earthPlate",
+      "legacy": {
+        "stem": "己",
+        "star": "天辅",
+        "door": "杜门",
+        "deity": null
+      },
+      "current": {
+        "stem": "己",
+        "star": "天辅",
+        "door": "杜门",
+        "deity": null
+      },
+      "status": "equal"
+    },
+    {
+      "field": "palaces[4].attached",
+      "legacy": null,
+      "current": null,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[4].hiddenGanZhi",
+      "legacy": null,
+      "current": null,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[4].isVoid",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[4].isHorse",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[4].isChief",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[4].isChiefDoor",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[5].heavenPlate",
+      "legacy": {
+        "stem": null,
+        "star": null,
+        "door": null,
+        "deity": null
+      },
+      "current": {
+        "stem": null,
+        "star": null,
+        "door": null,
+        "deity": null
+      },
+      "status": "equal"
+    },
+    {
+      "field": "palaces[5].earthPlate",
+      "legacy": {
+        "stem": "戊",
+        "star": "天禽",
+        "door": null,
+        "deity": null
+      },
+      "current": {
+        "stem": "戊",
+        "star": "天禽",
+        "door": null,
+        "deity": null
+      },
+      "status": "equal"
+    },
+    {
+      "field": "palaces[5].attached",
+      "legacy": null,
+      "current": null,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[5].hiddenGanZhi",
+      "legacy": null,
+      "current": null,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[5].isVoid",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[5].isHorse",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[5].isChief",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[5].isChiefDoor",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[6].heavenPlate",
+      "legacy": {
+        "stem": "庚",
+        "star": "天冲",
+        "door": "休门",
+        "deity": "九地"
+      },
+      "current": {
+        "stem": "庚",
+        "star": "天冲",
+        "door": "休门",
+        "deity": "九地"
+      },
+      "status": "equal"
+    },
+    {
+      "field": "palaces[6].earthPlate",
+      "legacy": {
+        "stem": "乙",
+        "star": "天心",
+        "door": "开门",
+        "deity": null
+      },
+      "current": {
+        "stem": "乙",
+        "star": "天心",
+        "door": "开门",
+        "deity": null
+      },
+      "status": "equal"
+    },
+    {
+      "field": "palaces[6].attached",
+      "legacy": null,
+      "current": null,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[6].hiddenGanZhi",
+      "legacy": null,
+      "current": null,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[6].isVoid",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[6].isHorse",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[6].isChief",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[6].isChiefDoor",
+      "legacy": true,
+      "current": true,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[7].heavenPlate",
+      "legacy": {
+        "stem": "丁",
+        "star": "天任",
+        "door": "开门",
+        "deity": "九天"
+      },
+      "current": {
+        "stem": "丁",
+        "star": "天任",
+        "door": "开门",
+        "deity": "九天"
+      },
+      "status": "equal"
+    },
+    {
+      "field": "palaces[7].earthPlate",
+      "legacy": {
+        "stem": "丙",
+        "star": "天柱",
+        "door": "惊门",
+        "deity": null
+      },
+      "current": {
+        "stem": "丙",
+        "star": "天柱",
+        "door": "惊门",
+        "deity": null
+      },
+      "status": "equal"
+    },
+    {
+      "field": "palaces[7].attached",
+      "legacy": null,
+      "current": null,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[7].hiddenGanZhi",
+      "legacy": null,
+      "current": null,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[7].isVoid",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[7].isHorse",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[7].isChief",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[7].isChiefDoor",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[8].heavenPlate",
+      "legacy": {
+        "stem": "癸",
+        "star": "天英",
+        "door": "伤门",
+        "deity": "白虎"
+      },
+      "current": {
+        "stem": "癸",
+        "star": "天英",
+        "door": "伤门",
+        "deity": "白虎"
+      },
+      "status": "equal"
+    },
+    {
+      "field": "palaces[8].earthPlate",
+      "legacy": {
+        "stem": "丁",
+        "star": "天任",
+        "door": "生门",
+        "deity": null
+      },
+      "current": {
+        "stem": "丁",
+        "star": "天任",
+        "door": "生门",
+        "deity": null
+      },
+      "status": "equal"
+    },
+    {
+      "field": "palaces[8].attached",
+      "legacy": null,
+      "current": null,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[8].hiddenGanZhi",
+      "legacy": null,
+      "current": null,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[8].isVoid",
+      "legacy": true,
+      "current": true,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[8].isHorse",
+      "legacy": true,
+      "current": true,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[8].isChief",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[8].isChiefDoor",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[9].heavenPlate",
+      "legacy": {
+        "stem": "乙",
+        "star": "天心",
+        "door": "死门",
+        "deity": "螣蛇"
+      },
+      "current": {
+        "stem": "乙",
+        "star": "天心",
+        "door": "死门",
+        "deity": "螣蛇"
+      },
+      "status": "equal"
+    },
+    {
+      "field": "palaces[9].earthPlate",
+      "legacy": {
+        "stem": "癸",
+        "star": "天英",
+        "door": "景门",
+        "deity": null
+      },
+      "current": {
+        "stem": "癸",
+        "star": "天英",
+        "door": "景门",
+        "deity": null
+      },
+      "status": "equal"
+    },
+    {
+      "field": "palaces[9].attached",
+      "legacy": null,
+      "current": null,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[9].hiddenGanZhi",
+      "legacy": null,
+      "current": null,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[9].isVoid",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[9].isHorse",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[9].isChief",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[9].isChiefDoor",
+      "legacy": false,
+      "current": false,
+      "status": "equal"
+    }
+  ]
+}

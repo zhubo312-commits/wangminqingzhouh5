@@ -1,0 +1,81 @@
+export const jueceGoldenCases = [
+  {
+    id: "case-01",
+    title: "转盘 · 拆补 · 时空 · 寄坤宫",
+    request: {
+      chartDateTime: "2026-08-11 16:00",
+      time: { mode: "standard" },
+      pan: { style: "rotating", centerPalaceMethod: "kun" },
+      bureau: { method: "chai_bu" },
+      voidBasis: "hour",
+    },
+    legacy: { panType: 0, juType: 0, selectJu: 1, emptyType: 0, attachType: 0 },
+  },
+  {
+    id: "case-02",
+    title: "转盘 · 置闰 · 日空 · 阳艮阴坤 · 真太阳时",
+    request: {
+      chartDateTime: "2026-02-04 10:30",
+      time: { mode: "true_solar", areaCode: "110105" },
+      pan: { style: "rotating", centerPalaceMethod: "yang_gen_yin_kun" },
+      bureau: { method: "zhi_run" },
+      voidBasis: "day",
+    },
+    legacy: {
+      panType: 0,
+      juType: 1,
+      selectJu: 1,
+      emptyType: 1,
+      attachType: 1,
+      longitude: 116.486409,
+    },
+  },
+  {
+    id: "case-03",
+    title: "转盘 · 茅山 · 月空 · 寄四维",
+    request: {
+      chartDateTime: "2026-06-18 09:20",
+      time: { mode: "standard" },
+      pan: { style: "rotating", centerPalaceMethod: "four_corners" },
+      bureau: { method: "mao_shan" },
+      voidBasis: "month",
+    },
+    legacy: { panType: 0, juType: 2, selectJu: 1, emptyType: 2, attachType: 2 },
+  },
+  {
+    id: "case-04",
+    title: "转盘 · 手工阴遁5局 · 年空 · 随节令",
+    request: {
+      chartDateTime: "2026-12-22 23:10",
+      time: { mode: "standard" },
+      pan: { style: "rotating", centerPalaceMethod: "seasonal" },
+      bureau: { method: "manual", dunType: "yin", number: 5 },
+      voidBasis: "year",
+    },
+    legacy: { panType: 0, juType: 3, selectJu: -5, emptyType: 3, attachType: 3 },
+  },
+  {
+    id: "case-05",
+    title: "飞盘 · 阳顺阴逆 · 拆补 · 时空",
+    request: {
+      chartDateTime: "2026-08-11 16:00",
+      time: { mode: "standard" },
+      pan: { style: "flying", directionRule: "yang_forward_yin_reverse" },
+      bureau: { method: "chai_bu" },
+      voidBasis: "hour",
+    },
+    legacy: { panType: 1, juType: 0, selectJu: 1, emptyType: 0, attachType: 0 },
+  },
+  {
+    id: "case-06",
+    title: "飞盘 · 阴阳皆顺 · 置闰 · 日空",
+    request: {
+      chartDateTime: "2026-01-15 08:40",
+      time: { mode: "standard" },
+      pan: { style: "flying", directionRule: "all_forward" },
+      bureau: { method: "zhi_run" },
+      voidBasis: "day",
+    },
+    legacy: { panType: 2, juType: 1, selectJu: 1, emptyType: 1, attachType: 0 },
+  },
+];

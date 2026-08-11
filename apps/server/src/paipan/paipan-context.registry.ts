@@ -4,6 +4,9 @@ import {
   DunjiaChartRequestSchema,
   DunjiaChartResponseSchema,
   DunjiaContextResponseSchema,
+  JueceChartRequestSchema,
+  JueceChartResponseSchema,
+  JueceContextResponseSchema,
   PaipanContextResponseSchema,
 } from "@guoxue/contracts";
 import type { z } from "zod";
@@ -38,6 +41,13 @@ export const paipanContextRegistry = {
     requestSchema: DunjiaChartRequestSchema,
     chartSchema: DunjiaChartResponseSchema,
     contextSchema: DunjiaContextResponseSchema,
+  }),
+  juece: definePaipanContext({
+    chartType: "shijia_juece",
+    schemaVersion: "guoxue.paipan.shijia_juece.v1",
+    requestSchema: JueceChartRequestSchema,
+    chartSchema: JueceChartResponseSchema,
+    contextSchema: JueceContextResponseSchema,
   }),
 } as const;
 

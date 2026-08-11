@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: 国学老师 H5 API
-  version: 2.2.0
+  version: 2.3.0
   description: 首页与专业排盘公开接口。出生或起盘信息和排盘引用仅通过 POST 请求体提交。
 paths:
   /api/v1/home:
@@ -245,6 +245,56 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DunjiaContext"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "410":
+          $ref: "#/components/responses/Gone"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+  /api/v1/paipan/juece/chart:
+    post:
+      summary: 生成时家决策盘
+      description: 仅返回盘面结构，不提供个案吉凶判断。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JueceChartRequest"
+      responses:
+        "200":
+          description: 标准化九宫盘及短期排盘引用
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JueceChartWithReference"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+        "502":
+          $ref: "#/components/responses/BadGateway"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+  /api/v1/paipan/juece/context:
+    post:
+      summary: 使用短期排盘引用读取时家决策上下文
+      description: paipan_ref 只用于当前标签页短期恢复，服务端数据库仅保存引用哈希。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [paipan_ref]
+              properties:
+                paipan_ref:
+                  $ref: "#/components/schemas/PaipanReference"
+      responses:
+        "200":
+          description: 带盘型与版本号的完整时家决策上下文
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JueceContext"
         "404":
           $ref: "#/components/responses/NotFound"
         "410":
@@ -698,6 +748,179 @@ components:
         expiresAt: { type: string, format: date-time }
         chartRequest: { $ref: "#/components/schemas/DunjiaChartRequest" }
         chart: { $ref: "#/components/schemas/DunjiaChartResponse" }
+    JueceChartRequest:
+      type: object
+      additionalProperties: false
+      required: [chartDateTime, time, pan, bureau, voidBasis]
+      properties:
+        chartDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+        time:
+          oneOf:
+            - type: object
+              additionalProperties: false
+              required: [mode]
+              properties:
+                mode: { const: standard }
+            - type: object
+              additionalProperties: false
+              required: [mode, areaCode]
+              properties:
+                mode: { const: true_solar }
+                areaCode: { type: string, pattern: "^[0-9]{6}$" }
+        pan:
+          oneOf:
+            - type: object
+              additionalProperties: false
+              required: [style, centerPalaceMethod]
+              properties:
+                style: { const: rotating }
+                centerPalaceMethod: { type: string, enum: [kun, yang_gen_yin_kun, four_corners, seasonal] }
+            - type: object
+              additionalProperties: false
+              required: [style, directionRule]
+              properties:
+                style: { const: flying }
+                directionRule: { type: string, enum: [yang_forward_yin_reverse, all_forward] }
+        bureau:
+          oneOf:
+            - type: object
+              additionalProperties: false
+              required: [method]
+              properties:
+                method: { const: chai_bu }
+            - type: object
+              additionalProperties: false
+              required: [method]
+              properties:
+                method: { const: zhi_run }
+            - type: object
+              additionalProperties: false
+              required: [method]
+              properties:
+                method: { const: mao_shan }
+            - type: object
+              additionalProperties: false
+              required: [method, dunType, number]
+              properties:
+                method: { const: manual }
+                dunType: { type: string, enum: [yin, yang] }
+                number: { type: integer, minimum: 1, maximum: 9 }
+        voidBasis: { type: string, enum: [hour, day, month, year] }
+    JuecePlateLayer:
+      type: object
+      required: [stem, star, door, deity]
+      properties:
+        stem: { type: [string, "null"] }
+        star: { type: [string, "null"] }
+        door: { type: [string, "null"] }
+        deity: { type: [string, "null"] }
+    JuecePalace:
+      type: object
+      required: [index, trigram, direction, element, heavenPlate, earthPlate, attached, hiddenGanZhi, isVoid, isHorse, isChief, isChiefDoor]
+      properties:
+        index: { type: integer, minimum: 1, maximum: 9 }
+        trigram: { type: string }
+        direction: { type: string }
+        element: { type: string }
+        heavenPlate: { $ref: "#/components/schemas/JuecePlateLayer" }
+        earthPlate: { $ref: "#/components/schemas/JuecePlateLayer" }
+        attached:
+          oneOf:
+            - type: "null"
+            - type: object
+              required: [earthStem, earthStar, heavenStem, heavenStar]
+              properties:
+                earthStem: { type: string }
+                earthStar: { type: string }
+                heavenStem: { type: [string, "null"] }
+                heavenStar: { type: [string, "null"] }
+        hiddenGanZhi: { type: [string, "null"] }
+        isVoid: { type: boolean }
+        isHorse: { type: boolean }
+        isChief: { type: boolean }
+        isChiefDoor: { type: boolean }
+    JueceChartResponse:
+      type: object
+      required: [overview, palaces]
+      properties:
+        overview:
+          type: object
+          required: [method, clockDateTime, effectiveDateTime, timeMode, areaCode, areaName, trueSolarTime, lunarDate, pillars, voidBranches, selectedVoidBranches, previousSolarTerm, nextSolarTerm, panStyle, panStyleLabel, bureauMethod, bureauLabel, directionRule, centerPalaceMethod, dunType, juNumber, xunShou, chiefStar, chiefDoor, horse]
+          properties:
+            method: { type: string }
+            clockDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+            effectiveDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+            timeMode: { type: string, enum: [standard, true_solar] }
+            areaCode: { type: [string, "null"] }
+            areaName: { type: [string, "null"] }
+            trueSolarTime: { type: [string, "null"] }
+            lunarDate: { type: string }
+            pillars: { $ref: "#/components/schemas/JuecePillars" }
+            voidBranches: { $ref: "#/components/schemas/JuecePillars" }
+            selectedVoidBranches: { type: string, minLength: 2, maxLength: 2 }
+            previousSolarTerm: { $ref: "#/components/schemas/JueceSolarTerm" }
+            nextSolarTerm: { $ref: "#/components/schemas/JueceSolarTerm" }
+            panStyle: { type: string, enum: [rotating, flying] }
+            panStyleLabel: { type: string }
+            bureauMethod: { type: string, enum: [chai_bu, zhi_run, mao_shan, manual] }
+            bureauLabel: { type: string }
+            directionRule: { type: [string, "null"] }
+            centerPalaceMethod: { type: [string, "null"] }
+            dunType: { type: string, enum: [阴, 阳] }
+            juNumber: { type: integer, minimum: 1, maximum: 9 }
+            xunShou: { type: string }
+            chiefStar: { $ref: "#/components/schemas/JueceChief" }
+            chiefDoor: { $ref: "#/components/schemas/JueceChief" }
+            horse:
+              type: object
+              required: [branch, palace]
+              properties:
+                branch: { type: string, minLength: 1, maxLength: 1 }
+                palace: { type: integer, minimum: 1, maximum: 9 }
+        palaces:
+          type: array
+          minItems: 9
+          maxItems: 9
+          items: { $ref: "#/components/schemas/JuecePalace" }
+    JuecePillars:
+      type: object
+      required: [year, month, day, hour]
+      properties:
+        year: { type: string, minLength: 2, maxLength: 2 }
+        month: { type: string, minLength: 2, maxLength: 2 }
+        day: { type: string, minLength: 2, maxLength: 2 }
+        hour: { type: string, minLength: 2, maxLength: 2 }
+    JueceSolarTerm:
+      type: object
+      required: [name, dateTime]
+      properties:
+        name: { type: string }
+        dateTime: { type: string }
+    JueceChief:
+      type: object
+      required: [name, palace]
+      properties:
+        name: { type: string }
+        palace: { type: integer, minimum: 1, maximum: 9 }
+    JueceChartWithReference:
+      allOf:
+        - $ref: "#/components/schemas/JueceChartResponse"
+        - type: object
+          required: [paipan_ref, expiresAt]
+          properties:
+            paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+            expiresAt: { type: string, format: date-time }
+    JueceContext:
+      type: object
+      required: [schemaVersion, chartType, paipan_ref, generatedAt, expiresAt, chartRequest, chart]
+      properties:
+        schemaVersion: { const: guoxue.paipan.shijia_juece.v1 }
+        chartType: { const: shijia_juece }
+        paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+        generatedAt: { type: string, format: date-time }
+        expiresAt: { type: string, format: date-time }
+        chartRequest: { $ref: "#/components/schemas/JueceChartRequest" }
+        chart: { $ref: "#/components/schemas/JueceChartResponse" }
     FlowMonth:
       type: object
       required: [index, monthName, ganZhi, solarTermName, solarTermDateTime, tenGods, hiddenStems, hiddenStemTenGods, heavenlyStemAttention, earthlyBranchAttention, shenSha]

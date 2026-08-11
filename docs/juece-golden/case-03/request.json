@@ -1,0 +1,14 @@
+{
+  "chartDateTime": "2026-06-18 09:20",
+  "time": {
+    "mode": "standard"
+  },
+  "pan": {
+    "style": "rotating",
+    "centerPalaceMethod": "four_corners"
+  },
+  "bureau": {
+    "method": "mao_shan"
+  },
+  "voidBasis": "month"
+}

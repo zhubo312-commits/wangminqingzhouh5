@@ -1,6 +1,7 @@
 import {
   BaziChartResponseSchema,
   DunjiaChartResponseSchema,
+  JueceChartResponseSchema,
   FlowMonthsResponseSchema,
   PaipanAreaNodeSchema,
   ResolveBirthResponseSchema,
@@ -12,6 +13,8 @@ import {
   type FlowMonthsRequest,
   type FlowMonthsResponse,
   type PaipanAreaNode,
+  type JueceChartRequest,
+  type JueceChartResponse,
   type ResolveBirthRequest,
   type ResolveBirthResponse,
   type ShenShaRequest,
@@ -193,6 +196,14 @@ export class PaipanClient {
         earthGate: item.diHu,
       })),
     });
+  }
+
+  async jueceChart(request: JueceChartRequest): Promise<JueceChartResponse> {
+    return this.request(
+      "/internal/v1/juece/chart",
+      request,
+      JueceChartResponseSchema,
+    );
   }
 
   async flowMonths(request: FlowMonthsRequest): Promise<FlowMonthsResponse> {

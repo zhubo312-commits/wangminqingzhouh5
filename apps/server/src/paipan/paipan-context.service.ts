@@ -7,6 +7,10 @@ import {
   type DunjiaChartResponse,
   type DunjiaChartWithReference,
   type DunjiaContextResponse,
+  type JueceChartRequest,
+  type JueceChartResponse,
+  type JueceChartWithReference,
+  type JueceContextResponse,
   type PaipanContextResponse,
 } from "@guoxue/contracts";
 import { GoneAppError, NotFoundAppError } from "../shared/errors/app-error.js";
@@ -101,11 +105,23 @@ export class PaipanContextService {
     return this.createRegistered("dunjia", chartRequest, chart, now) as DunjiaChartWithReference;
   }
 
+  createJuece(
+    chartRequest: JueceChartRequest,
+    chart: JueceChartResponse,
+    now = new Date(),
+  ): JueceChartWithReference {
+    return this.createRegistered("juece", chartRequest, chart, now) as JueceChartWithReference;
+  }
+
   resolve(paipanRef: string, now = new Date()): PaipanContextResponse {
     return this.resolveRegistered("bazi", paipanRef, now) as PaipanContextResponse;
   }
 
   resolveDunjia(paipanRef: string, now = new Date()): DunjiaContextResponse {
     return this.resolveRegistered("dunjia", paipanRef, now) as DunjiaContextResponse;
+  }
+
+  resolveJuece(paipanRef: string, now = new Date()): JueceContextResponse {
+    return this.resolveRegistered("juece", paipanRef, now) as JueceContextResponse;
   }
 }

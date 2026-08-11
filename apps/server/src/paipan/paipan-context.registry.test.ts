@@ -9,13 +9,17 @@ describe("paipanContextRegistry", () => {
     const identities = Object.values(paipanContextRegistry).map(
       ({ chartType, schemaVersion }) => `${chartType}:${schemaVersion}`,
     );
-    expect(identities).toHaveLength(2);
+    expect(identities).toHaveLength(3);
     expect(new Set(identities).size).toBe(identities.length);
   });
 
   it("rejects unknown chart types and mismatched schema versions", () => {
     expect(isRegisteredPaipanIdentity("shengping_zishi", "guoxue.paipan.bazi.v1")).toBe(true);
     expect(isRegisteredPaipanIdentity("dunjia", "guoxue.paipan.dunjia.v1")).toBe(true);
+    expect(isRegisteredPaipanIdentity(
+      "shijia_juece",
+      "guoxue.paipan.shijia_juece.v1",
+    )).toBe(true);
     expect(isRegisteredPaipanIdentity("unknown", "guoxue.paipan.unknown.v1")).toBe(false);
     expect(isRegisteredPaipanIdentity("dunjia", "guoxue.paipan.bazi.v1")).toBe(false);
   });

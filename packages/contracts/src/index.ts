@@ -348,6 +348,164 @@ export const DunjiaContextResponseSchema = z.object({
   chart: DunjiaChartResponseSchema,
 });
 
+const JueceDateTimeSchema = BirthDateTimeSchema.refine((value) => {
+  const [datePart, timePart] = value.split(" ");
+  if (!datePart || !timePart) return false;
+  const [year, month, day] = datePart.split("-").map(Number);
+  const [hour, minute] = timePart.split(":").map(Number);
+  const date = new Date(Date.UTC(year!, month! - 1, day!, hour!, minute!));
+  return date.getUTCFullYear() === year
+    && date.getUTCMonth() + 1 === month
+    && date.getUTCDate() === day
+    && date.getUTCHours() === hour
+    && date.getUTCMinutes() === minute;
+}, "日期或时间无效");
+
+export const JueceTimeSchema = z.discriminatedUnion("mode", [
+  z.object({ mode: z.literal("standard") }).strict(),
+  z.object({
+    mode: z.literal("true_solar"),
+    areaCode: z.string().regex(/^\d{6}$/),
+  }).strict(),
+]);
+
+export const JuecePanSchema = z.discriminatedUnion("style", [
+  z.object({
+    style: z.literal("rotating"),
+    centerPalaceMethod: z.enum([
+      "kun",
+      "yang_gen_yin_kun",
+      "four_corners",
+      "seasonal",
+    ]),
+  }).strict(),
+  z.object({
+    style: z.literal("flying"),
+    directionRule: z.enum(["yang_forward_yin_reverse", "all_forward"]),
+  }).strict(),
+]);
+
+export const JueceBureauSchema = z.discriminatedUnion("method", [
+  z.object({ method: z.literal("chai_bu") }).strict(),
+  z.object({ method: z.literal("zhi_run") }).strict(),
+  z.object({ method: z.literal("mao_shan") }).strict(),
+  z.object({
+    method: z.literal("manual"),
+    dunType: z.enum(["yin", "yang"]),
+    number: z.number().int().min(1).max(9),
+  }).strict(),
+]);
+
+export const JueceChartRequestSchema = z.object({
+  chartDateTime: JueceDateTimeSchema,
+  time: JueceTimeSchema,
+  pan: JuecePanSchema,
+  bureau: JueceBureauSchema,
+  voidBasis: z.enum(["hour", "day", "month", "year"]),
+}).strict();
+
+const JuecePlateLayerSchema = z.object({
+  stem: z.string().min(1).nullable(),
+  star: z.string().min(1).nullable(),
+  door: z.string().min(1).nullable(),
+  deity: z.string().min(1).nullable(),
+});
+
+export const JuecePalaceSchema = z.object({
+  index: z.number().int().min(1).max(9),
+  trigram: z.string().min(1),
+  direction: z.string().min(1),
+  element: z.string().min(1),
+  heavenPlate: JuecePlateLayerSchema,
+  earthPlate: JuecePlateLayerSchema,
+  attached: z.object({
+    earthStem: z.string().min(1),
+    earthStar: z.string().min(1),
+    heavenStem: z.string().min(1).nullable(),
+    heavenStar: z.string().min(1).nullable(),
+  }).nullable(),
+  hiddenGanZhi: z.string().min(1).nullable(),
+  isVoid: z.boolean(),
+  isHorse: z.boolean(),
+  isChief: z.boolean(),
+  isChiefDoor: z.boolean(),
+});
+
+const JueceSolarTermSchema = z.object({
+  name: z.string().min(1),
+  dateTime: z.string().min(1),
+});
+
+export const JueceChartResponseSchema = z.object({
+  overview: z.object({
+    method: z.string().min(1),
+    clockDateTime: JueceDateTimeSchema,
+    effectiveDateTime: JueceDateTimeSchema,
+    timeMode: z.enum(["standard", "true_solar"]),
+    areaCode: z.string().regex(/^\d{6}$/).nullable(),
+    areaName: z.string().min(1).nullable(),
+    trueSolarTime: JueceDateTimeSchema.nullable(),
+    lunarDate: z.string().min(1),
+    pillars: z.object({
+      year: z.string().length(2),
+      month: z.string().length(2),
+      day: z.string().length(2),
+      hour: z.string().length(2),
+    }),
+    voidBranches: z.object({
+      year: z.string().length(2),
+      month: z.string().length(2),
+      day: z.string().length(2),
+      hour: z.string().length(2),
+    }),
+    selectedVoidBranches: z.string().length(2),
+    previousSolarTerm: JueceSolarTermSchema,
+    nextSolarTerm: JueceSolarTermSchema,
+    panStyle: z.enum(["rotating", "flying"]),
+    panStyleLabel: z.string().min(1),
+    bureauMethod: z.enum(["chai_bu", "zhi_run", "mao_shan", "manual"]),
+    bureauLabel: z.string().min(1),
+    directionRule: z.enum(["yang_forward_yin_reverse", "all_forward"]).nullable(),
+    centerPalaceMethod: z.enum([
+      "kun",
+      "yang_gen_yin_kun",
+      "four_corners",
+      "seasonal",
+    ]).nullable(),
+    dunType: z.enum(["阴", "阳"]),
+    juNumber: z.number().int().min(1).max(9),
+    xunShou: z.string().min(1),
+    chiefStar: z.object({
+      name: z.string().min(1),
+      palace: z.number().int().min(1).max(9),
+    }),
+    chiefDoor: z.object({
+      name: z.string().min(1),
+      palace: z.number().int().min(1).max(9),
+    }),
+    horse: z.object({
+      branch: z.string().length(1),
+      palace: z.number().int().min(1).max(9),
+    }),
+  }),
+  palaces: z.array(JuecePalaceSchema).length(9),
+});
+
+export const JueceChartWithReferenceSchema = JueceChartResponseSchema.extend({
+  paipan_ref: PaipanReferenceSchema,
+  expiresAt: z.iso.datetime(),
+});
+
+export const JueceContextResponseSchema = z.object({
+  schemaVersion: z.literal("guoxue.paipan.shijia_juece.v1"),
+  chartType: z.literal("shijia_juece"),
+  paipan_ref: PaipanReferenceSchema,
+  generatedAt: z.iso.datetime(),
+  expiresAt: z.iso.datetime(),
+  chartRequest: JueceChartRequestSchema,
+  chart: JueceChartResponseSchema,
+});
+
 export const FlowMonthsRequestSchema = z.object({
   chart: BaziChartRequestSchema,
   year: z.number().int().min(1900).max(2200),
@@ -401,6 +559,14 @@ export type DunjiaPalace = z.infer<typeof DunjiaPalaceSchema>;
 export type DunjiaChartResponse = z.infer<typeof DunjiaChartResponseSchema>;
 export type DunjiaChartWithReference = z.infer<typeof DunjiaChartWithReferenceSchema>;
 export type DunjiaContextResponse = z.infer<typeof DunjiaContextResponseSchema>;
+export type JueceTime = z.infer<typeof JueceTimeSchema>;
+export type JuecePan = z.infer<typeof JuecePanSchema>;
+export type JueceBureau = z.infer<typeof JueceBureauSchema>;
+export type JueceChartRequest = z.infer<typeof JueceChartRequestSchema>;
+export type JuecePalace = z.infer<typeof JuecePalaceSchema>;
+export type JueceChartResponse = z.infer<typeof JueceChartResponseSchema>;
+export type JueceChartWithReference = z.infer<typeof JueceChartWithReferenceSchema>;
+export type JueceContextResponse = z.infer<typeof JueceContextResponseSchema>;
 export type FlowMonthsRequest = z.infer<typeof FlowMonthsRequestSchema>;
 export type FlowMonthsResponse = z.infer<typeof FlowMonthsResponseSchema>;
 export type ShenShaRequest = z.infer<typeof ShenShaRequestSchema>;

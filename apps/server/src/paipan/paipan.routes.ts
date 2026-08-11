@@ -2,6 +2,7 @@ import {
   BaziChartRequestSchema,
   DunjiaChartRequestSchema,
   FlowMonthsRequestSchema,
+  JueceChartRequestSchema,
   PaipanContextLookupRequestSchema,
   ResolveBirthRequestSchema,
   ShenShaRequestSchema,
@@ -74,6 +75,25 @@ export function createPaipanRoutes(
       async (request) => {
         const lookup = parseRequest(PaipanContextLookupRequestSchema, request.body);
         return contextService.resolveDunjia(lookup.paipan_ref);
+      },
+    );
+
+    app.post(
+      "/api/v1/paipan/juece/chart",
+      { config: { rateLimit: { max: 30, timeWindow: "1 minute" } } },
+      async (request) => {
+        const chartRequest = parseRequest(JueceChartRequestSchema, request.body);
+        const chart = await client.jueceChart(chartRequest);
+        return contextService.createJuece(chartRequest, chart);
+      },
+    );
+
+    app.post(
+      "/api/v1/paipan/juece/context",
+      { config: { rateLimit: { max: 60, timeWindow: "1 minute" } } },
+      async (request) => {
+        const lookup = parseRequest(PaipanContextLookupRequestSchema, request.body);
+        return contextService.resolveJuece(lookup.paipan_ref);
       },
     );
 

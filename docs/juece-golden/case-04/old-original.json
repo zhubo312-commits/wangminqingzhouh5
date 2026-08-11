@@ -1,0 +1,202 @@
+{
+  "input": {
+    "dateStr": "2026-12-22 23:10",
+    "panType": 0,
+    "juType": 3,
+    "selectJu": -5,
+    "ext": {
+      "emptyType": 3,
+      "attachType": 3
+    }
+  },
+  "calendar": {
+    "lYear": 2026,
+    "lMonth": 11,
+    "lDay": 14,
+    "Animal": "马",
+    "IMonthCn": "冬月",
+    "IDayCn": "十四",
+    "cYear": 2026,
+    "cMonth": 12,
+    "cDay": 22,
+    "gzYear": "丙午",
+    "gzMonth": "庚子",
+    "gzDay": "辛未",
+    "gzHours": "戊子",
+    "isToday": false,
+    "isLeap": false,
+    "nWeek": 2,
+    "ncWeek": "星期二",
+    "prevTerm": "冬至",
+    "afterTerm": "小寒",
+    "prevTermTime": "2026-12-21T20:50:03.000Z",
+    "afterTermTime": "2027-01-05T14:09:50.000Z",
+    "glDate": "2026年12月22日23:10",
+    "pickDate": "2026-12-22T15:10:00.000Z",
+    "prevTermTimeStr": "2026-12-22 04:50:03",
+    "afterTermTimeStr": "2027-01-05 22:09:50"
+  },
+  "panHead": {
+    "dayGan": "辛",
+    "hourGan": "戊",
+    "juNum": -5,
+    "hHeadIndex": 2,
+    "hHeadName": "甲申庚",
+    "hHeadNum": 3,
+    "earthZfIndex": 2,
+    "zhiFu": "天冲",
+    "zhiShi": "伤门",
+    "horse": "寅",
+    "emptyType": 3,
+    "allEmpty": {
+      "yEmpty": "寅卯",
+      "mEmpty": "辰巳",
+      "dEmpty": "戌亥",
+      "hEmpty": "午未"
+    },
+    "attachGong": 1,
+    "juObj": {
+      "juNum": -5,
+      "termIndex": 0,
+      "yuan": 1,
+      "yuanDay": 3
+    }
+  },
+  "panBody": [
+    [
+      {
+        "luoshu": 4,
+        "earthGan": "己",
+        "attachEarthGan": "",
+        "earthStar": "天辅",
+        "attachEarthStar": "",
+        "earthDoor": "杜门",
+        "roofStar": "天芮",
+        "roofGan": "辛",
+        "attachRoofStar": "",
+        "attachRoofGan": "",
+        "deity": "玄武",
+        "roofDoor": "景门",
+        "gongStyle": ""
+      },
+      {
+        "luoshu": 9,
+        "earthGan": "癸",
+        "attachEarthGan": "",
+        "earthStar": "天英",
+        "attachEarthStar": "",
+        "earthDoor": "景门",
+        "roofStar": "天柱",
+        "roofGan": "丙",
+        "attachRoofStar": "",
+        "attachRoofGan": "",
+        "deity": "白虎",
+        "roofDoor": "死门",
+        "gongStyle": "lightGrey"
+      },
+      {
+        "luoshu": 2,
+        "earthGan": "辛",
+        "attachEarthGan": "",
+        "earthStar": "天芮",
+        "attachEarthStar": "",
+        "earthDoor": "死门",
+        "roofStar": "天心",
+        "roofGan": "乙",
+        "attachRoofStar": "",
+        "attachRoofGan": "",
+        "deity": "六合",
+        "roofDoor": "惊门",
+        "gongStyle": "lightGrey"
+      }
+    ],
+    [
+      {
+        "luoshu": 3,
+        "earthGan": "庚",
+        "attachEarthGan": "",
+        "earthStar": "天冲",
+        "attachEarthStar": "",
+        "earthDoor": "伤门",
+        "roofStar": "天英",
+        "roofGan": "癸",
+        "attachRoofStar": "",
+        "attachRoofGan": "",
+        "deity": "九地",
+        "roofDoor": "杜门",
+        "gongStyle": "",
+        "isEmpty": true
+      },
+      {
+        "luoshu": 5,
+        "earthGan": "戊",
+        "earthStar": "天禽",
+        "earthDoor": ""
+      },
+      {
+        "luoshu": 7,
+        "earthGan": "丙",
+        "attachEarthGan": "",
+        "earthStar": "天柱",
+        "attachEarthStar": "",
+        "earthDoor": "惊门",
+        "roofStar": "天蓬",
+        "roofGan": "壬",
+        "attachRoofStar": "天禽",
+        "attachRoofGan": "戊",
+        "deity": "太阴",
+        "roofDoor": "开门",
+        "gongStyle": "lightGrey"
+      }
+    ],
+    [
+      {
+        "luoshu": 8,
+        "earthGan": "丁",
+        "attachEarthGan": "",
+        "earthStar": "天任",
+        "attachEarthStar": "",
+        "earthDoor": "生门",
+        "roofStar": "天辅",
+        "roofGan": "己",
+        "attachRoofStar": "",
+        "attachRoofGan": "",
+        "deity": "九天",
+        "roofDoor": "伤门",
+        "gongStyle": "",
+        "isHorse": true,
+        "isEmpty": true
+      },
+      {
+        "luoshu": 1,
+        "earthGan": "壬",
+        "attachEarthGan": "戊",
+        "earthStar": "天蓬",
+        "attachEarthStar": "天禽",
+        "earthDoor": "休门",
+        "roofStar": "天冲",
+        "roofGan": "庚",
+        "attachRoofStar": "",
+        "attachRoofGan": "",
+        "deity": "值符",
+        "roofDoor": "生门",
+        "gongStyle": ""
+      },
+      {
+        "luoshu": 6,
+        "earthGan": "乙",
+        "attachEarthGan": "",
+        "earthStar": "天心",
+        "attachEarthStar": "",
+        "earthDoor": "开门",
+        "roofStar": "天任",
+        "roofGan": "丁",
+        "attachRoofStar": "",
+        "attachRoofGan": "",
+        "deity": "螣蛇",
+        "roofDoor": "休门",
+        "gongStyle": "lightGrey"
+      }
+    ]
+  ]
+}

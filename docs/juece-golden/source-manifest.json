@@ -1,0 +1,21 @@
+{
+  "source": "yipu-h5-lengshan local migration reference",
+  "files": {
+    "qimen.js": {
+      "path": "pages/qimen/js/qimen.js",
+      "sha256": "b1360e726e06a76c7d76c78af86ee92f07e9c965aea2b50786e2ac464d080dc4"
+    },
+    "myCalendar.js": {
+      "path": "pages/qimen/js/myCalendar.js",
+      "sha256": "0480b2bb4dc85fa56e0a55d505258547582f67bcf316cfc7d58dda6a32bf54fc"
+    },
+    "util.js": {
+      "path": "pages/qimen/js/util.js",
+      "sha256": "9c7d6790345cd97165ce20c9bc99aa4d02b37282c8c770821854a7b38eab1061"
+    },
+    "qimen.vue": {
+      "path": "pages/qimen/qimen.vue",
+      "sha256": "1a1d9ac263334bc219683164a2c7862afa900fbd82bad188916ba42c5bd08f38"
+    }
+  }
+}

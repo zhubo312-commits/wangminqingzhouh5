@@ -1,0 +1,14 @@
+{
+  "chartDateTime": "2026-08-11 16:00",
+  "time": {
+    "mode": "standard"
+  },
+  "pan": {
+    "style": "rotating",
+    "centerPalaceMethod": "kun"
+  },
+  "bureau": {
+    "method": "chai_bu"
+  },
+  "voidBasis": "hour"
+}

@@ -2,6 +2,8 @@ import {
   BaziChartWithReferenceSchema,
   DunjiaChartWithReferenceSchema,
   DunjiaContextResponseSchema,
+  JueceChartWithReferenceSchema,
+  JueceContextResponseSchema,
   FlowMonthsResponseSchema,
   HomeResponseSchema,
   PaipanContextResponseSchema,
@@ -12,6 +14,9 @@ import {
   type DunjiaChartRequest,
   type DunjiaChartWithReference,
   type DunjiaContextResponse,
+  type JueceChartRequest,
+  type JueceChartWithReference,
+  type JueceContextResponse,
   type FlowMonthsRequest,
   type FlowMonthsResponse,
   type PaipanAreaNode,
@@ -131,6 +136,28 @@ export function fetchDunjiaContext(
   signal?: AbortSignal,
 ): Promise<DunjiaContextResponse> {
   return requestJson("/api/v1/paipan/dunjia/context", DunjiaContextResponseSchema, {
+    method: "POST",
+    body: JSON.stringify({ paipan_ref: paipanRef }),
+    ...(signal ? { signal } : {}),
+  });
+}
+
+export function createJueceChart(
+  request: JueceChartRequest,
+  signal?: AbortSignal,
+): Promise<JueceChartWithReference> {
+  return requestJson("/api/v1/paipan/juece/chart", JueceChartWithReferenceSchema, {
+    method: "POST",
+    body: JSON.stringify(request),
+    ...(signal ? { signal } : {}),
+  });
+}
+
+export function fetchJueceContext(
+  paipanRef: string,
+  signal?: AbortSignal,
+): Promise<JueceContextResponse> {
+  return requestJson("/api/v1/paipan/juece/context", JueceContextResponseSchema, {
     method: "POST",
     body: JSON.stringify({ paipan_ref: paipanRef }),
     ...(signal ? { signal } : {}),

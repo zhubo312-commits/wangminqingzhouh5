@@ -1,0 +1,15 @@
+{
+  "chartDateTime": "2026-02-04 10:30",
+  "time": {
+    "mode": "true_solar",
+    "areaCode": "110105"
+  },
+  "pan": {
+    "style": "rotating",
+    "centerPalaceMethod": "yang_gen_yin_kun"
+  },
+  "bureau": {
+    "method": "zhi_run"
+  },
+  "voidBasis": "day"
+}
