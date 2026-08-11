@@ -1,11 +1,5 @@
 import { randomBytes } from "node:crypto";
 import {
-  BaziChartRequestSchema,
-  BaziChartResponseSchema,
-  DunjiaChartRequestSchema,
-  DunjiaChartResponseSchema,
-  DunjiaContextResponseSchema,
-  PaipanContextResponseSchema,
   type BaziChartRequest,
   type BaziChartResponse,
   type BaziChartWithReference,
@@ -17,11 +11,10 @@ import {
 } from "@guoxue/contracts";
 import { GoneAppError, NotFoundAppError } from "../shared/errors/app-error.js";
 import { PaipanContextRepository } from "./paipan-context.repository.js";
-
-const SCHEMA_VERSION = "guoxue.paipan.bazi.v1" as const;
-const CHART_TYPE = "shengping_zishi" as const;
-const DUNJIA_SCHEMA_VERSION = "guoxue.paipan.dunjia.v1" as const;
-const DUNJIA_CHART_TYPE = "dunjia" as const;
+import {
+  getPaipanRegistration,
+  type PaipanContextKey,
+} from "./paipan-context.registry.js";
 
 function createReference(): string {
   return `pp_${randomBytes(24).toString("base64url")}`;
@@ -33,47 +26,37 @@ export class PaipanContextService {
     private readonly ttlSeconds: number,
   ) {}
 
-  create(
-    chartRequest: BaziChartRequest,
-    chart: BaziChartResponse,
-    now = new Date(),
-  ): BaziChartWithReference {
+  private createRegistered(
+    key: PaipanContextKey,
+    chartRequest: unknown,
+    chart: unknown,
+    now: Date,
+  ): Record<string, unknown> & { paipan_ref: string; expiresAt: string } {
+    const registration = getPaipanRegistration(key);
+    const parsedRequest = registration.requestSchema.parse(chartRequest);
+    const parsedChart = registration.chartSchema.parse(chart);
     const paipanRef = createReference();
     const generatedAt = now.toISOString();
     const expiresAt = new Date(now.getTime() + this.ttlSeconds * 1_000).toISOString();
+
     this.repository.deleteExpired(generatedAt);
     this.repository.save(paipanRef, {
-      chartType: CHART_TYPE,
-      schemaVersion: SCHEMA_VERSION,
-      chartRequest,
-      chart,
+      chartType: registration.chartType,
+      schemaVersion: registration.schemaVersion,
+      chartRequest: parsedRequest,
+      chart: parsedChart,
       generatedAt,
       expiresAt,
     });
-    return { ...chart, paipan_ref: paipanRef, expiresAt };
+    return { ...parsedChart, paipan_ref: paipanRef, expiresAt };
   }
 
-  createDunjia(
-    chartRequest: DunjiaChartRequest,
-    chart: DunjiaChartResponse,
-    now = new Date(),
-  ): DunjiaChartWithReference {
-    const paipanRef = createReference();
-    const generatedAt = now.toISOString();
-    const expiresAt = new Date(now.getTime() + this.ttlSeconds * 1_000).toISOString();
-    this.repository.deleteExpired(generatedAt);
-    this.repository.save(paipanRef, {
-      chartType: DUNJIA_CHART_TYPE,
-      schemaVersion: DUNJIA_SCHEMA_VERSION,
-      chartRequest,
-      chart,
-      generatedAt,
-      expiresAt,
-    });
-    return { ...chart, paipan_ref: paipanRef, expiresAt };
-  }
-
-  resolve(paipanRef: string, now = new Date()): PaipanContextResponse {
+  private resolveRegistered(
+    key: PaipanContextKey,
+    paipanRef: string,
+    now: Date,
+  ): unknown {
+    const registration = getPaipanRegistration(key);
     const stored = this.repository.find(paipanRef);
     if (!stored) {
       throw new NotFoundAppError("PAIPAN_CONTEXT_NOT_FOUND", "未找到对应的排盘信息");
@@ -82,13 +65,16 @@ export class PaipanContextService {
       this.repository.delete(paipanRef);
       throw new GoneAppError("PAIPAN_CONTEXT_EXPIRED", "本次排盘信息已过期，请重新排盘");
     }
-    if (stored.chartType !== CHART_TYPE || stored.schemaVersion !== SCHEMA_VERSION) {
+    if (
+      stored.chartType !== registration.chartType ||
+      stored.schemaVersion !== registration.schemaVersion
+    ) {
       throw new NotFoundAppError("PAIPAN_CONTEXT_NOT_FOUND", "未找到对应的排盘信息");
     }
 
-    const chartRequest = BaziChartRequestSchema.parse(stored.chartRequest);
-    const chart = BaziChartResponseSchema.parse(stored.chart);
-    return PaipanContextResponseSchema.parse({
+    const chartRequest = registration.requestSchema.parse(stored.chartRequest);
+    const chart = registration.chartSchema.parse(stored.chart);
+    return registration.contextSchema.parse({
       schemaVersion: stored.schemaVersion,
       chartType: stored.chartType,
       paipan_ref: paipanRef,
@@ -99,32 +85,27 @@ export class PaipanContextService {
     });
   }
 
-  resolveDunjia(paipanRef: string, now = new Date()): DunjiaContextResponse {
-    const stored = this.repository.find(paipanRef);
-    if (!stored) {
-      throw new NotFoundAppError("PAIPAN_CONTEXT_NOT_FOUND", "未找到对应的遁甲盘信息");
-    }
-    if (stored.expiresAt <= now.toISOString()) {
-      this.repository.delete(paipanRef);
-      throw new GoneAppError("PAIPAN_CONTEXT_EXPIRED", "本次遁甲盘信息已过期，请重新排盘");
-    }
-    if (
-      stored.chartType !== DUNJIA_CHART_TYPE ||
-      stored.schemaVersion !== DUNJIA_SCHEMA_VERSION
-    ) {
-      throw new NotFoundAppError("PAIPAN_CONTEXT_NOT_FOUND", "未找到对应的遁甲盘信息");
-    }
+  create(
+    chartRequest: BaziChartRequest,
+    chart: BaziChartResponse,
+    now = new Date(),
+  ): BaziChartWithReference {
+    return this.createRegistered("bazi", chartRequest, chart, now) as BaziChartWithReference;
+  }
 
-    const chartRequest = DunjiaChartRequestSchema.parse(stored.chartRequest);
-    const chart = DunjiaChartResponseSchema.parse(stored.chart);
-    return DunjiaContextResponseSchema.parse({
-      schemaVersion: stored.schemaVersion,
-      chartType: stored.chartType,
-      paipan_ref: paipanRef,
-      generatedAt: stored.generatedAt,
-      expiresAt: stored.expiresAt,
-      chartRequest,
-      chart,
-    });
+  createDunjia(
+    chartRequest: DunjiaChartRequest,
+    chart: DunjiaChartResponse,
+    now = new Date(),
+  ): DunjiaChartWithReference {
+    return this.createRegistered("dunjia", chartRequest, chart, now) as DunjiaChartWithReference;
+  }
+
+  resolve(paipanRef: string, now = new Date()): PaipanContextResponse {
+    return this.resolveRegistered("bazi", paipanRef, now) as PaipanContextResponse;
+  }
+
+  resolveDunjia(paipanRef: string, now = new Date()): DunjiaContextResponse {
+    return this.resolveRegistered("dunjia", paipanRef, now) as DunjiaContextResponse;
   }
 }

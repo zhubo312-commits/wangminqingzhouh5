@@ -8,6 +8,8 @@ import { MapPin, SunHorizon } from "@phosphor-icons/react";
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { PageHeader } from "../../../components/PageHeader";
+import { PaipanPageShell } from "../../../components/paipan/PaipanPageShell";
+import { PaipanSectionCard } from "../../../components/paipan/PaipanSectionCard";
 import {
   createBaziChart,
   fetchPaipanAreas,
@@ -131,13 +133,11 @@ export function BaziFormPage() {
   }
 
   return (
-    <main className="app-shell inner-shell min-h-[100dvh]">
-      <div className="paper-grain" aria-hidden="true" />
-      <div className="inner-page form-page">
+    <PaipanPageShell pageClassName="form-page">
         <PageHeader title="生平子时" backTo="/paipan" backLabel="返回排盘导航" />
 
         <form className="bazi-form" onSubmit={onSubmit}>
-          <section className="form-card" aria-labelledby="identity-heading">
+          <PaipanSectionCard variant="form" labelledBy="identity-heading">
             <div className="form-card-heading">
               <span>01</span>
               <h3 id="identity-heading">基本信息</h3>
@@ -172,9 +172,9 @@ export function BaziFormPage() {
                 </button>
               </div>
             </fieldset>
-          </section>
+          </PaipanSectionCard>
 
-          <section className="form-card" aria-labelledby="birth-heading">
+          <PaipanSectionCard variant="form" labelledBy="birth-heading">
             <div className="form-card-heading">
               <span>02</span>
               <h3 id="birth-heading">出生时间</h3>
@@ -240,9 +240,9 @@ export function BaziFormPage() {
                 />
               </div>
             )}
-          </section>
+          </PaipanSectionCard>
 
-          <section className="form-card" aria-labelledby="place-heading">
+          <PaipanSectionCard variant="form" labelledBy="place-heading">
             <div className="form-card-heading">
               <span>03</span>
               <h3 id="place-heading">出生地区</h3>
@@ -266,7 +266,7 @@ export function BaziFormPage() {
               <span className="toggle-copy"><SunHorizon size={22} aria-hidden="true" /><span><strong>使用真太阳时</strong><small>根据出生地经度与时差校正</small></span></span>
               <input type="checkbox" checked={draft.useTrueSolarTime} onChange={(event) => update("useTrueSolarTime", event.target.checked)} />
             </label>
-          </section>
+          </PaipanSectionCard>
 
           {error && <div className="form-error" role="alert">{error}</div>}
 
@@ -287,7 +287,6 @@ export function BaziFormPage() {
           </button>
         </form>
         <p className="culture-notice form-notice">排盘结果仅保存于当前页面会话，不写入网址或本地存储</p>
-      </div>
-    </main>
+    </PaipanPageShell>
   );
 }

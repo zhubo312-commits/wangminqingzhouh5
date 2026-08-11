@@ -3,6 +3,8 @@ import { CompassRose, HourglassMedium, Path, SquaresFour } from "@phosphor-icons
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { PageHeader } from "../../../components/PageHeader";
+import { PaipanPageShell } from "../../../components/paipan/PaipanPageShell";
+import { PaipanSectionCard } from "../../../components/paipan/PaipanSectionCard";
 import { createDunjiaChart, resolveBirth } from "../../../lib/api-client";
 import {
   LunarDateTimePicker,
@@ -69,13 +71,11 @@ export function DunjiaFormPage() {
   }
 
   return (
-    <main className="app-shell inner-shell min-h-[100dvh]">
-      <div className="paper-grain" aria-hidden="true" />
-      <div className="inner-page form-page dunjia-form-page">
+    <PaipanPageShell pageClassName="form-page dunjia-form-page">
         <PageHeader title="遁甲学" backTo="/paipan" backLabel="返回排盘导航" />
 
         <form className="bazi-form" onSubmit={onSubmit}>
-          <section className="form-card" aria-labelledby="dunjia-time-heading">
+          <PaipanSectionCard variant="form" labelledBy="dunjia-time-heading">
             <div className="form-card-heading">
               <span>01</span>
               <h3 id="dunjia-time-heading">起盘时间</h3>
@@ -133,9 +133,9 @@ export function DunjiaFormPage() {
                 />
               </div>
             )}
-          </section>
+          </PaipanSectionCard>
 
-          <section className="form-card" aria-labelledby="dunjia-method-heading">
+          <PaipanSectionCard variant="form" labelledBy="dunjia-method-heading">
             <div className="form-card-heading">
               <span>02</span>
               <h3 id="dunjia-method-heading">起盘方式</h3>
@@ -148,7 +148,7 @@ export function DunjiaFormPage() {
                 </div>
               ))}
             </div>
-          </section>
+          </PaipanSectionCard>
 
           {error && <div className="form-error" role="alert">{error}</div>}
 
@@ -157,7 +157,6 @@ export function DunjiaFormPage() {
           </button>
         </form>
         <p className="culture-notice form-notice">传统文化研究与娱乐参考，请理性看待推演结果</p>
-      </div>
-    </main>
+    </PaipanPageShell>
   );
 }

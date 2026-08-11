@@ -2,7 +2,6 @@ import type { DunjiaChartRequest, DunjiaChartResponse } from "@guoxue/contracts"
 import {
   createContext,
   useContext,
-  useEffect,
   useMemo,
   useState,
   type Dispatch,
@@ -10,6 +9,7 @@ import {
   type SetStateAction,
 } from "react";
 import { fetchDunjiaContext } from "../../../lib/api-client";
+import { usePaipanSessionRestore } from "../../../hooks/usePaipanSessionRestore";
 
 export type DunjiaDateMode = "solar" | "lunar";
 
@@ -63,25 +63,15 @@ export function DunjiaSessionProvider({ children }: { children: ReactNode }) {
   const [chart, setChart] = useState<DunjiaChartResponse | null>(null);
   const [chartRequest, setChartRequest] = useState<DunjiaChartRequest | null>(null);
   const [paipanRef, setPaipanRef] = useState<string | null>(null);
-  const [isRestoring, setIsRestoring] = useState(true);
-
-  useEffect(() => {
-    const storedReference = window.sessionStorage.getItem(STORAGE_KEY);
-    if (!storedReference) {
-      setIsRestoring(false);
-      return;
-    }
-    const controller = new AbortController();
-    void fetchDunjiaContext(storedReference, controller.signal)
-      .then((context) => {
-        setChart(context.chart);
-        setChartRequest(context.chartRequest);
-        setPaipanRef(context.paipan_ref);
-      })
-      .catch(() => window.sessionStorage.removeItem(STORAGE_KEY))
-      .finally(() => setIsRestoring(false));
-    return () => controller.abort();
-  }, []);
+  const { isRestoring, rememberReference } = usePaipanSessionRestore({
+    storageKey: STORAGE_KEY,
+    fetchContext: fetchDunjiaContext,
+    onRestore(context) {
+      setChart(context.chart);
+      setChartRequest(context.chartRequest);
+      setPaipanRef(context.paipan_ref);
+    },
+  });
 
   const value = useMemo<DunjiaSessionValue>(() => ({
     draft,
@@ -94,9 +84,9 @@ export function DunjiaSessionProvider({ children }: { children: ReactNode }) {
       setChart(nextChart);
       setChartRequest(request);
       setPaipanRef(nextReference);
-      window.sessionStorage.setItem(STORAGE_KEY, nextReference);
+      rememberReference(nextReference);
     },
-  }), [chart, chartRequest, draft, isRestoring, paipanRef]);
+  }), [chart, chartRequest, draft, isRestoring, paipanRef, rememberReference]);
 
   return <DunjiaSessionContext.Provider value={value}>{children}</DunjiaSessionContext.Provider>;
 }

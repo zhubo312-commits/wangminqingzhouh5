@@ -1,31 +1,22 @@
 import { createHash } from "node:crypto";
-import type {
-  BaziChartRequest,
-  BaziChartResponse,
-  DunjiaChartRequest,
-  DunjiaChartResponse,
-} from "@guoxue/contracts";
 import type { DatabaseContext } from "../shared/database/client.js";
+import type {
+  PaipanContextKey,
+  RegisteredPaipanContext,
+} from "./paipan-context.registry.js";
 
-export type StoredPaipanContext = {
-  chartType: "shengping_zishi";
-  schemaVersion: "guoxue.paipan.bazi.v1";
-  chartRequest: BaziChartRequest;
-  chart: BaziChartResponse;
+export interface StoredPaipanContextRow {
+  chartType: string;
+  schemaVersion: string;
+  chartRequest: unknown;
+  chart: unknown;
   generatedAt: string;
   expiresAt: string;
-} | {
-  chartType: "dunjia";
-  schemaVersion: "guoxue.paipan.dunjia.v1";
-  chartRequest: DunjiaChartRequest;
-  chart: DunjiaChartResponse;
-  generatedAt: string;
-  expiresAt: string;
-};
+}
 
 interface PaipanContextRow {
-  chart_type: StoredPaipanContext["chartType"];
-  schema_version: StoredPaipanContext["schemaVersion"];
+  chart_type: string;
+  schema_version: string;
   chart_request_json: string;
   chart_json: string;
   generated_at: string;
@@ -39,7 +30,10 @@ export function hashPaipanReference(reference: string): string {
 export class PaipanContextRepository {
   constructor(private readonly database: DatabaseContext) {}
 
-  save(reference: string, context: StoredPaipanContext): void {
+  save<Key extends PaipanContextKey>(
+    reference: string,
+    context: RegisteredPaipanContext<Key>,
+  ): void {
     this.database.raw
       .prepare(
         `INSERT INTO paipan_contexts (
@@ -58,7 +52,7 @@ export class PaipanContextRepository {
       );
   }
 
-  find(reference: string): StoredPaipanContext | null {
+  find(reference: string): StoredPaipanContextRow | null {
     const row = this.database.raw
       .prepare(
         `SELECT chart_type, schema_version, chart_request_json, chart_json,
@@ -69,32 +63,14 @@ export class PaipanContextRepository {
       .get(hashPaipanReference(reference)) as PaipanContextRow | undefined;
 
     if (!row) return null;
-    const common = {
+    return {
+      chartType: row.chart_type,
+      schemaVersion: row.schema_version,
+      chartRequest: JSON.parse(row.chart_request_json) as unknown,
+      chart: JSON.parse(row.chart_json) as unknown,
       generatedAt: row.generated_at,
       expiresAt: row.expires_at,
     };
-    if (row.chart_type === "dunjia" && row.schema_version === "guoxue.paipan.dunjia.v1") {
-      return {
-        ...common,
-        chartType: row.chart_type,
-        schemaVersion: row.schema_version,
-        chartRequest: JSON.parse(row.chart_request_json) as DunjiaChartRequest,
-        chart: JSON.parse(row.chart_json) as DunjiaChartResponse,
-      };
-    }
-    if (
-      row.chart_type === "shengping_zishi" &&
-      row.schema_version === "guoxue.paipan.bazi.v1"
-    ) {
-      return {
-        ...common,
-        chartType: row.chart_type,
-        schemaVersion: row.schema_version,
-        chartRequest: JSON.parse(row.chart_request_json) as BaziChartRequest,
-        chart: JSON.parse(row.chart_json) as BaziChartResponse,
-      };
-    }
-    return null;
   }
 
   delete(reference: string): void {

@@ -3,13 +3,13 @@ import {
   createContext,
   useContext,
   useMemo,
-  useEffect,
   useState,
   type Dispatch,
   type ReactNode,
   type SetStateAction,
 } from "react";
 import { fetchPaipanContext } from "../../../lib/api-client";
+import { usePaipanSessionRestore } from "../../../hooks/usePaipanSessionRestore";
 
 export type BirthMode = "solar" | "lunar" | "fourPillars";
 
@@ -73,28 +73,15 @@ export function BaziSessionProvider({ children }: { children: ReactNode }) {
   const [chart, setChart] = useState<BaziChartResponse | null>(null);
   const [chartRequest, setChartRequest] = useState<BaziChartRequest | null>(null);
   const [paipanRef, setPaipanRef] = useState<string | null>(null);
-  const [isRestoring, setIsRestoring] = useState(true);
-
-  useEffect(() => {
-    const storedReference = window.sessionStorage.getItem(PAIPAN_REF_STORAGE_KEY);
-    if (!storedReference) {
-      setIsRestoring(false);
-      return;
-    }
-
-    const controller = new AbortController();
-    void fetchPaipanContext(storedReference, controller.signal)
-      .then((context) => {
-        setChart(context.chart);
-        setChartRequest(context.chartRequest);
-        setPaipanRef(context.paipan_ref);
-      })
-      .catch(() => {
-        window.sessionStorage.removeItem(PAIPAN_REF_STORAGE_KEY);
-      })
-      .finally(() => setIsRestoring(false));
-    return () => controller.abort();
-  }, []);
+  const { isRestoring, rememberReference } = usePaipanSessionRestore({
+    storageKey: PAIPAN_REF_STORAGE_KEY,
+    fetchContext: fetchPaipanContext,
+    onRestore(context) {
+      setChart(context.chart);
+      setChartRequest(context.chartRequest);
+      setPaipanRef(context.paipan_ref);
+    },
+  });
 
   const value = useMemo<BaziSessionValue>(
     () => ({
@@ -108,10 +95,10 @@ export function BaziSessionProvider({ children }: { children: ReactNode }) {
         setChart(nextChart);
         setChartRequest(request);
         setPaipanRef(nextPaipanRef);
-        window.sessionStorage.setItem(PAIPAN_REF_STORAGE_KEY, nextPaipanRef);
+        rememberReference(nextPaipanRef);
       },
     }),
-    [chart, chartRequest, draft, isRestoring, paipanRef],
+    [chart, chartRequest, draft, isRestoring, paipanRef, rememberReference],
   );
   return <BaziSessionContext.Provider value={value}>{children}</BaziSessionContext.Provider>;
 }

@@ -1,0 +1,22 @@
+import { describe, expect, it } from "vitest";
+import {
+  isRegisteredPaipanIdentity,
+  paipanContextRegistry,
+} from "./paipan-context.registry.js";
+
+describe("paipanContextRegistry", () => {
+  it("registers every chart with one unique chart type and schema version", () => {
+    const identities = Object.values(paipanContextRegistry).map(
+      ({ chartType, schemaVersion }) => `${chartType}:${schemaVersion}`,
+    );
+    expect(identities).toHaveLength(2);
+    expect(new Set(identities).size).toBe(identities.length);
+  });
+
+  it("rejects unknown chart types and mismatched schema versions", () => {
+    expect(isRegisteredPaipanIdentity("shengping_zishi", "guoxue.paipan.bazi.v1")).toBe(true);
+    expect(isRegisteredPaipanIdentity("dunjia", "guoxue.paipan.dunjia.v1")).toBe(true);
+    expect(isRegisteredPaipanIdentity("unknown", "guoxue.paipan.unknown.v1")).toBe(false);
+    expect(isRegisteredPaipanIdentity("dunjia", "guoxue.paipan.bazi.v1")).toBe(false);
+  });
+});

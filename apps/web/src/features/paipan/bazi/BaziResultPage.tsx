@@ -1,9 +1,13 @@
 import type { FlowMonthsResponse } from "@guoxue/contracts";
 import { ArrowClockwise, CalendarDots, Coins, Drop, Flame, Mountains, Tree } from "@phosphor-icons/react";
-import { type CSSProperties, type ReactNode, useCallback, useEffect, useMemo, useState } from "react";
+import { type ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PageHeader } from "../../../components/PageHeader";
 import { InterpretationEntry } from "../../../components/InterpretationEntry";
+import { InfoGrid, InfoPair } from "../../../components/paipan/InfoGrid";
+import { InlineSelectionGrid } from "../../../components/paipan/InlineSelectionGrid";
+import { PaipanEmptyState } from "../../../components/paipan/PaipanEmptyState";
+import { PaipanPageShell } from "../../../components/paipan/PaipanPageShell";
 import { fetchFlowMonths, fetchHome } from "../../../lib/api-client";
 import { useBaziSession } from "./BaziSession";
 import { ELEMENT_CLASS } from "./constants";
@@ -11,11 +15,6 @@ import { ELEMENT_CLASS } from "./constants";
 function TextList({ values }: { values: string[] }) {
   if (values.length === 0) return <span className="empty-mark">—</span>;
   return <>{values.map((value, index) => <span className="stacked-text" key={`${value}-${index}`}>{value}</span>)}</>;
-}
-
-function InfoPair({ label, value }: { label: string; value: ReactNode }) {
-  const isEmpty = value === undefined || value === null || value === "";
-  return <div className="info-pair"><dt>{label}</dt><dd>{isEmpty ? "—" : value}</dd></div>;
 }
 
 function FiveElementLabel({ element }: { element: string }) {
@@ -33,60 +32,6 @@ function FiveElementLabel({ element }: { element: string }) {
             : null;
 
   return <small className="five-element-label">{icon}<span>{element}</span></small>;
-}
-
-function InlineSelectionGrid<T>({
-  items,
-  columns,
-  ariaLabel,
-  className,
-  itemKey,
-  isSelected,
-  renderButton,
-  renderDetail,
-}: {
-  items: T[];
-  columns: number;
-  ariaLabel: string;
-  className: string;
-  itemKey: (item: T) => string | number;
-  isSelected: (item: T) => boolean;
-  renderButton: (item: T) => ReactNode;
-  renderDetail: (item: T) => ReactNode;
-}) {
-  const rows = Array.from(
-    { length: Math.ceil(items.length / columns) },
-    (_, index) => items.slice(index * columns, index * columns + columns),
-  );
-
-  return (
-    <div className={`inline-selection-grid ${className}`} role="group" aria-label={ariaLabel}>
-      {rows.map((row) => {
-        const selectedColumn = row.findIndex(isSelected);
-        const selectedItem = selectedColumn >= 0 ? row[selectedColumn] : undefined;
-        const gridStyle = { "--selection-columns": columns } as CSSProperties;
-        const pointerPercent = ((selectedColumn + 0.5) / columns) * 100;
-        const pointerGapCorrection = selectedColumn * 8
-          - ((selectedColumn + 0.5) * (columns - 1) * 8) / columns;
-        const detailStyle = selectedItem
-          ? { "--pointer-left": `calc(${pointerPercent}% + ${pointerGapCorrection}px)` } as CSSProperties
-          : undefined;
-
-        return (
-          <div className="selection-grid-row" key={itemKey(row[0]!)}>
-            <div className="selection-grid-buttons" style={gridStyle}>
-              {row.map(renderButton)}
-            </div>
-            {selectedItem && (
-              <div className="selection-detail selection-bubble" style={detailStyle} aria-live="polite">
-                {renderDetail(selectedItem)}
-              </div>
-            )}
-          </div>
-        );
-      })}
-    </div>
-  );
 }
 
 function TwoLineValue({ primary, secondary, numeric = false }: {
@@ -194,33 +139,27 @@ export function BaziResultPage() {
 
   if (isRestoring) {
     return (
-      <main className="app-shell inner-shell min-h-[100dvh]">
-        <div className="paper-grain" aria-hidden="true" />
-        <div className="inner-page result-page">
-          <PageHeader title="排盘结果" backTo="/paipan/shengping-zishi" backLabel="返回生平子时表单" />
-          <section className="session-empty" role="status">
-            <CalendarDots size={46} weight="light" aria-hidden="true" />
-            <h2>正在恢复排盘信息</h2>
-          </section>
-        </div>
-      </main>
+      <PaipanPageShell pageClassName="result-page">
+        <PageHeader title="排盘结果" backTo="/paipan/shengping-zishi" backLabel="返回生平子时表单" />
+        <PaipanEmptyState
+          icon={<CalendarDots size={46} weight="light" aria-hidden="true" />}
+          title="正在恢复排盘信息"
+        />
+      </PaipanPageShell>
     );
   }
 
   if (!chart || !chartRequest) {
     return (
-      <main className="app-shell inner-shell min-h-[100dvh]">
-        <div className="paper-grain" aria-hidden="true" />
-        <div className="inner-page result-page">
-          <PageHeader title="排盘结果" backTo="/paipan/shengping-zishi" backLabel="返回生平子时表单" />
-          <section className="session-empty" role="status">
-            <CalendarDots size={46} weight="light" aria-hidden="true" />
-            <h2>本次排盘信息已失效</h2>
-            <p>本次排盘引用不存在或已过期，请重新排盘。</p>
-            <button type="button" onClick={() => navigate("/paipan/shengping-zishi")}>重新排盘</button>
-          </section>
-        </div>
-      </main>
+      <PaipanPageShell pageClassName="result-page">
+        <PageHeader title="排盘结果" backTo="/paipan/shengping-zishi" backLabel="返回生平子时表单" />
+        <PaipanEmptyState
+          icon={<CalendarDots size={46} weight="light" aria-hidden="true" />}
+          title="本次排盘信息已失效"
+          description="本次排盘引用不存在或已过期，请重新排盘。"
+          action={<button type="button" onClick={() => navigate("/paipan/shengping-zishi")}>重新排盘</button>}
+        />
+      </PaipanPageShell>
     );
   }
 
@@ -228,9 +167,7 @@ export function BaziResultPage() {
   const facts = chart.basicFacts;
 
   return (
-    <main className="app-shell inner-shell min-h-[100dvh]">
-      <div className="paper-grain" aria-hidden="true" />
-      <div className="inner-page result-page">
+    <PaipanPageShell pageClassName="result-page">
         <PageHeader title="排盘结果" backTo="/paipan/shengping-zishi" backLabel="返回生平子时表单" />
 
         <InterpretationEntry href={interpretationUrl} placement="top" />
@@ -354,13 +291,12 @@ export function BaziResultPage() {
           <h2 className="result-section-title" id="strength-heading"><span>05</span>旺衰参考</h2>
           <div className="strength-level"><strong>{chart.strength.level}</strong><span>同党 {chart.strength.samePartyScore}</span><span>异党 {chart.strength.otherPartyScore}</span></div>
           <p className="strength-summary">{chart.strength.summary}</p>
-          <dl className="facts-grid strength-facts"><InfoPair label="格局" value={chart.strength.pattern} /><InfoPair label="喜神参考" value={chart.strength.favorableGod} /><InfoPair label="喜用五行" value={chart.strength.favorableElements.join("、")} /><InfoPair label="旧版分值" value={chart.strength.legacyScore} /></dl>
+          <InfoGrid className="strength-facts"><InfoPair label="格局" value={chart.strength.pattern} /><InfoPair label="喜神参考" value={chart.strength.favorableGod} /><InfoPair label="喜用五行" value={chart.strength.favorableElements.join("、")} /><InfoPair label="旧版分值" value={chart.strength.legacyScore} /></InfoGrid>
           <div className="strength-bars">{Object.entries(chart.strength.relationScores).map(([label, score]) => <div key={label}><span>{label}</span><div><i style={{ width: `${Math.min(100, (score / 250) * 100)}%` }} /></div><strong>{score}</strong></div>)}</div>
         </section>
 
         <InterpretationEntry href={interpretationUrl} placement="bottom" />
         <p className="culture-notice result-notice">传统文化研究与娱乐参考，请理性看待推演结果</p>
-      </div>
-    </main>
+    </PaipanPageShell>
   );
 }

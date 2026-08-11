@@ -7,17 +7,15 @@ import {
   SealCheck,
   Signpost,
 } from "@phosphor-icons/react";
-import { Fragment, useMemo, useState, type ReactNode } from "react";
+import { Fragment, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PageHeader } from "../../../components/PageHeader";
+import { InfoGrid, InfoPair } from "../../../components/paipan/InfoGrid";
+import { PaipanEmptyState } from "../../../components/paipan/PaipanEmptyState";
+import { PaipanPageShell } from "../../../components/paipan/PaipanPageShell";
 import { useDunjiaSession } from "./DunjiaSession";
 
 const PALACE_ORDER = [4, 9, 2, 3, 5, 7, 8, 1, 6] as const;
-
-function InfoPair({ label, value }: { label: string; value: ReactNode }) {
-  const empty = value === null || value === undefined || value === "";
-  return <div className="info-pair"><dt>{label}</dt><dd>{empty ? "—" : value}</dd></div>;
-}
 
 function PillarStrip({ pillars, voids }: {
   pillars: { year: string; month: string; day: string; hour: string };
@@ -97,14 +95,14 @@ function PalaceDetail({ palace }: { palace: DunjiaPalace }) {
         <strong>{palace.direction} · {palace.element}</strong>
       </div>
       <p className="dunjia-detail-note">此宫的神、星、门与天地盘组合；再次点击当前宫位即可收起</p>
-      <dl className="facts-grid">
+      <InfoGrid>
         <InfoPair label="八神（辅助）" value={palace.deity} />
         <InfoPair label="九星（天时）" value={palace.star} />
         <InfoPair label="八门（行动）" value={palace.door ? `${palace.door}门` : null} />
         <InfoPair label="隐干" value={palace.hiddenStem} />
         <InfoPair label="天盘" value={palace.heavenPlate} />
         <InfoPair label="地盘" value={palace.earthPlate} />
-      </dl>
+      </InfoGrid>
       {palace.harms.length > 0 && (
         <div className="dunjia-detail-harms">
           <h4>四害</h4>
@@ -148,33 +146,27 @@ export function DunjiaResultPage() {
 
   if (isRestoring) {
     return (
-      <main className="app-shell inner-shell min-h-[100dvh]">
-        <div className="paper-grain" aria-hidden="true" />
-        <div className="inner-page result-page">
-          <PageHeader title="遁甲盘" backTo="/paipan/dunjia" backLabel="返回遁甲学表单" />
-          <section className="session-empty" role="status">
-            <CalendarDots size={46} weight="light" aria-hidden="true" />
-            <h2>正在恢复遁甲盘</h2>
-          </section>
-        </div>
-      </main>
+      <PaipanPageShell pageClassName="result-page">
+        <PageHeader title="遁甲盘" backTo="/paipan/dunjia" backLabel="返回遁甲学表单" />
+        <PaipanEmptyState
+          icon={<CalendarDots size={46} weight="light" aria-hidden="true" />}
+          title="正在恢复遁甲盘"
+        />
+      </PaipanPageShell>
     );
   }
 
   if (!chart || !chartRequest) {
     return (
-      <main className="app-shell inner-shell min-h-[100dvh]">
-        <div className="paper-grain" aria-hidden="true" />
-        <div className="inner-page result-page">
-          <PageHeader title="遁甲盘" backTo="/paipan/dunjia" backLabel="返回遁甲学表单" />
-          <section className="session-empty" role="status">
-            <CalendarDots size={46} weight="light" aria-hidden="true" />
-            <h2>本次遁甲盘已失效</h2>
-            <p>排盘引用不存在或已过期，请重新起盘。</p>
-            <button type="button" onClick={() => navigate("/paipan/dunjia")}>重新排盘</button>
-          </section>
-        </div>
-      </main>
+      <PaipanPageShell pageClassName="result-page">
+        <PageHeader title="遁甲盘" backTo="/paipan/dunjia" backLabel="返回遁甲学表单" />
+        <PaipanEmptyState
+          icon={<CalendarDots size={46} weight="light" aria-hidden="true" />}
+          title="本次遁甲盘已失效"
+          description="排盘引用不存在或已过期，请重新起盘。"
+          action={<button type="button" onClick={() => navigate("/paipan/dunjia")}>重新排盘</button>}
+        />
+      </PaipanPageShell>
     );
   }
 
@@ -186,9 +178,7 @@ export function DunjiaResultPage() {
     ["除", "危", "定", "开"].includes(item.earthGate),
   );
   return (
-    <main className="app-shell inner-shell min-h-[100dvh]">
-      <div className="paper-grain" aria-hidden="true" />
-      <div className="inner-page result-page dunjia-result-page">
+    <PaipanPageShell pageClassName="result-page dunjia-result-page">
         <PageHeader title="遁甲盘" backTo="/paipan/dunjia" backLabel="返回遁甲学表单" />
 
         <section className="result-card dunjia-overview-card" aria-labelledby="dunjia-overview-heading">
@@ -196,10 +186,10 @@ export function DunjiaResultPage() {
             <span><CompassRose size={27} weight="duotone" aria-hidden="true" /></span>
             <div><small>{overview.method}</small><h2 id="dunjia-overview-heading">{overview.dunType}遁{overview.juNumber}局</h2></div>
           </div>
-          <dl className="facts-grid dunjia-date-grid">
+          <InfoGrid className="dunjia-date-grid">
             <InfoPair label="阳历" value={overview.solarDateTime} />
             <InfoPair label="阴历" value={overview.lunarDate} />
-          </dl>
+          </InfoGrid>
           <PillarStrip pillars={overview.pillars} voids={overview.voidBranches} />
           <div className="dunjia-foundation" aria-labelledby="dunjia-foundation-heading">
             <div className="dunjia-foundation-heading">
@@ -209,14 +199,14 @@ export function DunjiaResultPage() {
                 <p>节气定遁局，旬首定位值符与值使</p>
               </div>
             </div>
-            <dl className="facts-grid dunjia-term-grid">
+            <InfoGrid className="dunjia-term-grid">
               <InfoPair label="上一节气" value={<>{overview.previousSolarTerm.name}<small>{overview.previousSolarTerm.dateTime}</small></>} />
               <InfoPair label="下一节气" value={<>{overview.nextSolarTerm.name}<small>{overview.nextSolarTerm.dateTime}</small></>} />
               <InfoPair label="旬首" value={overview.xunShou} />
               <InfoPair label="马星" value={`${overview.horse.trigram} · ${overview.horse.branch}`} />
               <InfoPair label="值符" value={`${overview.chiefStar.name} · ${overview.chiefStar.palace}宫`} />
               <InfoPair label="值使" value={`${overview.chiefDoor.name}门 · ${overview.chiefDoor.palace}宫`} />
-            </dl>
+            </InfoGrid>
           </div>
         </section>
 
@@ -278,7 +268,6 @@ export function DunjiaResultPage() {
         </section>
 
         <p className="culture-notice">传统文化研究与娱乐参考，请理性看待推演结果</p>
-      </div>
-    </main>
+    </PaipanPageShell>
   );
 }

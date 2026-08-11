@@ -199,4 +199,25 @@ describe("PaipanContextService", () => {
     expect(context.chart.palaces[0]).toMatchObject({ index: 1 });
     expect(() => service.resolve(result.paipan_ref, now)).toThrow(NotFoundAppError);
   });
+
+  it("rejects a stored context when its chart type or schema version is changed", () => {
+    database = createDatabase(":memory:");
+    const service = new PaipanContextService(new PaipanContextRepository(database), 7_200);
+    const now = new Date("2026-08-11T02:00:00.000Z");
+    const result = service.create(chartRequest, chart, now);
+
+    database.raw.prepare(
+      "UPDATE paipan_contexts SET schema_version = ? WHERE reference_hash = ?",
+    ).run("guoxue.paipan.bazi.v2", hashPaipanReference(result.paipan_ref));
+    expect(() => service.resolve(result.paipan_ref, now)).toThrow(NotFoundAppError);
+
+    database.raw.prepare(
+      "UPDATE paipan_contexts SET chart_type = ?, schema_version = ? WHERE reference_hash = ?",
+    ).run(
+      "unknown_chart",
+      "guoxue.paipan.unknown.v1",
+      hashPaipanReference(result.paipan_ref),
+    );
+    expect(() => service.resolve(result.paipan_ref, now)).toThrow(NotFoundAppError);
+  });
 });
