@@ -1,0 +1,29 @@
+{
+  "firstname": "子涵",
+  "lastname": "歐陽",
+  "characters": [
+    { "simplified": "欧", "traditional": "歐", "pinyin": "ou", "strokes": 15, "element": "土" },
+    { "simplified": "阳", "traditional": "陽", "pinyin": "yang", "strokes": 12, "element": "土" },
+    { "simplified": "子", "traditional": "子", "pinyin": "zi", "strokes": 3, "element": "水" },
+    { "simplified": "涵", "traditional": "涵", "pinyin": "han", "strokes": 12, "element": "水" }
+  ],
+  "grids": {
+    "heaven": { "number": 27, "element": "金", "rating": "半吉半凶" },
+    "person": { "number": 15, "element": "土", "rating": "吉" },
+    "earth": { "number": 15, "element": "土", "rating": "吉" },
+    "outer": { "number": 27, "element": "金", "rating": "半吉半凶" },
+    "total": { "number": 42, "element": "木", "rating": "凶" },
+    "change": { "number": 24, "rating": "吉" }
+  },
+  "nameScore": 72,
+  "threeTalents": {
+    "title": "金土土",
+    "rating": "【大吉】",
+    "summary": "易达目的，轻易成功，名利双收，一帆风顺，福泰鸿量，万事安宁，顺利发展，生涯境遇安泰，即使数理有凶也可免于灾祸"
+  },
+  "totalGridDescription": {
+    "number": 42,
+    "summary": "（寒蝉在柳）博识多能，精通世情，如能专心，尚可成功。　",
+    "rating": "凶"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "firstname": "明",
+  "lastname": "李",
+  "characters": [
+    { "simplified": "李", "traditional": "李", "pinyin": "li", "strokes": 7, "element": "木" },
+    { "simplified": "明", "traditional": "明", "pinyin": "ming", "strokes": 8, "element": "火" }
+  ],
+  "grids": {
+    "heaven": { "number": 8, "element": "金" },
+    "person": { "number": 15, "element": "土" },
+    "earth": { "number": 9, "element": "水" },
+    "outer": { "number": 2, "element": "木" },
+    "total": { "number": 15, "element": "土" }
+  },
+  "nameScore": 68,
+  "threeTalents": { "title": "金土水" },
+  "totalGridDescription": {
+    "number": 15,
+    "summary": "（福寿） 福寿圆满，富贵荣誉，涵养雅量，德高望重。",
+    "rating": "大吉"
+  }
+}

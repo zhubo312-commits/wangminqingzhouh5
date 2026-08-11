@@ -1,0 +1,36 @@
+{
+  "capturedAt": "2026-08-12T07:45:00+08:00",
+  "site": "https://ft.bavor.cn",
+  "entry": "https://ft.bavor.cn/#/pages/xingming/xingming",
+  "calculationEndpoint": "GET https://ft.bavor.cn/prod-api/app/getPartialAnalysis",
+  "sources": [
+    {
+      "url": "https://ft.bavor.cn/static/js/index.3d1307ad.js",
+      "sha256": "b4a6e7c8c57f48e0045baffdeb116382a52ff8e18db038551102cad54d0edc99"
+    },
+    {
+      "url": "https://ft.bavor.cn/static/js/pages-xingming-xingming.ffce3d16.js",
+      "sha256": "1a467e538938e565d94d8e31b2c5469c65167d1274d320a5a404c83bed4dcdd3"
+    },
+    {
+      "url": "https://ft.bavor.cn/static/js/pages-xingming-detail.0922fea0.js",
+      "sha256": "c12cf465a47167666f83ac981bdd7f19049d8211d2cc70fd98dcd6b7a84082a1"
+    },
+    {
+      "url": "https://ft.bavor.cn/static/js/pages-xingming-liugeDetail.c223dd96.js",
+      "sha256": "96cd7eaf1ca667a83237e77305d233e585a404b528c0a97f8bdbbc53e8ffed85"
+    }
+  ],
+  "capturedResponses": [
+    {
+      "case": "case-wuge",
+      "rawSha256": "5423d54b74ce6ebcbc910b3ab37eea92375268ff5961c53557df7522a2e5cd97",
+      "rawBytes": 33251
+    },
+    {
+      "case": "case-liuge",
+      "rawSha256": "d73e7f789a2aad3effb14ded74406aedcce98eb1a55e38a7212f8646e8f5477b",
+      "rawBytes": 21425
+    }
+  ]
+}
