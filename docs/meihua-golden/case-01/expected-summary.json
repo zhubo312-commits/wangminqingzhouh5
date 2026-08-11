@@ -1,0 +1,17 @@
+{
+  "solarDateTime": "2026-08-11 21:31",
+  "pillars": {
+    "year": "丙午",
+    "month": "丙申",
+    "day": "丁巳",
+    "hour": "辛亥"
+  },
+  "voidBranches": "子丑",
+  "upperTrigram": 2,
+  "lowerTrigram": 6,
+  "movingLine": 6,
+  "original": { "key": "duikan", "name": "泽水困" },
+  "mutual": { "key": "xunli", "name": "风火家人" },
+  "changed": { "key": "qiankan", "name": "天水讼" },
+  "classicCount": 64
+}

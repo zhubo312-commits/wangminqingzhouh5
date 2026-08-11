@@ -4,6 +4,8 @@ import {
   DunjiaContextResponseSchema,
   JueceChartWithReferenceSchema,
   JueceContextResponseSchema,
+  MeihuaChartWithReferenceSchema,
+  MeihuaContextResponseSchema,
   YinpanChartWithReferenceSchema,
   YinpanContextResponseSchema,
   FlowMonthsResponseSchema,
@@ -19,6 +21,9 @@ import {
   type JueceChartRequest,
   type JueceChartWithReference,
   type JueceContextResponse,
+  type MeihuaChartRequest,
+  type MeihuaChartWithReference,
+  type MeihuaContextResponse,
   type YinpanChartRequest,
   type YinpanChartWithReference,
   type YinpanContextResponse,
@@ -185,6 +190,28 @@ export function fetchYinpanContext(
   signal?: AbortSignal,
 ): Promise<YinpanContextResponse> {
   return requestJson("/api/v1/paipan/yinpan-juece/context", YinpanContextResponseSchema, {
+    method: "POST",
+    body: JSON.stringify({ paipan_ref: paipanRef }),
+    ...(signal ? { signal } : {}),
+  });
+}
+
+export function createMeihuaChart(
+  request: MeihuaChartRequest,
+  signal?: AbortSignal,
+): Promise<MeihuaChartWithReference> {
+  return requestJson("/api/v1/paipan/meihua/chart", MeihuaChartWithReferenceSchema, {
+    method: "POST",
+    body: JSON.stringify(request),
+    ...(signal ? { signal } : {}),
+  });
+}
+
+export function fetchMeihuaContext(
+  paipanRef: string,
+  signal?: AbortSignal,
+): Promise<MeihuaContextResponse> {
+  return requestJson("/api/v1/paipan/meihua/context", MeihuaContextResponseSchema, {
     method: "POST",
     body: JSON.stringify({ paipan_ref: paipanRef }),
     ...(signal ? { signal } : {}),

@@ -351,6 +351,56 @@ paths:
           $ref: "#/components/responses/Gone"
         "422":
           $ref: "#/components/responses/ValidationError"
+  /api/v1/paipan/meihua/chart:
+    post:
+      summary: 生成梅花易数本卦、互卦与变卦
+      description: 支持时间、随机、报数与指定四种起盘方式；随机起盘的上下卦及动爻由客户端生成后作为确定参数提交。六十四卦原文为前端静态参考资料，不进入排盘上下文。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MeihuaChartRequest"
+      responses:
+        "200":
+          description: 本卦、互卦、变卦、四柱信息及短期排盘引用
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MeihuaChartWithReference"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+        "502":
+          $ref: "#/components/responses/BadGateway"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+  /api/v1/paipan/meihua/context:
+    post:
+      summary: 使用短期排盘引用读取梅花上下文
+      description: paipan_ref 只用于当前标签页短期恢复，服务端数据库仅保存引用哈希。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [paipan_ref]
+              properties:
+                paipan_ref:
+                  $ref: "#/components/schemas/PaipanReference"
+      responses:
+        "200":
+          description: 带版本号的完整梅花排盘上下文
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MeihuaContext"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "410":
+          $ref: "#/components/responses/Gone"
+        "422":
+          $ref: "#/components/responses/ValidationError"
   /health:
     get:
       summary: Fastify 存活检查
@@ -1095,6 +1145,113 @@ components:
         expiresAt: { type: string, format: date-time }
         chartRequest: { $ref: "#/components/schemas/YinpanChartRequest" }
         chart: { $ref: "#/components/schemas/YinpanChartResponse" }
+    MeihuaChartRequest:
+      oneOf:
+        - type: object
+          additionalProperties: false
+          required: [chartDateTime, mode]
+          properties:
+            chartDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+            mode: { const: time }
+        - type: object
+          additionalProperties: false
+          required: [chartDateTime, mode, upperTrigram, lowerTrigram, movingLine]
+          properties:
+            chartDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+            mode: { const: random }
+            upperTrigram: { type: integer, minimum: 1, maximum: 8 }
+            lowerTrigram: { type: integer, minimum: 1, maximum: 8 }
+            movingLine: { type: integer, minimum: 1, maximum: 6 }
+        - type: object
+          additionalProperties: false
+          required: [chartDateTime, mode, numberOne, numberTwo, includeHour, school]
+          properties:
+            chartDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+            mode: { const: number }
+            numberOne: { type: integer, minimum: 1, maximum: 999999999 }
+            numberTwo: { type: integer, minimum: 1, maximum: 999999999 }
+            includeHour: { type: boolean }
+            school: { type: string, enum: [digit_sum, raw_number] }
+        - type: object
+          additionalProperties: false
+          required: [chartDateTime, mode, upperTrigram, lowerTrigram, movingLine]
+          properties:
+            chartDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+            mode: { const: specified }
+            upperTrigram: { type: integer, minimum: 1, maximum: 8 }
+            lowerTrigram: { type: integer, minimum: 1, maximum: 8 }
+            movingLine: { type: integer, minimum: 1, maximum: 6 }
+      discriminator:
+        propertyName: mode
+    MeihuaTrigram:
+      type: object
+      required: [index, key, name, symbol, element, lines]
+      properties:
+        index: { type: integer, minimum: 1, maximum: 8 }
+        key: { type: string, enum: [qian, dui, li, zhen, xun, kan, gen, kun] }
+        name: { type: string, enum: [乾, 兑, 离, 震, 巽, 坎, 艮, 坤] }
+        symbol: { type: string, enum: [☰, ☱, ☲, ☳, ☴, ☵, ☶, ☷] }
+        element: { type: string, enum: [金, 木, 水, 火, 土] }
+        lines:
+          type: array
+          minItems: 3
+          maxItems: 3
+          items: { type: string, enum: [yang, yin] }
+    MeihuaHexagram:
+      type: object
+      required: [key, name, upper, lower, lines]
+      properties:
+        key: { type: string, pattern: '^(qian|dui|li|zhen|xun|kan|gen|kun){2}$' }
+        name: { type: string, minLength: 2 }
+        upper: { $ref: "#/components/schemas/MeihuaTrigram" }
+        lower: { $ref: "#/components/schemas/MeihuaTrigram" }
+        lines:
+          type: array
+          minItems: 6
+          maxItems: 6
+          items: { type: string, enum: [yang, yin] }
+    MeihuaChartResponse:
+      type: object
+      required: [overview, upperTrigram, lowerTrigram, movingLine, original, mutual, changed]
+      properties:
+        overview:
+          type: object
+          required: [method, solarDateTime, lunarDate, pillars, voidBranches, school, numberOne, numberTwo, includeHour]
+          properties:
+            method: { type: string, enum: [时间起盘, 随机起盘, 报数起盘, 指定起盘] }
+            solarDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+            lunarDate: { type: string }
+            pillars: { $ref: "#/components/schemas/JuecePillars" }
+            voidBranches: { type: string, minLength: 2, maxLength: 2 }
+            school: { type: [string, "null"], enum: [digit_sum, raw_number, null] }
+            numberOne: { type: [integer, "null"] }
+            numberTwo: { type: [integer, "null"] }
+            includeHour: { type: boolean }
+        upperTrigram: { type: integer, minimum: 1, maximum: 8 }
+        lowerTrigram: { type: integer, minimum: 1, maximum: 8 }
+        movingLine: { type: integer, minimum: 1, maximum: 6 }
+        original: { $ref: "#/components/schemas/MeihuaHexagram" }
+        mutual: { $ref: "#/components/schemas/MeihuaHexagram" }
+        changed: { $ref: "#/components/schemas/MeihuaHexagram" }
+    MeihuaChartWithReference:
+      allOf:
+        - $ref: "#/components/schemas/MeihuaChartResponse"
+        - type: object
+          required: [paipan_ref, expiresAt]
+          properties:
+            paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+            expiresAt: { type: string, format: date-time }
+    MeihuaContext:
+      type: object
+      required: [schemaVersion, chartType, paipan_ref, generatedAt, expiresAt, chartRequest, chart]
+      properties:
+        schemaVersion: { const: guoxue.paipan.meihua.v1 }
+        chartType: { const: meihua }
+        paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+        generatedAt: { type: string, format: date-time }
+        expiresAt: { type: string, format: date-time }
+        chartRequest: { $ref: "#/components/schemas/MeihuaChartRequest" }
+        chart: { $ref: "#/components/schemas/MeihuaChartResponse" }
     FlowMonth:
       type: object
       required: [index, monthName, ganZhi, solarTermName, solarTermDateTime, tenGods, hiddenStems, hiddenStemTenGods, heavenlyStemAttention, earthlyBranchAttention, shenSha]

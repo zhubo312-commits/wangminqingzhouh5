@@ -1,0 +1,42 @@
+{
+  "capturedAt": "2026-08-12T04:00:00+08:00",
+  "site": "https://ft.bavor.cn",
+  "runtimeDependency": false,
+  "sources": [
+    {
+      "page": "梅花学入口",
+      "url": "https://ft.bavor.cn/static/js/pages-meihua-meihua.e4498a6c.js",
+      "sha256": "bce478d31f091714ba604ab341bdaecf81ac76b0143e28a49d6bc621d12597e0"
+    },
+    {
+      "page": "时间起盘",
+      "url": "https://ft.bavor.cn/static/js/pages-meihua-shijian-shijian.715d39a0.js",
+      "sha256": "784f5d9684aa276d42af331a56f66534bbc46d6e974f8c8d96c2701338cea018"
+    },
+    {
+      "page": "报数起盘",
+      "url": "https://ft.bavor.cn/static/js/pages-meihua-baoshu-baoshu.fe0456b2.js",
+      "sha256": "ef29ff6d99ed043e4a0ef70500df2586b16bff9aadf6188fc80c0ea5a9b82641"
+    },
+    {
+      "page": "指定起盘",
+      "url": "https://ft.bavor.cn/static/js/pages-meihua-zhiding-zhiding.4d914a3e.js",
+      "sha256": "48b91203d9169586a60a34a3b52b5551a6f73f404f6754fea33a4904dc57efeb"
+    },
+    {
+      "page": "排盘结果",
+      "url": "https://ft.bavor.cn/static/js/pages-meihua-details-details.5dd6d855.js",
+      "sha256": "6bc471ee5d0f706bf63db21cd7524d439a4fcf6a3fb1244eb9d65520d5e674e0"
+    },
+    {
+      "page": "六十四卦列表",
+      "url": "https://ft.bavor.cn/static/js/pages-meihua-about-about.7735cd00.js",
+      "sha256": "f8b87a8136c8727c12dfa957c44b08f8f3e7bf7ef9f1cdbe8ab418262088a0e3"
+    },
+    {
+      "page": "六十四卦原文",
+      "url": "https://ft.bavor.cn/static/js/pages-meihua-about-explain-explain.7cc10224.js",
+      "sha256": "1863dc577b9e541802794ceaf12fc42265c29adad8f2d40ed58beb05c4689433"
+    }
+  ]
+}
