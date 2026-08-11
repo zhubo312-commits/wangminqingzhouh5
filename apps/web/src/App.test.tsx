@@ -135,6 +135,48 @@ describe("homepage", () => {
     expect(window.location.pathname).toBe("/paipan/juece");
   });
 
+  it("keeps bureau and void choices available for both decision pan styles", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (input: RequestInfo | URL) => {
+        if (String(input).endsWith("/api/v1/paipan/areas")) {
+          return new Response(JSON.stringify([]), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
+        return new Response(null, { status: 204 });
+      }),
+    );
+    window.history.pushState({}, "", "/paipan/juece");
+
+    render(<App />);
+
+    expect(await screen.findByText("定局方式")).toBeVisible();
+    expect(screen.getByRole("button", { name: "拆补" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "置闰" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "茅山" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "手工定局" })).toBeVisible();
+    expect(screen.getByText("旬空标记")).toBeVisible();
+    expect(screen.getByText("寄宫方式")).toBeVisible();
+    expect(screen.queryByText("飞盘顺逆规则")).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "置闰" }));
+    fireEvent.click(screen.getByRole("button", { name: "日空" }));
+    fireEvent.click(screen.getByRole("button", { name: "阳艮阴坤" }));
+    fireEvent.click(screen.getByRole("button", { name: "飞盘" }));
+
+    expect(screen.getByText("飞盘顺逆规则")).toBeVisible();
+    expect(screen.getByRole("button", { name: "置闰" })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByRole("button", { name: "日空" })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.queryByText("寄宫方式")).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "转盘" }));
+
+    expect(screen.getByText("寄宫方式")).toBeVisible();
+    expect(screen.getByRole("button", { name: "阳艮阴坤" })).toHaveAttribute("aria-pressed", "true");
+  });
+
   it("shows a recoverable error instead of a blank page", async () => {
     vi.stubGlobal(
       "fetch",

@@ -2833,31 +2833,6 @@ footer {
   font-size: 12px;
 }
 
-.juece-reference-rule {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: 8px;
-}
-
-.juece-reference-rule strong {
-  color: #324d61;
-  font-size: 13px;
-  white-space: nowrap;
-}
-
-.juece-reference-rule.compact {
-  grid-template-columns: auto minmax(0, 1fr);
-}
-
-.juece-reference-rule > p,
-.juece-reference-rule.compact p {
-  justify-self: end;
-  margin: 0;
-  line-height: 1.5;
-  text-align: right;
-}
-
 .manual-bureau-panel {
   display: grid;
   gap: 14px;
@@ -3387,16 +3362,6 @@ footer {
     padding-inline: 4px;
   }
 
-  .juece-reference-rule {
-    grid-template-columns: 1fr;
-    gap: 3px;
-  }
-
-  .juece-reference-rule > p,
-  .juece-reference-rule.compact p {
-    justify-self: start;
-    text-align: left;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
