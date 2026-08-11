@@ -401,6 +401,55 @@ paths:
           $ref: "#/components/responses/Gone"
         "422":
           $ref: "#/components/responses/ValidationError"
+  /api/v1/paipan/luoji/chart:
+    post:
+      summary: 生成六爻逻辑盘
+      description: 支持铜钱摇盘、盘名指定和六位硬币背数三种方式；返回本卦、变卦、八宫归属、世应、六神、伏神、六亲与纳甲，不输出个案吉凶判断。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LuojiChartRequest"
+      responses:
+        "200":
+          description: 标准化六爻盘及短期排盘引用
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LuojiChartWithReference"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+        "502":
+          $ref: "#/components/responses/BadGateway"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+  /api/v1/paipan/luoji/context:
+    post:
+      summary: 使用短期排盘引用读取六爻逻辑盘上下文
+      description: paipan_ref 只用于当前标签页短期恢复，服务端数据库仅保存引用哈希。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [paipan_ref]
+              properties:
+                paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+      responses:
+        "200":
+          description: 带版本号的完整六爻逻辑盘上下文
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LuojiContext"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "410":
+          $ref: "#/components/responses/Gone"
+        "422":
+          $ref: "#/components/responses/ValidationError"
   /health:
     get:
       summary: Fastify 存活检查
@@ -1252,6 +1301,109 @@ components:
         expiresAt: { type: string, format: date-time }
         chartRequest: { $ref: "#/components/schemas/MeihuaChartRequest" }
         chart: { $ref: "#/components/schemas/MeihuaChartResponse" }
+    LuojiChartRequest:
+      oneOf:
+        - type: object
+          additionalProperties: false
+          required: [chartDateTime, question, mode, coinBacks]
+          properties:
+            chartDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+            question: { type: string, maxLength: 80 }
+            mode: { type: string, enum: [coins, backs] }
+            coinBacks: { type: string, pattern: '^[0-3]{6}$', description: 由初爻到上爻，每位为三枚硬币的背面数 }
+        - type: object
+          additionalProperties: false
+          required: [chartDateTime, question, mode, originalHexagram, changedHexagram]
+          properties:
+            chartDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+            question: { type: string, maxLength: 80 }
+            mode: { const: names }
+            originalHexagram: { type: string, minLength: 2 }
+            changedHexagram: { type: string, minLength: 2 }
+      discriminator:
+        propertyName: mode
+    LuojiPalace:
+      type: object
+      required: [name, sequence, type, element]
+      properties:
+        name: { type: string, pattern: '^[乾兑离震巽坎艮坤]宫$' }
+        sequence: { type: integer, minimum: 1, maximum: 8 }
+        type: { type: [string, "null"], enum: [游魂, 归魂, null] }
+        element: { type: string, enum: [金, 木, 水, 火, 土] }
+    LuojiHexagram:
+      type: object
+      required: [name, upperTrigram, lowerTrigram, lines, palace, shiLine, yingLine]
+      properties:
+        name: { type: string, minLength: 2 }
+        upperTrigram: { type: string, enum: [乾, 兑, 离, 震, 巽, 坎, 艮, 坤] }
+        lowerTrigram: { type: string, enum: [乾, 兑, 离, 震, 巽, 坎, 艮, 坤] }
+        lines:
+          type: array
+          minItems: 6
+          maxItems: 6
+          items: { type: string, enum: [yang, yin] }
+        palace: { $ref: "#/components/schemas/LuojiPalace" }
+        shiLine: { type: integer, minimum: 1, maximum: 6 }
+        yingLine: { type: integer, minimum: 1, maximum: 6 }
+    LuojiLine:
+      type: object
+      required: [position, deity, hiddenKin, hiddenStemBranch, originalKin, originalStemBranch, originalElement, originalLine, isMoving, marker, changedKin, changedStemBranch, changedElement, changedLine]
+      properties:
+        position: { type: integer, minimum: 1, maximum: 6 }
+        deity: { type: string, enum: [青龙, 朱雀, 勾陈, 螣蛇, 白虎, 玄武] }
+        hiddenKin: { type: [string, "null"], enum: [父母, 兄弟, 子孙, 官鬼, 妻财, null] }
+        hiddenStemBranch: { type: [string, "null"] }
+        originalKin: { type: string, enum: [父母, 兄弟, 子孙, 官鬼, 妻财] }
+        originalStemBranch: { type: string, minLength: 2, maxLength: 2 }
+        originalElement: { type: string, enum: [金, 木, 水, 火, 土] }
+        originalLine: { type: string, enum: [yang, yin] }
+        isMoving: { type: boolean }
+        marker: { type: [string, "null"], enum: [世, 应, null] }
+        changedKin: { type: string, enum: [父母, 兄弟, 子孙, 官鬼, 妻财] }
+        changedStemBranch: { type: string, minLength: 2, maxLength: 2 }
+        changedElement: { type: string, enum: [金, 木, 水, 火, 土] }
+        changedLine: { type: string, enum: [yang, yin] }
+    LuojiChartResponse:
+      type: object
+      required: [overview, original, changed, lines]
+      properties:
+        overview:
+          type: object
+          required: [method, question, solarDateTime, lunarDate, pillars, voidBranches, coinBacks]
+          properties:
+            method: { type: string, enum: [铜钱摇盘法, 盘名起盘法, 硬币背数法] }
+            question: { type: string }
+            solarDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+            lunarDate: { type: string }
+            pillars: { $ref: "#/components/schemas/JuecePillars" }
+            voidBranches: { type: string, minLength: 2, maxLength: 2 }
+            coinBacks: { type: [string, "null"], pattern: '^[0-3]{6}$' }
+        original: { $ref: "#/components/schemas/LuojiHexagram" }
+        changed: { $ref: "#/components/schemas/LuojiHexagram" }
+        lines:
+          type: array
+          minItems: 6
+          maxItems: 6
+          items: { $ref: "#/components/schemas/LuojiLine" }
+    LuojiChartWithReference:
+      allOf:
+        - $ref: "#/components/schemas/LuojiChartResponse"
+        - type: object
+          required: [paipan_ref, expiresAt]
+          properties:
+            paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+            expiresAt: { type: string, format: date-time }
+    LuojiContext:
+      type: object
+      required: [schemaVersion, chartType, paipan_ref, generatedAt, expiresAt, chartRequest, chart]
+      properties:
+        schemaVersion: { const: guoxue.paipan.luoji.v1 }
+        chartType: { const: luoji }
+        paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+        generatedAt: { type: string, format: date-time }
+        expiresAt: { type: string, format: date-time }
+        chartRequest: { $ref: "#/components/schemas/LuojiChartRequest" }
+        chart: { $ref: "#/components/schemas/LuojiChartResponse" }
     FlowMonth:
       type: object
       required: [index, monthName, ganZhi, solarTermName, solarTermDateTime, tenGods, hiddenStems, hiddenStemTenGods, heavenlyStemAttention, earthlyBranchAttention, shenSha]

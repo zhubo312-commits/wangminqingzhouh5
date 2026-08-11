@@ -7,6 +7,9 @@ import {
   JueceChartRequestSchema,
   JueceChartResponseSchema,
   JueceContextResponseSchema,
+  LuojiChartRequestSchema,
+  LuojiChartResponseSchema,
+  LuojiContextResponseSchema,
   MeihuaChartRequestSchema,
   MeihuaChartResponseSchema,
   MeihuaContextResponseSchema,
@@ -68,6 +71,13 @@ export const paipanContextRegistry = {
     requestSchema: MeihuaChartRequestSchema,
     chartSchema: MeihuaChartResponseSchema,
     contextSchema: MeihuaContextResponseSchema,
+  }),
+  luoji: definePaipanContext({
+    chartType: "luoji",
+    schemaVersion: "guoxue.paipan.luoji.v1",
+    requestSchema: LuojiChartRequestSchema,
+    chartSchema: LuojiChartResponseSchema,
+    contextSchema: LuojiContextResponseSchema,
   }),
 } as const;
 

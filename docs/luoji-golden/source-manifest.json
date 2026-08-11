@@ -1,0 +1,22 @@
+{
+  "capturedAt": "2026-08-12T04:23:00+08:00",
+  "site": "https://ft.bavor.cn",
+  "runtimeDependency": false,
+  "sources": [
+    {
+      "page": "三种逻辑排盘入口",
+      "url": "https://ft.bavor.cn/static/js/pages-liuyao-liuyaopaipan.ed8083ca.js",
+      "sha256": "14d3a52faa4915c1ba078af11de6b3feb33a27f20f710eca631b4a6b4d08b905"
+    },
+    {
+      "page": "逻辑排盘表单",
+      "url": "https://ft.bavor.cn/static/js/pages-liuyao-liuyao.90669fe8.js",
+      "sha256": "e3c9f09a84691c58081a8ef73cb3908ab122f680d6e05d972b3c20a22a82c7d4"
+    },
+    {
+      "page": "逻辑排盘结果",
+      "url": "https://ft.bavor.cn/static/js/pages-liuyao-liuyaoResult-liuyaoResult.f3b59e7a.js",
+      "sha256": "145bfc774df7203a02b09503f112c7cd10114f3a026710686c24df03ac957e4f"
+    }
+  ]
+}

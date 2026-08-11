@@ -4,6 +4,7 @@ import {
   FlowMonthsRequestSchema,
   JueceChartRequestSchema,
   MeihuaChartRequestSchema,
+  LuojiChartRequestSchema,
   PaipanContextLookupRequestSchema,
   ResolveBirthRequestSchema,
   ShenShaRequestSchema,
@@ -134,6 +135,25 @@ export function createPaipanRoutes(
       async (request) => {
         const lookup = parseRequest(PaipanContextLookupRequestSchema, request.body);
         return contextService.resolveMeihua(lookup.paipan_ref);
+      },
+    );
+
+    app.post(
+      "/api/v1/paipan/luoji/chart",
+      { config: { rateLimit: { max: 30, timeWindow: "1 minute" } } },
+      async (request) => {
+        const chartRequest = parseRequest(LuojiChartRequestSchema, request.body);
+        const chart = await client.luojiChart(chartRequest);
+        return contextService.createLuoji(chartRequest, chart);
+      },
+    );
+
+    app.post(
+      "/api/v1/paipan/luoji/context",
+      { config: { rateLimit: { max: 60, timeWindow: "1 minute" } } },
+      async (request) => {
+        const lookup = parseRequest(PaipanContextLookupRequestSchema, request.body);
+        return contextService.resolveLuoji(lookup.paipan_ref);
       },
     );
 
