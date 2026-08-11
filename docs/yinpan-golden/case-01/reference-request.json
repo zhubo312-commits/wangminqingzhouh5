@@ -1,0 +1,9 @@
+{
+  "method": "GET",
+  "url": "https://ft.bavor.cn/prod-api/app/qimen/getQimenH5",
+  "query": {
+    "birthDay": "2026-08-11 21:31",
+    "question": "",
+    "isKe": "0"
+  }
+}

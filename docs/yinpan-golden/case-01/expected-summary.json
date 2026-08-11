@@ -1,0 +1,20 @@
+{
+  "solarDateTime": "2026-08-11 21:31",
+  "lunarDate": "二〇二六年六月廿九日",
+  "pillars": {
+    "year": "丙午",
+    "month": "丙申",
+    "day": "丁巳",
+    "hour": "辛亥"
+  },
+  "dunType": "阴",
+  "juNumber": 9,
+  "xunShou": "甲辰壬",
+  "voidBranches": "寅卯",
+  "chiefStar": { "name": "天芮星", "palace": 6 },
+  "chiefDoor": { "name": "死", "palace": 7 },
+  "monthGeneral": "午",
+  "horse": { "branch": "巳", "palace": 4 },
+  "palaceCount": 9,
+  "heavenEarthGateCount": 12
+}

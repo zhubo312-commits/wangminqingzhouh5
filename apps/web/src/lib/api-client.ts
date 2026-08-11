@@ -4,6 +4,8 @@ import {
   DunjiaContextResponseSchema,
   JueceChartWithReferenceSchema,
   JueceContextResponseSchema,
+  YinpanChartWithReferenceSchema,
+  YinpanContextResponseSchema,
   FlowMonthsResponseSchema,
   HomeResponseSchema,
   PaipanContextResponseSchema,
@@ -17,6 +19,9 @@ import {
   type JueceChartRequest,
   type JueceChartWithReference,
   type JueceContextResponse,
+  type YinpanChartRequest,
+  type YinpanChartWithReference,
+  type YinpanContextResponse,
   type FlowMonthsRequest,
   type FlowMonthsResponse,
   type PaipanAreaNode,
@@ -158,6 +163,28 @@ export function fetchJueceContext(
   signal?: AbortSignal,
 ): Promise<JueceContextResponse> {
   return requestJson("/api/v1/paipan/juece/context", JueceContextResponseSchema, {
+    method: "POST",
+    body: JSON.stringify({ paipan_ref: paipanRef }),
+    ...(signal ? { signal } : {}),
+  });
+}
+
+export function createYinpanChart(
+  request: YinpanChartRequest,
+  signal?: AbortSignal,
+): Promise<YinpanChartWithReference> {
+  return requestJson("/api/v1/paipan/yinpan-juece/chart", YinpanChartWithReferenceSchema, {
+    method: "POST",
+    body: JSON.stringify(request),
+    ...(signal ? { signal } : {}),
+  });
+}
+
+export function fetchYinpanContext(
+  paipanRef: string,
+  signal?: AbortSignal,
+): Promise<YinpanContextResponse> {
+  return requestJson("/api/v1/paipan/yinpan-juece/context", YinpanContextResponseSchema, {
     method: "POST",
     body: JSON.stringify({ paipan_ref: paipanRef }),
     ...(signal ? { signal } : {}),

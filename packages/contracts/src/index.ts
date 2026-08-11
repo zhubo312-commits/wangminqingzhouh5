@@ -516,6 +516,92 @@ export const JueceContextResponseSchema = z.object({
   chart: JueceChartResponseSchema,
 });
 
+const YinpanGrowthStageSchema = z.object({
+  branch: z.string().min(1),
+  stage: z.string().min(1),
+});
+
+const YinpanHarmSchema = z.object({
+  symbol: z.string().min(1),
+  type: z.enum(["迫", "墓", "刑"]),
+});
+
+export const YinpanChartRequestSchema = z.object({
+  chartDateTime: BirthDateTimeSchema,
+  gender: z.enum(["male", "female"]),
+  question: z.string().trim().max(30).default(""),
+  mode: z.enum(["time", "ke"]),
+  lifetime: z.boolean().default(false),
+});
+
+export const YinpanPalaceSchema = z.object({
+  index: z.number().int().min(1).max(9),
+  trigram: z.string().min(1),
+  direction: z.string().min(1),
+  element: z.string().min(1),
+  deity: z.string().nullish().transform((value) => value ?? null),
+  star: z.string().nullish().transform((value) => value ?? null),
+  door: z.string().nullish().transform((value) => value ?? null),
+  heavenStems: z.array(z.string().length(1)).max(2),
+  earthStems: z.array(z.string().length(1)).max(2),
+  hiddenStem: z.string().nullish().transform((value) => value ?? null),
+  harms: z.array(YinpanHarmSchema),
+  heavenGrowth: z.array(YinpanGrowthStageSchema),
+  earthGrowth: z.array(YinpanGrowthStageSchema),
+  isVoid: z.boolean(),
+  isHorse: z.boolean(),
+  isChief: z.boolean(),
+  isChiefDoor: z.boolean(),
+});
+
+export const YinpanChartResponseSchema = z.object({
+  overview: z.object({
+    method: z.enum(["时盘", "刻盘"]),
+    question: z.string(),
+    gender: z.enum(["male", "female"]),
+    solarDateTime: BirthDateTimeSchema,
+    lunarDate: z.string().min(1),
+    pillars: z.object({
+      year: z.string().length(2),
+      month: z.string().length(2),
+      day: z.string().length(2),
+      hour: z.string().length(2),
+    }),
+    voidBranches: z.string().length(2),
+    dunType: z.enum(["阴", "阳"]),
+    juNumber: z.number().int().min(1).max(9),
+    xunShou: z.string().min(2),
+    chiefStar: z.object({ name: z.string().min(1), palace: z.number().int().min(1).max(9) }),
+    chiefDoor: z.object({ name: z.string().min(1), palace: z.number().int().min(1).max(9) }),
+    previousSolarTerm: z.string().min(1),
+    nextSolarTerm: z.string().min(1),
+    monthGeneral: z.string().min(1),
+    horse: z.object({ branch: z.string().length(1), palace: z.number().int().min(1).max(9) }),
+  }),
+  palaces: z.array(YinpanPalaceSchema).length(9),
+  heavenEarthGates: z.array(z.object({
+    branch: z.string().length(1),
+    heavenGate: z.string().min(1),
+    earthGate: z.string().min(1),
+  })).length(12),
+  lifetimeChart: BaziChartResponseSchema.nullish().transform((value) => value ?? null),
+});
+
+export const YinpanChartWithReferenceSchema = YinpanChartResponseSchema.extend({
+  paipan_ref: PaipanReferenceSchema,
+  expiresAt: z.iso.datetime(),
+});
+
+export const YinpanContextResponseSchema = z.object({
+  schemaVersion: z.literal("guoxue.paipan.yinpan_juece.v1"),
+  chartType: z.literal("yinpan_juece"),
+  paipan_ref: PaipanReferenceSchema,
+  generatedAt: z.iso.datetime(),
+  expiresAt: z.iso.datetime(),
+  chartRequest: YinpanChartRequestSchema,
+  chart: YinpanChartResponseSchema,
+});
+
 export const FlowMonthsRequestSchema = z.object({
   chart: BaziChartRequestSchema,
   year: z.number().int().min(1900).max(2200),
@@ -577,6 +663,11 @@ export type JuecePalace = z.infer<typeof JuecePalaceSchema>;
 export type JueceChartResponse = z.infer<typeof JueceChartResponseSchema>;
 export type JueceChartWithReference = z.infer<typeof JueceChartWithReferenceSchema>;
 export type JueceContextResponse = z.infer<typeof JueceContextResponseSchema>;
+export type YinpanChartRequest = z.infer<typeof YinpanChartRequestSchema>;
+export type YinpanPalace = z.infer<typeof YinpanPalaceSchema>;
+export type YinpanChartResponse = z.infer<typeof YinpanChartResponseSchema>;
+export type YinpanChartWithReference = z.infer<typeof YinpanChartWithReferenceSchema>;
+export type YinpanContextResponse = z.infer<typeof YinpanContextResponseSchema>;
 export type FlowMonthsRequest = z.infer<typeof FlowMonthsRequestSchema>;
 export type FlowMonthsResponse = z.infer<typeof FlowMonthsResponseSchema>;
 export type ShenShaRequest = z.infer<typeof ShenShaRequestSchema>;

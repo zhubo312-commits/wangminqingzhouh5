@@ -10,6 +10,9 @@ import { DunjiaSessionProvider } from "./features/paipan/dunjia/DunjiaSession";
 import { JueceFormPage } from "./features/paipan/juece/JueceFormPage";
 import { JueceResultPage } from "./features/paipan/juece/JueceResultPage";
 import { JueceSessionProvider } from "./features/paipan/juece/JueceSession";
+import { YinpanFormPage } from "./features/paipan/yinpan/YinpanFormPage";
+import { YinpanResultPage } from "./features/paipan/yinpan/YinpanResultPage";
+import { YinpanSessionProvider } from "./features/paipan/yinpan/YinpanSession";
 
 const routerBasename =
   import.meta.env.BASE_URL === "/"
@@ -26,6 +29,10 @@ function DunjiaSessionLayout() {
 
 function JueceSessionLayout() {
   return <JueceSessionProvider><Outlet /></JueceSessionProvider>;
+}
+
+function YinpanSessionLayout() {
+  return <YinpanSessionProvider><Outlet /></YinpanSessionProvider>;
 }
 
 export default function App() {
@@ -48,6 +55,13 @@ export default function App() {
         <Route element={<JueceSessionLayout />}>
           <Route path="/paipan/juece" element={<JueceFormPage />} />
           <Route path="/paipan/juece/result" element={<JueceResultPage />} />
+        </Route>
+        <Route element={<YinpanSessionLayout />}>
+          <Route path="/paipan/yinpan-juece" element={<YinpanFormPage />} />
+          <Route
+            path="/paipan/yinpan-juece/result"
+            element={<YinpanResultPage />}
+          />
         </Route>
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
