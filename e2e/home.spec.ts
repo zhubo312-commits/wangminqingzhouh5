@@ -283,6 +283,9 @@ test("completes the in-session Shengping Zishi flow and preserves the form on ba
   await page.getByRole("link", { name: "生平子时" }).click();
   await expect(page).toHaveURL(/\/paipan\/shengping-zishi$/);
   await expect(page.getByRole("heading", { name: "填写出生信息" })).toHaveCount(0);
+  await page.evaluate(() => window.scrollTo(0, 700));
+  await expect.poll(() => page.locator(".page-header").evaluate((header) => Math.round(header.getBoundingClientRect().top))).toBe(0);
+  await page.evaluate(() => window.scrollTo(0, 0));
   const areaPicker = page.getByRole("button", { name: "选择出生地区" });
   await expect(areaPicker).toContainText("北京市 / 东城");
   await areaPicker.click();
@@ -295,14 +298,31 @@ test("completes the in-session Shengping Zishi flow and preserves the form on ba
   await expect(page.getByRole("heading", { name: /四柱命盘/ })).toBeVisible();
   await expect(page.getByRole("heading", { name: /十年大运/ })).toBeVisible();
   await expect(page.getByRole("heading", { name: /旺衰参考/ })).toBeVisible();
+  await expect(page.getByLabel("当前为乙亥大运，1998至2007年，9至18岁")).toContainText("乙亥大运");
+  await expect(page.getByLabel("当前为乙亥大运，1998至2007年，9至18岁")).toContainText("1998–2007年 · 9–18岁");
+  await expect(page.getByLabel("当前为戊寅流年，1998年，9岁")).toContainText("戊寅流年");
+  await expect(page.getByLabel("当前为戊寅流年，1998年，9岁")).toContainText("1998年 · 9岁");
   await expect(page.getByRole("button", { name: /甲寅/ })).toBeVisible();
   await expect(page.locator(".profile-grid .info-value-primary").filter({ hasText: "一九八九年" })).toBeVisible();
   await expect(page.locator(".profile-grid .info-value-secondary").filter({ hasText: "腊月初五日·午时" })).toBeVisible();
   await expect(page.locator(".facts-grid .solar-term-name")).toHaveCount(2);
   await expect(page.locator(".facts-grid .info-value-secondary").filter({ hasText: "05:22·冬至" })).toBeVisible();
+  await page.evaluate(() => window.scrollTo(0, 900));
+  await expect.poll(() => page.locator(".page-header").evaluate((header) => Math.round(header.getBoundingClientRect().top))).toBe(0);
   for (const selector of [".horizontal-selector", ".year-selector", ".month-selector"]) {
     await expect(page.locator(selector)).toHaveCSS("display", "grid");
     expect(await page.locator(selector).evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true);
+  }
+  for (const groupName of ["大运选择", "流年选择", "流月选择"]) {
+    const selectionGroup = page.getByRole("group", { name: groupName });
+    const activeButton = selectionGroup.locator("button.active").first();
+    await expect(selectionGroup.locator(".selection-bubble")).toHaveCount(1);
+    await activeButton.click();
+    await expect(activeButton).toHaveAttribute("aria-expanded", "false");
+    await expect(selectionGroup.locator(".selection-bubble")).toHaveCount(0);
+    await activeButton.click();
+    await expect(activeButton).toHaveAttribute("aria-expanded", "true");
+    await expect(selectionGroup.locator(".selection-bubble")).toHaveCount(1);
   }
   expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)).toBe(false);
 
@@ -358,9 +378,12 @@ test("supports all three birth modes and requires a four-pillar candidate choice
   await expect(lunarDatePicker).toBeVisible();
   await expect(lunarTimePicker).toBeVisible();
   await lunarDatePicker.click();
-  await expect(page.getByRole("dialog", { name: "选择阴历出生日期" }).getByRole("listbox")).toHaveCount(3);
-  await expect(page.getByRole("dialog", { name: "选择阴历出生日期" }).getByRole("button", { name: "闰月" })).toBeVisible();
-  await page.getByRole("dialog", { name: "选择阴历出生日期" }).getByRole("button", { name: "取消" }).click();
+  const lunarDateDialog = page.getByRole("dialog", { name: "选择阴历出生日期" });
+  await expect(lunarDateDialog.getByRole("listbox")).toHaveCount(3);
+  await expect(lunarDateDialog.getByRole("listbox", { name: "月滚轮" }).getByRole("option", { name: "腊月（12）", exact: true })).toBeVisible();
+  await expect(lunarDateDialog.getByRole("listbox", { name: "日滚轮" }).getByRole("option", { name: "初五（5）", exact: true })).toBeVisible();
+  await expect(lunarDateDialog.getByRole("button", { name: "闰月" })).toBeVisible();
+  await lunarDateDialog.getByRole("button", { name: "取消" }).click();
   await lunarTimePicker.click();
   await expect(page.getByRole("dialog", { name: "选择阴历出生时间" }).getByRole("listbox")).toHaveCount(2);
   await expect(page.getByRole("dialog", { name: "选择阴历出生时间" }).getByRole("option", { name: "12（午时）", exact: true })).toBeVisible();

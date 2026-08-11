@@ -144,11 +144,14 @@ export function BaziResultPage() {
     [chart],
   );
   const [periodIndex, setPeriodIndex] = useState(1);
+  const [expandedPeriodIndex, setExpandedPeriodIndex] = useState<number | null>(1);
   const selectedPeriod = availablePeriods.find((period) => period.index === periodIndex) ?? availablePeriods[0];
   const [year, setYear] = useState<number | null>(null);
+  const [expandedYear, setExpandedYear] = useState<number | null>(null);
   const selectedYear = selectedPeriod?.years.find((item) => item.year === year) ?? selectedPeriod?.years[0];
   const [months, setMonths] = useState<FlowMonthsResponse["months"]>([]);
   const [selectedMonthIndex, setSelectedMonthIndex] = useState(1);
+  const [expandedMonthIndex, setExpandedMonthIndex] = useState<number | null>(1);
   const [monthsLoading, setMonthsLoading] = useState(false);
   const [monthsError, setMonthsError] = useState<string | null>(null);
   const [interpretationUrl, setInterpretationUrl] = useState<string | null>(null);
@@ -162,7 +165,10 @@ export function BaziResultPage() {
   }, []);
 
   useEffect(() => {
-    if (selectedPeriod?.years[0]) setYear(selectedPeriod.years[0].year);
+    if (selectedPeriod?.years[0]) {
+      setYear(selectedPeriod.years[0].year);
+      setExpandedYear(selectedPeriod.years[0].year);
+    }
   }, [selectedPeriod?.index]);
 
   const loadMonths = useCallback(async () => {
@@ -173,6 +179,7 @@ export function BaziResultPage() {
       const response = await fetchFlowMonths({ chart: chartRequest, year: selectedYear.year });
       setMonths(response.months);
       setSelectedMonthIndex(response.months[0]?.index ?? 1);
+      setExpandedMonthIndex(response.months[0]?.index ?? null);
     } catch (reason) {
       setMonths([]);
       setMonthsError(reason instanceof Error ? reason.message : "流月暂时无法加载");
@@ -292,24 +299,41 @@ export function BaziResultPage() {
             ariaLabel="大运选择"
             className="horizontal-selector"
             itemKey={(period) => period.index}
-            isSelected={(period) => selectedPeriod?.index === period.index}
-            renderButton={(period) => <button type="button" className={selectedPeriod?.index === period.index ? "active" : ""} key={period.index} onClick={() => setPeriodIndex(period.index)}><strong>{period.ganZhi}</strong><span>{period.startAge}–{period.endAge}岁</span><small>{period.startYear}–{period.endYear}</small></button>}
+            isSelected={(period) => expandedPeriodIndex === period.index}
+            renderButton={(period) => <button type="button" className={selectedPeriod?.index === period.index ? "active" : ""} aria-pressed={selectedPeriod?.index === period.index} aria-expanded={expandedPeriodIndex === period.index} key={period.index} onClick={() => { const collapse = selectedPeriod?.index === period.index && expandedPeriodIndex === period.index; setPeriodIndex(period.index); setExpandedPeriodIndex(collapse ? null : period.index); }}><strong>{period.ganZhi}</strong><span>{period.startAge}–{period.endAge}岁</span><small>{period.startYear}–{period.endYear}</small></button>}
             renderDetail={(period) => <><div className="selection-heading"><span>大运</span><strong>{period.ganZhi}</strong><em>{period.growth}</em></div><div className="detail-tags"><TextList values={[...period.tenGods, ...period.shenSha]} /></div></>}
           />
 
-          <h3 className="subsection-title">大运流年</h3>
+          <div className="subsection-heading subsection-heading-context">
+            <h3 className="subsection-title">大运流年</h3>
+            {selectedPeriod && (
+              <span className="subsection-context" aria-label={`当前为${selectedPeriod.ganZhi}大运，${selectedPeriod.startYear}至${selectedPeriod.endYear}年，${selectedPeriod.startAge}至${selectedPeriod.endAge}岁`}>
+                <strong>{selectedPeriod.ganZhi}大运</strong>
+                <span>{selectedPeriod.startYear}–{selectedPeriod.endYear}年 · {selectedPeriod.startAge}–{selectedPeriod.endAge}岁</span>
+              </span>
+            )}
+          </div>
           <InlineSelectionGrid
             items={selectedPeriod?.years ?? []}
             columns={2}
             ariaLabel="流年选择"
             className="year-selector"
             itemKey={(item) => item.year}
-            isSelected={(item) => selectedYear?.year === item.year}
-            renderButton={(item) => <button type="button" className={selectedYear?.year === item.year ? "active" : ""} key={item.year} onClick={() => setYear(item.year)}><strong>{item.ganZhi}</strong><span>{item.year}</span><small>{item.age}岁</small></button>}
+            isSelected={(item) => expandedYear === item.year}
+            renderButton={(item) => <button type="button" className={selectedYear?.year === item.year ? "active" : ""} aria-pressed={selectedYear?.year === item.year} aria-expanded={expandedYear === item.year} key={item.year} onClick={() => { const collapse = selectedYear?.year === item.year && expandedYear === item.year; setYear(item.year); setExpandedYear(collapse ? null : item.year); }}><strong>{item.ganZhi}</strong><span>{item.year}</span><small>{item.age}岁</small></button>}
             renderDetail={(item) => <><div className="selection-heading"><span>流年</span><strong>{item.ganZhi}</strong><em>{item.year}年 · {item.age}岁</em></div><dl className="compact-detail"><InfoPair label="十神" value={item.tenGods.join("、")} /><InfoPair label="藏干" value={item.hiddenStems} /><InfoPair label="空亡" value={item.voidBranch} /><InfoPair label="财星" value={item.wealthStrong ? "得力" : "平"} /></dl><div className="detail-tags"><TextList values={[...item.heavenlyStemAttention, ...item.earthlyBranchAttention, ...item.shenSha]} /></div></>}
           />
 
-          <div className="subsection-heading"><h3 className="subsection-title">流月联动</h3>{monthsError && <button type="button" className="icon-retry" onClick={() => void loadMonths()} aria-label="重新加载流月"><ArrowClockwise size={18} /></button>}</div>
+          <div className="subsection-heading subsection-heading-context">
+            <h3 className="subsection-title">流月联动</h3>
+            {selectedYear && (
+              <span className="subsection-context" aria-label={`当前为${selectedYear.ganZhi}流年，${selectedYear.year}年，${selectedYear.age}岁`}>
+                <strong>{selectedYear.ganZhi}流年</strong>
+                <span>{selectedYear.year}年 · {selectedYear.age}岁</span>
+              </span>
+            )}
+            {monthsError && <button type="button" className="icon-retry" onClick={() => void loadMonths()} aria-label="重新加载流月"><ArrowClockwise size={18} /></button>}
+          </div>
           {monthsLoading ? <div className="months-loading">正在推演流月…</div> : monthsError ? <div className="inline-error" role="alert">{monthsError}</div> : (
             <>
               <InlineSelectionGrid
@@ -318,8 +342,8 @@ export function BaziResultPage() {
                 ariaLabel="流月选择"
                 className="month-selector"
                 itemKey={(month) => month.index}
-                isSelected={(month) => selectedMonth?.index === month.index}
-                renderButton={(month) => <button type="button" className={selectedMonth?.index === month.index ? "active" : ""} key={month.index} onClick={() => setSelectedMonthIndex(month.index)}><strong>{month.ganZhi}</strong><span>{month.monthName}</span><small>{month.solarTermName}</small></button>}
+                isSelected={(month) => expandedMonthIndex === month.index}
+                renderButton={(month) => <button type="button" className={selectedMonth?.index === month.index ? "active" : ""} aria-pressed={selectedMonth?.index === month.index} aria-expanded={expandedMonthIndex === month.index} key={month.index} onClick={() => { const collapse = selectedMonth?.index === month.index && expandedMonthIndex === month.index; setSelectedMonthIndex(month.index); setExpandedMonthIndex(collapse ? null : month.index); }}><strong>{month.ganZhi}</strong><span>{month.monthName}</span><small>{month.solarTermName}</small></button>}
                 renderDetail={(month) => <><div className="selection-heading"><span>流月</span><strong>{month.ganZhi}</strong><em>{month.solarTermName} · {month.solarTermDateTime.slice(0, 10)}</em></div><dl className="compact-detail"><InfoPair label="十神" value={month.tenGods.join("、")} /><InfoPair label="藏干" value={month.hiddenStems} /></dl><div className="detail-tags"><TextList values={[...month.heavenlyStemAttention, ...month.earthlyBranchAttention, ...month.shenSha]} /></div></>}
               />
             </>

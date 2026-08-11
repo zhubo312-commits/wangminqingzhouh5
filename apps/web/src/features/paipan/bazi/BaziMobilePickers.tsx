@@ -40,7 +40,6 @@ function numberOptions(start: number, end: number, padded = false): WheelOption[
 
 const YEAR_OPTIONS = numberOptions(1900, 2100);
 const MONTH_OPTIONS = numberOptions(1, 12);
-const LUNAR_DAY_OPTIONS = numberOptions(1, 30);
 const HOUR_OPTIONS = numberOptions(0, 23, true);
 const MINUTE_OPTIONS = numberOptions(0, 59, true);
 const SHI_CHEN_NAMES = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
@@ -98,6 +97,16 @@ const LUNAR_DAY_NAMES = [
   "廿九",
   "三十",
 ];
+
+const LUNAR_MONTH_OPTIONS = LUNAR_MONTH_NAMES.map((label, index) => ({
+  value: String(index + 1),
+  label: `${label}（${index + 1}）`,
+}));
+
+const LUNAR_DAY_OPTIONS = LUNAR_DAY_NAMES.map((label, index) => ({
+  value: String(index + 1),
+  label: `${label}（${index + 1}）`,
+}));
 
 function daysInSolarMonth(year: number, month: number) {
   return new Date(year, month, 0).getDate();
@@ -250,7 +259,7 @@ export function LunarDateTimePicker({
 
   const dateColumns: WheelColumn[] = [
     { id: "lunar-year", label: "年", value: String(working.year), options: YEAR_OPTIONS, onChange: (next) => updatePart("year", next) },
-    { id: "lunar-month", label: "月", value: String(working.month), options: MONTH_OPTIONS, onChange: (next) => updatePart("month", next) },
+    { id: "lunar-month", label: "月", value: String(working.month), options: LUNAR_MONTH_OPTIONS, onChange: (next) => updatePart("month", next) },
     { id: "lunar-day", label: "日", value: String(working.day), options: LUNAR_DAY_OPTIONS, onChange: (next) => updatePart("day", next) },
   ];
   const timeColumns: WheelColumn[] = [
@@ -262,7 +271,7 @@ export function LunarDateTimePicker({
     <>
       <div className="split-picker-triggers">
         <PickerTrigger
-          value={`${value.year}年 ${value.leapMonth ? "闰" : ""}${LUNAR_MONTH_NAMES[value.month - 1]} ${LUNAR_DAY_NAMES[value.day - 1]}`}
+          value={`${value.year}年 ${value.leapMonth ? "闰" : ""}${LUNAR_MONTH_NAMES[value.month - 1]}（${value.month}） ${LUNAR_DAY_NAMES[value.day - 1]}（${value.day}）`}
           ariaLabel="选择阴历日期"
           hint={null}
           onClick={() => openPicker("date")}
