@@ -187,7 +187,6 @@ export function JueceResultPage() {
         <div className="juece-result-hero">
           <span><CompassRose size={29} weight="duotone" aria-hidden="true" /></span>
           <div><small>{overview.panStyleLabel} · {overview.bureauLabel}</small><h2 id="juece-overview-heading">{overview.dunType}遁{overview.juNumber}局</h2></div>
-          <em>参考站同源</em>
         </div>
         <InfoGrid className="juece-date-grid">
           <InfoPair label="原始钟表时间" value={overview.clockDateTime} />

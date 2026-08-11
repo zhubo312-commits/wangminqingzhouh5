@@ -6,7 +6,7 @@ import type {
   PaipanAreaNode,
   ResolveBirthRequest,
 } from "@guoxue/contracts";
-import { CompassRose, MapPin, SealCheck, SunHorizon } from "@phosphor-icons/react";
+import { CompassRose, MapPin, SunHorizon } from "@phosphor-icons/react";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { PageHeader } from "../../../components/PageHeader";
@@ -139,10 +139,6 @@ export function JueceFormPage() {
   return (
     <PaipanPageShell pageClassName="form-page juece-form-page">
       <PageHeader title="决策学" backTo="/paipan" backLabel="返回排盘导航" />
-      <div className="juece-validation-banner" role="note">
-        <SealCheck size={19} weight="duotone" aria-hidden="true" />
-        <span><strong>时家决策 · 参考站口径</strong><small>结果以 ft.bavor.cn 当前排盘为验收基准</small></span>
-      </div>
 
       <form className="bazi-form juece-form" onSubmit={onSubmit}>
         <PaipanSectionCard variant="form" labelledBy="juece-time-heading">
@@ -216,8 +212,8 @@ export function JueceFormPage() {
           </fieldset>
           {draft.panStyle === "rotating" && (
             <div className="juece-conditional-panel juece-reference-rule" role="note">
-              <strong>参考站转盘固定口径</strong>
-              <p>拆补定局 · 时空标记 · 中宫寄坤；参考站当前不会按其他转盘选项改变结果。</p>
+              <strong>转盘固定规则</strong>
+              <p>拆补定局 · 时空标记 · 中宫寄坤</p>
             </div>
           )}
           {draft.panStyle === "flying" && (

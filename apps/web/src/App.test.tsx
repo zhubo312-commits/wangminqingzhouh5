@@ -131,7 +131,7 @@ describe("homepage", () => {
 
     render(<App />);
 
-    expect(await screen.findByText("时家决策 · 参考站口径")).toBeVisible();
+    expect(await screen.findByText("起盘条件")).toBeVisible();
     expect(window.location.pathname).toBe("/paipan/juece");
   });
 

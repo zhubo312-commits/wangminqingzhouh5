@@ -2735,35 +2735,6 @@ footer {
   }
 }
 
-.juece-validation-banner {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin-bottom: 13px;
-  padding: 10px 12px;
-  border: 1px solid rgba(183, 121, 36, 0.34);
-  border-radius: 13px;
-  color: var(--gold);
-  background: rgba(255, 248, 229, 0.78);
-}
-
-.juece-validation-banner > span {
-  display: grid;
-  min-width: 0;
-  gap: 1px;
-}
-
-.juece-validation-banner strong {
-  color: var(--deep-red);
-  font-size: 14px;
-}
-
-.juece-validation-banner small {
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.45;
-}
-
 .juece-form .form-card {
   gap: 17px;
 }
@@ -2905,7 +2876,7 @@ footer {
 
 .juece-result-hero {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
   gap: 10px;
 }
@@ -2940,17 +2911,6 @@ footer {
   font-family: "Noto Serif SC", "Songti SC", STSong, serif;
   font-size: 23px;
   line-height: 1.3;
-}
-
-.juece-result-hero em {
-  padding: 3px 7px;
-  border-radius: 999px;
-  color: #8a6318;
-  background: rgba(183, 121, 36, 0.12);
-  font-size: 11px;
-  font-style: normal;
-  font-weight: 700;
-  white-space: nowrap;
 }
 
 .juece-date-grid .info-pair dd {
@@ -3295,11 +3255,6 @@ footer {
   .juece-choice-grid.four-columns button {
     padding-inline: 2px;
     font-size: 13px;
-  }
-
-  .juece-result-hero em {
-    padding-inline: 5px;
-    font-size: 10px;
   }
 
   .juece-hour-switch {
