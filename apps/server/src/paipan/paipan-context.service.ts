@@ -15,6 +15,10 @@ import {
   type MeihuaChartResponse,
   type MeihuaChartWithReference,
   type MeihuaContextResponse,
+  type LuojiChartRequest,
+  type LuojiChartResponse,
+  type LuojiChartWithReference,
+  type LuojiContextResponse,
   type PaipanContextResponse,
   type YinpanChartRequest,
   type YinpanChartResponse,
@@ -137,6 +141,14 @@ export class PaipanContextService {
     return this.createRegistered("meihua", chartRequest, chart, now) as MeihuaChartWithReference;
   }
 
+  createLuoji(
+    chartRequest: LuojiChartRequest,
+    chart: LuojiChartResponse,
+    now = new Date(),
+  ): LuojiChartWithReference {
+    return this.createRegistered("luoji", chartRequest, chart, now) as LuojiChartWithReference;
+  }
+
   resolve(paipanRef: string, now = new Date()): PaipanContextResponse {
     return this.resolveRegistered("bazi", paipanRef, now) as PaipanContextResponse;
   }
@@ -155,5 +167,9 @@ export class PaipanContextService {
 
   resolveMeihua(paipanRef: string, now = new Date()): MeihuaContextResponse {
     return this.resolveRegistered("meihua", paipanRef, now) as MeihuaContextResponse;
+  }
+
+  resolveLuoji(paipanRef: string, now = new Date()): LuojiContextResponse {
+    return this.resolveRegistered("luoji", paipanRef, now) as LuojiContextResponse;
   }
 }

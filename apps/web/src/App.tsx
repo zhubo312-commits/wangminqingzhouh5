@@ -15,9 +15,12 @@ import { YinpanFormPage } from "./features/paipan/yinpan/YinpanFormPage";
 import { YinpanResultPage } from "./features/paipan/yinpan/YinpanResultPage";
 import { YinpanSessionProvider } from "./features/paipan/yinpan/YinpanSession";
 import { MeihuaSessionProvider } from "./features/paipan/meihua/MeihuaSession";
+import { LuojiSessionProvider } from "./features/paipan/luoji/LuojiSession";
 
 const MeihuaFormPage = lazy(() => import("./features/paipan/meihua/MeihuaFormPage").then((module) => ({ default: module.MeihuaFormPage })));
 const MeihuaResultPage = lazy(() => import("./features/paipan/meihua/MeihuaResultPage").then((module) => ({ default: module.MeihuaResultPage })));
+const LuojiFormPage = lazy(() => import("./features/paipan/luoji/LuojiFormPage").then((module) => ({ default: module.LuojiFormPage })));
+const LuojiResultPage = lazy(() => import("./features/paipan/luoji/LuojiResultPage").then((module) => ({ default: module.LuojiResultPage })));
 
 const routerBasename =
   import.meta.env.BASE_URL === "/"
@@ -42,6 +45,10 @@ function YinpanSessionLayout() {
 
 function MeihuaSessionLayout() {
   return <MeihuaSessionProvider><Suspense fallback={<div className="route-loading" role="status">正在载入梅花学…</div>}><Outlet /></Suspense></MeihuaSessionProvider>;
+}
+
+function LuojiSessionLayout() {
+  return <LuojiSessionProvider><Suspense fallback={<div className="route-loading" role="status">正在载入逻辑学…</div>}><Outlet /></Suspense></LuojiSessionProvider>;
 }
 
 export default function App() {
@@ -75,6 +82,10 @@ export default function App() {
         <Route element={<MeihuaSessionLayout />}>
           <Route path="/paipan/meihua" element={<MeihuaFormPage />} />
           <Route path="/paipan/meihua/result" element={<MeihuaResultPage />} />
+        </Route>
+        <Route element={<LuojiSessionLayout />}>
+          <Route path="/paipan/luoji" element={<LuojiFormPage />} />
+          <Route path="/paipan/luoji/result" element={<LuojiResultPage />} />
         </Route>
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>

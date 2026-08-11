@@ -1,0 +1,23 @@
+{
+  "solarDateTime": "2026-08-11 21:31",
+  "lunarDate": "丙午年丙申月丁巳日辛亥时",
+  "voidBranches": "子丑",
+  "original": {
+    "name": "火泽睽",
+    "palace": ["艮宫", "5", "", "土"],
+    "shiLineTopDownIndex": 2,
+    "yingLineTopDownIndex": 5,
+    "linesTopToBottom": ["阳", "阴", "阳", "阴", "阳", "阳"],
+    "kinTopToBottom": ["父母", "兄弟", "子孙", "兄弟", "官鬼", "父母"],
+    "ganzhiTopToBottom": ["己巳", "己未", "己酉", "丁丑", "丁卯", "丁巳"]
+  },
+  "changed": {
+    "name": "天水讼",
+    "palace": ["离宫", "7", "游魂", "火"],
+    "linesTopToBottom": ["阳", "阳", "阳", "阴", "阳", "阴"],
+    "kinTopToBottom": ["兄弟", "子孙", "父母", "父母", "兄弟", "官鬼"],
+    "ganzhiTopToBottom": ["壬戌", "壬申", "壬午", "戊午", "戊辰", "戊寅"]
+  },
+  "deitiesTopToBottom": ["青龙", "玄武", "白虎", "螣蛇", "勾陈", "朱雀"],
+  "hiddenSpirit": { "topDownIndex": 1, "kin": "妻财", "ganzhi": "丙子" }
+}

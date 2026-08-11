@@ -1,0 +1,19 @@
+{
+  "method": "GET",
+  "url": "https://ft.bavor.cn/prod-api/app/getLiuYao",
+  "formInput": {
+    "chartDateTime": "2026-08-11 21:31",
+    "coinBacksBottomToTop": "312101",
+    "question": ""
+  },
+  "query": {
+    "a": 1,
+    "b": 0,
+    "c": 1,
+    "d": 2,
+    "e": 1,
+    "f": 3,
+    "question": "",
+    "stringDate": "2026-08-11 21:31"
+  }
+}

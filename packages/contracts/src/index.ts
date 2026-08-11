@@ -691,6 +691,92 @@ export const MeihuaContextResponseSchema = z.object({
   chart: MeihuaChartResponseSchema,
 });
 
+export const LuojiChartRequestSchema = z.object({
+  chartDateTime: BirthDateTimeSchema,
+  question: z.string().trim().max(80).default(""),
+  mode: z.enum(["coins", "names", "backs"]),
+  coinBacks: z.string().regex(/^[0-3]{6}$/).optional(),
+  originalHexagram: z.string().min(2).optional(),
+  changedHexagram: z.string().min(2).optional(),
+}).superRefine((value, context) => {
+  if ((value.mode === "coins" || value.mode === "backs") && value.coinBacks === undefined) {
+    context.addIssue({ code: "custom", path: ["coinBacks"], message: "硬币背数需要六位" });
+  }
+  if (value.mode === "names") {
+    if (value.originalHexagram === undefined) context.addIssue({ code: "custom", path: ["originalHexagram"], message: "请选择本卦" });
+    if (value.changedHexagram === undefined) context.addIssue({ code: "custom", path: ["changedHexagram"], message: "请选择变卦" });
+  }
+});
+
+const LuojiPalaceSchema = z.object({
+  name: z.string().regex(/^[乾兑离震巽坎艮坤]宫$/),
+  sequence: z.number().int().min(1).max(8),
+  type: z.enum(["游魂", "归魂"]).nullish().transform((value) => value ?? null),
+  element: z.enum(["金", "木", "水", "火", "土"]),
+});
+
+export const LuojiHexagramSchema = z.object({
+  name: z.string().min(2),
+  upperTrigram: z.enum(["乾", "兑", "离", "震", "巽", "坎", "艮", "坤"]),
+  lowerTrigram: z.enum(["乾", "兑", "离", "震", "巽", "坎", "艮", "坤"]),
+  lines: z.array(z.enum(["yang", "yin"])).length(6),
+  palace: LuojiPalaceSchema,
+  shiLine: z.number().int().min(1).max(6),
+  yingLine: z.number().int().min(1).max(6),
+});
+
+export const LuojiLineSchema = z.object({
+  position: z.number().int().min(1).max(6),
+  deity: z.enum(["青龙", "朱雀", "勾陈", "螣蛇", "白虎", "玄武"]),
+  hiddenKin: z.enum(["父母", "兄弟", "子孙", "官鬼", "妻财"]).nullish().transform((value) => value ?? null),
+  hiddenStemBranch: z.string().length(2).nullish().transform((value) => value ?? null),
+  originalKin: z.enum(["父母", "兄弟", "子孙", "官鬼", "妻财"]),
+  originalStemBranch: z.string().length(2),
+  originalElement: z.enum(["金", "木", "水", "火", "土"]),
+  originalLine: z.enum(["yang", "yin"]),
+  isMoving: z.boolean(),
+  marker: z.enum(["世", "应"]).nullish().transform((value) => value ?? null),
+  changedKin: z.enum(["父母", "兄弟", "子孙", "官鬼", "妻财"]),
+  changedStemBranch: z.string().length(2),
+  changedElement: z.enum(["金", "木", "水", "火", "土"]),
+  changedLine: z.enum(["yang", "yin"]),
+});
+
+export const LuojiChartResponseSchema = z.object({
+  overview: z.object({
+    method: z.enum(["铜钱摇盘法", "盘名起盘法", "硬币背数法"]),
+    question: z.string(),
+    solarDateTime: BirthDateTimeSchema,
+    lunarDate: z.string().min(1),
+    pillars: z.object({
+      year: z.string().length(2),
+      month: z.string().length(2),
+      day: z.string().length(2),
+      hour: z.string().length(2),
+    }),
+    voidBranches: z.string().length(2),
+    coinBacks: z.string().regex(/^[0-3]{6}$/).nullish().transform((value) => value ?? null),
+  }),
+  original: LuojiHexagramSchema,
+  changed: LuojiHexagramSchema,
+  lines: z.array(LuojiLineSchema).length(6),
+});
+
+export const LuojiChartWithReferenceSchema = LuojiChartResponseSchema.extend({
+  paipan_ref: PaipanReferenceSchema,
+  expiresAt: z.iso.datetime(),
+});
+
+export const LuojiContextResponseSchema = z.object({
+  schemaVersion: z.literal("guoxue.paipan.luoji.v1"),
+  chartType: z.literal("luoji"),
+  paipan_ref: PaipanReferenceSchema,
+  generatedAt: z.iso.datetime(),
+  expiresAt: z.iso.datetime(),
+  chartRequest: LuojiChartRequestSchema,
+  chart: LuojiChartResponseSchema,
+});
+
 export const FlowMonthsRequestSchema = z.object({
   chart: BaziChartRequestSchema,
   year: z.number().int().min(1900).max(2200),
@@ -762,6 +848,12 @@ export type MeihuaHexagram = z.infer<typeof MeihuaHexagramSchema>;
 export type MeihuaChartResponse = z.infer<typeof MeihuaChartResponseSchema>;
 export type MeihuaChartWithReference = z.infer<typeof MeihuaChartWithReferenceSchema>;
 export type MeihuaContextResponse = z.infer<typeof MeihuaContextResponseSchema>;
+export type LuojiChartRequest = z.infer<typeof LuojiChartRequestSchema>;
+export type LuojiHexagram = z.infer<typeof LuojiHexagramSchema>;
+export type LuojiLine = z.infer<typeof LuojiLineSchema>;
+export type LuojiChartResponse = z.infer<typeof LuojiChartResponseSchema>;
+export type LuojiChartWithReference = z.infer<typeof LuojiChartWithReferenceSchema>;
+export type LuojiContextResponse = z.infer<typeof LuojiContextResponseSchema>;
 export type FlowMonthsRequest = z.infer<typeof FlowMonthsRequestSchema>;
 export type FlowMonthsResponse = z.infer<typeof FlowMonthsResponseSchema>;
 export type ShenShaRequest = z.infer<typeof ShenShaRequestSchema>;

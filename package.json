@@ -24,6 +24,7 @@
     "preview:juece": "node scripts/capture-juece-previews.mjs",
     "preview:yinpan": "node scripts/capture-yinpan-previews.mjs",
     "preview:meihua": "node scripts/capture-meihua-previews.mjs",
+    "preview:luoji": "node scripts/capture-luoji-previews.mjs",
     "golden:juece": "node scripts/generate-juece-golden.mjs",
     "calendar:juece-reference": "node scripts/generate-juece-reference-terms.mjs",
     "db:migrate": "npm run db:migrate --workspace @guoxue/server",
