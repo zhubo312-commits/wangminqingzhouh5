@@ -270,7 +270,7 @@ export function JueceFormPage() {
               </div>
             </fieldset>
           )}
-          <div className="juece-structure-note"><CompassRose size={20} weight="duotone" aria-hidden="true" /><p>仅展示神、星、门、天地盘、寄宫、隐干／暗干支、空亡与马星。</p></div>
+          <div className="juece-structure-note"><CompassRose size={20} weight="duotone" aria-hidden="true" /><p>仅展示神、星、门、天地盘、寄宫、隐干／暗干支、四害、十二长生、天门地户、空亡与马星。</p></div>
         </PaipanSectionCard>
 
         {error && <div className="form-error" role="alert">{error}</div>}

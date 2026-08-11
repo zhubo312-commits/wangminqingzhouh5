@@ -174,6 +174,54 @@
       "status": "equal"
     },
     {
+      "field": "palaces[1].harms",
+      "legacy": [
+        {
+          "symbol": "生",
+          "type": "迫"
+        }
+      ],
+      "current": [
+        {
+          "symbol": "生",
+          "type": "迫"
+        }
+      ],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[1].heavenGrowth",
+      "legacy": [
+        {
+          "branch": "子",
+          "stage": "胎"
+        }
+      ],
+      "current": [
+        {
+          "branch": "子",
+          "stage": "胎"
+        }
+      ],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[1].earthGrowth",
+      "legacy": [
+        {
+          "branch": "子",
+          "stage": "长生"
+        }
+      ],
+      "current": [
+        {
+          "branch": "子",
+          "stage": "长生"
+        }
+      ],
+      "status": "equal"
+    },
+    {
       "field": "palaces[1].isVoid",
       "legacy": false,
       "current": false,
@@ -252,6 +300,76 @@
       "status": "equal"
     },
     {
+      "field": "palaces[2].harms",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[2].heavenGrowth",
+      "legacy": [
+        {
+          "branch": "未",
+          "stage": "冠带"
+        },
+        {
+          "branch": "申",
+          "stage": "沐浴"
+        }
+      ],
+      "current": [
+        {
+          "branch": "未",
+          "stage": "冠带"
+        },
+        {
+          "branch": "申",
+          "stage": "沐浴"
+        }
+      ],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[2].earthGrowth",
+      "legacy": [
+        {
+          "branch": "未",
+          "stage": "养"
+        },
+        {
+          "branch": "申",
+          "stage": "长生"
+        },
+        {
+          "branch": "未",
+          "stage": "衰"
+        },
+        {
+          "branch": "申",
+          "stage": "病"
+        }
+      ],
+      "current": [
+        {
+          "branch": "未",
+          "stage": "养"
+        },
+        {
+          "branch": "申",
+          "stage": "长生"
+        },
+        {
+          "branch": "未",
+          "stage": "衰"
+        },
+        {
+          "branch": "申",
+          "stage": "病"
+        }
+      ],
+      "status": "equal"
+    },
+    {
       "field": "palaces[2].isVoid",
       "legacy": true,
       "current": true,
@@ -317,6 +435,44 @@
       "field": "palaces[3].hiddenGanZhi",
       "legacy": "壬丙",
       "current": "壬丙",
+      "status": "equal"
+    },
+    {
+      "field": "palaces[3].harms",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[3].heavenGrowth",
+      "legacy": [
+        {
+          "branch": "卯",
+          "stage": "绝"
+        }
+      ],
+      "current": [
+        {
+          "branch": "卯",
+          "stage": "绝"
+        }
+      ],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[3].earthGrowth",
+      "legacy": [
+        {
+          "branch": "卯",
+          "stage": "长生"
+        }
+      ],
+      "current": [
+        {
+          "branch": "卯",
+          "stage": "长生"
+        }
+      ],
       "status": "equal"
     },
     {
@@ -388,6 +544,60 @@
       "status": "equal"
     },
     {
+      "field": "palaces[4].harms",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[4].heavenGrowth",
+      "legacy": [
+        {
+          "branch": "辰",
+          "stage": "衰"
+        },
+        {
+          "branch": "巳",
+          "stage": "帝旺"
+        }
+      ],
+      "current": [
+        {
+          "branch": "辰",
+          "stage": "衰"
+        },
+        {
+          "branch": "巳",
+          "stage": "帝旺"
+        }
+      ],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[4].earthGrowth",
+      "legacy": [
+        {
+          "branch": "辰",
+          "stage": "衰"
+        },
+        {
+          "branch": "巳",
+          "stage": "帝旺"
+        }
+      ],
+      "current": [
+        {
+          "branch": "辰",
+          "stage": "衰"
+        },
+        {
+          "branch": "巳",
+          "stage": "帝旺"
+        }
+      ],
+      "status": "equal"
+    },
+    {
       "field": "palaces[4].isVoid",
       "legacy": false,
       "current": false,
@@ -453,6 +663,24 @@
       "field": "palaces[5].hiddenGanZhi",
       "legacy": null,
       "current": null,
+      "status": "equal"
+    },
+    {
+      "field": "palaces[5].harms",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[5].heavenGrowth",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[5].earthGrowth",
+      "legacy": [],
+      "current": [],
       "status": "equal"
     },
     {
@@ -524,6 +752,94 @@
       "status": "equal"
     },
     {
+      "field": "palaces[6].harms",
+      "legacy": [
+        {
+          "symbol": "乙",
+          "type": "墓"
+        },
+        {
+          "symbol": "丙",
+          "type": "墓"
+        }
+      ],
+      "current": [
+        {
+          "symbol": "乙",
+          "type": "墓"
+        },
+        {
+          "symbol": "丙",
+          "type": "墓"
+        }
+      ],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[6].heavenGrowth",
+      "legacy": [
+        {
+          "branch": "戌",
+          "stage": "冠带"
+        },
+        {
+          "branch": "亥",
+          "stage": "临官"
+        },
+        {
+          "branch": "戌",
+          "stage": "墓"
+        },
+        {
+          "branch": "亥",
+          "stage": "绝"
+        }
+      ],
+      "current": [
+        {
+          "branch": "戌",
+          "stage": "冠带"
+        },
+        {
+          "branch": "亥",
+          "stage": "临官"
+        },
+        {
+          "branch": "戌",
+          "stage": "墓"
+        },
+        {
+          "branch": "亥",
+          "stage": "绝"
+        }
+      ],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[6].earthGrowth",
+      "legacy": [
+        {
+          "branch": "戌",
+          "stage": "墓"
+        },
+        {
+          "branch": "亥",
+          "stage": "死"
+        }
+      ],
+      "current": [
+        {
+          "branch": "戌",
+          "stage": "墓"
+        },
+        {
+          "branch": "亥",
+          "stage": "死"
+        }
+      ],
+      "status": "equal"
+    },
+    {
       "field": "palaces[6].isVoid",
       "legacy": false,
       "current": false,
@@ -589,6 +905,44 @@
       "field": "palaces[7].hiddenGanZhi",
       "legacy": "己",
       "current": "己",
+      "status": "equal"
+    },
+    {
+      "field": "palaces[7].harms",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[7].heavenGrowth",
+      "legacy": [
+        {
+          "branch": "酉",
+          "stage": "帝旺"
+        }
+      ],
+      "current": [
+        {
+          "branch": "酉",
+          "stage": "帝旺"
+        }
+      ],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[7].earthGrowth",
+      "legacy": [
+        {
+          "branch": "酉",
+          "stage": "死"
+        }
+      ],
+      "current": [
+        {
+          "branch": "酉",
+          "stage": "死"
+        }
+      ],
       "status": "equal"
     },
     {
@@ -660,6 +1014,78 @@
       "status": "equal"
     },
     {
+      "field": "palaces[8].harms",
+      "legacy": [
+        {
+          "symbol": "伤",
+          "type": "迫"
+        },
+        {
+          "symbol": "己",
+          "type": "墓"
+        }
+      ],
+      "current": [
+        {
+          "symbol": "伤",
+          "type": "迫"
+        },
+        {
+          "symbol": "己",
+          "type": "墓"
+        }
+      ],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[8].heavenGrowth",
+      "legacy": [
+        {
+          "branch": "丑",
+          "stage": "衰"
+        },
+        {
+          "branch": "寅",
+          "stage": "帝旺"
+        }
+      ],
+      "current": [
+        {
+          "branch": "丑",
+          "stage": "衰"
+        },
+        {
+          "branch": "寅",
+          "stage": "帝旺"
+        }
+      ],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[8].earthGrowth",
+      "legacy": [
+        {
+          "branch": "丑",
+          "stage": "墓"
+        },
+        {
+          "branch": "寅",
+          "stage": "死"
+        }
+      ],
+      "current": [
+        {
+          "branch": "丑",
+          "stage": "墓"
+        },
+        {
+          "branch": "寅",
+          "stage": "死"
+        }
+      ],
+      "status": "equal"
+    },
+    {
       "field": "palaces[8].isVoid",
       "legacy": false,
       "current": false,
@@ -728,6 +1154,44 @@
       "status": "equal"
     },
     {
+      "field": "palaces[9].harms",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[9].heavenGrowth",
+      "legacy": [
+        {
+          "branch": "午",
+          "stage": "绝"
+        }
+      ],
+      "current": [
+        {
+          "branch": "午",
+          "stage": "绝"
+        }
+      ],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[9].earthGrowth",
+      "legacy": [
+        {
+          "branch": "午",
+          "stage": "沐浴"
+        }
+      ],
+      "current": [
+        {
+          "branch": "午",
+          "stage": "沐浴"
+        }
+      ],
+      "status": "equal"
+    },
+    {
       "field": "palaces[9].isVoid",
       "legacy": true,
       "current": true,
@@ -749,6 +1213,134 @@
       "field": "palaces[9].isChiefDoor",
       "legacy": false,
       "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "heavenEarthGates",
+      "legacy": [
+        {
+          "branch": "子",
+          "heavenGate": "大吉丑",
+          "earthGate": "建"
+        },
+        {
+          "branch": "丑",
+          "heavenGate": "功曹寅",
+          "earthGate": "除"
+        },
+        {
+          "branch": "寅",
+          "heavenGate": "太冲卯",
+          "earthGate": "满"
+        },
+        {
+          "branch": "卯",
+          "heavenGate": "天罡辰",
+          "earthGate": "平"
+        },
+        {
+          "branch": "辰",
+          "heavenGate": "太乙巳",
+          "earthGate": "定"
+        },
+        {
+          "branch": "巳",
+          "heavenGate": "胜光午",
+          "earthGate": "执"
+        },
+        {
+          "branch": "午",
+          "heavenGate": "小吉未",
+          "earthGate": "破"
+        },
+        {
+          "branch": "未",
+          "heavenGate": "传送申",
+          "earthGate": "危"
+        },
+        {
+          "branch": "申",
+          "heavenGate": "从魁酉",
+          "earthGate": "成"
+        },
+        {
+          "branch": "酉",
+          "heavenGate": "河魁戌",
+          "earthGate": "收"
+        },
+        {
+          "branch": "戌",
+          "heavenGate": "登明亥",
+          "earthGate": "开"
+        },
+        {
+          "branch": "亥",
+          "heavenGate": "神后子",
+          "earthGate": "闭"
+        }
+      ],
+      "current": [
+        {
+          "branch": "子",
+          "heavenGate": "大吉丑",
+          "earthGate": "建"
+        },
+        {
+          "branch": "丑",
+          "heavenGate": "功曹寅",
+          "earthGate": "除"
+        },
+        {
+          "branch": "寅",
+          "heavenGate": "太冲卯",
+          "earthGate": "满"
+        },
+        {
+          "branch": "卯",
+          "heavenGate": "天罡辰",
+          "earthGate": "平"
+        },
+        {
+          "branch": "辰",
+          "heavenGate": "太乙巳",
+          "earthGate": "定"
+        },
+        {
+          "branch": "巳",
+          "heavenGate": "胜光午",
+          "earthGate": "执"
+        },
+        {
+          "branch": "午",
+          "heavenGate": "小吉未",
+          "earthGate": "破"
+        },
+        {
+          "branch": "未",
+          "heavenGate": "传送申",
+          "earthGate": "危"
+        },
+        {
+          "branch": "申",
+          "heavenGate": "从魁酉",
+          "earthGate": "成"
+        },
+        {
+          "branch": "酉",
+          "heavenGate": "河魁戌",
+          "earthGate": "收"
+        },
+        {
+          "branch": "戌",
+          "heavenGate": "登明亥",
+          "earthGate": "开"
+        },
+        {
+          "branch": "亥",
+          "heavenGate": "神后子",
+          "earthGate": "闭"
+        }
+      ],
       "status": "equal"
     }
   ]

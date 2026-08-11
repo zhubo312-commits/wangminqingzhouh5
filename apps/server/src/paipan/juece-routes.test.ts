@@ -106,6 +106,28 @@ afterEach(async () => {
 });
 
 describe("Juece public routes", () => {
+  it("keeps v1 contexts compatible when structural arrays are absent", () => {
+    const legacy = JSON.parse(JSON.stringify(chart)) as {
+      heavenEarthGates?: unknown;
+      palaces: Array<Record<string, unknown>>;
+    };
+    delete legacy.heavenEarthGates;
+    for (const palace of legacy.palaces) {
+      delete palace.harms;
+      delete palace.heavenGrowth;
+      delete palace.earthGrowth;
+    }
+
+    const restored = JueceChartResponseSchema.parse(legacy);
+
+    expect(restored.heavenEarthGates).toEqual([]);
+    expect(restored.palaces.every((palace) => (
+      palace.harms.length === 0
+      && palace.heavenGrowth.length === 0
+      && palace.earthGrowth.length === 0
+    ))).toBe(true);
+  });
+
   it("creates and restores one typed short-lived context", async () => {
     const fetchMock = vi.fn<typeof fetch>(async (input, init) => {
       expect(String(input)).toBe("http://paipan.test/internal/v1/juece/chart");
@@ -140,6 +162,8 @@ describe("Juece public routes", () => {
     const restored = JueceContextResponseSchema.parse(restoredResponse.json());
     expect(restored.chartRequest).toEqual(request);
     expect(restored.chart.overview.juNumber).toBe(5);
+    expect(restored.chart.heavenEarthGates).toEqual([]);
+    expect(restored.chart.palaces.every((palace) => palace.harms.length === 0)).toBe(true);
 
     database.raw.prepare(
       "UPDATE paipan_contexts SET schema_version = ? WHERE reference_hash = ?",

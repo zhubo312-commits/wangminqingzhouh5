@@ -71,6 +71,24 @@
       },
       "attached": null,
       "hiddenGanZhi": "丁",
+      "harms": [
+        {
+          "symbol": "生",
+          "type": "迫"
+        }
+      ],
+      "heavenGrowth": [
+        {
+          "branch": "子",
+          "stage": "胎"
+        }
+      ],
+      "earthGrowth": [
+        {
+          "branch": "子",
+          "stage": "长生"
+        }
+      ],
       "isVoid": false,
       "isHorse": false,
       "isChief": false,
@@ -100,6 +118,35 @@
         "heavenStar": null
       },
       "hiddenGanZhi": "辛",
+      "harms": [],
+      "heavenGrowth": [
+        {
+          "branch": "未",
+          "stage": "冠带"
+        },
+        {
+          "branch": "申",
+          "stage": "沐浴"
+        }
+      ],
+      "earthGrowth": [
+        {
+          "branch": "未",
+          "stage": "养"
+        },
+        {
+          "branch": "申",
+          "stage": "长生"
+        },
+        {
+          "branch": "未",
+          "stage": "衰"
+        },
+        {
+          "branch": "申",
+          "stage": "病"
+        }
+      ],
       "isVoid": true,
       "isHorse": false,
       "isChief": false,
@@ -124,6 +171,19 @@
       },
       "attached": null,
       "hiddenGanZhi": "壬丙",
+      "harms": [],
+      "heavenGrowth": [
+        {
+          "branch": "卯",
+          "stage": "绝"
+        }
+      ],
+      "earthGrowth": [
+        {
+          "branch": "卯",
+          "stage": "长生"
+        }
+      ],
       "isVoid": false,
       "isHorse": false,
       "isChief": false,
@@ -148,6 +208,27 @@
       },
       "attached": null,
       "hiddenGanZhi": "戊",
+      "harms": [],
+      "heavenGrowth": [
+        {
+          "branch": "辰",
+          "stage": "衰"
+        },
+        {
+          "branch": "巳",
+          "stage": "帝旺"
+        }
+      ],
+      "earthGrowth": [
+        {
+          "branch": "辰",
+          "stage": "衰"
+        },
+        {
+          "branch": "巳",
+          "stage": "帝旺"
+        }
+      ],
       "isVoid": false,
       "isHorse": false,
       "isChief": false,
@@ -172,6 +253,9 @@
       },
       "attached": null,
       "hiddenGanZhi": null,
+      "harms": [],
+      "heavenGrowth": [],
+      "earthGrowth": [],
       "isVoid": false,
       "isHorse": false,
       "isChief": false,
@@ -196,6 +280,44 @@
       },
       "attached": null,
       "hiddenGanZhi": "癸",
+      "harms": [
+        {
+          "symbol": "乙",
+          "type": "墓"
+        },
+        {
+          "symbol": "丙",
+          "type": "墓"
+        }
+      ],
+      "heavenGrowth": [
+        {
+          "branch": "戌",
+          "stage": "冠带"
+        },
+        {
+          "branch": "亥",
+          "stage": "临官"
+        },
+        {
+          "branch": "戌",
+          "stage": "墓"
+        },
+        {
+          "branch": "亥",
+          "stage": "绝"
+        }
+      ],
+      "earthGrowth": [
+        {
+          "branch": "戌",
+          "stage": "墓"
+        },
+        {
+          "branch": "亥",
+          "stage": "死"
+        }
+      ],
       "isVoid": false,
       "isHorse": false,
       "isChief": false,
@@ -220,6 +342,19 @@
       },
       "attached": null,
       "hiddenGanZhi": "己",
+      "harms": [],
+      "heavenGrowth": [
+        {
+          "branch": "酉",
+          "stage": "帝旺"
+        }
+      ],
+      "earthGrowth": [
+        {
+          "branch": "酉",
+          "stage": "死"
+        }
+      ],
       "isVoid": false,
       "isHorse": false,
       "isChief": true,
@@ -244,6 +379,36 @@
       },
       "attached": null,
       "hiddenGanZhi": "庚",
+      "harms": [
+        {
+          "symbol": "伤",
+          "type": "迫"
+        },
+        {
+          "symbol": "己",
+          "type": "墓"
+        }
+      ],
+      "heavenGrowth": [
+        {
+          "branch": "丑",
+          "stage": "衰"
+        },
+        {
+          "branch": "寅",
+          "stage": "帝旺"
+        }
+      ],
+      "earthGrowth": [
+        {
+          "branch": "丑",
+          "stage": "墓"
+        },
+        {
+          "branch": "寅",
+          "stage": "死"
+        }
+      ],
       "isVoid": false,
       "isHorse": true,
       "isChief": false,
@@ -268,10 +433,85 @@
       },
       "attached": null,
       "hiddenGanZhi": "乙",
+      "harms": [],
+      "heavenGrowth": [
+        {
+          "branch": "午",
+          "stage": "绝"
+        }
+      ],
+      "earthGrowth": [
+        {
+          "branch": "午",
+          "stage": "沐浴"
+        }
+      ],
       "isVoid": true,
       "isHorse": false,
       "isChief": false,
       "isChiefDoor": false
+    }
+  ],
+  "heavenEarthGates": [
+    {
+      "branch": "子",
+      "heavenGate": "大吉丑",
+      "earthGate": "建"
+    },
+    {
+      "branch": "丑",
+      "heavenGate": "功曹寅",
+      "earthGate": "除"
+    },
+    {
+      "branch": "寅",
+      "heavenGate": "太冲卯",
+      "earthGate": "满"
+    },
+    {
+      "branch": "卯",
+      "heavenGate": "天罡辰",
+      "earthGate": "平"
+    },
+    {
+      "branch": "辰",
+      "heavenGate": "太乙巳",
+      "earthGate": "定"
+    },
+    {
+      "branch": "巳",
+      "heavenGate": "胜光午",
+      "earthGate": "执"
+    },
+    {
+      "branch": "午",
+      "heavenGate": "小吉未",
+      "earthGate": "破"
+    },
+    {
+      "branch": "未",
+      "heavenGate": "传送申",
+      "earthGate": "危"
+    },
+    {
+      "branch": "申",
+      "heavenGate": "从魁酉",
+      "earthGate": "成"
+    },
+    {
+      "branch": "酉",
+      "heavenGate": "河魁戌",
+      "earthGate": "收"
+    },
+    {
+      "branch": "戌",
+      "heavenGate": "登明亥",
+      "earthGate": "开"
+    },
+    {
+      "branch": "亥",
+      "heavenGate": "神后子",
+      "earthGate": "闭"
     }
   ]
 }

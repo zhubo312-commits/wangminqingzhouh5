@@ -36,7 +36,8 @@ public final class JueceModels {
     @JsonInclude(JsonInclude.Include.ALWAYS)
     public record ChartResponse(
             Overview overview,
-            List<Palace> palaces) {}
+            List<Palace> palaces,
+            List<HeavenEarthGate> heavenEarthGates) {}
 
     @JsonInclude(JsonInclude.Include.ALWAYS)
     public record Overview(
@@ -84,6 +85,15 @@ public final class JueceModels {
 
     public record Horse(String branch, int palace) {}
 
+    public record Harm(String symbol, String type) {}
+
+    public record GrowthStage(String branch, String stage) {}
+
+    public record HeavenEarthGate(
+            String branch,
+            String heavenGate,
+            String earthGate) {}
+
     @JsonInclude(JsonInclude.Include.ALWAYS)
     public record PlateLayer(
             String stem,
@@ -108,6 +118,9 @@ public final class JueceModels {
             PlateLayer earthPlate,
             Attached attached,
             String hiddenGanZhi,
+            List<Harm> harms,
+            List<GrowthStage> heavenGrowth,
+            List<GrowthStage> earthGrowth,
             boolean isVoid,
             boolean isHorse,
             boolean isChief,

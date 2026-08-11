@@ -425,6 +425,9 @@ export const JuecePalaceSchema = z.object({
     heavenStar: z.string().min(1).nullable(),
   }).nullable(),
   hiddenGanZhi: z.string().min(1).nullable(),
+  harms: z.array(DunjiaHarmSchema).default([]),
+  heavenGrowth: z.array(DunjiaGrowthStageSchema).default([]),
+  earthGrowth: z.array(DunjiaGrowthStageSchema).default([]),
   isVoid: z.boolean(),
   isHorse: z.boolean(),
   isChief: z.boolean(),
@@ -489,6 +492,13 @@ export const JueceChartResponseSchema = z.object({
     }),
   }),
   palaces: z.array(JuecePalaceSchema).length(9),
+  heavenEarthGates: z.array(
+    z.object({
+      branch: z.string().min(1),
+      heavenGate: z.string().min(1),
+      earthGate: z.string().min(1),
+    }),
+  ).max(12).default([]),
 });
 
 export const JueceChartWithReferenceSchema = JueceChartResponseSchema.extend({

@@ -72,10 +72,18 @@ function chart(clockDateTime: string) {
       },
       attached: index === 2 ? { earthStem: "戊", earthStar: "天禽", heavenStem: null, heavenStar: null } : null,
       hiddenGanZhi: null,
+      harms: index === 2 ? [{ symbol: "伤", type: "迫" as const }] : [],
+      heavenGrowth: index === 2 ? [{ branch: "未", stage: "养" }] : [],
+      earthGrowth: index === 2 ? [{ branch: "未", stage: "衰" }] : [],
       isVoid: index === 3 || index === 8,
       isHorse: index === 8,
       isChief: index === 2,
       isChiefDoor: index === 6,
+    })),
+    heavenEarthGates: "子丑寅卯辰巳午未申酉戌亥".split("").map((branch, index) => ({
+      branch,
+      heavenGate: ["太冲卯", "小吉未", "从魁酉"][index] ?? `天门${index + 1}`,
+      earthGate: ["除", "危", "定", "开"][index] ?? `地户${index + 1}`,
     })),
   };
 }
@@ -122,10 +130,12 @@ test("completes, switches and restores the reference-aligned decision chart with
   }));
 
   await page.goto(appPath("/paipan/juece"));
-  await expect(page.getByText("转盘固定规则")).toBeVisible();
   await expect(page.getByRole("heading", { name: "起盘条件" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "盘式与定局" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "标记与寄宫" })).toBeVisible();
+  await expect(page.getByText("定局方式")).toBeVisible();
+  await expect(page.getByText("旬空标记")).toBeVisible();
+  await expect(page.getByText("寄宫方式")).toBeVisible();
 
   await page.getByRole("tab", { name: "阴历" }).click();
   await expect(page.getByRole("tab", { name: "阴历" })).toHaveAttribute("aria-selected", "true");
@@ -144,9 +154,9 @@ test("completes, switches and restores the reference-aligned decision chart with
   await expect(page.locator(".juece-number-grid button")).toHaveCount(9);
   await page.getByRole("button", { name: "拆补" }).click();
   await page.getByRole("button", { name: "转盘", exact: true }).click();
-  await expect(page.getByText("转盘固定规则")).toBeVisible();
-  await expect(page.getByText("时空 · 寄坤宫")).toBeVisible();
-  await expect(page.getByRole("button", { name: "手工定局" })).toHaveCount(0);
+  await expect(page.getByText("飞盘顺逆规则")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "手工定局" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "寄坤宫" })).toBeVisible();
 
   expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)).toBe(false);
   await page.locator("form").evaluate((form: HTMLFormElement) => {
@@ -161,11 +171,23 @@ test("completes, switches and restores the reference-aligned decision chart with
   await expect(page.locator(".interpretation-entry")).toHaveCount(0);
   await expect(page.getByText("智能老师", { exact: false })).toHaveCount(0);
   expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)).toBe(false);
+  await expect(page.getByText("立秋")).toHaveCount(0);
+  await page.getByRole("button", { name: "更多" }).click();
+  await expect(page.getByText("立秋")).toBeVisible();
+  await expect(page.getByRole("button", { name: "收起" })).toBeVisible();
 
   const kunPalace = page.locator(".juece-palace").filter({ hasText: "坤2" });
   await kunPalace.click();
   await expect(page.locator("#juece-palace-detail")).toContainText("中宫寄宫");
   await expect(page.locator("#juece-palace-detail")).toContainText("值符");
+  await expect(page.locator("#juece-palace-detail")).toContainText("四害");
+  await expect(page.locator("#juece-palace-detail")).toContainText("天盘长生");
+  await expect(page.getByText("天门地户 · 出行辅助")).toBeVisible();
+
+  await page.getByRole("button", { name: "放大查看" }).click();
+  await expect(page.getByRole("dialog", { name: "九宫主盘放大图" })).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)).toBe(false);
+  await page.getByRole("button", { name: "关闭放大查看" }).click();
 
   const initialTime = received[0]!.chartDateTime;
   await page.getByRole("button", { name: "下一时辰" }).click();

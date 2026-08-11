@@ -43,6 +43,20 @@ class ShijiaJueceEngineTest {
             assertThat(chart.overview().centerPalaceMethod()).isEqualTo("kun");
             assertThat(chart.overview().selectedVoidBranches()).isEqualTo(chart.overview().voidBranches().hour());
             assertThat(chart.overview().method()).isEqualTo("转盘 · 寄坤宫 · 拆补 · 时空");
+            assertThat(chart.heavenEarthGates()).hasSize(12);
+            assertThat(chart.palaces()).filteredOn(palace -> palace.index() != 5)
+                    .allSatisfy(palace -> {
+                        assertThat(palace.heavenGrowth()).isNotEmpty();
+                        assertThat(palace.earthGrowth()).isNotEmpty();
+                    });
+        });
+        assertThat(charts.subList(4, 6)).allSatisfy(chart -> {
+            assertThat(chart.heavenEarthGates()).isEmpty();
+            assertThat(chart.palaces()).allSatisfy(palace -> {
+                assertThat(palace.harms()).isEmpty();
+                assertThat(palace.heavenGrowth()).isEmpty();
+                assertThat(palace.earthGrowth()).isEmpty();
+            });
         });
         assertThat(charts.get(1).overview().trueSolarTime()).isNotNull();
         assertThat(charts.get(1).overview().areaCode()).isEqualTo("110105");
@@ -67,6 +81,9 @@ class ShijiaJueceEngineTest {
         assertThat(rotating.overview().chiefDoor()).isEqualTo(new Chief("休门", 6));
         assertThat(rotating.overview().horse()).isEqualTo(new Horse("寅", 8));
         assertThat(kun.hiddenGanZhi()).isEqualTo("己");
+        assertThat(rotating.palaces()).flatExtracting(Palace::harms).isNotEmpty();
+        assertThat(rotating.heavenEarthGates()).extracting(HeavenEarthGate::branch)
+                .containsExactly("子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥");
 
         ChartResponse flying = engine.chart(request(
                 "2026-08-11 16:00", standard(), flying("yang_forward_yin_reverse"), automatic("chai_bu"), "hour"));

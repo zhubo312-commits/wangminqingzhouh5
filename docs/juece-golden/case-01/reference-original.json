@@ -1,6 +1,6 @@
 {
   "source": "https://ft.bavor.cn/prod-api/app/qimen/getXingHeQimenH5?birthDay=2026-08-11+16%3A00&question=&isKe=4",
-  "capturedAt": "2026-08-11T10:05:49.808Z",
+  "capturedAt": "2026-08-11T11:09:25.955Z",
   "execution": "reference site Xinghe API",
   "result": {
     "msg": "操作成功",

@@ -3010,6 +3010,43 @@ footer {
   font-weight: 500;
 }
 
+.juece-verification-primary .info-pair:last-child {
+  grid-column: 1 / -1;
+}
+
+.juece-more-toggle {
+  display: flex;
+  width: 100%;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 7px;
+  border: 0;
+  border-radius: 9px;
+  color: var(--juece-blue);
+  background: rgba(50, 77, 97, 0.06);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.juece-more-toggle svg {
+  transition: transform 180ms ease;
+}
+
+.juece-more-toggle[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+.juece-term-more-grid {
+  margin-top: 7px;
+  animation: mode-in 180ms ease-out;
+}
+
+.juece-term-more-grid .info-pair:last-child {
+  grid-column: auto;
+}
+
 .juece-hour-switch {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
@@ -3223,6 +3260,12 @@ footer {
   line-height: 1;
 }
 
+.juece-palace-markers i.harm,
+.juece-legend i.harm {
+  width: auto;
+  padding-inline: 4px;
+}
+
 .juece-palace-markers .void,
 .juece-legend .void { color: #38576c; background: rgba(56, 87, 108, 0.12); }
 .juece-palace-markers .horse { color: #8c6500; background: rgba(140, 101, 0, 0.12); }
@@ -3230,6 +3273,12 @@ footer {
 .juece-legend .chief { color: #fff9ed; background: var(--vermilion); }
 .juece-palace-markers .chief-door,
 .juece-legend .chief-door { color: #fff9ed; background: var(--juece-blue); }
+.juece-palace-markers .harm-墓,
+.juece-legend .harm-墓 { color: #80600a; background: rgba(128, 96, 10, 0.12); }
+.juece-palace-markers .harm-刑,
+.juece-legend .harm-刑 { color: #963f2d; background: rgba(150, 63, 45, 0.12); }
+.juece-palace-markers .harm-迫,
+.juece-legend .harm-迫 { color: #7a4772; background: rgba(122, 71, 114, 0.12); }
 
 .juece-palace-detail {
   grid-column: 1 / -1;
@@ -3306,6 +3355,118 @@ footer {
   color: var(--muted);
   font-size: 11px;
   line-height: 1.5;
+}
+
+.juece-chart-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 10px 5px 0;
+}
+
+.juece-chart-actions button {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border: 1px solid rgba(50, 77, 97, 0.24);
+  border-radius: 10px;
+  color: var(--juece-blue);
+  background: rgba(50, 77, 97, 0.06);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.juece-more-toggle:focus-visible,
+.juece-chart-actions button:focus-visible,
+.juece-zoom-heading button:focus-visible {
+  outline: 3px solid rgba(178, 77, 52, 0.42);
+  outline-offset: 2px;
+}
+
+.juece-zoom-overlay {
+  position: fixed;
+  z-index: 60;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  overscroll-behavior: contain;
+  background: rgba(35, 28, 20, 0.66);
+  backdrop-filter: blur(4px);
+}
+
+.juece-zoom-panel {
+  display: grid;
+  width: min(100%, 760px);
+  max-height: calc(100dvh - 24px);
+  gap: 8px;
+  padding: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(205, 181, 146, 0.85);
+  border-radius: 18px;
+  background: #fffaf0;
+  box-shadow: 0 22px 60px rgba(35, 28, 20, 0.28);
+}
+
+.juece-zoom-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.juece-zoom-heading small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.juece-zoom-heading h2 {
+  margin: 1px 0 0;
+  color: var(--juece-blue);
+  font-family: "Noto Serif SC", "Songti SC", STSong, serif;
+  font-size: 19px;
+}
+
+.juece-zoom-heading button {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: var(--juece-blue);
+  background: rgba(50, 77, 97, 0.08);
+}
+
+.juece-zoom-panel > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.juece-zoom-scroll {
+  min-width: 0;
+  overflow: auto;
+  border-radius: 14px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.juece-nine-grid-zoomed {
+  width: 680px;
+  margin-top: 0;
+}
+
+.juece-nine-grid-zoomed .juece-palace {
+  min-height: 195px;
+  padding: 10px 9px;
+}
+
+.juece-gates-card {
+  margin-inline: 0;
 }
 
 .juece-legend .result-section-title {

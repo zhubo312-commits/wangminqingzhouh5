@@ -182,7 +182,7 @@ public class ShijiaJueceEngine {
                 new Chief(head.chiefStar(), chiefStarPalace),
                 new Chief(head.chiefDoor(), chiefDoorPalace),
                 new Horse(head.horseBranch(), horsePalace));
-        return new ChartResponse(overview, palaces);
+        return new ChartResponse(overview, palaces, List.of());
     }
 
     private ChartResponse rotatingReferenceChart(
@@ -196,6 +196,7 @@ public class ShijiaJueceEngine {
         JSONObject legacy = dunjiaEngine.chart(request.chartDateTime());
         JSONObject rawOverview = (JSONObject) JSONObject.toJSON(legacy.get("qiMenZao"));
         JSONArray rawPalaces = (JSONArray) JSONObject.toJSON(legacy.get("qimenGong"));
+        JSONArray rawGates = (JSONArray) JSONObject.toJSON(legacy.get("tianMenDiHuList"));
 
         int chiefStarPalace = rawOverview.getIntValue("zhiFuIndex");
         int chiefDoorPalace = rawOverview.getIntValue("zhiShiIndex");
@@ -209,6 +210,13 @@ public class ShijiaJueceEngine {
                 .mapToInt(Palace::index)
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException("马星未落宫"));
+        List<HeavenEarthGate> heavenEarthGates = rawGates.stream()
+                .map(JSONObject.class::cast)
+                .map(raw -> new HeavenEarthGate(
+                        raw.getString("diZhi"),
+                        raw.getString("tianMen"),
+                        raw.getString("diHu")))
+                .toList();
 
         Overview overview = new Overview(
                 "转盘 · 寄坤宫 · 拆补 · 时空",
@@ -248,7 +256,7 @@ public class ShijiaJueceEngine {
                 new Chief(stripSuffix(rawOverview.getString("zhiFu"), "星"), chiefStarPalace),
                 new Chief(doorName(rawOverview.getString("zhiShi")), chiefDoorPalace),
                 new Horse(rawOverview.getString("maXingContent"), horsePalace));
-        return new ChartResponse(overview, palaces);
+        return new ChartResponse(overview, palaces, heavenEarthGates);
     }
 
     private Palace referencePalace(JSONObject raw, int chiefStarPalace, int chiefDoorPalace) {
@@ -278,10 +286,31 @@ public class ShijiaJueceEngine {
                         null),
                 attached,
                 hidden,
+                harms(raw),
+                growthStages(raw, "tianGanChangSheng"),
+                growthStages(raw, "diZhiChangSheng"),
                 raw.getBooleanValue("isXunKong"),
                 raw.getBooleanValue("isMaXing"),
                 index == chiefStarPalace,
                 index == chiefDoorPalace);
+    }
+
+    private List<Harm> harms(JSONObject raw) {
+        JSONArray values = raw.getJSONArray("siHai");
+        if (values == null) return List.of();
+        return values.stream()
+                .map(JSONObject.class::cast)
+                .map(item -> new Harm(item.getString("word"), item.getString("siHai")))
+                .toList();
+    }
+
+    private List<GrowthStage> growthStages(JSONObject raw, String field) {
+        JSONArray values = raw.getJSONArray(field);
+        if (values == null) return List.of();
+        return values.stream()
+                .map(JSONObject.class::cast)
+                .map(item -> new GrowthStage(item.getString("title"), item.getString("content")))
+                .toList();
     }
 
     private String nullableLegacy(String value) {
@@ -575,6 +604,9 @@ public class ShijiaJueceEngine {
                 new PlateLayer(data.earthStem, data.earthStar, data.earthDoor, data.earthDeity),
                 attached,
                 data.hiddenGanZhi,
+                List.of(),
+                List.of(),
+                List.of(),
                 data.isVoid,
                 data.isHorse,
                 data.index == chiefStarPalace,

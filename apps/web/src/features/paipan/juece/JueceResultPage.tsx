@@ -1,12 +1,16 @@
 import type { JueceChartRequest, JuecePalace } from "@guoxue/contracts";
 import {
   ArrowClockwise,
+  ArrowsOut,
   CalendarDots,
+  CaretDown,
   CaretLeft,
   CaretRight,
   CompassRose,
   Horse,
   SealCheck,
+  Signpost,
+  X,
 } from "@phosphor-icons/react";
 import { Fragment, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -41,13 +45,16 @@ function PillarStrip({ pillars, voids }: {
 }
 
 function PalaceMarkers({ palace }: { palace: JuecePalace }) {
-  if (!palace.isVoid && !palace.isHorse && !palace.isChief && !palace.isChiefDoor) return null;
+  if (!palace.isVoid && !palace.isHorse && !palace.isChief && !palace.isChiefDoor && palace.harms.length === 0) return null;
   return (
     <span className="juece-palace-markers">
       {palace.isVoid && <i className="void">空</i>}
       {palace.isHorse && <i className="horse">马</i>}
       {palace.isChief && <i className="chief">符</i>}
       {palace.isChiefDoor && <i className="chief-door">使</i>}
+      {palace.harms.map((harm, index) => (
+        <i className={`harm harm-${harm.type}`} key={`${harm.symbol}-${harm.type}-${index}`}>{harm.symbol}{harm.type}</i>
+      ))}
     </span>
   );
 }
@@ -107,6 +114,18 @@ function PalaceDetail({ palace, hiddenLabel }: { palace: JuecePalace; hiddenLabe
         <InfoPair label="马星" value={palace.isHorse ? "是" : "否"} />
         <InfoPair label="值符／值使" value={[palace.isChief ? "值符" : "", palace.isChiefDoor ? "值使" : ""].filter(Boolean).join("、") || "无"} />
       </InfoGrid>
+      {palace.harms.length > 0 && (
+        <div className="dunjia-detail-harms">
+          <h4>四害</h4>
+          <div>{palace.harms.map((harm, index) => <span key={`${harm.symbol}-${harm.type}-${index}`}>{harm.symbol} · {harm.type}</span>)}</div>
+        </div>
+      )}
+      {(palace.heavenGrowth.length > 0 || palace.earthGrowth.length > 0) && (
+        <div className="dunjia-growth-grid">
+          <GrowthList title="天盘长生" values={palace.heavenGrowth} />
+          <GrowthList title="地盘长生" values={palace.earthGrowth} />
+        </div>
+      )}
       {palace.attached && (
         <div className="juece-attached-detail">
           <h4>中宫寄宫</h4>
@@ -120,6 +139,20 @@ function PalaceDetail({ palace, hiddenLabel }: { palace: JuecePalace; hiddenLabe
   );
 }
 
+function GrowthList({ title, values }: {
+  title: string;
+  values: JuecePalace["heavenGrowth"];
+}) {
+  return (
+    <div className="dunjia-growth-group">
+      <h4>{title}</h4>
+      <div>{values.map((item, index) => (
+        <span key={`${item.branch}-${item.stage}-${index}`}>{item.branch} · {item.stage}</span>
+      ))}</div>
+    </div>
+  );
+}
+
 export function JueceResultPage() {
   const navigate = useNavigate();
   const { chart, chartRequest, isRestoring, setResult } = useJueceSession();
@@ -127,6 +160,8 @@ export function JueceResultPage() {
   const [switching, setSwitching] = useState(false);
   const [switchError, setSwitchError] = useState<string | null>(null);
   const [retryDelta, setRetryDelta] = useState<-2 | 2 | null>(null);
+  const [showMore, setShowMore] = useState(false);
+  const [zoomed, setZoomed] = useState(false);
 
   const orderedPalaces = useMemo(() => PALACE_ORDER.map(
     (index) => chart?.palaces.find((palace) => palace.index === index),
@@ -182,6 +217,12 @@ export function JueceResultPage() {
   }
 
   const { overview } = chart;
+  const heavenGates = chart.heavenEarthGates.filter((item) =>
+    ["太冲", "小吉", "从魁"].some((name) => item.heavenGate.startsWith(name)),
+  );
+  const earthGates = chart.heavenEarthGates.filter((item) =>
+    ["除", "危", "定", "开"].includes(item.earthGate),
+  );
   return (
     <PaipanPageShell pageClassName="result-page juece-result-page">
       <PageHeader title="决策盘" backTo="/paipan/juece" backLabel="返回决策学表单" />
@@ -200,15 +241,22 @@ export function JueceResultPage() {
         <PillarStrip pillars={overview.pillars} voids={overview.voidBranches} />
         <div className="juece-verification-block">
           <div><SealCheck size={20} weight="duotone" aria-hidden="true" /><span><strong>起局与核验</strong><small>{overview.method}</small></span></div>
-          <InfoGrid className="juece-verification-grid">
-            <InfoPair label="上一节气" value={<>{overview.previousSolarTerm.name}<small>{overview.previousSolarTerm.dateTime}</small></>} />
-            <InfoPair label="下一节气" value={<>{overview.nextSolarTerm.name}<small>{overview.nextSolarTerm.dateTime}</small></>} />
+          <InfoGrid className="juece-verification-grid juece-verification-primary">
             <InfoPair label="旬首" value={overview.xunShou} />
             <InfoPair label="本盘旬空" value={overview.selectedVoidBranches} />
             <InfoPair label="值符" value={`${overview.chiefStar.name} · ${overview.chiefStar.palace}宫`} />
             <InfoPair label="值使" value={`${overview.chiefDoor.name} · ${overview.chiefDoor.palace}宫`} />
             <InfoPair label="马星" value={`${overview.horse.branch} · ${overview.horse.palace}宫`} />
           </InfoGrid>
+          <button className="juece-more-toggle" type="button" aria-expanded={showMore} onClick={() => setShowMore((current) => !current)}>
+            {showMore ? "收起" : "更多"}<CaretDown size={16} weight="bold" aria-hidden="true" />
+          </button>
+          {showMore && (
+            <InfoGrid className="juece-verification-grid juece-term-more-grid">
+              <InfoPair label="上一节气" value={<>{overview.previousSolarTerm.name}<small>{overview.previousSolarTerm.dateTime}</small></>} />
+              <InfoPair label="下一节气" value={<>{overview.nextSolarTerm.name}<small>{overview.nextSolarTerm.dateTime}</small></>} />
+            </InfoGrid>
+          )}
         </div>
         <div className="juece-hour-switch" aria-label="时辰切换">
           <button type="button" disabled={switching} onClick={() => void switchHour(-2)}><CaretLeft size={18} weight="bold" aria-hidden="true" /><span>上一时辰</span></button>
@@ -244,7 +292,36 @@ export function JueceResultPage() {
             );
           })}
         </div>
+        <div className="juece-chart-actions">
+          <button type="button" onClick={() => setZoomed(true)}><ArrowsOut size={19} weight="bold" aria-hidden="true" />放大查看</button>
+          <button type="button" onClick={() => navigate("/paipan/juece")}><ArrowClockwise size={19} weight="bold" aria-hidden="true" />重新排盘</button>
+        </div>
       </PaipanSectionCard>
+
+      {chart.heavenEarthGates.length > 0 && (
+        <details className="result-card dunjia-details-card dunjia-gates-card juece-gates-card">
+          <summary><span><Signpost size={21} weight="duotone" aria-hidden="true" />天门地户 · 出行辅助</span><CaretDown size={19} weight="bold" aria-hidden="true" /></summary>
+          <div className="dunjia-gates-content">
+            <p>用于传统出行与择向的结构参考，不属于九宫主盘的必读信息。</p>
+            <div className="dunjia-gate-groups">
+              <section aria-labelledby="juece-heaven-gates-heading">
+                <h3 id="juece-heaven-gates-heading">天三门</h3>
+                <small>太冲、小吉、从魁所临地支</small>
+                <div>{heavenGates.map((item) => (
+                  <span className="dunjia-gate-item" key={`heaven-${item.branch}`}><strong>{item.heavenGate}</strong><em>临 {item.branch}</em></span>
+                ))}</div>
+              </section>
+              <section aria-labelledby="juece-earth-gates-heading">
+                <h3 id="juece-earth-gates-heading">地四户</h3>
+                <small>除、危、定、开所临地支</small>
+                <div>{earthGates.map((item) => (
+                  <span className="dunjia-gate-item" key={`earth-${item.branch}`}><strong>{item.earthGate}</strong><em>临 {item.branch}</em></span>
+                ))}</div>
+              </section>
+            </div>
+          </div>
+        </details>
+      )}
 
       <PaipanSectionCard className="juece-legend" label="盘面标记说明">
         <h2 className="result-section-title"><span>注</span>标记说明</h2>
@@ -252,12 +329,31 @@ export function JueceResultPage() {
           <span><i className="void">空</i>所选旬空</span>
           <span><i className="chief">符</i>值符所临</span>
           <span><i className="chief-door">使</i>值使所临</span>
+          <span><i className="harm harm-墓">墓</i>入墓</span>
+          <span><i className="harm harm-刑">刑</i>击刑</span>
+          <span><i className="harm harm-迫">迫</i>门迫</span>
           <span><Horse size={16} weight="duotone" aria-hidden="true" />马星所临</span>
         </div>
         <p>转盘显示中宫寄宫与隐干；飞盘显示暗干支与天地八神。盘面不提供个案吉凶判断。</p>
       </PaipanSectionCard>
 
       <p className="culture-notice">传统文化研究与娱乐参考，请理性看待推演结果</p>
+
+      {zoomed && (
+        <div className="juece-zoom-overlay" role="dialog" aria-modal="true" aria-labelledby="juece-zoom-heading" onKeyDown={(event) => { if (event.key === "Escape") setZoomed(false); }}>
+          <div className="juece-zoom-panel">
+            <div className="juece-zoom-heading"><div><small>{overview.method}</small><h2 id="juece-zoom-heading">九宫主盘放大图</h2></div><button type="button" aria-label="关闭放大查看" onClick={() => setZoomed(false)}><X size={23} weight="bold" aria-hidden="true" /></button></div>
+            <p>横向滑动查看完整盘面；点击宫位可返回查看该宫详情。</p>
+            <div className="juece-zoom-scroll">
+              <div className="juece-nine-grid juece-nine-grid-zoomed" role="group" aria-label="放大的决策九宫盘">
+                {orderedPalaces.map((palace) => (
+                  <PalaceCell key={`zoom-${palace.index}`} palace={palace} selected={false} onSelect={() => { setSelectedPalaceIndex(palace.index); setZoomed(false); }} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </PaipanPageShell>
   );
 }

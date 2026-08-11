@@ -174,6 +174,24 @@
       "status": "equal"
     },
     {
+      "field": "palaces[1].harms",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[1].heavenGrowth",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[1].earthGrowth",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
       "field": "palaces[1].isVoid",
       "legacy": false,
       "current": false,
@@ -239,6 +257,24 @@
       "field": "palaces[2].hiddenGanZhi",
       "legacy": "壬子",
       "current": "壬子",
+      "status": "equal"
+    },
+    {
+      "field": "palaces[2].harms",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[2].heavenGrowth",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[2].earthGrowth",
+      "legacy": [],
+      "current": [],
       "status": "equal"
     },
     {
@@ -310,6 +346,24 @@
       "status": "equal"
     },
     {
+      "field": "palaces[3].harms",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[3].heavenGrowth",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[3].earthGrowth",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
       "field": "palaces[3].isVoid",
       "legacy": true,
       "current": true,
@@ -375,6 +429,24 @@
       "field": "palaces[4].hiddenGanZhi",
       "legacy": "庚戌",
       "current": "庚戌",
+      "status": "equal"
+    },
+    {
+      "field": "palaces[4].harms",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[4].heavenGrowth",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[4].earthGrowth",
+      "legacy": [],
+      "current": [],
       "status": "equal"
     },
     {
@@ -446,6 +518,24 @@
       "status": "equal"
     },
     {
+      "field": "palaces[5].harms",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[5].heavenGrowth",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[5].earthGrowth",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
       "field": "palaces[5].isVoid",
       "legacy": false,
       "current": false,
@@ -511,6 +601,24 @@
       "field": "palaces[6].hiddenGanZhi",
       "legacy": "戊申",
       "current": "戊申",
+      "status": "equal"
+    },
+    {
+      "field": "palaces[6].harms",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[6].heavenGrowth",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[6].earthGrowth",
+      "legacy": [],
+      "current": [],
       "status": "equal"
     },
     {
@@ -582,6 +690,24 @@
       "status": "equal"
     },
     {
+      "field": "palaces[7].harms",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[7].heavenGrowth",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[7].earthGrowth",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
       "field": "palaces[7].isVoid",
       "legacy": false,
       "current": false,
@@ -647,6 +773,24 @@
       "field": "palaces[8].hiddenGanZhi",
       "legacy": "丙午",
       "current": "丙午",
+      "status": "equal"
+    },
+    {
+      "field": "palaces[8].harms",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[8].heavenGrowth",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[8].earthGrowth",
+      "legacy": [],
+      "current": [],
       "status": "equal"
     },
     {
@@ -718,6 +862,24 @@
       "status": "equal"
     },
     {
+      "field": "palaces[9].harms",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[9].heavenGrowth",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
+      "field": "palaces[9].earthGrowth",
+      "legacy": [],
+      "current": [],
+      "status": "equal"
+    },
+    {
       "field": "palaces[9].isVoid",
       "legacy": false,
       "current": false,
@@ -739,6 +901,12 @@
       "field": "palaces[9].isChiefDoor",
       "legacy": false,
       "current": false,
+      "status": "equal"
+    },
+    {
+      "field": "heavenEarthGates",
+      "legacy": [],
+      "current": [],
       "status": "equal"
     }
   ]

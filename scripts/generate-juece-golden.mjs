@@ -110,6 +110,9 @@ function normalizeLegacy(raw, request) {
       heavenStar: palace.attachRoofStar || null,
     },
     hiddenGanZhi: palace.darkGz || null,
+    harms: [],
+    heavenGrowth: [],
+    earthGrowth: [],
     isVoid: Boolean(palace.isEmpty),
     isHorse: Boolean(palace.isHorse),
     isChief: palace.roofStar === raw.panHead.zhiFu || palace.attachRoofStar === raw.panHead.zhiFu,
@@ -155,6 +158,7 @@ function normalizeLegacy(raw, request) {
       palace: normalizedPalaces.find((palace) => palace.isHorse)?.index,
     },
     palaces: normalizedPalaces,
+    heavenEarthGates: [],
   };
 }
 
@@ -217,6 +221,18 @@ function normalizeRotatingReference(snapshot) {
         },
         attached,
         hiddenGanZhi: palace.YinGan ?? palace.yinGan ?? null,
+        harms: (palace.siHai ?? []).map((harm) => ({
+          symbol: harm.word,
+          type: harm.siHai,
+        })),
+        heavenGrowth: (palace.tianGanChangSheng ?? []).map((item) => ({
+          branch: item.title,
+          stage: item.content,
+        })),
+        earthGrowth: (palace.diZhiChangSheng ?? []).map((item) => ({
+          branch: item.title,
+          stage: item.content,
+        })),
         isVoid: Boolean(palace.isXunKong ?? palace.xunKong),
         isHorse: Boolean(palace.isMaXing ?? palace.maXing),
         isChief: palace.index === overview.zhiFuIndex,
@@ -251,6 +267,11 @@ function normalizeRotatingReference(snapshot) {
       palace: palaces.find((palace) => palace.isHorse)?.index,
     },
     palaces,
+    heavenEarthGates: raw.tianMenDiHuList.map((item) => ({
+      branch: item.diZhi,
+      heavenGate: item.tianMen,
+      earthGate: item.diHu,
+    })),
   };
 }
 
@@ -292,12 +313,16 @@ function createDiff(referenceSnapshotValue, current, request) {
         compareField(`palaces[${palace.index}].earthPlate`, palace.earthPlate, next?.earthPlate),
         compareField(`palaces[${palace.index}].attached`, palace.attached, next?.attached),
         compareField(`palaces[${palace.index}].hiddenGanZhi`, palace.hiddenGanZhi, next?.hiddenGanZhi),
+        compareField(`palaces[${palace.index}].harms`, palace.harms, next?.harms),
+        compareField(`palaces[${palace.index}].heavenGrowth`, palace.heavenGrowth, next?.heavenGrowth),
+        compareField(`palaces[${palace.index}].earthGrowth`, palace.earthGrowth, next?.earthGrowth),
         compareField(`palaces[${palace.index}].isVoid`, palace.isVoid, next?.isVoid),
         compareField(`palaces[${palace.index}].isHorse`, palace.isHorse, next?.isHorse),
         compareField(`palaces[${palace.index}].isChief`, palace.isChief, next?.isChief),
         compareField(`palaces[${palace.index}].isChiefDoor`, palace.isChiefDoor, next?.isChiefDoor),
       ];
     }),
+    compareField("heavenEarthGates", reference.heavenEarthGates, current.heavenEarthGates),
   ];
   return {
     result: comparisons.every((entry) => entry.status === "equal") ? "all_mapped_fields_equal" : "differences_found",
