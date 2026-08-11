@@ -1,13 +1,13 @@
 {
   "overview": {
-    "method": "转盘 · 随节令 · 手工阴遁5局 · 年空",
+    "method": "转盘 · 寄坤宫 · 拆补 · 时空",
     "clockDateTime": "2026-12-22 23:10",
     "effectiveDateTime": "2026-12-22 23:10",
     "timeMode": "standard",
     "areaCode": null,
     "areaName": null,
     "trueSolarTime": null,
-    "lunarDate": "二〇二六年冬月十四日",
+    "lunarDate": "二〇二六年冬月十五日",
     "pillars": {
       "year": "丙午",
       "month": "庚子",
@@ -20,7 +20,7 @@
       "day": "戌亥",
       "hour": "午未"
     },
-    "selectedVoidBranches": "寅卯",
+    "selectedVoidBranches": "午未",
     "previousSolarTerm": {
       "name": "冬至",
       "dateTime": "2026-12-22 04:50:10"
@@ -31,20 +31,20 @@
     },
     "panStyle": "rotating",
     "panStyleLabel": "转盘",
-    "bureauMethod": "manual",
-    "bureauLabel": "手工阴遁5局",
+    "bureauMethod": "chai_bu",
+    "bureauLabel": "拆补",
     "directionRule": null,
-    "centerPalaceMethod": "seasonal",
-    "dunType": "阴",
-    "juNumber": 5,
+    "centerPalaceMethod": "kun",
+    "dunType": "阳",
+    "juNumber": 7,
     "xunShou": "甲申庚",
     "chiefStar": {
-      "name": "天冲",
-      "palace": 1
+      "name": "天英",
+      "palace": 7
     },
     "chiefDoor": {
-      "name": "伤门",
-      "palace": 8
+      "name": "景门",
+      "palace": 4
     },
     "horse": {
       "branch": "寅",
@@ -58,27 +58,22 @@
       "direction": "北",
       "element": "水",
       "heavenPlate": {
-        "stem": "庚",
-        "star": "天冲",
+        "stem": "戊",
+        "star": "天柱",
         "door": "生门",
-        "deity": "值符"
+        "deity": "太阴"
       },
       "earthPlate": {
-        "stem": "壬",
+        "stem": "辛",
         "star": "天蓬",
         "door": "休门",
         "deity": null
       },
-      "attached": {
-        "earthStem": "戊",
-        "earthStar": "天禽",
-        "heavenStem": null,
-        "heavenStar": null
-      },
-      "hiddenGanZhi": null,
+      "attached": null,
+      "hiddenGanZhi": "丁",
       "isVoid": false,
       "isHorse": false,
-      "isChief": true,
+      "isChief": false,
       "isChiefDoor": false
     },
     {
@@ -87,20 +82,25 @@
       "direction": "西南",
       "element": "土",
       "heavenPlate": {
-        "stem": "乙",
-        "star": "天心",
+        "stem": "丁",
+        "star": "天辅",
         "door": "惊门",
-        "deity": "六合"
+        "deity": "九天"
       },
       "earthPlate": {
-        "stem": "辛",
+        "stem": "壬",
         "star": "天芮",
         "door": "死门",
         "deity": null
       },
-      "attached": null,
-      "hiddenGanZhi": null,
-      "isVoid": false,
+      "attached": {
+        "earthStem": "丙",
+        "earthStar": "天禽",
+        "heavenStem": null,
+        "heavenStar": null
+      },
+      "hiddenGanZhi": "辛",
+      "isVoid": true,
       "isHorse": false,
       "isChief": false,
       "isChiefDoor": false
@@ -111,20 +111,20 @@
       "direction": "东",
       "element": "木",
       "heavenPlate": {
-        "stem": "癸",
-        "star": "天英",
+        "stem": "辛",
+        "star": "天蓬",
         "door": "杜门",
-        "deity": "九地"
+        "deity": "白虎"
       },
       "earthPlate": {
-        "stem": "庚",
+        "stem": "癸",
         "star": "天冲",
         "door": "伤门",
         "deity": null
       },
       "attached": null,
-      "hiddenGanZhi": null,
-      "isVoid": true,
+      "hiddenGanZhi": "壬丙",
+      "isVoid": false,
       "isHorse": false,
       "isChief": false,
       "isChiefDoor": false
@@ -135,23 +135,23 @@
       "direction": "东南",
       "element": "木",
       "heavenPlate": {
-        "stem": "辛",
-        "star": "天芮",
+        "stem": "己",
+        "star": "天任",
         "door": "景门",
         "deity": "玄武"
       },
       "earthPlate": {
-        "stem": "己",
+        "stem": "丁",
         "star": "天辅",
         "door": "杜门",
         "deity": null
       },
       "attached": null,
-      "hiddenGanZhi": null,
+      "hiddenGanZhi": "戊",
       "isVoid": false,
       "isHorse": false,
       "isChief": false,
-      "isChiefDoor": false
+      "isChiefDoor": true
     },
     {
       "index": 5,
@@ -165,7 +165,7 @@
         "deity": null
       },
       "earthPlate": {
-        "stem": "戊",
+        "stem": "丙",
         "star": "天禽",
         "door": null,
         "deity": null
@@ -183,8 +183,8 @@
       "direction": "西北",
       "element": "金",
       "heavenPlate": {
-        "stem": "丁",
-        "star": "天任",
+        "stem": "壬丙",
+        "star": "天芮",
         "door": "休门",
         "deity": "螣蛇"
       },
@@ -195,7 +195,7 @@
         "deity": null
       },
       "attached": null,
-      "hiddenGanZhi": null,
+      "hiddenGanZhi": "癸",
       "isVoid": false,
       "isHorse": false,
       "isChief": false,
@@ -207,22 +207,22 @@
       "direction": "西",
       "element": "金",
       "heavenPlate": {
-        "stem": "壬",
-        "star": "天蓬",
+        "stem": "庚",
+        "star": "天英",
         "door": "开门",
-        "deity": "太阴"
+        "deity": "值符"
       },
       "earthPlate": {
-        "stem": "丙",
+        "stem": "戊",
         "star": "天柱",
         "door": "惊门",
         "deity": null
       },
       "attached": null,
-      "hiddenGanZhi": null,
+      "hiddenGanZhi": "己",
       "isVoid": false,
       "isHorse": false,
-      "isChief": false,
+      "isChief": true,
       "isChiefDoor": false
     },
     {
@@ -231,23 +231,23 @@
       "direction": "东北",
       "element": "土",
       "heavenPlate": {
-        "stem": "己",
-        "star": "天辅",
+        "stem": "乙",
+        "star": "天心",
         "door": "伤门",
-        "deity": "九天"
+        "deity": "六合"
       },
       "earthPlate": {
-        "stem": "丁",
+        "stem": "己",
         "star": "天任",
         "door": "生门",
         "deity": null
       },
       "attached": null,
-      "hiddenGanZhi": null,
-      "isVoid": true,
+      "hiddenGanZhi": "庚",
+      "isVoid": false,
       "isHorse": true,
       "isChief": false,
-      "isChiefDoor": true
+      "isChiefDoor": false
     },
     {
       "index": 9,
@@ -255,20 +255,20 @@
       "direction": "南",
       "element": "火",
       "heavenPlate": {
-        "stem": "丙",
-        "star": "天柱",
+        "stem": "癸",
+        "star": "天冲",
         "door": "死门",
-        "deity": "白虎"
+        "deity": "九地"
       },
       "earthPlate": {
-        "stem": "癸",
+        "stem": "庚",
         "star": "天英",
         "door": "景门",
         "deity": null
       },
       "attached": null,
-      "hiddenGanZhi": null,
-      "isVoid": false,
+      "hiddenGanZhi": "乙",
+      "isVoid": true,
       "isHorse": false,
       "isChief": false,
       "isChiefDoor": false

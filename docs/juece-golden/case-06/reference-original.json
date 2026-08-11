@@ -1,0 +1,172 @@
+{
+  "source": "https://ft.bavor.cn/#/pages/qimen/feipan/feipan",
+  "capturedAt": "2026-08-11T10:05:50.553Z",
+  "execution": "reference site client algorithm with frozen production-equivalent qimen.js",
+  "result": {
+    "input": {
+      "dateStr": "2026-01-15 08:40",
+      "panType": 2,
+      "juType": 1,
+      "selectJu": 1,
+      "ext": {
+        "emptyType": 1,
+        "attachType": 0
+      }
+    },
+    "calendar": {
+      "lYear": 2025,
+      "lMonth": 11,
+      "lDay": 27,
+      "Animal": "蛇",
+      "IMonthCn": "冬月",
+      "IDayCn": "廿七",
+      "cYear": 2026,
+      "cMonth": 1,
+      "cDay": 15,
+      "gzYear": "乙巳",
+      "gzMonth": "己丑",
+      "gzDay": "己丑",
+      "gzHours": "戊辰",
+      "isToday": false,
+      "isLeap": false,
+      "nWeek": 4,
+      "ncWeek": "星期四",
+      "prevTerm": "小寒",
+      "afterTerm": "大寒",
+      "prevTermTime": "2026-01-05T08:22:58.000Z",
+      "afterTermTime": "2026-01-20T01:44:46.000Z",
+      "glDate": "2026年01月15日08:40",
+      "pickDate": "2026-01-15T00:40:00.000Z",
+      "prevTermTimeStr": "2026-01-05 16:22:58",
+      "afterTermTimeStr": "2026-01-20 09:44:46"
+    },
+    "panHead": {
+      "dayGan": "己",
+      "hourGan": "戊",
+      "juNum": 5,
+      "hHeadIndex": 0,
+      "hHeadName": "甲子戊",
+      "hHeadNum": 5,
+      "zhiFu": "天禽",
+      "zhiShi": "中五",
+      "horse": "寅",
+      "emptyType": 1,
+      "allEmpty": {
+        "yEmpty": "寅卯",
+        "mEmpty": "午未",
+        "dEmpty": "午未",
+        "hEmpty": "戌亥"
+      }
+    },
+    "panBody": [
+      [
+        {
+          "luoshu": 4,
+          "earthGan": "乙",
+          "darkGz": "壬申",
+          "earthDeity": "九天",
+          "roofDoor": "景门",
+          "roofStar": "天辅",
+          "roofGan": "乙",
+          "roofDeity": "九天",
+          "gongStyle": "lightGrey"
+        },
+        {
+          "luoshu": 9,
+          "earthGan": "壬",
+          "darkGz": "戊辰",
+          "earthDeity": "勾陈",
+          "roofDoor": "中五",
+          "roofStar": "天英",
+          "roofGan": "壬",
+          "roofDeity": "勾陈",
+          "gongStyle": "",
+          "isEmpty": true
+        },
+        {
+          "luoshu": 2,
+          "earthGan": "丁",
+          "darkGz": "庚午",
+          "earthDeity": "朱雀",
+          "roofDoor": "惊门",
+          "roofStar": "天芮",
+          "roofGan": "丁",
+          "roofDeity": "朱雀",
+          "gongStyle": "",
+          "isEmpty": true
+        }
+      ],
+      [
+        {
+          "luoshu": 3,
+          "earthGan": "丙",
+          "darkGz": "辛未",
+          "earthDeity": "九地",
+          "roofDoor": "生门",
+          "roofStar": "天冲",
+          "roofGan": "丙",
+          "roofDeity": "九地",
+          "gongStyle": "lightGrey"
+        },
+        {
+          "luoshu": 5,
+          "earthGan": "戊",
+          "darkGz": "癸酉",
+          "earthDeity": "值符",
+          "roofDoor": "休门",
+          "roofStar": "天禽",
+          "roofGan": "戊",
+          "roofDeity": "值符",
+          "gongStyle": ""
+        },
+        {
+          "luoshu": 7,
+          "earthGan": "庚",
+          "darkGz": "丙寅",
+          "earthDeity": "太阴",
+          "roofDoor": "伤门",
+          "roofStar": "天柱",
+          "roofGan": "庚",
+          "roofDeity": "太阴",
+          "gongStyle": ""
+        }
+      ],
+      [
+        {
+          "luoshu": 8,
+          "earthGan": "辛",
+          "darkGz": "丁卯",
+          "earthDeity": "六合",
+          "roofDoor": "杜门",
+          "roofStar": "天任",
+          "roofGan": "辛",
+          "roofDeity": "六合",
+          "gongStyle": "lightGrey",
+          "isHorse": true
+        },
+        {
+          "luoshu": 1,
+          "earthGan": "癸",
+          "darkGz": "己巳",
+          "earthDeity": "太常",
+          "roofDoor": "开门",
+          "roofStar": "天蓬",
+          "roofGan": "癸",
+          "roofDeity": "太常",
+          "gongStyle": "lightGrey"
+        },
+        {
+          "luoshu": 6,
+          "earthGan": "己",
+          "darkGz": "乙丑",
+          "earthDeity": "螣蛇",
+          "roofDoor": "死门",
+          "roofStar": "天心",
+          "roofGan": "己",
+          "roofDeity": "螣蛇",
+          "gongStyle": ""
+        }
+      ]
+    ]
+  }
+}

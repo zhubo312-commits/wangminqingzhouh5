@@ -254,7 +254,7 @@ paths:
   /api/v1/paipan/juece/chart:
     post:
       summary: 生成时家决策盘
-      description: 仅返回盘面结构，不提供个案吉凶判断。
+      description: 仅返回盘面结构，不提供个案吉凶判断。转盘为兼容参考站固定按拆补、时空、寄坤宫及原始钟表时间起局；飞盘按请求中的顺逆、定局、旬空和真太阳时条件起局。
       requestBody:
         required: true
         content:
@@ -750,6 +750,7 @@ components:
         chart: { $ref: "#/components/schemas/DunjiaChartResponse" }
     JueceChartRequest:
       type: object
+      description: 转盘请求中的历史定局、旬空与寄宫值仅用于旧上下文兼容，结果按参考站固定口径返回；飞盘字段按值生效。
       additionalProperties: false
       required: [chartDateTime, time, pan, bureau, voidBasis]
       properties:

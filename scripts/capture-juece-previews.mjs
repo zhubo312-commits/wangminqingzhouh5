@@ -70,6 +70,7 @@ try {
     await mockAreas(formPage);
     await formPage.goto(`${baseUrl}/paipan/juece`);
     await formPage.getByRole("heading", { name: "起盘条件" }).waitFor();
+    await formPage.waitForTimeout(220);
     await assertNoOverflow(formPage, `${viewport.width}px form`);
     await formPage.screenshot({
       path: path.join(previewRoot, `juece-form-${viewport.width}.png`),

@@ -40,7 +40,7 @@ class JueceControllerTest {
                 .andExpect(jsonPath("$.overview.areaCode").value((Object) null))
                 .andExpect(jsonPath("$.palaces[0].earthPlate.deity").value((Object) null))
                 .andExpect(jsonPath("$.palaces[0].attached").value((Object) null))
-                .andExpect(jsonPath("$.palaces[0].hiddenGanZhi").value((Object) null))
+                .andExpect(jsonPath("$.palaces[0].hiddenGanZhi").value("丙"))
                 .andExpect(jsonPath("$.panHead").doesNotExist());
     }
 

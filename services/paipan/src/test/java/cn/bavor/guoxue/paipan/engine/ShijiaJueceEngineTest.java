@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
 class ShijiaJueceEngineTest {
-    private final ShijiaJueceEngine engine = new ShijiaJueceEngine();
+    private final ShijiaJueceEngine engine = new ShijiaJueceEngine(new DunjiaEngine());
 
     @Test
     void reproducesTheSixMigrationCasesAsNormalizedCharts() {
@@ -31,17 +31,28 @@ class ShijiaJueceEngineTest {
         });
 
         assertThat(charts).extracting(chart -> chart.overview().juNumber())
-                .containsExactly(5, 8, 9, 5, 5, 5);
+                .containsExactly(5, 8, 9, 7, 5, 5);
         assertThat(charts).extracting(chart -> chart.overview().dunType())
-                .containsExactly("阴", "阳", "阳", "阴", "阴", "阳");
+                .containsExactly("阴", "阳", "阳", "阳", "阴", "阳");
         assertThat(charts).extracting(chart -> chart.overview().xunShou())
                 .containsExactly("甲辰壬", "甲子戊", "甲寅癸", "甲申庚", "甲辰壬", "甲子戊");
         assertThat(charts).extracting(chart -> chart.overview().chiefStar().name())
-                .containsExactly("天蓬", "天任", "天禽", "天冲", "天蓬", "天禽");
+                .containsExactly("天蓬", "天任", "天芮", "天英", "天蓬", "天禽");
+        assertThat(charts.subList(0, 4)).allSatisfy(chart -> {
+            assertThat(chart.overview().bureauMethod()).isEqualTo("chai_bu");
+            assertThat(chart.overview().centerPalaceMethod()).isEqualTo("kun");
+            assertThat(chart.overview().selectedVoidBranches()).isEqualTo(chart.overview().voidBranches().hour());
+            assertThat(chart.overview().method()).isEqualTo("转盘 · 寄坤宫 · 拆补 · 时空");
+        });
         assertThat(charts.get(1).overview().trueSolarTime()).isNotNull();
         assertThat(charts.get(1).overview().areaCode()).isEqualTo("110105");
+        assertThat(charts.get(1).overview().effectiveDateTime()).isEqualTo("2026-02-04 10:30");
+        assertThat(charts.get(1).overview().trueSolarTime()).isEqualTo("2026-02-04 10:01");
+        assertThat(charts.get(4).overview().previousSolarTerm().dateTime()).isEqualTo("2026-08-07 19:42:32");
+        assertThat(charts.get(5).overview().nextSolarTerm().dateTime()).isEqualTo("2026-01-20 09:44:46");
         assertThat(charts.get(4).palaces()).allSatisfy(palace -> assertThat(palace.hiddenGanZhi()).isNotBlank());
-        assertThat(charts.get(0).palaces()).allSatisfy(palace -> assertThat(palace.hiddenGanZhi()).isNull());
+        assertThat(charts.get(0).palaces()).filteredOn(palace -> palace.index() != 5)
+                .allSatisfy(palace -> assertThat(palace.hiddenGanZhi()).isNotBlank());
     }
 
     @Test
@@ -55,6 +66,7 @@ class ShijiaJueceEngineTest {
         assertThat(rotating.overview().chiefStar()).isEqualTo(new Chief("天蓬", 2));
         assertThat(rotating.overview().chiefDoor()).isEqualTo(new Chief("休门", 6));
         assertThat(rotating.overview().horse()).isEqualTo(new Horse("寅", 8));
+        assertThat(kun.hiddenGanZhi()).isEqualTo("己");
 
         ChartResponse flying = engine.chart(request(
                 "2026-08-11 16:00", standard(), flying("yang_forward_yin_reverse"), automatic("chai_bu"), "hour"));
@@ -104,7 +116,10 @@ class ShijiaJueceEngineTest {
                         (BureauOption) parts[1],
                         (String) parts[2]))
                 .map(engine::chart)
-                .forEach(chart -> assertThat(chart.palaces()).hasSize(9));
+                .forEach(chart -> {
+                    assertThat(chart.palaces()).hasSize(9);
+                    assertThat(chart.overview().method()).isEqualTo("转盘 · 寄坤宫 · 拆补 · 时空");
+                });
 
         Stream.of("yang_forward_yin_reverse", "all_forward")
                 .flatMap(rule -> bureaus.stream().map(bureau -> new Object[] {rule, bureau}))

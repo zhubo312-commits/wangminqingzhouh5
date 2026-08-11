@@ -38,13 +38,6 @@ const voidOptions = [
   ["year", "年空"],
 ] as const;
 
-const centerOptions = [
-  ["kun", "寄坤宫"],
-  ["yang_gen_yin_kun", "阳艮阴坤"],
-  ["four_corners", "寄四维"],
-  ["seasonal", "随节令"],
-] as const;
-
 export function JueceFormPage() {
   const navigate = useNavigate();
   const { draft, setDraft, setResult } = useJueceSession();
@@ -73,6 +66,18 @@ export function JueceFormPage() {
 
   function update<Key extends keyof JueceDraft>(key: Key, value: JueceDraft[Key]) {
     setDraft((current) => ({ ...current, [key]: value }));
+  }
+
+  function selectPanStyle(style: JueceDraft["panStyle"]) {
+    setDraft((current) => style === "rotating"
+      ? {
+          ...current,
+          panStyle: "rotating",
+          bureauMethod: "chai_bu",
+          voidBasis: "hour",
+          centerPalaceMethod: "kun",
+        }
+      : { ...current, panStyle: "flying" });
   }
 
   async function resolveChartDateTime() {
@@ -136,7 +141,7 @@ export function JueceFormPage() {
       <PageHeader title="决策学" backTo="/paipan" backLabel="返回排盘导航" />
       <div className="juece-validation-banner" role="note">
         <SealCheck size={19} weight="duotone" aria-hidden="true" />
-        <span><strong>时家决策校验版</strong><small>只展示盘面结构，教师确认前入口保持关闭</small></span>
+        <span><strong>时家决策 · 参考站口径</strong><small>结果以 ft.bavor.cn 当前排盘为验收基准</small></span>
       </div>
 
       <form className="bazi-form juece-form" onSubmit={onSubmit}>
@@ -205,10 +210,16 @@ export function JueceFormPage() {
           <fieldset className="form-field juece-choice-field">
             <legend>盘式</legend>
             <div className="segment-control juece-two-tabs">
-              <button type="button" className={draft.panStyle === "rotating" ? "active" : ""} aria-pressed={draft.panStyle === "rotating"} onClick={() => update("panStyle", "rotating")}>转盘</button>
-              <button type="button" className={draft.panStyle === "flying" ? "active" : ""} aria-pressed={draft.panStyle === "flying"} onClick={() => update("panStyle", "flying")}>飞盘</button>
+              <button type="button" className={draft.panStyle === "rotating" ? "active" : ""} aria-pressed={draft.panStyle === "rotating"} onClick={() => selectPanStyle("rotating")}>转盘</button>
+              <button type="button" className={draft.panStyle === "flying" ? "active" : ""} aria-pressed={draft.panStyle === "flying"} onClick={() => selectPanStyle("flying")}>飞盘</button>
             </div>
           </fieldset>
+          {draft.panStyle === "rotating" && (
+            <div className="juece-conditional-panel juece-reference-rule" role="note">
+              <strong>参考站转盘固定口径</strong>
+              <p>拆补定局 · 时空标记 · 中宫寄坤；参考站当前不会按其他转盘选项改变结果。</p>
+            </div>
+          )}
           {draft.panStyle === "flying" && (
             <fieldset className="form-field juece-choice-field juece-conditional-panel">
               <legend>飞盘顺逆规则</legend>
@@ -218,15 +229,15 @@ export function JueceFormPage() {
               </div>
             </fieldset>
           )}
-          <fieldset className="form-field juece-choice-field">
+          {draft.panStyle === "flying" && <fieldset className="form-field juece-choice-field">
             <legend>定局方式</legend>
             <div className="juece-choice-grid two-columns">
               {bureauOptions.map(([value, label]) => (
                 <button key={value} type="button" className={draft.bureauMethod === value ? "active" : ""} aria-pressed={draft.bureauMethod === value} onClick={() => update("bureauMethod", value)}>{label}</button>
               ))}
             </div>
-          </fieldset>
-          {draft.bureauMethod === "manual" && (
+          </fieldset>}
+          {draft.panStyle === "flying" && draft.bureauMethod === "manual" && (
             <div className="juece-conditional-panel manual-bureau-panel">
               <fieldset className="form-field juece-choice-field">
                 <legend>阴阳遁</legend>
@@ -252,25 +263,21 @@ export function JueceFormPage() {
             <span>03</span>
             <h3 id="juece-mark-heading">标记与寄宫</h3>
           </div>
-          <fieldset className="form-field juece-choice-field">
+          {draft.panStyle === "flying" && <fieldset className="form-field juece-choice-field">
             <legend>旬空标记</legend>
             <div className="juece-choice-grid four-columns">
               {voidOptions.map(([value, label]) => (
                 <button key={value} type="button" className={draft.voidBasis === value ? "active" : ""} aria-pressed={draft.voidBasis === value} onClick={() => update("voidBasis", value)}>{label}</button>
               ))}
             </div>
-          </fieldset>
+          </fieldset>}
           {draft.panStyle === "rotating" && (
-            <fieldset className="form-field juece-choice-field juece-conditional-panel">
-              <legend>中宫寄宫</legend>
-              <div className="juece-choice-grid two-columns">
-                {centerOptions.map(([value, label]) => (
-                  <button key={value} type="button" className={draft.centerPalaceMethod === value ? "active" : ""} aria-pressed={draft.centerPalaceMethod === value} onClick={() => update("centerPalaceMethod", value)}>{label}</button>
-                ))}
-              </div>
-            </fieldset>
+            <div className="juece-conditional-panel juece-reference-rule compact" role="note">
+              <strong>本盘标记</strong>
+              <p>时空 · 寄坤宫</p>
+            </div>
           )}
-          <div className="juece-structure-note"><CompassRose size={20} weight="duotone" aria-hidden="true" /><p>结果仅呈现神、星、门、天地盘、寄宫、暗干支及空亡马星等结构信息。</p></div>
+          <div className="juece-structure-note"><CompassRose size={20} weight="duotone" aria-hidden="true" /><p>结果仅呈现神、星、门、天地盘、寄宫、隐干／暗干支及空亡马星等结构信息。</p></div>
         </PaipanSectionCard>
 
         {error && <div className="form-error" role="alert">{error}</div>}

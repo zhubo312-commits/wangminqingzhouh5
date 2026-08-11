@@ -76,7 +76,7 @@ function PalaceCell({ palace, selected, onSelect }: {
   );
 }
 
-function PalaceDetail({ palace }: { palace: JuecePalace }) {
+function PalaceDetail({ palace, hiddenLabel }: { palace: JuecePalace; hiddenLabel: string }) {
   return (
     <div className="juece-palace-detail" id="juece-palace-detail" aria-live="polite">
       <div className="dunjia-detail-heading"><span>{palace.trigram}{palace.index}宫</span><strong>{palace.direction} · {palace.element}</strong></div>
@@ -102,7 +102,7 @@ function PalaceDetail({ palace }: { palace: JuecePalace }) {
         </section>
       </div>
       <InfoGrid className="juece-extra-grid">
-        <InfoPair label="暗干支" value={palace.hiddenGanZhi} />
+        <InfoPair label={hiddenLabel} value={palace.hiddenGanZhi} />
         <InfoPair label="旬空" value={palace.isVoid ? "是" : "否"} />
         <InfoPair label="马星" value={palace.isHorse ? "是" : "否"} />
         <InfoPair label="值符／值使" value={[palace.isChief ? "值符" : "", palace.isChiefDoor ? "值使" : ""].filter(Boolean).join("、")} />
@@ -187,7 +187,7 @@ export function JueceResultPage() {
         <div className="juece-result-hero">
           <span><CompassRose size={29} weight="duotone" aria-hidden="true" /></span>
           <div><small>{overview.panStyleLabel} · {overview.bureauLabel}</small><h2 id="juece-overview-heading">{overview.dunType}遁{overview.juNumber}局</h2></div>
-          <em>待教师验收</em>
+          <em>参考站同源</em>
         </div>
         <InfoGrid className="juece-date-grid">
           <InfoPair label="原始钟表时间" value={overview.clockDateTime} />
@@ -237,7 +237,7 @@ export function JueceResultPage() {
                     onSelect={() => setSelectedPalaceIndex((current) => current === palace.index ? null : palace.index)}
                   />
                 ))}
-                {selected && <PalaceDetail palace={selected} />}
+                {selected && <PalaceDetail palace={selected} hiddenLabel={overview.panStyle === "rotating" ? "隐干" : "暗干支"} />}
               </Fragment>
             );
           })}
@@ -252,7 +252,7 @@ export function JueceResultPage() {
           <span><i className="chief-door">使</i>值使所临</span>
           <span><Horse size={16} weight="duotone" aria-hidden="true" />马星所临</span>
         </div>
-        <p>转盘显示中宫寄宫；飞盘显示暗干支与天地八神。盘面不提供个案吉凶判断。</p>
+        <p>转盘显示中宫寄宫与隐干；飞盘显示暗干支与天地八神。盘面不提供个案吉凶判断。</p>
       </PaipanSectionCard>
 
       <p className="culture-notice">传统文化研究与娱乐参考，请理性看待推演结果</p>

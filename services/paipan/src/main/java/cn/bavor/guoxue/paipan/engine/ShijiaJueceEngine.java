@@ -2,11 +2,18 @@ package cn.bavor.guoxue.paipan.engine;
 
 import static cn.bavor.guoxue.paipan.api.JueceModels.*;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.nlf.calendar.EightChar;
 import com.nlf.calendar.JieQi;
 import com.nlf.calendar.Lunar;
 import com.nlf.calendar.Solar;
 import com.sunland.app.utils.bazi.SolarTimeUtil;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,17 +21,25 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.springframework.stereotype.Service;
 
 /**
- * Stateless port of the historical time-school decision chart formulas.
- * The old package is migration evidence only; this engine exposes normalized domain records.
+ * Normalized time-school decision engine aligned with the current ft.bavor.cn behavior.
+ * Rotating charts reuse the frozen local Xinghe source; flying charts use the stateless
+ * historical formulas and the reference site's frozen solar-term table.
  */
 @Service
 public class ShijiaJueceEngine {
+    private final DunjiaEngine dunjiaEngine;
+
+    public ShijiaJueceEngine(DunjiaEngine dunjiaEngine) {
+        this.dunjiaEngine = dunjiaEngine;
+    }
+
     private static final DateTimeFormatter MINUTE = DateTimeFormatter
             .ofPattern("uuuu-MM-dd HH:mm")
             .withResolverStyle(ResolverStyle.STRICT);
@@ -55,6 +70,7 @@ public class ShijiaJueceEngine {
     private static final Set<String> CENTER_METHODS = Set.of("kun", "yang_gen_yin_kun", "four_corners", "seasonal");
     private static final Set<String> DIRECTION_RULES = Set.of("yang_forward_yin_reverse", "all_forward");
     private static final Set<String> BUREAU_METHODS = Set.of("chai_bu", "zhi_run", "mao_shan", "manual");
+    private static final Map<String, String> REFERENCE_SOLAR_TERMS = loadReferenceSolarTerms();
 
     private static final Map<Integer, PalaceMeta> PALACE_META = Map.of(
             1, new PalaceMeta("坎", "北", "水"),
@@ -95,13 +111,21 @@ public class ShijiaJueceEngine {
         Lunar lunar = solar.getLunar();
         EightChar eightChar = lunar.getEightChar();
         eightChar.setSect(1);
+
+        // The reference site switched its rotating result page to Xinghe Qimen in 2025.
+        // Its rotating form still carries the historical options, but the result is always
+        // calculated as chai-bu + hour void + center attached to Kun. Reuse the same frozen
+        // local source used by DunjiaEngine so our observable result follows that behavior.
+        if ("rotating".equals(request.pan().style())) {
+            return rotatingReferenceChart(
+                    request, areaCode, areaName, trueSolarTime);
+        }
+
         CalendarData calendar = calendarData(clock, lunar, eightChar);
         BureauData bureau = bureau(request.bureau(), calendar);
 
         HeadData head = head(bureau.signedNumber(), calendar);
-        List<PalaceData> rawPalaces = "rotating".equals(request.pan().style())
-                ? rotatingPalaces(request, bureau, calendar, head)
-                : flyingPalaces(request, bureau, calendar, head);
+        List<PalaceData> rawPalaces = flyingPalaces(request, bureau, calendar, head);
 
         String selectedVoid = selectedVoid(request.voidBasis(), calendar.voids());
         Set<Integer> voidPalaces = voidPalaces(selectedVoid);
@@ -161,6 +185,124 @@ public class ShijiaJueceEngine {
         return new ChartResponse(overview, palaces);
     }
 
+    private ChartResponse rotatingReferenceChart(
+            ChartRequest request,
+            String areaCode,
+            String areaName,
+            String trueSolarTime) {
+        // The production rotating page forwards the original clock time to Xinghe and
+        // ignores its isRealTime/geo query fields. Keep the separately reported solar
+        // correction, but do not use it to alter the rotating chart.
+        JSONObject legacy = dunjiaEngine.chart(request.chartDateTime());
+        JSONObject rawOverview = (JSONObject) JSONObject.toJSON(legacy.get("qiMenZao"));
+        JSONArray rawPalaces = (JSONArray) JSONObject.toJSON(legacy.get("qimenGong"));
+
+        int chiefStarPalace = rawOverview.getIntValue("zhiFuIndex");
+        int chiefDoorPalace = rawOverview.getIntValue("zhiShiIndex");
+        List<Palace> palaces = rawPalaces.stream()
+                .map(JSONObject.class::cast)
+                .map(raw -> referencePalace(raw, chiefStarPalace, chiefDoorPalace))
+                .sorted((left, right) -> Integer.compare(left.index(), right.index()))
+                .toList();
+        int horsePalace = palaces.stream()
+                .filter(Palace::isHorse)
+                .mapToInt(Palace::index)
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("马星未落宫"));
+
+        Overview overview = new Overview(
+                "转盘 · 寄坤宫 · 拆补 · 时空",
+                request.chartDateTime(),
+                request.chartDateTime(),
+                request.time().mode(),
+                areaCode,
+                areaName,
+                trueSolarTime,
+                rawOverview.getString("yearNongLi"),
+                new Pillars(
+                        rawOverview.getString("yearGanZhi"),
+                        rawOverview.getString("monthGanZhi"),
+                        rawOverview.getString("dayGanZhi"),
+                        rawOverview.getString("hourGanZhi")),
+                new VoidBranches(
+                        rawOverview.getString("yearXunKong"),
+                        rawOverview.getString("monthXunKong"),
+                        rawOverview.getString("dayXunKong"),
+                        rawOverview.getString("timeXunKong")),
+                rawOverview.getString("timeXunKong"),
+                new SolarTerm(
+                        rawOverview.getString("prevJieQiName"),
+                        rawOverview.getString("prevJieQiTime")),
+                new SolarTerm(
+                        rawOverview.getString("nextJieQiName"),
+                        rawOverview.getString("nextJieQiTime")),
+                "rotating",
+                "转盘",
+                "chai_bu",
+                "拆补",
+                null,
+                "kun",
+                rawOverview.getString("yinOrYangDun"),
+                rawOverview.getIntValue("juShu"),
+                rawOverview.getString("xunShou"),
+                new Chief(stripSuffix(rawOverview.getString("zhiFu"), "星"), chiefStarPalace),
+                new Chief(doorName(rawOverview.getString("zhiShi")), chiefDoorPalace),
+                new Horse(rawOverview.getString("maXingContent"), horsePalace));
+        return new ChartResponse(overview, palaces);
+    }
+
+    private Palace referencePalace(JSONObject raw, int chiefStarPalace, int chiefDoorPalace) {
+        int index = raw.getIntValue("index");
+        String earthStem = nullableLegacy(raw.getString("diPan"));
+        Attached attached = null;
+        if (index == 2 && earthStem != null && earthStem.length() > 1) {
+            attached = new Attached(earthStem.substring(1), "天禽", null, null);
+            earthStem = earthStem.substring(0, 1);
+        }
+        String hidden = raw.getString("YinGan");
+        if (hidden == null) hidden = raw.getString("yinGan");
+        return new Palace(
+                index,
+                raw.getString("baGua"),
+                directionName(raw.getString("fangWei")),
+                raw.getString("wuXing"),
+                new PlateLayer(
+                        nullableLegacy(raw.getString("tianPan")),
+                        raw.getString("baXing"),
+                        doorName(raw.getString("newBaMen")),
+                        raw.getString("baShen")),
+                new PlateLayer(
+                        earthStem,
+                        stripSuffix(raw.getString("jiuXing"), "星"),
+                        index == 5 ? null : doorName(raw.getString("baMen")),
+                        null),
+                attached,
+                hidden,
+                raw.getBooleanValue("isXunKong"),
+                raw.getBooleanValue("isMaXing"),
+                index == chiefStarPalace,
+                index == chiefDoorPalace);
+    }
+
+    private String nullableLegacy(String value) {
+        return value == null || "UNKNOWN".equals(value) ? null : value;
+    }
+
+    private String stripSuffix(String value, String suffix) {
+        if (value == null || !value.endsWith(suffix)) return value;
+        return value.substring(0, value.length() - suffix.length());
+    }
+
+    private String doorName(String value) {
+        if (value == null || value.isBlank() || value.endsWith("门")) return value;
+        return value + "门";
+    }
+
+    private String directionName(String value) {
+        if ("中央".equals(value)) return "中";
+        return stripSuffix(value, "方");
+    }
+
     private CalendarData calendarData(LocalDateTime clock, Lunar lunar, EightChar eightChar) {
         JieQi previous = lunar.getPrevJieQi();
         JieQi next = lunar.getNextJieQi();
@@ -178,8 +320,8 @@ public class ShijiaJueceEngine {
                 day,
                 hour,
                 voids,
-                new SolarTerm(previous.getName(), previous.getSolar().toYmdHms()),
-                new SolarTerm(next.getName(), next.getSolar().toYmdHms()),
+                new SolarTerm(previous.getName(), referenceSolarTerm(previous.getSolar(), previous.getName())),
+                new SolarTerm(next.getName(), referenceSolarTerm(next.getSolar(), next.getName())),
                 SOLAR_TERMS.indexOf(previous.getName()),
                 SOLAR_TERMS.indexOf(next.getName()));
     }
@@ -274,8 +416,34 @@ public class ShijiaJueceEngine {
                 }
             }
         }
-        return candidates.stream().findFirst()
+        Solar candidate = candidates.stream().findFirst()
                 .orElseThrow(() -> new IllegalStateException("无法取得节气时间：" + year + name));
+        LocalDateTime reference = parseSecond(referenceSolarTerm(candidate, name));
+        return Solar.fromYmdHms(
+                reference.getYear(), reference.getMonthValue(), reference.getDayOfMonth(),
+                reference.getHour(), reference.getMinute(), reference.getSecond());
+    }
+
+    private String referenceSolarTerm(Solar solar, String name) {
+        String value = REFERENCE_SOLAR_TERMS.get(solar.getYear() + "|" + name);
+        if (value == null) throw new IllegalStateException("参考站节气表缺失：" + solar.getYear() + name);
+        return value;
+    }
+
+    private static Map<String, String> loadReferenceSolarTerms() {
+        InputStream stream = ShijiaJueceEngine.class.getResourceAsStream("/juece-reference-solar-terms.csv");
+        if (stream == null) throw new IllegalStateException("参考站节气表不存在");
+        Map<String, String> result = new HashMap<>();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
+            reader.lines().skip(1).forEach(line -> {
+                String[] fields = line.split(",", 3);
+                if (fields.length != 3) throw new IllegalStateException("参考站节气表格式无效");
+                result.put(fields[0] + "|" + fields[1], fields[2]);
+            });
+        } catch (IOException exception) {
+            throw new IllegalStateException("参考站节气表读取失败", exception);
+        }
+        return Map.copyOf(result);
     }
 
     private HeadData head(int signedJu, CalendarData calendar) {

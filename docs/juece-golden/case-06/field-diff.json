@@ -1,17 +1,17 @@
 {
-  "result": "differences_found",
+  "result": "all_mapped_fields_equal",
   "mappingNotes": [
-    "旧版 panHead/panBody 已映射为新版 overview/palaces。",
+    "ft.bavor.cn 当前结果已映射为新版 overview/palaces。",
+    "参考站转盘固定调用星河接口并忽略历史定局、旬空与寄宫选项；新版保持相同行为。",
     "新版新增标准化中文标签、宫位方向五行、值符值使宫位与时区核验字段。",
-    "旧版调试字段、样式字段和算法过程对象不进入公开响应。"
+    "参考站样式字段和算法过程对象不进入公开响应。"
   ],
   "comparisons": [
     {
       "field": "overview.effectiveDateTime",
       "legacy": "2026-01-15 08:40",
       "current": "2026-01-15 08:40",
-      "status": "equal",
-      "note": "真太阳时沿用当前 Java 地区与校正能力；旧包只保留到分钟。"
+      "status": "equal"
     },
     {
       "field": "overview.pillars",
@@ -59,10 +59,9 @@
       },
       "current": {
         "name": "小寒",
-        "dateTime": "2026-01-05 16:23:07"
+        "dateTime": "2026-01-05 16:22:58"
       },
-      "status": "different",
-      "note": "节气秒值来自不同历法数据源，名称与用于起局的边界需教师核验。"
+      "status": "equal"
     },
     {
       "field": "overview.nextSolarTerm",
@@ -72,17 +71,15 @@
       },
       "current": {
         "name": "大寒",
-        "dateTime": "2026-01-20 09:44:53"
+        "dateTime": "2026-01-20 09:44:46"
       },
-      "status": "different",
-      "note": "节气秒值来自不同历法数据源，名称与用于起局的边界需教师核验。"
+      "status": "equal"
     },
     {
       "field": "overview.dunType",
       "legacy": "阳",
       "current": "阳",
-      "status": "equal",
-      "note": "旧版以 juNum 正负表示阴阳遁，新版拆为 dunType 与正整数 juNumber。"
+      "status": "equal"
     },
     {
       "field": "overview.juNumber",

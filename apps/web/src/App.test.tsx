@@ -86,7 +86,7 @@ describe("homepage", () => {
     await waitFor(() => expect(fetch).toHaveBeenCalledWith("/api/v1/events", expect.anything()));
   });
 
-  it("shows exactly eleven chart entries and enables 生平子时与遁甲学", async () => {
+  it("shows exactly eleven chart entries and enables 生平子时、遁甲学与决策学", async () => {
     window.history.pushState({}, "", "/paipan");
     render(<App />);
 
@@ -100,16 +100,26 @@ describe("homepage", () => {
       "href",
       "/paipan/dunjia",
     );
-    expect(navigation.querySelectorAll('[aria-disabled="true"]')).toHaveLength(9);
-    expect(screen.getAllByText("即将上线")).toHaveLength(9);
+    expect(screen.getByRole("link", { name: "决策学" })).toHaveAttribute(
+      "href",
+      "/paipan/juece",
+    );
+    expect(navigation.querySelectorAll('[aria-disabled="true"]')).toHaveLength(8);
+    expect(screen.getAllByText("即将上线")).toHaveLength(8);
   });
 
-  it("keeps the decision validation route closed without the local gate", async () => {
+  it("registers the decision route in the normal build", async () => {
     vi.stubGlobal(
       "fetch",
       vi.fn(async (input: RequestInfo | URL) => {
         if (String(input).endsWith("/api/v1/home")) {
           return new Response(JSON.stringify(homeData), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
+        if (String(input).endsWith("/api/v1/paipan/areas")) {
+          return new Response(JSON.stringify([]), {
             status: 200,
             headers: { "Content-Type": "application/json" },
           });
@@ -121,9 +131,8 @@ describe("homepage", () => {
 
     render(<App />);
 
-    expect(await screen.findByRole("region", { name: "今日指引" })).toBeVisible();
-    await waitFor(() => expect(window.location.pathname).toBe("/"));
-    expect(screen.queryByText("时家决策校验版")).not.toBeInTheDocument();
+    expect(await screen.findByText("时家决策 · 参考站口径")).toBeVisible();
+    expect(window.location.pathname).toBe("/paipan/juece");
   });
 
   it("shows a recoverable error instead of a blank page", async () => {

@@ -15,8 +15,6 @@ const routerBasename =
   import.meta.env.BASE_URL === "/"
     ? "/"
     : import.meta.env.BASE_URL.replace(/\/$/, "");
-const jueceValidationRouteEnabled =
-  import.meta.env.VITE_ENABLE_JUECE_VALIDATION === "true";
 
 function BaziSessionLayout() {
   return <BaziSessionProvider><Outlet /></BaziSessionProvider>;
@@ -47,12 +45,10 @@ export default function App() {
           <Route path="/paipan/dunjia" element={<DunjiaFormPage />} />
           <Route path="/paipan/dunjia/result" element={<DunjiaResultPage />} />
         </Route>
-        {jueceValidationRouteEnabled && (
-          <Route element={<JueceSessionLayout />}>
-            <Route path="/paipan/juece" element={<JueceFormPage />} />
-            <Route path="/paipan/juece/result" element={<JueceResultPage />} />
-          </Route>
-        )}
+        <Route element={<JueceSessionLayout />}>
+          <Route path="/paipan/juece" element={<JueceFormPage />} />
+          <Route path="/paipan/juece/result" element={<JueceResultPage />} />
+        </Route>
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
     </BrowserRouter>

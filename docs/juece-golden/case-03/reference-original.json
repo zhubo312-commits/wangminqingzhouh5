@@ -1,0 +1,578 @@
+{
+  "source": "https://ft.bavor.cn/prod-api/app/qimen/getXingHeQimenH5?birthDay=2026-06-18+09%3A20&question=&isKe=4",
+  "capturedAt": "2026-08-11T10:05:50.373Z",
+  "execution": "reference site Xinghe API",
+  "result": {
+    "msg": "操作成功",
+    "code": 200,
+    "data": {
+      "qiMenZao": {
+        "qimenType": "4",
+        "yearGongLi": "2026-06-18 09:20",
+        "yearNongLi": "二〇二六年五月初四日",
+        "yearGanZhi": "丙午",
+        "monthGanZhi": "甲午",
+        "monthZhi": "午",
+        "dayGanZhi": "癸亥",
+        "hourGanZhi": "丁巳",
+        "hourGan": "丁",
+        "hourZhi": "巳",
+        "prevJieQiName": "芒种",
+        "nextJieQiName": "夏至",
+        "yinOrYangDun": "阳",
+        "juShu": 9,
+        "xunShou": "甲寅癸",
+        "maXing": "乾",
+        "maXingContent": "亥",
+        "xunKong": "子丑",
+        "xunKongGong": "坎艮",
+        "zhiFu": "天芮星",
+        "zhiFuIndex": 6,
+        "zhiShi": "死",
+        "zhiShiIndex": 8,
+        "question": "",
+        "yueJiang": "申",
+        "xiang": null,
+        "shan": null,
+        "degreeRange": null,
+        "sex": null,
+        "lotusGateFlowDate": null,
+        "huangQuan": null,
+        "yearXunKong": "寅卯",
+        "monthXunKong": "辰巳",
+        "dayXunKong": "子丑",
+        "timeXunKong": "子丑",
+        "prevJieQiTime": "2026-06-05 23:48:18",
+        "nextJieQiTime": "2026-06-21 16:24:27",
+        "dayGan": "癸"
+      },
+      "tianMenDiHuList": [
+        {
+          "diZhi": "子",
+          "tianMen": "太冲卯",
+          "diHu": "危"
+        },
+        {
+          "diZhi": "丑",
+          "tianMen": "天罡辰",
+          "diHu": "成"
+        },
+        {
+          "diZhi": "寅",
+          "tianMen": "太乙巳",
+          "diHu": "收"
+        },
+        {
+          "diZhi": "卯",
+          "tianMen": "胜光午",
+          "diHu": "开"
+        },
+        {
+          "diZhi": "辰",
+          "tianMen": "小吉未",
+          "diHu": "闭"
+        },
+        {
+          "diZhi": "巳",
+          "tianMen": "传送申",
+          "diHu": "建"
+        },
+        {
+          "diZhi": "午",
+          "tianMen": "从魁酉",
+          "diHu": "除"
+        },
+        {
+          "diZhi": "未",
+          "tianMen": "河魁戌",
+          "diHu": "满"
+        },
+        {
+          "diZhi": "申",
+          "tianMen": "登明亥",
+          "diHu": "平"
+        },
+        {
+          "diZhi": "酉",
+          "tianMen": "神后子",
+          "diHu": "定"
+        },
+        {
+          "diZhi": "戌",
+          "tianMen": "大吉丑",
+          "diHu": "执"
+        },
+        {
+          "diZhi": "亥",
+          "tianMen": "功曹寅",
+          "diHu": "破"
+        }
+      ],
+      "qimenGong": [
+        {
+          "index": 1,
+          "baGua": "坎",
+          "baMen": "休",
+          "baShen": "螣蛇",
+          "baXing": "天柱",
+          "wuXing": "水",
+          "fangWei": "北方",
+          "diPan": "己",
+          "tianPan": "丙",
+          "jiuXing": "天蓬星",
+          "isXunKong": true,
+          "isZhiFu": false,
+          "isZhiShi": false,
+          "isMaXing": false,
+          "newBaMen": "景",
+          "YinGan": "丙",
+          "siHai": [],
+          "tianGanChangSheng": [
+            {
+              "title": "子",
+              "content": "胎",
+              "description": null
+            }
+          ],
+          "diZhiChangSheng": [
+            {
+              "title": "子",
+              "content": "绝",
+              "description": null
+            }
+          ],
+          "anGan": null,
+          "isSelect": 0,
+          "dayGan": "癸",
+          "lianHuaTianGanChangSheng": null,
+          "yinGan": "丙",
+          "xunKong": true,
+          "zhiFu": false,
+          "zhiShi": false,
+          "maXing": false
+        },
+        {
+          "index": 2,
+          "baGua": "坤",
+          "baMen": "死",
+          "baShen": "九地",
+          "baXing": "天辅",
+          "wuXing": "土",
+          "fangWei": "西南",
+          "diPan": "庚癸",
+          "tianPan": "壬",
+          "jiuXing": "天芮星",
+          "isXunKong": false,
+          "isZhiFu": false,
+          "isZhiShi": false,
+          "isMaXing": false,
+          "newBaMen": "生",
+          "YinGan": "壬",
+          "siHai": [
+            {
+              "word": "癸",
+              "siHai": "墓"
+            }
+          ],
+          "tianGanChangSheng": [
+            {
+              "title": "未",
+              "content": "养",
+              "description": null
+            },
+            {
+              "title": "申",
+              "content": "长生",
+              "description": null
+            }
+          ],
+          "diZhiChangSheng": [
+            {
+              "title": "未",
+              "content": "冠带",
+              "description": null
+            },
+            {
+              "title": "申",
+              "content": "临官",
+              "description": null
+            },
+            {
+              "title": "未",
+              "content": "墓",
+              "description": null
+            },
+            {
+              "title": "申",
+              "content": "死",
+              "description": null
+            }
+          ],
+          "anGan": null,
+          "isSelect": 0,
+          "dayGan": "癸",
+          "lianHuaTianGanChangSheng": null,
+          "yinGan": "壬",
+          "xunKong": false,
+          "zhiFu": false,
+          "zhiShi": false,
+          "maXing": false
+        },
+        {
+          "index": 3,
+          "baGua": "震",
+          "baMen": "伤",
+          "baShen": "六合",
+          "baXing": "天蓬",
+          "wuXing": "木",
+          "fangWei": "东方",
+          "diPan": "辛",
+          "tianPan": "己",
+          "jiuXing": "天冲星",
+          "isXunKong": false,
+          "isZhiFu": false,
+          "isZhiShi": false,
+          "isMaXing": false,
+          "newBaMen": "惊",
+          "YinGan": "己",
+          "siHai": [
+            {
+              "word": "惊",
+              "siHai": "迫"
+            }
+          ],
+          "tianGanChangSheng": [
+            {
+              "title": "卯",
+              "content": "病",
+              "description": null
+            }
+          ],
+          "diZhiChangSheng": [
+            {
+              "title": "卯",
+              "content": "绝",
+              "description": null
+            }
+          ],
+          "anGan": null,
+          "isSelect": 0,
+          "dayGan": "癸",
+          "lianHuaTianGanChangSheng": null,
+          "yinGan": "己",
+          "xunKong": false,
+          "zhiFu": false,
+          "zhiShi": false,
+          "maXing": false
+        },
+        {
+          "index": 4,
+          "baGua": "巽",
+          "baMen": "杜",
+          "baShen": "白虎",
+          "baXing": "天任",
+          "wuXing": "木",
+          "fangWei": "东南",
+          "diPan": "壬",
+          "tianPan": "乙",
+          "jiuXing": "天辅星",
+          "isXunKong": false,
+          "isZhiFu": false,
+          "isZhiShi": false,
+          "isMaXing": false,
+          "newBaMen": "开",
+          "YinGan": "乙",
+          "siHai": [
+            {
+              "word": "壬",
+              "siHai": "刑"
+            },
+            {
+              "word": "开",
+              "siHai": "迫"
+            },
+            {
+              "word": "壬",
+              "siHai": "墓"
+            }
+          ],
+          "tianGanChangSheng": [
+            {
+              "title": "辰",
+              "content": "冠带",
+              "description": null
+            },
+            {
+              "title": "巳",
+              "content": "沐浴",
+              "description": null
+            }
+          ],
+          "diZhiChangSheng": [
+            {
+              "title": "辰",
+              "content": "墓",
+              "description": null
+            },
+            {
+              "title": "巳",
+              "content": "绝",
+              "description": null
+            }
+          ],
+          "anGan": null,
+          "isSelect": 0,
+          "dayGan": "癸",
+          "lianHuaTianGanChangSheng": null,
+          "yinGan": "乙",
+          "xunKong": false,
+          "zhiFu": false,
+          "zhiShi": false,
+          "maXing": false
+        },
+        {
+          "index": 5,
+          "baGua": "中",
+          "baMen": "死",
+          "baShen": null,
+          "baXing": null,
+          "wuXing": "土",
+          "fangWei": "中央",
+          "diPan": "癸",
+          "tianPan": "UNKNOWN",
+          "jiuXing": "天禽星",
+          "isXunKong": false,
+          "isZhiFu": false,
+          "isZhiShi": false,
+          "isMaXing": false,
+          "newBaMen": null,
+          "YinGan": null,
+          "siHai": null,
+          "tianGanChangSheng": null,
+          "diZhiChangSheng": [],
+          "anGan": null,
+          "isSelect": 0,
+          "dayGan": "",
+          "lianHuaTianGanChangSheng": null,
+          "yinGan": null,
+          "xunKong": false,
+          "zhiFu": false,
+          "zhiShi": false,
+          "maXing": false
+        },
+        {
+          "index": 6,
+          "baGua": "乾",
+          "baMen": "开",
+          "baShen": "值符",
+          "baXing": "天芮",
+          "wuXing": "金",
+          "fangWei": "西北",
+          "diPan": "丁",
+          "tianPan": "庚癸",
+          "jiuXing": "天心星",
+          "isXunKong": false,
+          "isZhiFu": false,
+          "isZhiShi": false,
+          "isMaXing": true,
+          "newBaMen": "杜",
+          "YinGan": "庚癸",
+          "siHai": [],
+          "tianGanChangSheng": [
+            {
+              "title": "戌",
+              "content": "衰",
+              "description": null
+            },
+            {
+              "title": "亥",
+              "content": "病",
+              "description": null
+            },
+            {
+              "title": "戌",
+              "content": "衰",
+              "description": null
+            },
+            {
+              "title": "亥",
+              "content": "帝旺",
+              "description": null
+            }
+          ],
+          "diZhiChangSheng": [
+            {
+              "title": "戌",
+              "content": "养",
+              "description": null
+            },
+            {
+              "title": "亥",
+              "content": "胎",
+              "description": null
+            }
+          ],
+          "anGan": null,
+          "isSelect": 1,
+          "dayGan": "癸",
+          "lianHuaTianGanChangSheng": null,
+          "yinGan": "庚癸",
+          "xunKong": false,
+          "zhiFu": false,
+          "zhiShi": false,
+          "maXing": true
+        },
+        {
+          "index": 7,
+          "baGua": "兑",
+          "baMen": "惊",
+          "baShen": "九天",
+          "baXing": "天英",
+          "wuXing": "金",
+          "fangWei": "西方",
+          "diPan": "丙",
+          "tianPan": "戊",
+          "jiuXing": "天柱星",
+          "isXunKong": false,
+          "isZhiFu": false,
+          "isZhiShi": false,
+          "isMaXing": false,
+          "newBaMen": "伤",
+          "YinGan": "戊",
+          "siHai": [],
+          "tianGanChangSheng": [
+            {
+              "title": "酉",
+              "content": "死",
+              "description": null
+            }
+          ],
+          "diZhiChangSheng": [
+            {
+              "title": "酉",
+              "content": "死",
+              "description": null
+            }
+          ],
+          "anGan": null,
+          "isSelect": 0,
+          "dayGan": "癸",
+          "lianHuaTianGanChangSheng": null,
+          "yinGan": "戊",
+          "xunKong": false,
+          "zhiFu": false,
+          "zhiShi": false,
+          "maXing": false
+        },
+        {
+          "index": 8,
+          "baGua": "艮",
+          "baMen": "生",
+          "baShen": "太阴",
+          "baXing": "天心",
+          "wuXing": "土",
+          "fangWei": "东北",
+          "diPan": "乙",
+          "tianPan": "丁",
+          "jiuXing": "天任星",
+          "isXunKong": true,
+          "isZhiFu": false,
+          "isZhiShi": false,
+          "isMaXing": false,
+          "newBaMen": "死",
+          "YinGan": "丁",
+          "siHai": [
+            {
+              "word": "丁",
+              "siHai": "墓"
+            }
+          ],
+          "tianGanChangSheng": [
+            {
+              "title": "丑",
+              "content": "墓",
+              "description": null
+            },
+            {
+              "title": "寅",
+              "content": "死",
+              "description": null
+            }
+          ],
+          "diZhiChangSheng": [
+            {
+              "title": "丑",
+              "content": "衰",
+              "description": null
+            },
+            {
+              "title": "寅",
+              "content": "帝旺",
+              "description": null
+            }
+          ],
+          "anGan": null,
+          "isSelect": 0,
+          "dayGan": "癸",
+          "lianHuaTianGanChangSheng": null,
+          "yinGan": "丁",
+          "xunKong": true,
+          "zhiFu": false,
+          "zhiShi": false,
+          "maXing": false
+        },
+        {
+          "index": 9,
+          "baGua": "离",
+          "baMen": "景",
+          "baShen": "玄武",
+          "baXing": "天冲",
+          "wuXing": "火",
+          "fangWei": "南方",
+          "diPan": "戊",
+          "tianPan": "辛",
+          "jiuXing": "天英星",
+          "isXunKong": false,
+          "isZhiFu": false,
+          "isZhiShi": false,
+          "isMaXing": false,
+          "newBaMen": "休",
+          "YinGan": "辛",
+          "siHai": [
+            {
+              "word": "辛",
+              "siHai": "刑"
+            },
+            {
+              "word": "休",
+              "siHai": "迫"
+            }
+          ],
+          "tianGanChangSheng": [
+            {
+              "title": "午",
+              "content": "病",
+              "description": null
+            }
+          ],
+          "diZhiChangSheng": [
+            {
+              "title": "午",
+              "content": "帝旺",
+              "description": null
+            }
+          ],
+          "anGan": null,
+          "isSelect": 0,
+          "dayGan": "癸",
+          "lianHuaTianGanChangSheng": null,
+          "yinGan": "辛",
+          "xunKong": false,
+          "zhiFu": false,
+          "zhiShi": false,
+          "maXing": false
+        }
+      ]
+    }
+  }
+}

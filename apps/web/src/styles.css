@@ -2853,6 +2853,25 @@ footer {
   font-size: 12px;
 }
 
+.juece-reference-rule {
+  display: grid;
+  gap: 6px;
+}
+
+.juece-reference-rule strong {
+  color: #324d61;
+  font-size: 14px;
+}
+
+.juece-reference-rule.compact {
+  grid-template-columns: auto 1fr;
+  align-items: center;
+}
+
+.juece-reference-rule.compact p {
+  justify-self: end;
+}
+
 .manual-bureau-panel {
   display: grid;
   gap: 14px;

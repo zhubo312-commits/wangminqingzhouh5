@@ -80,7 +80,7 @@ function chart(clockDateTime: string) {
   };
 }
 
-test("completes, switches and restores the gated decision chart without overflow", async ({ page }) => {
+test("completes, switches and restores the reference-aligned decision chart without overflow", async ({ page }) => {
   const received: Array<{ chartDateTime: string }> = [];
   let latestRequest: Record<string, unknown> | null = null;
   let latestChart = chart("2026-08-11 16:00");
@@ -122,7 +122,7 @@ test("completes, switches and restores the gated decision chart without overflow
   }));
 
   await page.goto(appPath("/paipan/juece"));
-  await expect(page.getByText("时家决策校验版")).toBeVisible();
+  await expect(page.getByText("时家决策 · 参考站口径")).toBeVisible();
   await expect(page.getByRole("heading", { name: "起盘条件" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "盘式与定局" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "标记与寄宫" })).toBeVisible();
@@ -139,12 +139,14 @@ test("completes, switches and restores the gated decision chart without overflow
   await page.getByRole("button", { name: "飞盘", exact: true }).click();
   await expect(page.getByText("飞盘顺逆规则")).toBeVisible();
   await expect(page.getByRole("button", { name: "寄坤宫" })).toHaveCount(0);
-  await page.getByRole("button", { name: "转盘", exact: true }).click();
-  await expect(page.getByRole("button", { name: "寄坤宫" })).toBeVisible();
   await page.getByRole("button", { name: "手工定局" }).click();
   await expect(page.getByText("阴阳遁")).toBeVisible();
   await expect(page.locator(".juece-number-grid button")).toHaveCount(9);
   await page.getByRole("button", { name: "拆补" }).click();
+  await page.getByRole("button", { name: "转盘", exact: true }).click();
+  await expect(page.getByText("参考站转盘固定口径")).toBeVisible();
+  await expect(page.getByText("时空 · 寄坤宫")).toBeVisible();
+  await expect(page.getByRole("button", { name: "手工定局" })).toHaveCount(0);
 
   expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)).toBe(false);
   await page.locator("form").evaluate((form: HTMLFormElement) => {

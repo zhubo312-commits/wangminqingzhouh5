@@ -1,21 +1,45 @@
 {
-  "source": "yipu-h5-lengshan local migration reference",
-  "files": {
-    "qimen.js": {
-      "path": "pages/qimen/js/qimen.js",
-      "sha256": "b1360e726e06a76c7d76c78af86ee92f07e9c965aea2b50786e2ac464d080dc4"
-    },
-    "myCalendar.js": {
-      "path": "pages/qimen/js/myCalendar.js",
-      "sha256": "0480b2bb4dc85fa56e0a55d505258547582f67bcf316cfc7d58dda6a32bf54fc"
-    },
-    "util.js": {
-      "path": "pages/qimen/js/util.js",
-      "sha256": "9c7d6790345cd97165ce20c9bc99aa4d02b37282c8c770821854a7b38eab1061"
-    },
-    "qimen.vue": {
-      "path": "pages/qimen/qimen.vue",
-      "sha256": "1a1d9ac263334bc219683164a2c7862afa900fbd82bad188916ba42c5bd08f38"
+  "authority": {
+    "site": "https://ft.bavor.cn/#/",
+    "capturedAt": "2026-08-11T10:05:49.644Z",
+    "assets": {
+      "app": {
+        "url": "https://ft.bavor.cn/static/js/index.3d1307ad.js",
+        "sha256": "b4a6e7c8c57f48e0045baffdeb116382a52ff8e18db038551102cad54d0edc99"
+      },
+      "form": {
+        "url": "https://ft.bavor.cn/static/js/pages-qimen-qimen.4bb38141.js",
+        "sha256": "5cc7f6f811a93b5cb8e85976e12e5aa77311cf6990809a47229170ab556393b6"
+      },
+      "rotating": {
+        "url": "https://ft.bavor.cn/static/js/pages-qimen-zhuanpan-zhuanpan.bf031021.js",
+        "sha256": "f534aed18e37ec1880d0f2402a8017dbb0e7bdc155cfb70fdfbfc8b83953e5fc"
+      },
+      "flying": {
+        "url": "https://ft.bavor.cn/static/js/pages-qimen-feipan-feipan.c40a9a46.js",
+        "sha256": "873a8f069ff74ab9638cd4e768ff41cf65d6b83549717d9a50bc5c18194dcc32"
+      }
+    }
+  },
+  "migrationReference": {
+    "source": "yipu-h5-lengshan local migration reference",
+    "files": {
+      "qimen.js": {
+        "path": "pages/qimen/js/qimen.js",
+        "sha256": "b1360e726e06a76c7d76c78af86ee92f07e9c965aea2b50786e2ac464d080dc4"
+      },
+      "myCalendar.js": {
+        "path": "pages/qimen/js/myCalendar.js",
+        "sha256": "0480b2bb4dc85fa56e0a55d505258547582f67bcf316cfc7d58dda6a32bf54fc"
+      },
+      "util.js": {
+        "path": "pages/qimen/js/util.js",
+        "sha256": "9c7d6790345cd97165ce20c9bc99aa4d02b37282c8c770821854a7b38eab1061"
+      },
+      "qimen.vue": {
+        "path": "pages/qimen/qimen.vue",
+        "sha256": "1a1d9ac263334bc219683164a2c7862afa900fbd82bad188916ba42c5bd08f38"
+      }
     }
   }
 }
