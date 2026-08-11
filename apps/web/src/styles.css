@@ -3800,6 +3800,506 @@ footer {
   }
 }
 
+/* 梅花学 */
+.meihua-form,
+.meihua-result-page {
+  display: grid;
+  gap: 14px;
+}
+
+.meihua-entry-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.meihua-entry-grid button {
+  display: flex;
+  min-height: 78px;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 12px 10px;
+  border: 1px solid rgba(205, 181, 146, 0.66);
+  border-radius: 12px;
+  color: var(--ink);
+  background: rgba(255, 252, 245, 0.72);
+  text-align: left;
+}
+
+.meihua-entry-grid button:last-child {
+  grid-column: 1 / -1;
+}
+
+.meihua-entry-grid button.active {
+  border-color: var(--deep-red);
+  color: var(--deep-red);
+  background: rgba(151, 35, 34, 0.07);
+  box-shadow: inset 0 0 0 1px rgba(151, 35, 34, 0.12);
+}
+
+.meihua-entry-grid button > span {
+  display: grid;
+  gap: 3px;
+}
+
+.meihua-entry-grid strong {
+  font-family: "Noto Serif SC", "Songti SC", STSong, serif;
+  font-size: 14px;
+}
+
+.meihua-entry-grid small {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.meihua-number-grid,
+.meihua-select-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.meihua-number-grid label,
+.meihua-select-grid label {
+  display: grid;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.meihua-number-grid input,
+.meihua-select-grid select,
+.meihua-classic-search input {
+  min-width: 0;
+  height: 43px;
+  padding: 0 11px;
+  border: 1px solid rgba(205, 181, 146, 0.72);
+  border-radius: 9px;
+  color: var(--ink);
+  background: rgba(255, 253, 248, 0.92);
+  font: inherit;
+}
+
+.meihua-select-grid label:last-child {
+  grid-column: 1 / -1;
+}
+
+.meihua-hour-toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 12px 0;
+  padding: 11px;
+  border: 1px solid rgba(205, 181, 146, 0.55);
+  border-radius: 10px;
+  background: rgba(239, 228, 209, 0.28);
+}
+
+.meihua-hour-toggle input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--deep-red);
+}
+
+.meihua-hour-toggle span {
+  display: grid;
+  gap: 3px;
+}
+
+.meihua-hour-toggle small,
+.meihua-mode-note {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.meihua-mode-note {
+  margin: 8px 0 14px;
+  padding: 10px 11px;
+  border-left: 2px solid rgba(151, 35, 34, 0.45);
+  background: rgba(239, 228, 209, 0.27);
+}
+
+.meihua-time-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  margin-top: 14px;
+}
+
+.meihua-time-actions button,
+.meihua-restart {
+  min-height: 46px;
+  border: 1px solid var(--deep-red);
+  border-radius: 11px;
+  color: var(--deep-red);
+  background: rgba(255, 252, 245, 0.88);
+  font-weight: 650;
+}
+
+.meihua-time-actions button:first-child {
+  color: #fffaf0;
+  background: var(--deep-red);
+}
+
+.meihua-classic-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 0 11px;
+  border: 1px solid rgba(205, 181, 146, 0.72);
+  border-radius: 10px;
+  color: var(--muted);
+  background: rgba(255, 253, 248, 0.85);
+}
+
+.meihua-classic-search input {
+  flex: 1;
+  padding-inline: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+}
+
+.meihua-classic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.meihua-classic-grid button {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 8px 9px;
+  border: 1px solid rgba(205, 181, 146, 0.5);
+  border-radius: 9px;
+  color: var(--ink);
+  background: rgba(255, 252, 245, 0.74);
+  text-align: left;
+}
+
+.meihua-classic-grid button small {
+  color: var(--hint);
+  font-size: 9px;
+}
+
+.meihua-classic-grid button strong {
+  overflow: hidden;
+  font-family: "Noto Serif SC", "Songti SC", STSong, serif;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meihua-no-classic {
+  padding: 30px 0;
+  color: var(--muted);
+  text-align: center;
+}
+
+.meihua-classic-overlay {
+  position: fixed;
+  z-index: 80;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 12px;
+  background: rgba(33, 25, 18, 0.64);
+  backdrop-filter: blur(3px);
+}
+
+.meihua-classic-dialog {
+  width: min(100%, 540px);
+  max-height: 88dvh;
+  overflow-y: auto;
+  border: 1px solid rgba(205, 181, 146, 0.8);
+  border-radius: 18px 18px 12px 12px;
+  background: #fbf6eb;
+  box-shadow: 0 20px 70px rgba(39, 24, 14, 0.35);
+}
+
+.meihua-classic-dialog-head {
+  position: sticky;
+  z-index: 2;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 15px;
+  border-bottom: 1px solid rgba(205, 181, 146, 0.55);
+  background: rgba(251, 246, 235, 0.96);
+}
+
+.meihua-classic-dialog-head small {
+  color: var(--muted);
+}
+
+.meihua-classic-dialog-head h2 {
+  margin: 2px 0 0;
+  color: var(--deep-red);
+  font: 700 20px/1.2 "Noto Serif SC", "Songti SC", STSong, serif;
+}
+
+.meihua-classic-dialog-head button {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid rgba(205, 181, 146, 0.65);
+  border-radius: 50%;
+  color: var(--ink);
+  background: transparent;
+}
+
+.meihua-classic-content {
+  padding: 15px;
+}
+
+.meihua-classic-lead {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 13px;
+}
+
+.meihua-classic-lead > span {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff7e7;
+  background: var(--deep-red);
+  font: 700 23px/1 "Noto Serif SC", "Songti SC", STSong, serif;
+}
+
+.meihua-classic-lead small {
+  color: var(--muted);
+}
+
+.meihua-classic-lead h3 {
+  margin: 2px 0 0;
+  font: 700 20px/1.2 "Noto Serif SC", "Songti SC", STSong, serif;
+}
+
+.meihua-classic-content section {
+  margin-top: 9px;
+  padding: 11px 12px;
+  border: 1px solid rgba(205, 181, 146, 0.48);
+  border-radius: 10px;
+  background: rgba(255, 253, 248, 0.72);
+}
+
+.meihua-classic-content h4 {
+  margin: 0 0 6px;
+  color: var(--deep-red);
+  font-size: 12px;
+}
+
+.meihua-classic-content p,
+.meihua-classic-content section small {
+  margin: 0;
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+.meihua-classic-content section small {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+}
+
+.meihua-result-hero {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.meihua-result-hero > span {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  flex: 0 0 56px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff8e9;
+  background: var(--deep-red);
+  font: 700 27px/1 "Noto Serif SC", "Songti SC", STSong, serif;
+}
+
+.meihua-result-hero small,
+.meihua-result-hero p,
+.meihua-chart-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.meihua-result-hero h2 {
+  margin: 2px 0 3px;
+  color: var(--deep-red);
+  font: 700 23px/1.2 "Noto Serif SC", "Songti SC", STSong, serif;
+}
+
+.meihua-chart-hint {
+  margin: -3px 0 12px;
+}
+
+.meihua-hexagram-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.meihua-hexagram-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 104px;
+  gap: 12px;
+  align-items: center;
+  padding: 13px;
+  border: 1px solid rgba(205, 181, 146, 0.68);
+  border-radius: 12px;
+  color: var(--ink);
+  background: rgba(255, 252, 245, 0.78);
+  text-align: left;
+}
+
+.meihua-hexagram-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.meihua-hexagram-title > span {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid rgba(151, 35, 34, 0.35);
+  border-radius: 50%;
+  color: var(--deep-red);
+  font: 700 12px/1 "Noto Serif SC", "Songti SC", STSong, serif;
+}
+
+.meihua-hexagram-title small {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.meihua-hexagram-title h3 {
+  margin: 2px 0 0;
+  font: 700 18px/1.2 "Noto Serif SC", "Songti SC", STSong, serif;
+}
+
+.meihua-lines {
+  display: grid;
+  gap: 5px;
+}
+
+.meihua-lines > div {
+  display: grid;
+  grid-template-columns: 12px 1fr 16px;
+  align-items: center;
+  gap: 4px;
+}
+
+.meihua-lines small,
+.meihua-lines b {
+  color: var(--hint);
+  font-size: 8px;
+  font-weight: 500;
+}
+
+.meihua-lines .moving small,
+.meihua-lines .moving b {
+  color: var(--deep-red);
+  font-weight: 700;
+}
+
+.meihua-lines .yang,
+.meihua-lines .yin {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+}
+
+.meihua-lines i {
+  display: block;
+  width: 100%;
+  height: 5px;
+  border-radius: 2px;
+  background: #342920;
+}
+
+.meihua-lines .yin i {
+  width: calc(50% - 4px);
+}
+
+.meihua-lines .moving i {
+  background: var(--deep-red);
+}
+
+.meihua-read-classic {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  color: var(--deep-red);
+  font-size: 10px;
+}
+
+.meihua-restart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+}
+
+@media (min-width: 700px) {
+  .meihua-entry-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .meihua-entry-grid button:last-child {
+    grid-column: auto;
+  }
+
+  .meihua-hexagram-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .meihua-hexagram-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 370px) {
+  .meihua-entry-grid button {
+    min-height: 72px;
+    padding-inline: 8px;
+  }
+
+  .meihua-classic-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .meihua-hexagram-card {
+    grid-template-columns: minmax(0, 1fr) 96px;
+    padding-inline: 10px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

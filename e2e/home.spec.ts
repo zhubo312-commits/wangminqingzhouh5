@@ -268,7 +268,8 @@ test("opens the internal eleven-item chart menu without horizontal overflow", as
   await expect(page.getByRole("link", { name: "遁甲学" })).toHaveCount(1);
   await expect(page.getByRole("link", { name: "决策学" })).toHaveCount(1);
   await expect(page.getByRole("link", { name: "阴盘决策" })).toHaveCount(1);
-  await expect(navigation.locator('[aria-disabled="true"]')).toHaveCount(7);
+  await expect(page.getByRole("link", { name: "梅花学" })).toHaveCount(1);
+  await expect(navigation.locator('[aria-disabled="true"]')).toHaveCount(6);
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth > document.documentElement.clientWidth,

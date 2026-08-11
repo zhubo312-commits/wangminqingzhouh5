@@ -1,4 +1,5 @@
 import { BrowserRouter, Navigate, Outlet, Route, Routes } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import { HomePage } from "./features/home/HomePage";
 import { PaipanMenuPage } from "./features/paipan/PaipanMenuPage";
 import { BaziFormPage } from "./features/paipan/bazi/BaziFormPage";
@@ -13,6 +14,10 @@ import { JueceSessionProvider } from "./features/paipan/juece/JueceSession";
 import { YinpanFormPage } from "./features/paipan/yinpan/YinpanFormPage";
 import { YinpanResultPage } from "./features/paipan/yinpan/YinpanResultPage";
 import { YinpanSessionProvider } from "./features/paipan/yinpan/YinpanSession";
+import { MeihuaSessionProvider } from "./features/paipan/meihua/MeihuaSession";
+
+const MeihuaFormPage = lazy(() => import("./features/paipan/meihua/MeihuaFormPage").then((module) => ({ default: module.MeihuaFormPage })));
+const MeihuaResultPage = lazy(() => import("./features/paipan/meihua/MeihuaResultPage").then((module) => ({ default: module.MeihuaResultPage })));
 
 const routerBasename =
   import.meta.env.BASE_URL === "/"
@@ -33,6 +38,10 @@ function JueceSessionLayout() {
 
 function YinpanSessionLayout() {
   return <YinpanSessionProvider><Outlet /></YinpanSessionProvider>;
+}
+
+function MeihuaSessionLayout() {
+  return <MeihuaSessionProvider><Suspense fallback={<div className="route-loading" role="status">正在载入梅花学…</div>}><Outlet /></Suspense></MeihuaSessionProvider>;
 }
 
 export default function App() {
@@ -62,6 +71,10 @@ export default function App() {
             path="/paipan/yinpan-juece/result"
             element={<YinpanResultPage />}
           />
+        </Route>
+        <Route element={<MeihuaSessionLayout />}>
+          <Route path="/paipan/meihua" element={<MeihuaFormPage />} />
+          <Route path="/paipan/meihua/result" element={<MeihuaResultPage />} />
         </Route>
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>

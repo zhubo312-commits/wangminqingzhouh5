@@ -1,0 +1,22 @@
+{
+  "yearBranch": { "name": "午", "index": 7 },
+  "lunarMonth": 6,
+  "lunarDay": 29,
+  "hourBranch": { "name": "亥", "index": 12 },
+  "upperSource": 42,
+  "lowerSource": 54,
+  "upperTrigram": { "index": 2, "name": "兑", "bitsTopToBottom": "011" },
+  "lowerTrigram": { "index": 6, "name": "坎", "bitsTopToBottom": "010" },
+  "movingLine": 6,
+  "mutual": {
+    "upperBitsTopToBottom": "110",
+    "lowerBitsTopToBottom": "101",
+    "name": "风火家人"
+  },
+  "changed": {
+    "changedLine": 6,
+    "upperBitsTopToBottom": "111",
+    "lowerBitsTopToBottom": "010",
+    "name": "天水讼"
+  }
+}

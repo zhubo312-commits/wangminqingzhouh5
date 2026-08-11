@@ -30,7 +30,7 @@ export const PAIPAN_ITEMS: readonly PaipanItem[] = [
   { name: "遁甲学", icon: BookOpenText, enabled: true, path: "/paipan/dunjia" },
   { name: "决策学", icon: GridNine, enabled: true, path: "/paipan/juece" },
   { name: "阴盘决策", icon: YinYang, enabled: true, path: "/paipan/yinpan-juece" },
-  { name: "梅花学", icon: FlowerLotus, enabled: false },
+  { name: "梅花学", icon: FlowerLotus, enabled: true, path: "/paipan/meihua" },
   { name: "逻辑学", icon: CirclesThree, enabled: false },
   { name: "星像学", icon: Planet, enabled: false },
   { name: "姓名学", icon: IdentificationCard, enabled: false },

@@ -2,6 +2,7 @@ import {
   BaziChartResponseSchema,
   DunjiaChartResponseSchema,
   JueceChartResponseSchema,
+  MeihuaChartResponseSchema,
   YinpanChartResponseSchema,
   FlowMonthsResponseSchema,
   PaipanAreaNodeSchema,
@@ -16,6 +17,8 @@ import {
   type PaipanAreaNode,
   type JueceChartRequest,
   type JueceChartResponse,
+  type MeihuaChartRequest,
+  type MeihuaChartResponse,
   type YinpanChartRequest,
   type YinpanChartResponse,
   type ResolveBirthRequest,
@@ -214,6 +217,14 @@ export class PaipanClient {
       "/internal/v1/yinpan-juece/chart",
       request,
       YinpanChartResponseSchema,
+    );
+  }
+
+  async meihuaChart(request: MeihuaChartRequest): Promise<MeihuaChartResponse> {
+    return this.request(
+      "/internal/v1/meihua/chart",
+      request,
+      MeihuaChartResponseSchema,
     );
   }
 

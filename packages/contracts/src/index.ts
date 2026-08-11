@@ -602,6 +602,95 @@ export const YinpanContextResponseSchema = z.object({
   chart: YinpanChartResponseSchema,
 });
 
+export const MeihuaChartRequestSchema = z.object({
+  chartDateTime: BirthDateTimeSchema,
+  mode: z.enum(["time", "random", "number", "specified"]),
+  numberOne: z.number().int().min(1).max(999_999_999).optional(),
+  numberTwo: z.number().int().min(1).max(999_999_999).optional(),
+  includeHour: z.boolean().optional(),
+  school: z.enum(["digit_sum", "raw_number"]).optional(),
+  upperTrigram: z.number().int().min(1).max(8).optional(),
+  lowerTrigram: z.number().int().min(1).max(8).optional(),
+  movingLine: z.number().int().min(1).max(6).optional(),
+}).superRefine((value, context) => {
+  if (value.mode === "number") {
+    for (const [field, valid] of [
+      ["numberOne", value.numberOne !== undefined],
+      ["numberTwo", value.numberTwo !== undefined],
+      ["includeHour", value.includeHour !== undefined],
+      ["school", value.school !== undefined],
+    ] as const) {
+      if (!valid) context.addIssue({ code: "custom", path: [field], message: "报数起盘参数不完整" });
+    }
+  }
+  if (value.mode === "random" || value.mode === "specified") {
+    for (const [field, valid] of [
+      ["upperTrigram", value.upperTrigram !== undefined],
+      ["lowerTrigram", value.lowerTrigram !== undefined],
+      ["movingLine", value.movingLine !== undefined],
+    ] as const) {
+      if (!valid) context.addIssue({ code: "custom", path: [field], message: "卦象参数不完整" });
+    }
+  }
+});
+
+const MeihuaTrigramSchema = z.object({
+  index: z.number().int().min(1).max(8),
+  key: z.enum(["qian", "dui", "li", "zhen", "xun", "kan", "gen", "kun"]),
+  name: z.enum(["乾", "兑", "离", "震", "巽", "坎", "艮", "坤"]),
+  symbol: z.enum(["☰", "☱", "☲", "☳", "☴", "☵", "☶", "☷"]),
+  element: z.enum(["金", "木", "水", "火", "土"]),
+  lines: z.array(z.enum(["yang", "yin"])).length(3),
+});
+
+export const MeihuaHexagramSchema = z.object({
+  key: z.string().regex(/^(qian|dui|li|zhen|xun|kan|gen|kun){2}$/),
+  name: z.string().min(2),
+  upper: MeihuaTrigramSchema,
+  lower: MeihuaTrigramSchema,
+  lines: z.array(z.enum(["yang", "yin"])).length(6),
+});
+
+export const MeihuaChartResponseSchema = z.object({
+  overview: z.object({
+    method: z.enum(["时间起盘", "随机起盘", "报数起盘", "指定起盘"]),
+    solarDateTime: BirthDateTimeSchema,
+    lunarDate: z.string().min(1),
+    pillars: z.object({
+      year: z.string().length(2),
+      month: z.string().length(2),
+      day: z.string().length(2),
+      hour: z.string().length(2),
+    }),
+    voidBranches: z.string().length(2),
+    school: z.enum(["digit_sum", "raw_number"]).nullish().transform((value) => value ?? null),
+    numberOne: z.number().int().nullish().transform((value) => value ?? null),
+    numberTwo: z.number().int().nullish().transform((value) => value ?? null),
+    includeHour: z.boolean(),
+  }),
+  upperTrigram: z.number().int().min(1).max(8),
+  lowerTrigram: z.number().int().min(1).max(8),
+  movingLine: z.number().int().min(1).max(6),
+  original: MeihuaHexagramSchema,
+  mutual: MeihuaHexagramSchema,
+  changed: MeihuaHexagramSchema,
+});
+
+export const MeihuaChartWithReferenceSchema = MeihuaChartResponseSchema.extend({
+  paipan_ref: PaipanReferenceSchema,
+  expiresAt: z.iso.datetime(),
+});
+
+export const MeihuaContextResponseSchema = z.object({
+  schemaVersion: z.literal("guoxue.paipan.meihua.v1"),
+  chartType: z.literal("meihua"),
+  paipan_ref: PaipanReferenceSchema,
+  generatedAt: z.iso.datetime(),
+  expiresAt: z.iso.datetime(),
+  chartRequest: MeihuaChartRequestSchema,
+  chart: MeihuaChartResponseSchema,
+});
+
 export const FlowMonthsRequestSchema = z.object({
   chart: BaziChartRequestSchema,
   year: z.number().int().min(1900).max(2200),
@@ -668,6 +757,11 @@ export type YinpanPalace = z.infer<typeof YinpanPalaceSchema>;
 export type YinpanChartResponse = z.infer<typeof YinpanChartResponseSchema>;
 export type YinpanChartWithReference = z.infer<typeof YinpanChartWithReferenceSchema>;
 export type YinpanContextResponse = z.infer<typeof YinpanContextResponseSchema>;
+export type MeihuaChartRequest = z.infer<typeof MeihuaChartRequestSchema>;
+export type MeihuaHexagram = z.infer<typeof MeihuaHexagramSchema>;
+export type MeihuaChartResponse = z.infer<typeof MeihuaChartResponseSchema>;
+export type MeihuaChartWithReference = z.infer<typeof MeihuaChartWithReferenceSchema>;
+export type MeihuaContextResponse = z.infer<typeof MeihuaContextResponseSchema>;
 export type FlowMonthsRequest = z.infer<typeof FlowMonthsRequestSchema>;
 export type FlowMonthsResponse = z.infer<typeof FlowMonthsResponseSchema>;
 export type ShenShaRequest = z.infer<typeof ShenShaRequestSchema>;
