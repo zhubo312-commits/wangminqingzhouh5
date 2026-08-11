@@ -1,5 +1,7 @@
 import {
   BaziChartWithReferenceSchema,
+  DunjiaChartWithReferenceSchema,
+  DunjiaContextResponseSchema,
   FlowMonthsResponseSchema,
   HomeResponseSchema,
   PaipanContextResponseSchema,
@@ -7,6 +9,9 @@ import {
   ResolveBirthResponseSchema,
   type BaziChartRequest,
   type BaziChartWithReference,
+  type DunjiaChartRequest,
+  type DunjiaChartWithReference,
+  type DunjiaContextResponse,
   type FlowMonthsRequest,
   type FlowMonthsResponse,
   type PaipanAreaNode,
@@ -106,6 +111,28 @@ export function createBaziChart(
   return requestJson("/api/v1/paipan/bazi/chart", BaziChartWithReferenceSchema, {
     method: "POST",
     body: JSON.stringify(request),
+    ...(signal ? { signal } : {}),
+  });
+}
+
+export function createDunjiaChart(
+  request: DunjiaChartRequest,
+  signal?: AbortSignal,
+): Promise<DunjiaChartWithReference> {
+  return requestJson("/api/v1/paipan/dunjia/chart", DunjiaChartWithReferenceSchema, {
+    method: "POST",
+    body: JSON.stringify(request),
+    ...(signal ? { signal } : {}),
+  });
+}
+
+export function fetchDunjiaContext(
+  paipanRef: string,
+  signal?: AbortSignal,
+): Promise<DunjiaContextResponse> {
+  return requestJson("/api/v1/paipan/dunjia/context", DunjiaContextResponseSchema, {
+    method: "POST",
+    body: JSON.stringify({ paipan_ref: paipanRef }),
     ...(signal ? { signal } : {}),
   });
 }

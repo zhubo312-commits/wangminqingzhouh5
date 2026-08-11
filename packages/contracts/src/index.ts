@@ -248,6 +248,106 @@ export const PaipanContextResponseSchema = z.object({
   chart: BaziChartResponseSchema,
 });
 
+export const DunjiaChartRequestSchema = z.object({
+  chartDateTime: BirthDateTimeSchema,
+});
+
+const DunjiaGrowthStageSchema = z.object({
+  branch: z.string().min(1),
+  stage: z.string().min(1),
+});
+
+const DunjiaHarmSchema = z.object({
+  symbol: z.string().min(1),
+  type: z.enum(["迫", "墓", "刑"]),
+});
+
+export const DunjiaPalaceSchema = z.object({
+  index: z.number().int().min(1).max(9),
+  trigram: z.string().min(1),
+  direction: z.string().min(1),
+  element: z.string().min(1),
+  deity: z.string().nullable(),
+  star: z.string().nullable(),
+  door: z.string().nullable(),
+  heavenPlate: z.string(),
+  earthPlate: z.string(),
+  hiddenStem: z.string().nullable(),
+  isVoid: z.boolean(),
+  isChief: z.boolean(),
+  isChiefDoor: z.boolean(),
+  isHorse: z.boolean(),
+  harms: z.array(DunjiaHarmSchema),
+  heavenGrowth: z.array(DunjiaGrowthStageSchema),
+  earthGrowth: z.array(DunjiaGrowthStageSchema),
+});
+
+export const DunjiaChartResponseSchema = z.object({
+  overview: z.object({
+    method: z.literal("转盘-拆补-寄坤二宫"),
+    solarDateTime: BirthDateTimeSchema,
+    lunarDate: z.string().min(1),
+    pillars: z.object({
+      year: z.string().length(2),
+      month: z.string().length(2),
+      day: z.string().length(2),
+      hour: z.string().length(2),
+    }),
+    voidBranches: z.object({
+      year: z.string().min(1),
+      month: z.string().min(1),
+      day: z.string().min(1),
+      hour: z.string().min(1),
+    }),
+    previousSolarTerm: z.object({
+      name: z.string().min(1),
+      dateTime: z.string().min(1),
+    }),
+    nextSolarTerm: z.object({
+      name: z.string().min(1),
+      dateTime: z.string().min(1),
+    }),
+    dunType: z.enum(["阴", "阳"]),
+    juNumber: z.number().int().min(1).max(9),
+    xunShou: z.string().min(1),
+    chiefStar: z.object({
+      name: z.string().min(1),
+      palace: z.number().int().min(1).max(9),
+    }),
+    chiefDoor: z.object({
+      name: z.string().min(1),
+      palace: z.number().int().min(1).max(9),
+    }),
+    horse: z.object({
+      trigram: z.string().min(1),
+      branch: z.string().min(1),
+    }),
+  }),
+  palaces: z.array(DunjiaPalaceSchema).length(9),
+  heavenEarthGates: z.array(
+    z.object({
+      branch: z.string().min(1),
+      heavenGate: z.string().min(1),
+      earthGate: z.string().min(1),
+    }),
+  ).length(12),
+});
+
+export const DunjiaChartWithReferenceSchema = DunjiaChartResponseSchema.extend({
+  paipan_ref: PaipanReferenceSchema,
+  expiresAt: z.iso.datetime(),
+});
+
+export const DunjiaContextResponseSchema = z.object({
+  schemaVersion: z.literal("guoxue.paipan.dunjia.v1"),
+  chartType: z.literal("dunjia"),
+  paipan_ref: PaipanReferenceSchema,
+  generatedAt: z.iso.datetime(),
+  expiresAt: z.iso.datetime(),
+  chartRequest: DunjiaChartRequestSchema,
+  chart: DunjiaChartResponseSchema,
+});
+
 export const FlowMonthsRequestSchema = z.object({
   chart: BaziChartRequestSchema,
   year: z.number().int().min(1900).max(2200),
@@ -296,6 +396,11 @@ export type BaziChartResponse = z.infer<typeof BaziChartResponseSchema>;
 export type BaziChartWithReference = z.infer<typeof BaziChartWithReferenceSchema>;
 export type PaipanContextLookupRequest = z.infer<typeof PaipanContextLookupRequestSchema>;
 export type PaipanContextResponse = z.infer<typeof PaipanContextResponseSchema>;
+export type DunjiaChartRequest = z.infer<typeof DunjiaChartRequestSchema>;
+export type DunjiaPalace = z.infer<typeof DunjiaPalaceSchema>;
+export type DunjiaChartResponse = z.infer<typeof DunjiaChartResponseSchema>;
+export type DunjiaChartWithReference = z.infer<typeof DunjiaChartWithReferenceSchema>;
+export type DunjiaContextResponse = z.infer<typeof DunjiaContextResponseSchema>;
 export type FlowMonthsRequest = z.infer<typeof FlowMonthsRequestSchema>;
 export type FlowMonthsResponse = z.infer<typeof FlowMonthsResponseSchema>;
 export type ShenShaRequest = z.infer<typeof ShenShaRequestSchema>;

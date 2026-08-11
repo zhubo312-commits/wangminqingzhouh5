@@ -20,6 +20,7 @@
     "test": "npm run build --workspace @guoxue/contracts && npm run test --workspace @guoxue/server && npm run test --workspace @guoxue/web",
     "test:e2e": "playwright test",
     "preview:paipan": "node scripts/capture-paipan-previews.mjs",
+    "preview:dunjia": "node scripts/capture-dunjia-previews.mjs",
     "db:migrate": "npm run db:migrate --workspace @guoxue/server",
     "calendar:import": "npm run calendar:import --workspace @guoxue/server --",
     "guidance:generate": "npm run guidance:generate --workspace @guoxue/server --",

@@ -2,6 +2,8 @@ package com.sunland.common.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -43,6 +45,34 @@ public final class DateUtils {
 
     public static String getToday() {
         return parseDateToStr(YYYY_MM_DD, new Date());
+    }
+
+    public static String DateAddByYear(String date, Integer years) {
+        Calendar calendar = Calendar.getInstance(TIME_ZONE);
+        calendar.setTime(strToDate(date, YYYY_MM_DD));
+        calendar.add(Calendar.YEAR, years);
+        return parseDateToStr(YYYY_MM_DD, calendar.getTime());
+    }
+
+    public static int calculateYearsDifference(String startDate, String endDate) {
+        LocalDate start = LocalDate.parse(startDate, DateTimeFormatter.ISO_LOCAL_DATE);
+        LocalDate end = LocalDate.parse(endDate, DateTimeFormatter.ISO_LOCAL_DATE);
+        int years = end.getYear() - start.getYear();
+        return end.withYear(start.getYear()).isBefore(start) ? years - 1 : years;
+    }
+
+    public static String getPreviousYear(String date) {
+        return LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE)
+                .minusYears(1)
+                .format(DateTimeFormatter.ISO_LOCAL_DATE);
+    }
+
+    public static boolean compareFlowDate(String startDate, String endDate) {
+        LocalDate start = LocalDate.parse(startDate, DateTimeFormatter.ISO_LOCAL_DATE);
+        LocalDate end = LocalDate.parse(endDate, DateTimeFormatter.ISO_LOCAL_DATE);
+        return end.getMonthValue() < start.getMonthValue()
+                || (end.getMonthValue() == start.getMonthValue()
+                && end.getDayOfMonth() < start.getDayOfMonth());
     }
 
     private static SimpleDateFormat formatter(String pattern) {

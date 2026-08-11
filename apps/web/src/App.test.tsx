@@ -86,7 +86,7 @@ describe("homepage", () => {
     await waitFor(() => expect(fetch).toHaveBeenCalledWith("/api/v1/events", expect.anything()));
   });
 
-  it("shows exactly eleven chart entries and enables only 生平子时", async () => {
+  it("shows exactly eleven chart entries and enables 生平子时与遁甲学", async () => {
     window.history.pushState({}, "", "/paipan");
     render(<App />);
 
@@ -96,8 +96,12 @@ describe("homepage", () => {
       "href",
       "/paipan/shengping-zishi",
     );
-    expect(navigation.querySelectorAll('[aria-disabled="true"]')).toHaveLength(10);
-    expect(screen.getAllByText("即将上线")).toHaveLength(10);
+    expect(screen.getByRole("link", { name: "遁甲学" })).toHaveAttribute(
+      "href",
+      "/paipan/dunjia",
+    );
+    expect(navigation.querySelectorAll('[aria-disabled="true"]')).toHaveLength(9);
+    expect(screen.getAllByText("即将上线")).toHaveLength(9);
   });
 
   it("shows a recoverable error instead of a blank page", async () => {

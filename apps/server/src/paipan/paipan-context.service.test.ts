@@ -1,4 +1,9 @@
-import type { BaziChartRequest, BaziChartResponse } from "@guoxue/contracts";
+import type {
+  BaziChartRequest,
+  BaziChartResponse,
+  DunjiaChartRequest,
+  DunjiaChartResponse,
+} from "@guoxue/contracts";
 import { afterEach, describe, expect, it } from "vitest";
 import { createDatabase, type DatabaseContext } from "../shared/database/client.js";
 import { GoneAppError, NotFoundAppError } from "../shared/errors/app-error.js";
@@ -79,6 +84,55 @@ const chart: BaziChartResponse = {
   },
 };
 
+const dunjiaChartRequest: DunjiaChartRequest = {
+  chartDateTime: "2026-08-11 13:35",
+};
+
+const dunjiaChart: DunjiaChartResponse = {
+  overview: {
+    method: "转盘-拆补-寄坤二宫",
+    solarDateTime: "2026-08-11 13:35",
+    lunarDate: "二〇二六年六月廿九日",
+    pillars: { year: "丙午", month: "丙申", day: "丁巳", hour: "丁未" },
+    voidBranches: { year: "寅卯", month: "辰巳", day: "子丑", hour: "寅卯" },
+    previousSolarTerm: { name: "立秋", dateTime: "2026-08-07 19:42:40" },
+    nextSolarTerm: { name: "处暑", dateTime: "2026-08-23 10:18:46" },
+    dunType: "阴",
+    juNumber: 5,
+    xunShou: "甲辰壬",
+    chiefStar: { name: "天蓬星", palace: 8 },
+    chiefDoor: { name: "休", palace: 7 },
+    horse: { trigram: "巽", branch: "巳" },
+  },
+  palaces: Array.from({ length: 9 }, (_, itemIndex) => {
+    const index = itemIndex + 1;
+    return {
+      index,
+      trigram: "坎",
+      direction: "北",
+      element: "水",
+      deity: index === 5 ? null : "值符",
+      star: index === 5 ? null : "天蓬星",
+      door: index === 5 ? null : "休",
+      heavenPlate: "壬",
+      earthPlate: "丁",
+      hiddenStem: index === 5 ? null : "癸",
+      isVoid: index === 8,
+      isChief: index === 8,
+      isChiefDoor: index === 7,
+      isHorse: index === 4,
+      harms: [],
+      heavenGrowth: [],
+      earthGrowth: [],
+    };
+  }),
+  heavenEarthGates: "子丑寅卯辰巳午未申酉戌亥".split("").map((branch) => ({
+    branch,
+    heavenGate: "戌",
+    earthGate: "辰",
+  })),
+};
+
 let database: DatabaseContext | null = null;
 
 afterEach(() => {
@@ -121,5 +175,28 @@ describe("PaipanContextService", () => {
     expect(() =>
       service.resolve(result.paipan_ref, new Date("2026-08-11T02:05:01.000Z")),
     ).toThrow(GoneAppError);
+  });
+
+  it("stores and restores a typed Dunjia context independently from Bazi", () => {
+    database = createDatabase(":memory:");
+    const service = new PaipanContextService(new PaipanContextRepository(database), 7_200);
+    const now = new Date("2026-08-11T02:00:00.000Z");
+
+    const result = service.createDunjia(dunjiaChartRequest, dunjiaChart, now);
+    const context = service.resolveDunjia(
+      result.paipan_ref,
+      new Date("2026-08-11T03:00:00.000Z"),
+    );
+
+    expect(context).toMatchObject({
+      schemaVersion: "guoxue.paipan.dunjia.v1",
+      chartType: "dunjia",
+      paipan_ref: result.paipan_ref,
+      chartRequest: dunjiaChartRequest,
+      chart: { overview: { juNumber: 5 } },
+    });
+    expect(context.chart.palaces).toHaveLength(9);
+    expect(context.chart.palaces[0]).toMatchObject({ index: 1 });
+    expect(() => service.resolve(result.paipan_ref, now)).toThrow(NotFoundAppError);
   });
 });

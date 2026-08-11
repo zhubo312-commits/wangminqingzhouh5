@@ -148,9 +148,11 @@ function PickerTrigger({
 export function SolarDateTimePicker({
   value,
   onChange,
+  subject = "出生",
 }: {
   value: string;
   onChange: (value: string) => void;
+  subject?: "出生" | "起盘";
 }) {
   const [open, setOpen] = useState<"date" | "time" | null>(null);
   const [working, setWorking] = useState<DateTimeParts>(() => parseSolarDateTime(value));
@@ -202,7 +204,7 @@ export function SolarDateTimePicker({
       </div>
       <MobileWheelPicker
         open={open === "date"}
-        title="选择阳历出生日期"
+        title={`选择阳历${subject}日期`}
         columns={dateColumns}
         onCancel={close}
         onConfirm={() => {
@@ -212,7 +214,7 @@ export function SolarDateTimePicker({
       />
       <MobileWheelPicker
         open={open === "time"}
-        title="选择阳历出生时间"
+        title={`选择阳历${subject}时间`}
         columns={timeColumns}
         onCancel={close}
         onConfirm={() => {
@@ -227,9 +229,11 @@ export function SolarDateTimePicker({
 export function LunarDateTimePicker({
   value,
   onChange,
+  subject = "出生",
 }: {
   value: LunarParts;
   onChange: (value: LunarParts) => void;
+  subject?: "出生" | "起盘";
 }) {
   const [open, setOpen] = useState<"date" | "time" | null>(null);
   const [working, setWorking] = useState<LunarParts>(value);
@@ -272,7 +276,7 @@ export function LunarDateTimePicker({
       </div>
       <MobileWheelPicker
         open={open === "date"}
-        title="选择阴历出生日期"
+        title={`选择阴历${subject}日期`}
         columns={dateColumns}
         onCancel={close}
         onConfirm={() => {
@@ -305,7 +309,7 @@ export function LunarDateTimePicker({
       />
       <MobileWheelPicker
         open={open === "time"}
-        title="选择阴历出生时间"
+        title={`选择阴历${subject}时间`}
         columns={timeColumns}
         onCancel={close}
         onConfirm={() => {

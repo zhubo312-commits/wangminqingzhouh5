@@ -7,13 +7,13 @@
 - `apps/web`：Vite、React、TypeScript、Tailwind CSS。
 - `apps/server`：Fastify、SQLite、Drizzle schema、日历导入和每日 Worker。
 - `packages/contracts`：前后端共享的 Zod 数据契约。
-- `services/paipan`：Java 17、Spring Boot 3.5.16 的无状态生平子时算法服务。
+- `services/paipan`：Java 17、Spring Boot 3.5.16 的无状态生平子时与遁甲算法服务。
 - `openapi.yaml`：公开 REST 接口说明。
 - `docs/专业排盘统一设计规范.md`：全部11种排盘共同遵循的视觉、交互与移动端验收规范。
 
 浏览器只请求 Fastify；Fastify 校验并转发到内网 Java 服务，因此出生信息不会进入 URL。API 进程不直接调用 Dify。每日内容由独立 Worker 在北京时间23:50、23:55和次日00:05生成；最终失败后持久化稳定备用内容。
 
-每次生平子时排盘还会生成一个短期 `paipan_ref`。浏览器仅将该引用保存在当前标签页的 `sessionStorage`，刷新结果页时通过 POST 恢复盘面；完整盘面保存在 SQLite 并按 `PAIPAN_CONTEXT_TTL_SECONDS` 自动过期。未来接入智能老师时，Dify 输入或 MCP 工具只需接收 `paipan_ref`，再调用 `POST /api/v1/paipan/bazi/context` 获取版本化的完整上下文，禁止把姓名、出生时间、地区或整张盘直接拼进 URL。
+每次生平子时或遁甲排盘都会生成一个短期 `paipan_ref`。浏览器仅将该引用保存在当前标签页的 `sessionStorage`，刷新结果页时通过 POST 恢复盘面；完整盘面保存在 SQLite 并按 `PAIPAN_CONTEXT_TTL_SECONDS` 自动过期。未来接入智能老师时，Dify 输入或 MCP 工具只需接收 `paipan_ref`，再按盘型调用 `POST /api/v1/paipan/bazi/context` 或 `POST /api/v1/paipan/dunjia/context` 获取版本化的完整上下文，禁止把出生或起盘时间、地区及整张盘直接拼进 URL。
 
 未来 MCP 工具约定保持单参数，工具名建议为 `get_paipan_context`：
 
@@ -101,7 +101,7 @@ npm run test:e2e
 cd services/paipan && mvn verify
 ```
 
-导航页 360、390、430px 验收图可用 `npm run preview:paipan` 重新生成到 `docs/`。
+生平子时验收图可用 `npm run preview:paipan` 重新生成；遁甲学 360、390、430px 表单与结果图可用 `npm run preview:dunjia` 重新生成到 `docs/previews/`。
 
 服务运行后可执行：
 

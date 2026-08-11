@@ -27,7 +27,7 @@ export const PAIPAN_ITEMS: readonly PaipanItem[] = [
     enabled: true,
     path: "/paipan/shengping-zishi",
   },
-  { name: "遁甲学", icon: BookOpenText, enabled: false },
+  { name: "遁甲学", icon: BookOpenText, enabled: true, path: "/paipan/dunjia" },
   { name: "决策学", icon: GridNine, enabled: false },
   { name: "阴盘决策", icon: YinYang, enabled: false },
   { name: "梅花学", icon: FlowerLotus, enabled: false },

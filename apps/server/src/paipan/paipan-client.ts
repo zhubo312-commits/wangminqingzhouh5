@@ -1,11 +1,14 @@
 import {
   BaziChartResponseSchema,
+  DunjiaChartResponseSchema,
   FlowMonthsResponseSchema,
   PaipanAreaNodeSchema,
   ResolveBirthResponseSchema,
   ShenShaResponseSchema,
   type BaziChartRequest,
   type BaziChartResponse,
+  type DunjiaChartRequest,
+  type DunjiaChartResponse,
   type FlowMonthsRequest,
   type FlowMonthsResponse,
   type PaipanAreaNode,
@@ -27,6 +30,64 @@ const JavaErrorSchema = z.object({
   errors: z
     .array(z.object({ field: z.string(), message: z.string() }))
     .optional(),
+});
+
+const LegacyGrowthSchema = z.object({
+  title: z.string(),
+  content: z.string(),
+});
+
+const LegacyDunjiaResponseSchema = z.object({
+  qiMenZao: z.object({
+    yearGongLi: z.string(),
+    yearNongLi: z.string(),
+    yearGanZhi: z.string(),
+    monthGanZhi: z.string(),
+    dayGanZhi: z.string(),
+    hourGanZhi: z.string(),
+    prevJieQiName: z.string(),
+    nextJieQiName: z.string(),
+    prevJieQiTime: z.string(),
+    nextJieQiTime: z.string(),
+    yinOrYangDun: z.enum(["阴", "阳"]),
+    juShu: z.number().int(),
+    xunShou: z.string(),
+    maXing: z.string(),
+    maXingContent: z.string(),
+    zhiFu: z.string(),
+    zhiFuIndex: z.number().int(),
+    zhiShi: z.string(),
+    zhiShiIndex: z.number().int(),
+    yearXunKong: z.string(),
+    monthXunKong: z.string(),
+    dayXunKong: z.string(),
+    timeXunKong: z.string(),
+  }),
+  qimenGong: z.array(z.object({
+    index: z.number().int(),
+    baGua: z.string(),
+    fangWei: z.string(),
+    wuXing: z.string(),
+    baShen: z.string().nullish(),
+    baXing: z.string().nullish(),
+    newBaMen: z.string().nullish(),
+    tianPan: z.string(),
+    diPan: z.string(),
+    yinGan: z.string().nullable().optional(),
+    YinGan: z.string().nullable().optional(),
+    xunKong: z.boolean().optional(),
+    isXunKong: z.boolean().optional(),
+    maXing: z.boolean().optional(),
+    isMaXing: z.boolean().optional(),
+    siHai: z.array(z.object({ word: z.string(), siHai: z.enum(["迫", "墓", "刑"]) })).nullish(),
+    tianGanChangSheng: z.array(LegacyGrowthSchema).nullish(),
+    diZhiChangSheng: z.array(LegacyGrowthSchema).nullish(),
+  })).length(9),
+  tianMenDiHuList: z.array(z.object({
+    diZhi: z.string(),
+    tianMen: z.string(),
+    diHu: z.string(),
+  })).length(12),
 });
 
 export class PaipanClient {
@@ -57,6 +118,81 @@ export class PaipanClient {
       request,
       BaziChartResponseSchema,
     );
+  }
+
+  async dunjiaChart(request: DunjiaChartRequest): Promise<DunjiaChartResponse> {
+    const legacy = await this.request(
+      "/internal/v1/dunjia/chart",
+      request,
+      LegacyDunjiaResponseSchema,
+    );
+    const overview = legacy.qiMenZao;
+    return DunjiaChartResponseSchema.parse({
+      overview: {
+        method: "转盘-拆补-寄坤二宫",
+        solarDateTime: overview.yearGongLi,
+        lunarDate: overview.yearNongLi,
+        pillars: {
+          year: overview.yearGanZhi,
+          month: overview.monthGanZhi,
+          day: overview.dayGanZhi,
+          hour: overview.hourGanZhi,
+        },
+        voidBranches: {
+          year: overview.yearXunKong,
+          month: overview.monthXunKong,
+          day: overview.dayXunKong,
+          hour: overview.timeXunKong,
+        },
+        previousSolarTerm: {
+          name: overview.prevJieQiName,
+          dateTime: overview.prevJieQiTime,
+        },
+        nextSolarTerm: {
+          name: overview.nextJieQiName,
+          dateTime: overview.nextJieQiTime,
+        },
+        dunType: overview.yinOrYangDun,
+        juNumber: overview.juShu,
+        xunShou: overview.xunShou,
+        chiefStar: { name: overview.zhiFu, palace: overview.zhiFuIndex },
+        chiefDoor: { name: overview.zhiShi, palace: overview.zhiShiIndex },
+        horse: { trigram: overview.maXing, branch: overview.maXingContent },
+      },
+      palaces: legacy.qimenGong.map((palace) => ({
+        index: palace.index,
+        trigram: palace.baGua,
+        direction: palace.fangWei,
+        element: palace.wuXing,
+        deity: palace.baShen ?? null,
+        star: palace.baXing ?? null,
+        door: palace.newBaMen ?? null,
+        heavenPlate: palace.tianPan === "UNKNOWN" ? "—" : palace.tianPan,
+        earthPlate: palace.diPan === "UNKNOWN" ? "—" : palace.diPan,
+        hiddenStem: palace.yinGan ?? palace.YinGan ?? null,
+        isVoid: palace.xunKong ?? palace.isXunKong ?? false,
+        isChief: palace.index === overview.zhiFuIndex,
+        isChiefDoor: palace.index === overview.zhiShiIndex,
+        isHorse: palace.maXing ?? palace.isMaXing ?? false,
+        harms: (palace.siHai ?? []).map((harm) => ({
+          symbol: harm.word,
+          type: harm.siHai,
+        })),
+        heavenGrowth: (palace.tianGanChangSheng ?? []).map((item) => ({
+          branch: item.title,
+          stage: item.content,
+        })),
+        earthGrowth: (palace.diZhiChangSheng ?? []).map((item) => ({
+          branch: item.title,
+          stage: item.content,
+        })),
+      })),
+      heavenEarthGates: legacy.tianMenDiHuList.map((item) => ({
+        branch: item.diZhi,
+        heavenGate: item.tianMen,
+        earthGate: item.diHu,
+      })),
+    });
   }
 
   async flowMonths(request: FlowMonthsRequest): Promise<FlowMonthsResponse> {

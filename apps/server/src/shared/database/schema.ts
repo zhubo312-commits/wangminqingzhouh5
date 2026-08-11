@@ -66,9 +66,9 @@ export const eventDailyCounts = sqliteTable(
 
 export const paipanContexts = sqliteTable("paipan_contexts", {
   referenceHash: text("reference_hash").primaryKey().notNull(),
-  chartType: text("chart_type", { enum: ["shengping_zishi"] }).notNull(),
+  chartType: text("chart_type", { enum: ["shengping_zishi", "dunjia"] }).notNull(),
   schemaVersion: text("schema_version", {
-    enum: ["guoxue.paipan.bazi.v1"],
+    enum: ["guoxue.paipan.bazi.v1", "guoxue.paipan.dunjia.v1"],
   }).notNull(),
   chartRequestJson: text("chart_request_json").notNull(),
   chartJson: text("chart_json").notNull(),

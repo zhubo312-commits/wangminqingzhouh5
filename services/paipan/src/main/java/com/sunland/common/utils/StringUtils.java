@@ -14,4 +14,8 @@ public final class StringUtils {
     public static String defaultIfEmpty(String value, String defaultValue) {
         return isEmpty(value) ? defaultValue : value;
     }
+
+    public static boolean isNotNull(Object value) {
+        return value != null;
+    }
 }

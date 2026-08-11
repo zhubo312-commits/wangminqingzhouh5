@@ -265,7 +265,8 @@ test("opens the internal eleven-item chart menu without horizontal overflow", as
   const navigation = page.getByRole("navigation", { name: "排盘方式" });
   await expect(navigation.locator(":scope > *")).toHaveCount(11);
   await expect(page.getByRole("link", { name: "生平子时" })).toHaveCount(1);
-  await expect(navigation.locator('[aria-disabled="true"]')).toHaveCount(10);
+  await expect(page.getByRole("link", { name: "遁甲学" })).toHaveCount(1);
+  await expect(navigation.locator('[aria-disabled="true"]')).toHaveCount(9);
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth > document.documentElement.clientWidth,

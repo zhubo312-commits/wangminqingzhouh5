@@ -1,5 +1,6 @@
 import {
   BaziChartRequestSchema,
+  DunjiaChartRequestSchema,
   FlowMonthsRequestSchema,
   PaipanContextLookupRequestSchema,
   ResolveBirthRequestSchema,
@@ -54,6 +55,25 @@ export function createPaipanRoutes(
       async (request) => {
         const lookup = parseRequest(PaipanContextLookupRequestSchema, request.body);
         return contextService.resolve(lookup.paipan_ref);
+      },
+    );
+
+    app.post(
+      "/api/v1/paipan/dunjia/chart",
+      { config: { rateLimit: { max: 30, timeWindow: "1 minute" } } },
+      async (request) => {
+        const chartRequest = parseRequest(DunjiaChartRequestSchema, request.body);
+        const chart = await client.dunjiaChart(chartRequest);
+        return contextService.createDunjia(chartRequest, chart);
+      },
+    );
+
+    app.post(
+      "/api/v1/paipan/dunjia/context",
+      { config: { rateLimit: { max: 60, timeWindow: "1 minute" } } },
+      async (request) => {
+        const lookup = parseRequest(PaipanContextLookupRequestSchema, request.body);
+        return contextService.resolveDunjia(lookup.paipan_ref);
       },
     );
 

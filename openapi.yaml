@@ -1,8 +1,8 @@
 openapi: 3.1.0
 info:
   title: 国学老师 H5 API
-  version: 2.1.0
-  description: 首页与专业排盘公开接口。出生信息和排盘引用仅通过 POST 请求体提交。
+  version: 2.2.0
+  description: 首页与专业排盘公开接口。出生或起盘信息和排盘引用仅通过 POST 请求体提交。
 paths:
   /api/v1/home:
     get:
@@ -200,6 +200,57 @@ paths:
           $ref: "#/components/responses/BadGateway"
         "504":
           $ref: "#/components/responses/GatewayTimeout"
+  /api/v1/paipan/dunjia/chart:
+    post:
+      summary: 生成转盘拆补遁甲盘
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DunjiaChartRequest"
+      responses:
+        "200":
+          description: 九宫、节气、旬首、四害、长生及短期排盘引用
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DunjiaChartWithReference"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+        "502":
+          $ref: "#/components/responses/BadGateway"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+  /api/v1/paipan/dunjia/context:
+    post:
+      summary: 使用短期排盘引用读取完整遁甲上下文
+      description: >-
+        为页面刷新恢复、未来智能老师后端及 MCP 工具提供同一份强类型数据。
+        paipan_ref 是短期读取凭证，不应记录到日志或拼接原始起盘信息。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [paipan_ref]
+              properties:
+                paipan_ref:
+                  $ref: "#/components/schemas/PaipanReference"
+      responses:
+        "200":
+          description: 完整、带版本号的遁甲排盘上下文
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DunjiaContext"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "410":
+          $ref: "#/components/responses/Gone"
+        "422":
+          $ref: "#/components/responses/ValidationError"
   /health:
     get:
       summary: Fastify 存活检查
@@ -511,6 +562,142 @@ components:
           $ref: "#/components/schemas/ChartRequest"
         chart:
           $ref: "#/components/schemas/ChartResponse"
+    DunjiaChartRequest:
+      type: object
+      required: [chartDateTime]
+      properties:
+        chartDateTime:
+          $ref: "#/components/schemas/BirthDateTime"
+    DunjiaGrowthStage:
+      type: object
+      required: [branch, stage]
+      properties:
+        branch: { type: string }
+        stage: { type: string }
+    DunjiaHarm:
+      type: object
+      required: [symbol, type]
+      properties:
+        symbol: { type: string }
+        type: { type: string, enum: [迫, 墓, 刑] }
+    DunjiaPalace:
+      type: object
+      required: [index, trigram, direction, element, deity, star, door, heavenPlate, earthPlate, hiddenStem, isVoid, isChief, isChiefDoor, isHorse, harms, heavenGrowth, earthGrowth]
+      properties:
+        index: { type: integer, minimum: 1, maximum: 9 }
+        trigram: { type: string }
+        direction: { type: string }
+        element: { type: string }
+        deity: { type: [string, "null"] }
+        star: { type: [string, "null"] }
+        door: { type: [string, "null"] }
+        heavenPlate: { type: string }
+        earthPlate: { type: string }
+        hiddenStem: { type: [string, "null"] }
+        isVoid: { type: boolean }
+        isChief: { type: boolean }
+        isChiefDoor: { type: boolean }
+        isHorse: { type: boolean }
+        harms:
+          type: array
+          items: { $ref: "#/components/schemas/DunjiaHarm" }
+        heavenGrowth:
+          type: array
+          items: { $ref: "#/components/schemas/DunjiaGrowthStage" }
+        earthGrowth:
+          type: array
+          items: { $ref: "#/components/schemas/DunjiaGrowthStage" }
+    DunjiaChartResponse:
+      type: object
+      required: [overview, palaces, heavenEarthGates]
+      properties:
+        overview:
+          type: object
+          required: [method, solarDateTime, lunarDate, pillars, voidBranches, previousSolarTerm, nextSolarTerm, dunType, juNumber, xunShou, chiefStar, chiefDoor, horse]
+          properties:
+            method: { const: 转盘-拆补-寄坤二宫 }
+            solarDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+            lunarDate: { type: string }
+            pillars:
+              type: object
+              required: [year, month, day, hour]
+              properties:
+                year: { type: string, minLength: 2, maxLength: 2 }
+                month: { type: string, minLength: 2, maxLength: 2 }
+                day: { type: string, minLength: 2, maxLength: 2 }
+                hour: { type: string, minLength: 2, maxLength: 2 }
+            voidBranches:
+              type: object
+              required: [year, month, day, hour]
+              properties:
+                year: { type: string }
+                month: { type: string }
+                day: { type: string }
+                hour: { type: string }
+            previousSolarTerm:
+              $ref: "#/components/schemas/DunjiaSolarTerm"
+            nextSolarTerm:
+              $ref: "#/components/schemas/DunjiaSolarTerm"
+            dunType: { type: string, enum: [阴, 阳] }
+            juNumber: { type: integer, minimum: 1, maximum: 9 }
+            xunShou: { type: string }
+            chiefStar:
+              $ref: "#/components/schemas/DunjiaChiefPosition"
+            chiefDoor:
+              $ref: "#/components/schemas/DunjiaChiefPosition"
+            horse:
+              type: object
+              required: [trigram, branch]
+              properties:
+                trigram: { type: string }
+                branch: { type: string }
+        palaces:
+          type: array
+          minItems: 9
+          maxItems: 9
+          items: { $ref: "#/components/schemas/DunjiaPalace" }
+        heavenEarthGates:
+          type: array
+          minItems: 12
+          maxItems: 12
+          items:
+            type: object
+            required: [branch, heavenGate, earthGate]
+            properties:
+              branch: { type: string }
+              heavenGate: { type: string }
+              earthGate: { type: string }
+    DunjiaSolarTerm:
+      type: object
+      required: [name, dateTime]
+      properties:
+        name: { type: string }
+        dateTime: { type: string }
+    DunjiaChiefPosition:
+      type: object
+      required: [name, palace]
+      properties:
+        name: { type: string }
+        palace: { type: integer, minimum: 1, maximum: 9 }
+    DunjiaChartWithReference:
+      allOf:
+        - $ref: "#/components/schemas/DunjiaChartResponse"
+        - type: object
+          required: [paipan_ref, expiresAt]
+          properties:
+            paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+            expiresAt: { type: string, format: date-time }
+    DunjiaContext:
+      type: object
+      required: [schemaVersion, chartType, paipan_ref, generatedAt, expiresAt, chartRequest, chart]
+      properties:
+        schemaVersion: { const: guoxue.paipan.dunjia.v1 }
+        chartType: { const: dunjia }
+        paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+        generatedAt: { type: string, format: date-time }
+        expiresAt: { type: string, format: date-time }
+        chartRequest: { $ref: "#/components/schemas/DunjiaChartRequest" }
+        chart: { $ref: "#/components/schemas/DunjiaChartResponse" }
     FlowMonth:
       type: object
       required: [index, monthName, ganZhi, solarTermName, solarTermDateTime, tenGods, hiddenStems, hiddenStemTenGods, heavenlyStemAttention, earthlyBranchAttention, shenSha]
