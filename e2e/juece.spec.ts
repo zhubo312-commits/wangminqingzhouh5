@@ -122,7 +122,7 @@ test("completes, switches and restores the reference-aligned decision chart with
   }));
 
   await page.goto(appPath("/paipan/juece"));
-  await expect(page.getByText("时家决策 · 参考站口径")).toBeVisible();
+  await expect(page.getByText("转盘固定规则")).toBeVisible();
   await expect(page.getByRole("heading", { name: "起盘条件" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "盘式与定局" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "标记与寄宫" })).toBeVisible();
@@ -144,7 +144,7 @@ test("completes, switches and restores the reference-aligned decision chart with
   await expect(page.locator(".juece-number-grid button")).toHaveCount(9);
   await page.getByRole("button", { name: "拆补" }).click();
   await page.getByRole("button", { name: "转盘", exact: true }).click();
-  await expect(page.getByText("参考站转盘固定口径")).toBeVisible();
+  await expect(page.getByText("转盘固定规则")).toBeVisible();
   await expect(page.getByText("时空 · 寄坤宫")).toBeVisible();
   await expect(page.getByRole("button", { name: "手工定局" })).toHaveCount(0);
 

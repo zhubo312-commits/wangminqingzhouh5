@@ -273,7 +273,7 @@ export function JueceFormPage() {
               <p>时空 · 寄坤宫</p>
             </div>
           )}
-          <div className="juece-structure-note"><CompassRose size={20} weight="duotone" aria-hidden="true" /><p>结果仅呈现神、星、门、天地盘、寄宫、隐干／暗干支及空亡马星等结构信息。</p></div>
+          <div className="juece-structure-note"><CompassRose size={20} weight="duotone" aria-hidden="true" /><p>仅展示神、星、门、天地盘、寄宫、隐干／暗干支、空亡与马星。</p></div>
         </PaipanSectionCard>
 
         {error && <div className="form-error" role="alert">{error}</div>}

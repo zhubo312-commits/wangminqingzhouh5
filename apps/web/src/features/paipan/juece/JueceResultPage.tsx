@@ -105,12 +105,15 @@ function PalaceDetail({ palace, hiddenLabel }: { palace: JuecePalace; hiddenLabe
         <InfoPair label={hiddenLabel} value={palace.hiddenGanZhi} />
         <InfoPair label="旬空" value={palace.isVoid ? "是" : "否"} />
         <InfoPair label="马星" value={palace.isHorse ? "是" : "否"} />
-        <InfoPair label="值符／值使" value={[palace.isChief ? "值符" : "", palace.isChiefDoor ? "值使" : ""].filter(Boolean).join("、")} />
+        <InfoPair label="值符／值使" value={[palace.isChief ? "值符" : "", palace.isChiefDoor ? "值使" : ""].filter(Boolean).join("、") || "无"} />
       </InfoGrid>
       {palace.attached && (
         <div className="juece-attached-detail">
           <h4>中宫寄宫</h4>
-          <p>地盘 {palace.attached.earthStem} · {palace.attached.earthStar}；天盘 {palace.attached.heavenStem ?? "—"} · {palace.attached.heavenStar ?? "—"}</p>
+          <p>
+            地盘 {palace.attached.earthStem} · {palace.attached.earthStar}
+            {(palace.attached.heavenStem || palace.attached.heavenStar) && <>；天盘 {palace.attached.heavenStem ?? "—"} · {palace.attached.heavenStar ?? "—"}</>}
+          </p>
         </div>
       )}
     </div>
