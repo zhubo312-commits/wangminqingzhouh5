@@ -8,6 +8,9 @@ import {
   JueceChartResponseSchema,
   JueceContextResponseSchema,
   PaipanContextResponseSchema,
+  YinpanChartRequestSchema,
+  YinpanChartResponseSchema,
+  YinpanContextResponseSchema,
 } from "@guoxue/contracts";
 import type { z } from "zod";
 
@@ -48,6 +51,13 @@ export const paipanContextRegistry = {
     requestSchema: JueceChartRequestSchema,
     chartSchema: JueceChartResponseSchema,
     contextSchema: JueceContextResponseSchema,
+  }),
+  yinpan: definePaipanContext({
+    chartType: "yinpan_juece",
+    schemaVersion: "guoxue.paipan.yinpan_juece.v1",
+    requestSchema: YinpanChartRequestSchema,
+    chartSchema: YinpanChartResponseSchema,
+    contextSchema: YinpanContextResponseSchema,
   }),
 } as const;
 

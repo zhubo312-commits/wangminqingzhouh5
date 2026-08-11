@@ -3525,6 +3525,281 @@ footer {
 
 }
 
+.yinpan-form-page,
+.yinpan-result-page {
+  --juece-blue: #5d454d;
+  --juece-blue-soft: rgba(93, 69, 77, 0.1);
+}
+
+.yinpan-question-field {
+  position: relative;
+  display: grid;
+  gap: 7px;
+}
+
+.yinpan-question-field > span {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.yinpan-question-field small {
+  color: var(--hint);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.yinpan-question-field textarea {
+  min-height: 86px;
+  padding: 11px 12px 25px;
+  resize: vertical;
+  border: 1px solid rgba(205, 181, 146, 0.78);
+  border-radius: 12px;
+  color: var(--ink);
+  background: rgba(255, 253, 248, 0.76);
+  font: inherit;
+  line-height: 1.55;
+}
+
+.yinpan-question-field textarea:focus-visible {
+  outline: 3px solid rgba(178, 77, 52, 0.28);
+  outline-offset: 1px;
+}
+
+.yinpan-question-field > em {
+  position: absolute;
+  right: 10px;
+  bottom: 7px;
+  color: var(--hint);
+  font-size: 10px;
+  font-style: normal;
+}
+
+.yinpan-mode-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.yinpan-mode-grid button {
+  display: grid;
+  min-width: 0;
+  min-height: 116px;
+  align-content: center;
+  justify-items: start;
+  gap: 4px;
+  padding: 12px;
+  border: 1px solid rgba(205, 181, 146, 0.78);
+  border-radius: 13px;
+  color: var(--muted);
+  text-align: left;
+  background: rgba(255, 253, 248, 0.7);
+}
+
+.yinpan-mode-grid button strong {
+  color: var(--ink);
+  font-size: 15px;
+}
+
+.yinpan-mode-grid button small {
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.yinpan-mode-grid button.active {
+  border-color: rgba(178, 77, 52, 0.68);
+  color: var(--vermilion);
+  background: linear-gradient(145deg, rgba(255, 248, 235, 0.96), rgba(245, 228, 208, 0.86));
+  box-shadow: inset 0 0 0 1px rgba(178, 77, 52, 0.12);
+}
+
+.yinpan-mode-grid button.active strong {
+  color: var(--deep-red);
+}
+
+.yinpan-mode-grid button:focus-visible,
+.yinpan-switch-grid button:focus-visible {
+  outline: 3px solid rgba(178, 77, 52, 0.36);
+  outline-offset: 2px;
+}
+
+.yinpan-lifetime-toggle {
+  display: flex;
+  min-height: 58px;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 11px;
+  border: 1px dashed rgba(183, 121, 36, 0.46);
+  border-radius: 12px;
+  background: rgba(255, 248, 229, 0.56);
+}
+
+.yinpan-lifetime-toggle input {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  accent-color: var(--vermilion);
+}
+
+.yinpan-lifetime-toggle > span {
+  display: grid;
+  gap: 2px;
+}
+
+.yinpan-lifetime-toggle strong {
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.yinpan-lifetime-toggle small {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.yinpan-overview-card > .facts-grid {
+  margin-top: 10px;
+}
+
+.yinpan-overview-card .info-pair {
+  min-width: 0;
+}
+
+.yinpan-overview-card .info-pair dd {
+  overflow-wrap: anywhere;
+}
+
+.yinpan-switch-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.yinpan-switch-grid button {
+  display: flex;
+  min-width: 0;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 5px 2px;
+  border: 1px solid rgba(50, 77, 97, 0.2);
+  border-radius: 9px;
+  color: var(--juece-blue);
+  background: rgba(50, 77, 97, 0.06);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.yinpan-switch-grid button:disabled {
+  opacity: 0.5;
+}
+
+.yinpan-palace-line {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px;
+}
+
+.yinpan-palace-line b {
+  overflow: hidden;
+  color: var(--juece-blue);
+  font-family: "Noto Serif SC", "Songti SC", STSong, serif;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.yinpan-palace-detail > .facts-grid {
+  margin-top: 9px;
+}
+
+.yinpan-gate-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+  padding-top: 12px;
+}
+
+.yinpan-gate-list > span {
+  display: grid;
+  min-width: 0;
+  gap: 1px;
+  padding: 8px 5px;
+  border-radius: 9px;
+  text-align: center;
+  background: rgba(239, 228, 209, 0.48);
+}
+
+.yinpan-gate-list strong {
+  color: var(--deep-red);
+  font-family: "Noto Serif SC", "Songti SC", STSong, serif;
+}
+
+.yinpan-gate-list em,
+.yinpan-gate-list small {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 10px;
+  font-style: normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.yinpan-lifetime-card > div > div {
+  padding-top: 12px;
+}
+
+.yinpan-fortune-strip {
+  display: flex;
+  gap: 7px;
+  margin-top: 10px;
+  padding-bottom: 4px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.yinpan-fortune-strip > span {
+  display: grid;
+  min-width: 76px;
+  gap: 2px;
+  padding: 8px;
+  border: 1px solid rgba(205, 181, 146, 0.58);
+  border-radius: 9px;
+  text-align: center;
+}
+
+.yinpan-fortune-strip strong {
+  color: var(--deep-red);
+  font-family: "Noto Serif SC", "Songti SC", STSong, serif;
+}
+
+.yinpan-fortune-strip small {
+  color: var(--hint);
+  font-size: 10px;
+}
+
+@media (max-width: 370px) {
+  .yinpan-mode-grid button {
+    min-height: 110px;
+    padding-inline: 9px;
+  }
+
+  .yinpan-switch-grid {
+    gap: 3px;
+  }
+
+  .yinpan-switch-grid button {
+    font-size: 11px;
+  }
+
+  .yinpan-gate-list {
+    gap: 5px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

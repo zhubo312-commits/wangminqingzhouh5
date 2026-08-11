@@ -1,0 +1,30 @@
+{
+  "capturedAt": "2026-08-12T03:38:00+08:00",
+  "site": "https://ft.bavor.cn",
+  "sources": [
+    {
+      "url": "https://ft.bavor.cn/static/js/index.3d1307ad.js",
+      "sha256": "b4a6e7c8c57f48e0045baffdeb116382a52ff8e18db038551102cad54d0edc99"
+    },
+    {
+      "url": "https://ft.bavor.cn/static/js/chunk-vendors.fe02d1ed.js",
+      "sha256": "742869ac919bbc9232cf342b4be629e9f11000bdcb7b6ba6093ae8af1c4473a3"
+    },
+    {
+      "url": "https://ft.bavor.cn/static/js/pages-bazi-bazi~pages-guangyuanbazi-guangyuanbazi~pages-jiulong-bazi~pages-lianhuaqimen-lianhuaqimen~115ecb0c.c19ebd7c.js",
+      "sha256": "85907b6391ac3f841c5ba3e3fc6c0f2893a5305a0f397874babe2bbda3a8e3f2"
+    },
+    {
+      "url": "https://ft.bavor.cn/static/js/pages-yinpan-yinpan.032b05ff.js",
+      "sha256": "d2ab5ebcc853a005e9c1ae66675cad5cb468254c27611aeed808ed2825caea37"
+    },
+    {
+      "url": "https://ft.bavor.cn/static/js/pages-fangxiong-result-result~pages-guangyuanqimen-result-result~pages-lianhuaqimen-result-result~pa~9f54f948.a2530271.js",
+      "sha256": "2bfd3ec8846d08d00fd3a97a7028d21d8137080865d2030dc5445e0f6b510bf3"
+    },
+    {
+      "url": "https://ft.bavor.cn/static/js/pages-yinpan-result-result.c722f870.js",
+      "sha256": "87a074021028d9c1a60de32842e372b1817c4ab3048814603df429aa98df536d"
+    }
+  ]
+}

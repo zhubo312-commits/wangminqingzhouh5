@@ -12,6 +12,10 @@ import {
   type JueceChartWithReference,
   type JueceContextResponse,
   type PaipanContextResponse,
+  type YinpanChartRequest,
+  type YinpanChartResponse,
+  type YinpanChartWithReference,
+  type YinpanContextResponse,
 } from "@guoxue/contracts";
 import { GoneAppError, NotFoundAppError } from "../shared/errors/app-error.js";
 import { PaipanContextRepository } from "./paipan-context.repository.js";
@@ -113,6 +117,14 @@ export class PaipanContextService {
     return this.createRegistered("juece", chartRequest, chart, now) as JueceChartWithReference;
   }
 
+  createYinpan(
+    chartRequest: YinpanChartRequest,
+    chart: YinpanChartResponse,
+    now = new Date(),
+  ): YinpanChartWithReference {
+    return this.createRegistered("yinpan", chartRequest, chart, now) as YinpanChartWithReference;
+  }
+
   resolve(paipanRef: string, now = new Date()): PaipanContextResponse {
     return this.resolveRegistered("bazi", paipanRef, now) as PaipanContextResponse;
   }
@@ -123,5 +135,9 @@ export class PaipanContextService {
 
   resolveJuece(paipanRef: string, now = new Date()): JueceContextResponse {
     return this.resolveRegistered("juece", paipanRef, now) as JueceContextResponse;
+  }
+
+  resolveYinpan(paipanRef: string, now = new Date()): YinpanContextResponse {
+    return this.resolveRegistered("yinpan", paipanRef, now) as YinpanContextResponse;
   }
 }

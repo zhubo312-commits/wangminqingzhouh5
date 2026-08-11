@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: 国学老师 H5 API
-  version: 2.3.0
+  version: 2.4.0
   description: 首页与专业排盘公开接口。出生或起盘信息和排盘引用仅通过 POST 请求体提交。
 paths:
   /api/v1/home:
@@ -295,6 +295,56 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/JueceContext"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "410":
+          $ref: "#/components/responses/Gone"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+  /api/v1/paipan/yinpan-juece/chart:
+    post:
+      summary: 生成阴盘决策时盘或刻盘
+      description: 保留参考站时盘、刻盘、事项、性别和可选终身局资料；结果只提供结构化盘面，不输出个案吉凶判断。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/YinpanChartRequest"
+      responses:
+        "200":
+          description: 阴盘九宫、四害、十二长生、天门地户及短期排盘引用
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/YinpanChartWithReference"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+        "502":
+          $ref: "#/components/responses/BadGateway"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+  /api/v1/paipan/yinpan-juece/context:
+    post:
+      summary: 使用短期排盘引用读取阴盘决策上下文
+      description: paipan_ref 只用于当前标签页短期恢复，服务端数据库仅保存引用哈希。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [paipan_ref]
+              properties:
+                paipan_ref:
+                  $ref: "#/components/schemas/PaipanReference"
+      responses:
+        "200":
+          description: 带盘型与版本号的完整阴盘决策上下文
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/YinpanContext"
         "404":
           $ref: "#/components/responses/NotFound"
         "410":
@@ -922,6 +972,129 @@ components:
         expiresAt: { type: string, format: date-time }
         chartRequest: { $ref: "#/components/schemas/JueceChartRequest" }
         chart: { $ref: "#/components/schemas/JueceChartResponse" }
+    YinpanChartRequest:
+      type: object
+      additionalProperties: false
+      required: [chartDateTime, gender, question, mode, lifetime]
+      properties:
+        chartDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+        gender: { type: string, enum: [male, female] }
+        question: { type: string, maxLength: 30 }
+        mode: { type: string, enum: [time, ke] }
+        lifetime: { type: boolean }
+    YinpanGrowthStage:
+      type: object
+      required: [branch, stage]
+      properties:
+        branch: { type: string, minLength: 1 }
+        stage: { type: string, minLength: 1 }
+    YinpanHarm:
+      type: object
+      required: [symbol, type]
+      properties:
+        symbol: { type: string, minLength: 1 }
+        type: { type: string, enum: [迫, 墓, 刑] }
+    YinpanPalace:
+      type: object
+      required: [index, trigram, direction, element, deity, star, door, heavenStems, earthStems, hiddenStem, harms, heavenGrowth, earthGrowth, isVoid, isHorse, isChief, isChiefDoor]
+      properties:
+        index: { type: integer, minimum: 1, maximum: 9 }
+        trigram: { type: string }
+        direction: { type: string }
+        element: { type: string }
+        deity: { type: [string, "null"] }
+        star: { type: [string, "null"] }
+        door: { type: [string, "null"] }
+        heavenStems:
+          type: array
+          maxItems: 2
+          items: { type: string, minLength: 1, maxLength: 1 }
+        earthStems:
+          type: array
+          maxItems: 2
+          items: { type: string, minLength: 1, maxLength: 1 }
+        hiddenStem: { type: [string, "null"] }
+        harms:
+          type: array
+          items: { $ref: "#/components/schemas/YinpanHarm" }
+        heavenGrowth:
+          type: array
+          items: { $ref: "#/components/schemas/YinpanGrowthStage" }
+        earthGrowth:
+          type: array
+          items: { $ref: "#/components/schemas/YinpanGrowthStage" }
+        isVoid: { type: boolean }
+        isHorse: { type: boolean }
+        isChief: { type: boolean }
+        isChiefDoor: { type: boolean }
+    YinpanChartResponse:
+      type: object
+      required: [overview, palaces, heavenEarthGates, lifetimeChart]
+      properties:
+        overview:
+          type: object
+          required: [method, question, gender, solarDateTime, lunarDate, pillars, voidBranches, dunType, juNumber, xunShou, chiefStar, chiefDoor, previousSolarTerm, nextSolarTerm, monthGeneral, horse]
+          properties:
+            method: { type: string, enum: [时盘, 刻盘] }
+            question: { type: string }
+            gender: { type: string, enum: [male, female] }
+            solarDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+            lunarDate: { type: string }
+            pillars: { $ref: "#/components/schemas/JuecePillars" }
+            voidBranches: { type: string, minLength: 2, maxLength: 2 }
+            dunType: { type: string, enum: [阴, 阳] }
+            juNumber: { type: integer, minimum: 1, maximum: 9 }
+            xunShou: { type: string }
+            chiefStar: { $ref: "#/components/schemas/JueceChief" }
+            chiefDoor: { $ref: "#/components/schemas/JueceChief" }
+            previousSolarTerm: { type: string }
+            nextSolarTerm: { type: string }
+            monthGeneral: { type: string }
+            horse:
+              type: object
+              required: [branch, palace]
+              properties:
+                branch: { type: string, minLength: 1, maxLength: 1 }
+                palace: { type: integer, minimum: 1, maximum: 9 }
+        palaces:
+          type: array
+          minItems: 9
+          maxItems: 9
+          items: { $ref: "#/components/schemas/YinpanPalace" }
+        heavenEarthGates:
+          type: array
+          minItems: 12
+          maxItems: 12
+          items:
+            type: object
+            required: [branch, heavenGate, earthGate]
+            properties:
+              branch: { type: string, minLength: 1, maxLength: 1 }
+              heavenGate: { type: string }
+              earthGate: { type: string }
+        lifetimeChart:
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/ChartResponse"
+    YinpanChartWithReference:
+      allOf:
+        - $ref: "#/components/schemas/YinpanChartResponse"
+        - type: object
+          required: [paipan_ref, expiresAt]
+          properties:
+            paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+            expiresAt: { type: string, format: date-time }
+    YinpanContext:
+      type: object
+      required: [schemaVersion, chartType, paipan_ref, generatedAt, expiresAt, chartRequest, chart]
+      properties:
+        schemaVersion: { const: guoxue.paipan.yinpan_juece.v1 }
+        chartType: { const: yinpan_juece }
+        paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+        generatedAt: { type: string, format: date-time }
+        expiresAt: { type: string, format: date-time }
+        chartRequest: { $ref: "#/components/schemas/YinpanChartRequest" }
+        chart: { $ref: "#/components/schemas/YinpanChartResponse" }
     FlowMonth:
       type: object
       required: [index, monthName, ganZhi, solarTermName, solarTermDateTime, tenGods, hiddenStems, hiddenStemTenGods, heavenlyStemAttention, earthlyBranchAttention, shenSha]

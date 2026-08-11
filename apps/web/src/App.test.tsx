@@ -86,7 +86,7 @@ describe("homepage", () => {
     await waitFor(() => expect(fetch).toHaveBeenCalledWith("/api/v1/events", expect.anything()));
   });
 
-  it("shows exactly eleven chart entries and enables 生平子时、遁甲学与决策学", async () => {
+  it("shows exactly eleven chart entries and enables the four completed charts", async () => {
     window.history.pushState({}, "", "/paipan");
     render(<App />);
 
@@ -104,8 +104,12 @@ describe("homepage", () => {
       "href",
       "/paipan/juece",
     );
-    expect(navigation.querySelectorAll('[aria-disabled="true"]')).toHaveLength(8);
-    expect(screen.getAllByText("即将上线")).toHaveLength(8);
+    expect(screen.getByRole("link", { name: "阴盘决策" })).toHaveAttribute(
+      "href",
+      "/paipan/yinpan-juece",
+    );
+    expect(navigation.querySelectorAll('[aria-disabled="true"]')).toHaveLength(7);
+    expect(screen.getAllByText("即将上线")).toHaveLength(7);
   });
 
   it("registers the decision route in the normal build", async () => {
