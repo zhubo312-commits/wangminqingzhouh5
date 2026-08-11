@@ -1,0 +1,594 @@
+openapi: 3.1.0
+info:
+  title: 国学老师 H5 API
+  version: 2.1.0
+  description: 首页与专业排盘公开接口。出生信息和排盘引用仅通过 POST 请求体提交。
+paths:
+  /api/v1/home:
+    get:
+      summary: 获取北京时间当天首页内容
+      responses:
+        "200":
+          description: 首页数据
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HomeResponse"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /api/v1/events:
+    post:
+      summary: 记录匿名业务点击计数
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [event]
+              properties:
+                event:
+                  type: string
+                  enum: [home_view, paipan_click, interpretation_click, learning_click, question_click]
+      responses:
+        "204":
+          description: 已记录
+        "422":
+          $ref: "#/components/responses/ValidationError"
+  /api/v1/paipan/areas:
+    get:
+      summary: 获取排盘地区树
+      responses:
+        "200":
+          description: 地区树，其他地区的编码为 999999
+          headers:
+            Cache-Control:
+              schema: { type: string }
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AreaNode"
+        "502":
+          $ref: "#/components/responses/BadGateway"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+  /api/v1/paipan/bazi/resolve-birth:
+    post:
+      summary: 将阳历、阴历或四柱反查解析为阳历候选
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResolveBirthRequest"
+      responses:
+        "200":
+          description: 候选阳历时间；四柱反查固定使用 sect=2
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResolveBirthResponse"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+        "502":
+          $ref: "#/components/responses/BadGateway"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+  /api/v1/paipan/bazi/chart:
+    post:
+      summary: 生成生平子时完整命盘
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChartRequest"
+      responses:
+        "200":
+          description: 分组后的完整排盘结果及短期排盘引用
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChartWithReference"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+        "502":
+          $ref: "#/components/responses/BadGateway"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+  /api/v1/paipan/bazi/context:
+    post:
+      summary: 使用短期排盘引用读取完整排盘上下文
+      description: >-
+        为页面刷新恢复、未来智能老师后端及 MCP 工具提供同一份强类型数据。
+        paipan_ref 是短期读取凭证，不应记录到日志或拼接原始出生信息。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [paipan_ref]
+              properties:
+                paipan_ref:
+                  $ref: "#/components/schemas/PaipanReference"
+      responses:
+        "200":
+          description: 完整、带版本号的排盘上下文
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaipanContext"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "410":
+          $ref: "#/components/responses/Gone"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+  /api/v1/paipan/bazi/flow-months:
+    post:
+      summary: 获取指定流年的十二流月
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [chart, year]
+              properties:
+                chart:
+                  $ref: "#/components/schemas/ChartRequest"
+                year:
+                  type: integer
+                  minimum: 1900
+                  maximum: 2200
+      responses:
+        "200":
+          description: 十二流月及联动信息
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FlowMonthsResponse"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+        "502":
+          $ref: "#/components/responses/BadGateway"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+  /api/v1/paipan/bazi/shen-sha:
+    post:
+      summary: 按盘面目标计算神煞
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [pillars, target]
+              properties:
+                pillars:
+                  type: object
+                  additionalProperties:
+                    type: array
+                    minItems: 2
+                    maxItems: 2
+                    items:
+                      type: string
+                      minLength: 1
+                      maxLength: 1
+                target:
+                  $ref: "#/components/schemas/ShenShaTarget"
+      responses:
+        "200":
+          description: 神煞名称
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [target, names]
+                properties:
+                  target:
+                    $ref: "#/components/schemas/ShenShaTarget"
+                  names:
+                    type: array
+                    items: { type: string }
+        "422":
+          $ref: "#/components/responses/ValidationError"
+        "502":
+          $ref: "#/components/responses/BadGateway"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+  /health:
+    get:
+      summary: Fastify 存活检查
+      responses:
+        "200": { description: 服务存活 }
+  /ready:
+    get:
+      summary: SQLite、日历与排盘算法服务就绪检查
+      responses:
+        "200": { description: 服务就绪 }
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+components:
+  responses:
+    ValidationError:
+      description: 字段校验或业务输入错误
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Problem"
+    BadGateway:
+      description: 排盘算法服务不可用或返回异常
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Problem"
+    GatewayTimeout:
+      description: 排盘算法服务超时
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Problem"
+    ServiceUnavailable:
+      description: 服务尚未就绪
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Problem"
+    NotFound:
+      description: 排盘引用不存在
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Problem"
+    Gone:
+      description: 排盘引用已过期
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Problem"
+  schemas:
+    BirthDateTime:
+      type: string
+      pattern: '^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$'
+      example: "1998-12-18 12:00"
+    StringList:
+      type: array
+      items: { type: string }
+    ShenShaTarget:
+      type: string
+      enum: [nian, yue, ri, shi, dayun, liunian, liuyue]
+    AreaNode:
+      type: object
+      required: [label, code, children]
+      properties:
+        label: { type: string }
+        code: { type: string }
+        children:
+          type: array
+          items:
+            $ref: "#/components/schemas/AreaNode"
+    ResolveBirthRequest:
+      oneOf:
+        - type: object
+          required: [mode, solarDateTime]
+          properties:
+            mode: { const: solar }
+            solarDateTime:
+              $ref: "#/components/schemas/BirthDateTime"
+        - type: object
+          required: [mode, lunar]
+          properties:
+            mode: { const: lunar }
+            lunar:
+              type: object
+              required: [year, month, day, hour, minute, leapMonth]
+              properties:
+                year: { type: integer, minimum: 1900, maximum: 2100 }
+                month: { type: integer, minimum: 1, maximum: 12 }
+                day: { type: integer, minimum: 1, maximum: 30 }
+                hour: { type: integer, minimum: 0, maximum: 23 }
+                minute: { type: integer, minimum: 0, maximum: 59 }
+                leapMonth: { type: boolean }
+        - type: object
+          required: [mode, pillars]
+          properties:
+            mode: { const: fourPillars }
+            pillars:
+              type: object
+              required: [year, month, day, hour]
+              properties:
+                year: { type: string, minLength: 2, maxLength: 2 }
+                month: { type: string, minLength: 2, maxLength: 2 }
+                day: { type: string, minLength: 2, maxLength: 2 }
+                hour: { type: string, minLength: 2, maxLength: 2 }
+      discriminator:
+        propertyName: mode
+    ResolveBirthResponse:
+      type: object
+      required: [candidates, sect]
+      properties:
+        candidates:
+          type: array
+          items:
+            type: object
+            required: [id, solarDateTime, label]
+            properties:
+              id: { type: string }
+              solarDateTime:
+                $ref: "#/components/schemas/BirthDateTime"
+              label: { type: string }
+        sect: { const: 2 }
+    ChartRequest:
+      type: object
+      required: [name, gender, birthDateTime, areaCode, useTrueSolarTime]
+      properties:
+        name: { type: string, maxLength: 32, description: 可为空字符串 }
+        gender: { type: string, enum: [male, female] }
+        birthDateTime:
+          $ref: "#/components/schemas/BirthDateTime"
+        areaCode: { type: string, pattern: '^\d{6}$' }
+        useTrueSolarTime: { type: boolean }
+    Profile:
+      type: object
+      required: [name, gender, birthDateTime, lunarDate, area, areaCode, chineseZodiac, zodiac]
+      properties:
+        name: { type: string }
+        gender: { type: string, enum: [male, female] }
+        birthDateTime:
+          $ref: "#/components/schemas/BirthDateTime"
+        lunarDate: { type: string }
+        area: { type: string }
+        areaCode: { type: string }
+        trueSolarTime: { type: [string, "null"] }
+        chineseZodiac: { type: string }
+        zodiac: { type: string }
+    BasicFacts:
+      type: object
+      required: [benMingFo, taiYuan, taiYuanNaYin, mingGong, mingGongNaYin, duiChong, sanSha, wenChangWei, prevSolarTerm, nextSolarTerm]
+      properties:
+        benMingFo: { type: string }
+        taiYuan: { type: string }
+        taiYuanNaYin: { type: string }
+        mingGong: { type: string }
+        mingGongNaYin: { type: string }
+        duiChong: { type: string }
+        sanSha: { type: string }
+        wenChangWei: { type: string }
+        prevSolarTerm: { type: string }
+        nextSolarTerm: { type: string }
+    HiddenStem:
+      type: object
+      required: [stem, element, tenGod]
+      properties:
+        stem: { type: string }
+        element: { type: string }
+        tenGod: { type: string }
+    Pillar:
+      type: object
+      required: [key, label, stem, branch, stemElement, branchElement, tenGod, hiddenStems, growth, selfSeat, naYin, voidBranch, shenSha]
+      properties:
+        key: { type: string, enum: [year, month, day, hour] }
+        label: { type: string }
+        stem: { type: string }
+        branch: { type: string }
+        stemElement: { type: string }
+        branchElement: { type: string }
+        tenGod: { type: string }
+        hiddenStems:
+          type: array
+          items:
+            $ref: "#/components/schemas/HiddenStem"
+        growth: { type: string }
+        selfSeat: { type: string }
+        naYin: { type: string }
+        voidBranch: { type: string }
+        shenSha:
+          $ref: "#/components/schemas/StringList"
+    Attention:
+      type: object
+      required: [heavenlyStems, earthlyBranches]
+      properties:
+        heavenlyStems:
+          $ref: "#/components/schemas/StringList"
+        earthlyBranches:
+          $ref: "#/components/schemas/StringList"
+    FlowYear:
+      type: object
+      required: [index, year, age, ganZhi, voidBranch, tenGods, hiddenStems, hiddenStemTenGods, wealthStrong, heavenlyStemAttention, earthlyBranchAttention, shenSha]
+      properties:
+        index: { type: integer }
+        year: { type: integer }
+        age: { type: integer }
+        ganZhi: { type: string }
+        voidBranch: { type: string }
+        tenGods: { $ref: "#/components/schemas/StringList" }
+        hiddenStems: { type: string }
+        hiddenStemTenGods: { $ref: "#/components/schemas/StringList" }
+        wealthStrong: { type: boolean }
+        heavenlyStemAttention: { $ref: "#/components/schemas/StringList" }
+        earthlyBranchAttention: { $ref: "#/components/schemas/StringList" }
+        shenSha: { $ref: "#/components/schemas/StringList" }
+    FortunePeriod:
+      type: object
+      required: [index, startYear, endYear, startAge, endAge, ganZhi, tenGods, growth, hiddenStems, hiddenStemTenGods, wealthStrong, heavenlyStemAttention, earthlyBranchAttention, shenSha, years]
+      properties:
+        index: { type: integer }
+        startYear: { type: integer }
+        endYear: { type: integer }
+        startAge: { type: integer }
+        endAge: { type: integer }
+        ganZhi: { type: string }
+        tenGods: { $ref: "#/components/schemas/StringList" }
+        growth: { type: string }
+        hiddenStems: { type: string }
+        hiddenStemTenGods: { $ref: "#/components/schemas/StringList" }
+        wealthStrong: { type: boolean }
+        heavenlyStemAttention: { $ref: "#/components/schemas/StringList" }
+        earthlyBranchAttention: { $ref: "#/components/schemas/StringList" }
+        shenSha: { $ref: "#/components/schemas/StringList" }
+        years:
+          type: array
+          items: { $ref: "#/components/schemas/FlowYear" }
+    StrengthReference:
+      type: object
+      required: [legacyScore, samePartyScore, otherPartyScore, level, pattern, summary, favorableGod, favorableElements, relationScores]
+      properties:
+        legacyScore: { type: integer }
+        samePartyScore: { type: integer }
+        otherPartyScore: { type: integer }
+        level: { type: string }
+        pattern: { type: string }
+        summary: { type: string }
+        favorableGod: { type: string }
+        favorableElements: { $ref: "#/components/schemas/StringList" }
+        relationScores:
+          type: object
+          additionalProperties: { type: integer }
+    ChartResponse:
+      type: object
+      required: [profile, basicFacts, pillars, attention, shenShaDescriptions, fortune, strength]
+      properties:
+        profile: { $ref: "#/components/schemas/Profile" }
+        basicFacts: { $ref: "#/components/schemas/BasicFacts" }
+        pillars:
+          type: array
+          minItems: 4
+          maxItems: 4
+          items: { $ref: "#/components/schemas/Pillar" }
+        attention: { $ref: "#/components/schemas/Attention" }
+        shenShaDescriptions:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/StringList"
+        fortune:
+          type: object
+          required: [startSolar, startDescription, changeDescription, periods]
+          properties:
+            startSolar: { type: string }
+            startDescription: { type: string }
+            changeDescription: { type: string }
+            periods:
+              type: array
+              items: { $ref: "#/components/schemas/FortunePeriod" }
+        strength: { $ref: "#/components/schemas/StrengthReference" }
+    PaipanReference:
+      type: string
+      pattern: '^pp_[A-Za-z0-9_-]{32}$'
+      example: pp_0123456789abcdefghijklmnopqrstuv
+      description: 具有读取能力的短期随机引用；只通过 POST 请求体或受控 Dify/MCP 输入传递
+    ChartWithReference:
+      allOf:
+        - $ref: "#/components/schemas/ChartResponse"
+        - type: object
+          required: [paipan_ref, expiresAt]
+          properties:
+            paipan_ref:
+              $ref: "#/components/schemas/PaipanReference"
+            expiresAt:
+              type: string
+              format: date-time
+    PaipanContext:
+      type: object
+      required: [schemaVersion, chartType, paipan_ref, generatedAt, expiresAt, chartRequest, chart]
+      properties:
+        schemaVersion:
+          const: guoxue.paipan.bazi.v1
+        chartType:
+          const: shengping_zishi
+        paipan_ref:
+          $ref: "#/components/schemas/PaipanReference"
+        generatedAt:
+          type: string
+          format: date-time
+        expiresAt:
+          type: string
+          format: date-time
+        chartRequest:
+          $ref: "#/components/schemas/ChartRequest"
+        chart:
+          $ref: "#/components/schemas/ChartResponse"
+    FlowMonth:
+      type: object
+      required: [index, monthName, ganZhi, solarTermName, solarTermDateTime, tenGods, hiddenStems, hiddenStemTenGods, heavenlyStemAttention, earthlyBranchAttention, shenSha]
+      properties:
+        index: { type: integer, minimum: 1, maximum: 12 }
+        monthName: { type: string }
+        ganZhi: { type: string }
+        solarTermName: { type: string }
+        solarTermDateTime: { type: string }
+        tenGods: { $ref: "#/components/schemas/StringList" }
+        hiddenStems: { type: string }
+        hiddenStemTenGods: { $ref: "#/components/schemas/StringList" }
+        heavenlyStemAttention: { $ref: "#/components/schemas/StringList" }
+        earthlyBranchAttention: { $ref: "#/components/schemas/StringList" }
+        shenSha: { $ref: "#/components/schemas/StringList" }
+    FlowMonthsResponse:
+      type: object
+      required: [year, months]
+      properties:
+        year: { type: integer }
+        months:
+          type: array
+          minItems: 12
+          maxItems: 12
+          items: { $ref: "#/components/schemas/FlowMonth" }
+    HomeResponse:
+      type: object
+      required: [date, weekday, calendar, guidance, links]
+      properties:
+        date: { type: string, format: date }
+        weekday: { type: string }
+        calendar:
+          type: object
+          required: [lunarYear, lunarMonth, lunarDay, zodiac, solarTerm]
+          properties:
+            lunarYear: { type: string }
+            lunarMonth: { type: string }
+            lunarDay: { type: string }
+            zodiac: { type: string }
+            solarTerm: { type: [string, "null"] }
+        guidance:
+          type: object
+          required: [text, suitable, avoid]
+          properties:
+            text: { type: string }
+            suitable:
+              type: array
+              minItems: 1
+              maxItems: 3
+              items: { type: string }
+            avoid:
+              type: array
+              minItems: 1
+              maxItems: 3
+              items: { type: string }
+        links:
+          type: object
+          required: [interpretation, learning, question]
+          properties:
+            interpretation: { type: [string, "null"], format: uri }
+            learning: { type: [string, "null"], format: uri }
+            question: { type: [string, "null"], format: uri }
+    Problem:
+      type: object
+      required: [type, title, status, detail, instance, request_id]
+      properties:
+        type: { type: string }
+        title: { type: string }
+        status: { type: integer }
+        detail: { type: string }
+        instance: { type: string }
+        request_id: { type: string }
+        errors:
+          type: array
+          items:
+            type: object
+            required: [field, message, code]
+            properties:
+              field: { type: string }
+              message: { type: string }
+              code: { type: string }

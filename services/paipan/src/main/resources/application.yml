@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: paipan-service
+  jackson:
+    default-property-inclusion: non_null
+server:
+  port: ${PORT:8080}
+  error:
+    include-message: never
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+logging:
+  level:
+    root: WARN
+    cn.bavor.guoxue.paipan: INFO

@@ -1,0 +1,302 @@
+import { z } from "zod";
+
+export const CalendarInfoSchema = z.object({
+  lunarYear: z.string().min(1),
+  lunarMonth: z.string().min(1),
+  lunarDay: z.string().min(1),
+  zodiac: z.string().min(1),
+  solarTerm: z.string().min(1).nullable(),
+});
+
+export const GuidanceSchema = z.object({
+  text: z.string().min(1).max(160),
+  suitable: z.array(z.string().min(1).max(12)).min(1).max(3),
+  avoid: z.array(z.string().min(1).max(12)).min(1).max(3),
+});
+
+export const HomeLinksSchema = z.object({
+  interpretation: z.url().nullable(),
+  learning: z.url().nullable(),
+  question: z.url().nullable(),
+});
+
+export const HomeResponseSchema = z.object({
+  date: z.iso.date(),
+  weekday: z.string().min(1),
+  calendar: CalendarInfoSchema,
+  guidance: GuidanceSchema,
+  links: HomeLinksSchema,
+});
+
+export const AnalyticsEventSchema = z.enum([
+  "home_view",
+  "paipan_click",
+  "interpretation_click",
+  "learning_click",
+  "question_click",
+]);
+
+export const TrackEventRequestSchema = z.object({
+  event: AnalyticsEventSchema,
+});
+
+export const ProblemDetailsSchema = z.object({
+  type: z.string(),
+  title: z.string(),
+  status: z.number().int(),
+  detail: z.string(),
+  instance: z.string(),
+  request_id: z.string(),
+  errors: z
+    .array(
+      z.object({
+        field: z.string(),
+        message: z.string(),
+        code: z.string(),
+      }),
+    )
+    .optional(),
+});
+
+export interface PaipanAreaNode {
+  label: string;
+  code: string;
+  children: PaipanAreaNode[];
+}
+
+export const PaipanAreaNodeSchema: z.ZodType<PaipanAreaNode> = z.lazy(() =>
+  z.object({
+    label: z.string().min(1),
+    code: z.string().min(1),
+    children: z.array(PaipanAreaNodeSchema),
+  }),
+);
+
+const BirthDateTimeSchema = z
+  .string()
+  .regex(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/);
+
+export const ResolveBirthRequestSchema = z.discriminatedUnion("mode", [
+  z.object({ mode: z.literal("solar"), solarDateTime: BirthDateTimeSchema }),
+  z.object({
+    mode: z.literal("lunar"),
+    lunar: z.object({
+      year: z.number().int().min(1900).max(2100),
+      month: z.number().int().min(1).max(12),
+      day: z.number().int().min(1).max(30),
+      hour: z.number().int().min(0).max(23),
+      minute: z.number().int().min(0).max(59),
+      leapMonth: z.boolean(),
+    }),
+  }),
+  z.object({
+    mode: z.literal("fourPillars"),
+    pillars: z.object({
+      year: z.string().length(2),
+      month: z.string().length(2),
+      day: z.string().length(2),
+      hour: z.string().length(2),
+    }),
+  }),
+]);
+
+export const ResolveBirthResponseSchema = z.object({
+  candidates: z.array(
+    z.object({
+      id: z.string().min(1),
+      solarDateTime: BirthDateTimeSchema,
+      label: z.string().min(1),
+    }),
+  ),
+  sect: z.literal(2),
+});
+
+export const BaziChartRequestSchema = z.object({
+  name: z.string().max(32),
+  gender: z.enum(["male", "female"]),
+  birthDateTime: BirthDateTimeSchema,
+  areaCode: z.string().regex(/^\d{6}$/),
+  useTrueSolarTime: z.boolean(),
+});
+
+const HiddenStemSchema = z.object({
+  stem: z.string(),
+  element: z.string(),
+  tenGod: z.string(),
+});
+
+const AttentionSchema = z.object({
+  heavenlyStems: z.array(z.string()),
+  earthlyBranches: z.array(z.string()),
+});
+
+const FlowYearSchema = z.object({
+  index: z.number().int(),
+  year: z.number().int(),
+  age: z.number().int(),
+  ganZhi: z.string(),
+  voidBranch: z.string(),
+  tenGods: z.array(z.string()),
+  hiddenStems: z.string(),
+  hiddenStemTenGods: z.array(z.string()),
+  wealthStrong: z.boolean(),
+  heavenlyStemAttention: z.array(z.string()),
+  earthlyBranchAttention: z.array(z.string()),
+  shenSha: z.array(z.string()),
+});
+
+const FortunePeriodSchema = z.object({
+  index: z.number().int(),
+  startYear: z.number().int(),
+  endYear: z.number().int(),
+  startAge: z.number().int(),
+  endAge: z.number().int(),
+  ganZhi: z.string(),
+  tenGods: z.array(z.string()),
+  growth: z.string(),
+  hiddenStems: z.string(),
+  hiddenStemTenGods: z.array(z.string()),
+  wealthStrong: z.boolean(),
+  heavenlyStemAttention: z.array(z.string()),
+  earthlyBranchAttention: z.array(z.string()),
+  shenSha: z.array(z.string()),
+  years: z.array(FlowYearSchema),
+});
+
+export const BaziChartResponseSchema = z.object({
+  profile: z.object({
+    name: z.string(),
+    gender: z.enum(["male", "female"]),
+    birthDateTime: BirthDateTimeSchema,
+    lunarDate: z.string(),
+    area: z.string(),
+    areaCode: z.string(),
+    trueSolarTime: z.string().nullable().optional(),
+    chineseZodiac: z.string(),
+    zodiac: z.string(),
+  }),
+  basicFacts: z.object({
+    benMingFo: z.string(),
+    taiYuan: z.string(),
+    taiYuanNaYin: z.string(),
+    mingGong: z.string(),
+    mingGongNaYin: z.string(),
+    duiChong: z.string(),
+    sanSha: z.string(),
+    wenChangWei: z.string(),
+    prevSolarTerm: z.string(),
+    nextSolarTerm: z.string(),
+  }),
+  pillars: z.array(
+    z.object({
+      key: z.enum(["year", "month", "day", "hour"]),
+      label: z.string(),
+      stem: z.string(),
+      branch: z.string(),
+      stemElement: z.string(),
+      branchElement: z.string(),
+      tenGod: z.string(),
+      hiddenStems: z.array(HiddenStemSchema),
+      growth: z.string(),
+      selfSeat: z.string(),
+      naYin: z.string(),
+      voidBranch: z.string(),
+      shenSha: z.array(z.string()),
+    }),
+  ).length(4),
+  attention: AttentionSchema,
+  shenShaDescriptions: z.record(z.string(), z.array(z.string())),
+  fortune: z.object({
+    startSolar: z.string(),
+    startDescription: z.string(),
+    changeDescription: z.string(),
+    periods: z.array(FortunePeriodSchema),
+  }),
+  strength: z.object({
+    legacyScore: z.number().int(),
+    samePartyScore: z.number().int(),
+    otherPartyScore: z.number().int(),
+    level: z.string(),
+    pattern: z.string(),
+    summary: z.string(),
+    favorableGod: z.string(),
+    favorableElements: z.array(z.string()),
+    relationScores: z.record(z.string(), z.number().int()),
+  }),
+});
+
+export const PaipanReferenceSchema = z
+  .string()
+  .regex(/^pp_[A-Za-z0-9_-]{32}$/);
+
+export const BaziChartWithReferenceSchema = BaziChartResponseSchema.extend({
+  paipan_ref: PaipanReferenceSchema,
+  expiresAt: z.iso.datetime(),
+});
+
+export const PaipanContextLookupRequestSchema = z.object({
+  paipan_ref: PaipanReferenceSchema,
+});
+
+export const PaipanContextResponseSchema = z.object({
+  schemaVersion: z.literal("guoxue.paipan.bazi.v1"),
+  chartType: z.literal("shengping_zishi"),
+  paipan_ref: PaipanReferenceSchema,
+  generatedAt: z.iso.datetime(),
+  expiresAt: z.iso.datetime(),
+  chartRequest: BaziChartRequestSchema,
+  chart: BaziChartResponseSchema,
+});
+
+export const FlowMonthsRequestSchema = z.object({
+  chart: BaziChartRequestSchema,
+  year: z.number().int().min(1900).max(2200),
+});
+
+export const FlowMonthsResponseSchema = z.object({
+  year: z.number().int(),
+  months: z.array(
+    z.object({
+      index: z.number().int().min(1).max(12),
+      monthName: z.string(),
+      ganZhi: z.string(),
+      solarTermName: z.string(),
+      solarTermDateTime: z.string(),
+      tenGods: z.array(z.string()),
+      hiddenStems: z.string(),
+      hiddenStemTenGods: z.array(z.string()),
+      heavenlyStemAttention: z.array(z.string()),
+      earthlyBranchAttention: z.array(z.string()),
+      shenSha: z.array(z.string()),
+    }),
+  ),
+});
+
+export const ShenShaRequestSchema = z.object({
+  pillars: z.record(z.string(), z.array(z.string().length(1)).length(2)),
+  target: z.enum(["nian", "yue", "ri", "shi", "dayun", "liunian", "liuyue"]),
+});
+
+export const ShenShaResponseSchema = z.object({
+  target: ShenShaRequestSchema.shape.target,
+  names: z.array(z.string()),
+});
+
+export type CalendarInfo = z.infer<typeof CalendarInfoSchema>;
+export type Guidance = z.infer<typeof GuidanceSchema>;
+export type HomeLinks = z.infer<typeof HomeLinksSchema>;
+export type HomeResponse = z.infer<typeof HomeResponseSchema>;
+export type AnalyticsEvent = z.infer<typeof AnalyticsEventSchema>;
+export type TrackEventRequest = z.infer<typeof TrackEventRequestSchema>;
+export type ProblemDetails = z.infer<typeof ProblemDetailsSchema>;
+export type ResolveBirthRequest = z.infer<typeof ResolveBirthRequestSchema>;
+export type ResolveBirthResponse = z.infer<typeof ResolveBirthResponseSchema>;
+export type BaziChartRequest = z.infer<typeof BaziChartRequestSchema>;
+export type BaziChartResponse = z.infer<typeof BaziChartResponseSchema>;
+export type BaziChartWithReference = z.infer<typeof BaziChartWithReferenceSchema>;
+export type PaipanContextLookupRequest = z.infer<typeof PaipanContextLookupRequestSchema>;
+export type PaipanContextResponse = z.infer<typeof PaipanContextResponseSchema>;
+export type FlowMonthsRequest = z.infer<typeof FlowMonthsRequestSchema>;
+export type FlowMonthsResponse = z.infer<typeof FlowMonthsResponseSchema>;
+export type ShenShaRequest = z.infer<typeof ShenShaRequestSchema>;
+export type ShenShaResponse = z.infer<typeof ShenShaResponseSchema>;

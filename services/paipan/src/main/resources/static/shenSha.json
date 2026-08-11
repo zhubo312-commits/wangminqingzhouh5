@@ -1,0 +1,7529 @@
+[
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": [
+      "nian",
+      "yue",
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "chou",
+      "wei"
+    ],
+    "result": "天乙贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": [
+      "nian",
+      "yue",
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "zi",
+      "shen"
+    ],
+    "result": "天乙贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": [
+      "nian",
+      "yue",
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "hai",
+      "you"
+    ],
+    "result": "天乙贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": [
+      "nian",
+      "yue",
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "hai",
+      "you"
+    ],
+    "result": "天乙贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": [
+      "nian",
+      "yue",
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "chou",
+      "wei"
+    ],
+    "result": "天乙贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": [
+      "nian",
+      "yue",
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "zi",
+      "shen"
+    ],
+    "result": "天乙贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": [
+      "nian",
+      "yue",
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "chou",
+      "wei"
+    ],
+    "result": "天乙贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": [
+      "nian",
+      "yue",
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "yin",
+      "wu"
+    ],
+    "result": "天乙贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": [
+      "nian",
+      "yue",
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "mao",
+      "si"
+    ],
+    "result": "天乙贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": [
+      "nian",
+      "yue",
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "mao",
+      "si"
+    ],
+    "result": "天乙贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "文昌贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "文昌贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "文昌贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "文昌贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "文昌贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "文昌贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "文昌贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "文昌贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "文昌贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "文昌贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "xu",
+    "result": "国印"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "国印"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "国印"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "国印"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "国印"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "国印"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "国印"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "国印"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "国印"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "国印"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "zi",
+      "wu"
+    ],
+    "result": "太极贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "zi",
+      "wu"
+    ],
+    "result": "太极贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "you",
+      "mao"
+    ],
+    "result": "太极贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "you",
+      "mao"
+    ],
+    "result": "太极贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "chen",
+      "xu",
+      "chou",
+      "wei"
+    ],
+    "result": "太极贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "chen",
+      "xu",
+      "chou",
+      "wei"
+    ],
+    "result": "太极贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "yin",
+      "hai"
+    ],
+    "result": "太极贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "yin",
+      "hai"
+    ],
+    "result": "太极贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "si",
+      "shen"
+    ],
+    "result": "太极贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "si",
+      "shen"
+    ],
+    "result": "太极贵人"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "沐浴"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "沐浴"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "沐浴"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "沐浴"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "沐浴"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "沐浴"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "沐浴"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "沐浴"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "沐浴"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "沐浴"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "金舆"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "金舆"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "金舆"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "金舆"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "金舆"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "金舆"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "xu",
+    "result": "金舆"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "金舆"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "金舆"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "金舆"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "禄神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "禄神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "禄神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "禄神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "禄神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "禄神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "禄神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "禄神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "禄神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "禄神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "垣城"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "垣城"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "垣城"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "垣城"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "垣城"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "垣城"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "垣城"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "垣城"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "垣城"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "垣城"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "羊刃"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "羊刃"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "羊刃"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "羊刃"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "羊刃"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "羊刃"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "羊刃"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "羊刃"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "羊刃"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "羊刃"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "天官"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "天官"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "天官"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "天官"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "xu",
+    "result": "天官"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "天官"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "天官"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "天官"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "天官"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "天官"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "xinyou",
+    "result": "天福"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "gengshen",
+    "result": "天福"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "guihai",
+    "result": "天福"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "renzi",
+    "result": "天福"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "yimao",
+    "result": "天福"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "jiayin",
+    "result": "天福"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "dingsi",
+    "result": "天福"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "bingwu",
+    "result": "天福"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "jichou",
+      "jiwei"
+    ],
+    "result": "天福"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "wuchen",
+      "wuxu"
+    ],
+    "result": "天福"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "gengyin",
+    "result": "词馆"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "xinmao",
+    "result": "词馆"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "yisi",
+    "result": "词馆"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "wuwu",
+    "result": "词馆"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "dingsi",
+    "result": "词馆"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "gengwu",
+    "result": "词馆"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "renshen",
+    "result": "词馆"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "guiyou",
+    "result": "词馆"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "guihai",
+    "result": "词馆"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "bingzi",
+    "result": "词馆"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "gengchen",
+      "gengxu"
+    ],
+    "result": "墓煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "xinchou",
+      "xinwei"
+    ],
+    "result": "墓煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "renchen",
+      "renxu"
+    ],
+    "result": "墓煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "guichou",
+      "guiwei"
+    ],
+    "result": "墓煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "jiachen",
+      "jiawu"
+    ],
+    "result": "墓煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "yichou",
+      "yiwei"
+    ],
+    "result": "墓煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "bingchen",
+      "bingxu"
+    ],
+    "result": "墓煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "dingchou",
+      "dingwei"
+    ],
+    "result": "墓煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "wuchen",
+      "wuxu"
+    ],
+    "result": "墓煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "all",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "jichou",
+      "jiwei"
+    ],
+    "result": "墓煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "jiwei",
+      "xinwei"
+    ],
+    "result": "时墓"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "wuxu",
+      "gengxu"
+    ],
+    "result": "时墓"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "yichou",
+      "dingchou"
+    ],
+    "result": "时墓"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "jiachen",
+      "bingchen"
+    ],
+    "result": "时墓"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "yue",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "yue",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "yue",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "yue",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "yue",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "yue",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "yue",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "yue",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "yue",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "yue",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "nian",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "nian",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "nian",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "nian",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "nian",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "nian",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "nian",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "nian",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "nian",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "nian",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "shi"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "shi"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "shi"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "shi"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "shi"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "shi"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "shi"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "shi"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "shi"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "shi"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "天厨"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "天德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "geng",
+    "result": "天德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "ding",
+    "result": "天德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "天德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "ren",
+    "result": "天德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "xin",
+    "result": "天德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "天德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "jia",
+    "result": "天德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "gui",
+    "result": "天德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "天德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "bing",
+    "result": "天德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "yi",
+    "result": "天德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "天德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "yi",
+    "result": "天德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "ren",
+    "result": "天德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "天德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "ding",
+    "result": "天德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "bing",
+    "result": "天德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "天德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "ji",
+    "result": "天德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "wu",
+    "result": "天德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "天德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "xin",
+    "result": "天德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "geng",
+    "result": "天德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "天医"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "天医"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "天医"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "天医"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "天医"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "天医"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "天医"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "天医"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "天医"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "天医"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "天医"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "xu",
+    "result": "天医"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "太白星"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "太白星"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "太白星"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "太白星"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "太白星"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "太白星"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "太白星"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "太白星"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "太白星"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "太白星"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "太白星"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "太白星"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "隔角"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "隔角"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "隔角"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "隔角"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "隔角"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "隔角"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "隔角"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "隔角"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "xu",
+    "result": "隔角"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "隔角"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "隔角"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "隔角"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "丧门"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "丧门"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "丧门"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "丧门"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "丧门"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "丧门"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "丧门"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "丧门"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "xu",
+    "result": "丧门"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "丧门"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "丧门"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "丧门"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "xu",
+    "result": "吊客"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "吊客"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "吊客"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "吊客"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "吊客"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "吊客"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "吊客"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "吊客"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "吊客"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "吊客"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "吊客"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "吊客"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "孤辰"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "孤辰"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "孤辰"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "孤辰"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "孤辰"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "孤辰"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "孤辰"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "孤辰"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "孤辰"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "孤辰"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "孤辰"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "孤辰"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "xu",
+    "result": "寡宿"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "xu",
+    "result": "寡宿"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "寡宿"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "寡宿"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "寡宿"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "寡宿"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "寡宿"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "寡宿"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "寡宿"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "寡宿"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "寡宿"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "xu",
+    "result": "寡宿"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "ren",
+    "result": "月德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "ren",
+    "result": "月德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "ren",
+    "result": "月德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "geng",
+    "result": "月德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "geng",
+    "result": "月德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "geng",
+    "result": "月德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "bing",
+    "result": "月德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "bing",
+    "result": "月德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "bing",
+    "result": "月德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "jia",
+    "result": "月德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "jia",
+    "result": "月德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "jia",
+    "result": "月德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "ding",
+    "result": "月德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "ding",
+    "result": "月德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "ding",
+    "result": "月德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "yi",
+    "result": "月德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "yi",
+    "result": "月德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "yi",
+    "result": "月德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "xin",
+    "result": "月德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "xin",
+    "result": "月德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "xin",
+    "result": "月德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "ji",
+    "result": "月德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "ji",
+    "result": "月德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "ji",
+    "result": "月德合"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "ren",
+      "gui",
+      "wu",
+      "ji"
+    ],
+    "result": "德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "ren",
+      "gui",
+      "wu",
+      "ji"
+    ],
+    "result": "德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "ren",
+      "gui",
+      "wu",
+      "ji"
+    ],
+    "result": "德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "geng",
+      "xin"
+    ],
+    "result": "德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "geng",
+      "xin"
+    ],
+    "result": "德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "geng",
+      "xin"
+    ],
+    "result": "德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "bing",
+      "ding"
+    ],
+    "result": "德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "bing",
+      "ding"
+    ],
+    "result": "德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "bing",
+      "ding"
+    ],
+    "result": "德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "jia",
+      "yi"
+    ],
+    "result": "德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "jia",
+      "yi"
+    ],
+    "result": "德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "jia",
+      "yi"
+    ],
+    "result": "德贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "bing",
+      "xin",
+      "jia",
+      "ji"
+    ],
+    "result": "秀贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "bing",
+      "xin",
+      "jia",
+      "ji"
+    ],
+    "result": "秀贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "bing",
+      "xin",
+      "jia",
+      "ji"
+    ],
+    "result": "秀贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "geng",
+      "xin"
+    ],
+    "result": "秀贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "geng",
+      "xin"
+    ],
+    "result": "秀贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "geng",
+      "xin"
+    ],
+    "result": "秀贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "xu",
+      "gui"
+    ],
+    "result": "秀贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "xu",
+      "gui"
+    ],
+    "result": "秀贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "xu",
+      "gui"
+    ],
+    "result": "秀贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "ding",
+      "ren"
+    ],
+    "result": "秀贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "ding",
+      "ren"
+    ],
+    "result": "秀贵人"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": [
+      "ding",
+      "ren"
+    ],
+    "result": "秀贵人"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "华盖"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "华盖"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "xu",
+    "result": "华盖"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "华盖"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "华盖"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "华盖"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "xu",
+    "result": "华盖"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "华盖"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "华盖"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "华盖"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "xu",
+    "result": "华盖"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "华盖"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "将星"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "将星"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "将星"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "将星"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "将星"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "将星"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "将星"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "将星"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "将星"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "将星"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "将星"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "将星"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "驿马"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "驿马"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "驿马"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "驿马"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "驿马"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "驿马"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "驿马"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "驿马"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "驿马"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "驿马"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "驿马"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "驿马"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "桃花"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "桃花"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "桃花"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "桃花"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "桃花"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "桃花"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "桃花"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "桃花"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "桃花"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "桃花"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "桃花"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "桃花"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "劫煞"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "劫煞"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "劫煞"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "劫煞"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "劫煞"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "劫煞"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "劫煞"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "劫煞"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "劫煞"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "劫煞"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "劫煞"
+  },
+  {
+    "base4zhus": [
+      "ri",
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "劫煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "亡神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "亡神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "亡神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "亡神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "亡神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "亡神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "亡神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "亡神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "亡神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "亡神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "亡神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "亡神"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "灾煞"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "灾煞"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "灾煞"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "灾煞"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "灾煞"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "灾煞"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "灾煞"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "灾煞"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "灾煞"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "灾煞"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "灾煞"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "灾煞"
+  },
+  {
+    "base4zhus": [
+      "nian",
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "六厄"
+  },
+  {
+    "base4zhus": [
+      "nian",
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "六厄"
+  },
+  {
+    "base4zhus": [
+      "nian",
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "六厄"
+  },
+  {
+    "base4zhus": [
+      "nian",
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "六厄"
+  },
+  {
+    "base4zhus": [
+      "nian",
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "六厄"
+  },
+  {
+    "base4zhus": [
+      "nian",
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "六厄"
+  },
+  {
+    "base4zhus": [
+      "nian",
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "六厄"
+  },
+  {
+    "base4zhus": [
+      "nian",
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "六厄"
+  },
+  {
+    "base4zhus": [
+      "nian",
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "六厄"
+  },
+  {
+    "base4zhus": [
+      "nian",
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "六厄"
+  },
+  {
+    "base4zhus": [
+      "nian",
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "六厄"
+  },
+  {
+    "base4zhus": [
+      "nian",
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "六厄"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "日贵"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "日贵"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "日贵"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "日贵"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "魁罡"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "魁罡"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "xu",
+    "result": "魁罡"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "xu",
+    "result": "魁罡"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "日德"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "日德"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "日德"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "日德"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "日德"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "阴阳煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "阴阳煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "九丑"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "九丑"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "九丑"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "九丑"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "九丑"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "九丑"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "九丑"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "九丑"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "九丑"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "九丑"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "jiazi",
+    "result": "天赦"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "jiazi",
+    "result": "天赦"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "wuyin",
+    "result": "天赦"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "wuyin",
+    "result": "天赦"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "wuyin",
+    "result": "天赦"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "jiawu",
+    "result": "天赦"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "jiawu",
+    "result": "天赦"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "jiawu",
+    "result": "天赦"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "wushen",
+    "result": "天赦"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "wushen",
+    "result": "天赦"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "wushen",
+    "result": "天赦"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": "jiazi",
+    "result": "天赦"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "gengshen",
+      "xinyou"
+    ],
+    "result": "四废"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "gengshen",
+      "xinyou"
+    ],
+    "result": "四废"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "renzi",
+      "guihai"
+    ],
+    "result": "四废"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "renzi",
+      "guihai"
+    ],
+    "result": "四废"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "renzi",
+      "guihai"
+    ],
+    "result": "四废"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "jiayin",
+      "yimao"
+    ],
+    "result": "四废"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "jiayin",
+      "yimao"
+    ],
+    "result": "四废"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "jiayin",
+      "yimao"
+    ],
+    "result": "四废"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "bingwu",
+      "dingsi"
+    ],
+    "result": "四废"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "bingwu",
+      "dingsi"
+    ],
+    "result": "四废"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "bingwu",
+      "dingsi"
+    ],
+    "result": "四废"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "gengshen",
+      "xinyou"
+    ],
+    "result": "四废"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "yimao",
+      "xinmao"
+    ],
+    "result": "天地转煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "yimao",
+      "xinmao"
+    ],
+    "result": "天地转煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "yimao",
+      "xinmao"
+    ],
+    "result": "天地转煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "bingwu",
+      "wuwu"
+    ],
+    "result": "天地转煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "bingwu",
+      "wuwu"
+    ],
+    "result": "天地转煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "bingwu",
+      "wuwu"
+    ],
+    "result": "天地转煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "xinyou",
+      "guiyou"
+    ],
+    "result": "天地转煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "xinyou",
+      "guiyou"
+    ],
+    "result": "天地转煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "xinyou",
+      "guiyou"
+    ],
+    "result": "天地转煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "bingzi",
+      "renzi"
+    ],
+    "result": "天地转煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "bingzi",
+      "renzi"
+    ],
+    "result": "天地转煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "zhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhu",
+    "checkGanZhiNames": [
+      "bingzi",
+      "renzi"
+    ],
+    "result": "天地转煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "金神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "金神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "shi",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "金神"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "红艳煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "红艳煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "红艳煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "红艳煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "xu",
+    "result": "红艳煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "红艳煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "红艳煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "yue",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "红艳煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "yue",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "红艳煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "yue",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "红艳煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "阴差阳错"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "阴差阳错"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "阴差阳错"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "阴差阳错"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "阴差阳错"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "阴差阳错"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "阴差阳错"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "阴差阳错"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "xu",
+    "result": "阴差阳错"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "阴差阳错"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "阴差阳错"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "阴差阳错"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "chou",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "wei",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "yin",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "shen",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "mao",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "you",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "you",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "chen",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "xu",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "xu",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "si",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "hai",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "wu",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "tiangan",
+    "checkGanZhiNames": "zi",
+    "result": "血刃"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "孤鸾煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "孤鸾煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "孤鸾煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "孤鸾煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "孤鸾煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "孤鸾煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "孤鸾煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "孤鸾煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "流霞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "xu",
+    "result": "流霞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "流霞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "流霞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "流霞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "流霞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "流霞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "流霞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "流霞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "流霞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "流霞"
+  },
+  {
+    "base4zhus": [
+      "nian",
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "天罗"
+  },
+  {
+    "base4zhus": [
+      "nian",
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "xu",
+    "result": "天罗"
+  },
+  {
+    "base4zhus": [
+      "nian",
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "地网"
+  },
+  {
+    "base4zhus": [
+      "nian",
+      "ri"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "地网"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "yue"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": [
+      "ri",
+      "shi"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "童子煞"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "gan",
+    "baseGanZhiName": "jia",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhi",
+    "checkGanZhiNames": "chen",
+    "result": "十恶大败"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "gan",
+    "baseGanZhiName": "yi",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhi",
+    "checkGanZhiNames": "si",
+    "result": "十恶大败"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "gan",
+    "baseGanZhiName": "ren",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhi",
+    "checkGanZhiNames": "shen",
+    "result": "十恶大败"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "gan",
+    "baseGanZhiName": "bing",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhi",
+    "checkGanZhiNames": "shen",
+    "result": "十恶大败"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "gan",
+    "baseGanZhiName": "ding",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhi",
+    "checkGanZhiNames": "hai",
+    "result": "十恶大败"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "gan",
+    "baseGanZhiName": "geng",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhi",
+    "checkGanZhiNames": "chen",
+    "result": "十恶大败"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "gan",
+    "baseGanZhiName": "wu",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhi",
+    "checkGanZhiNames": "xu",
+    "result": "十恶大败"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "gan",
+    "baseGanZhiName": "gui",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhi",
+    "checkGanZhiNames": "hai",
+    "result": "十恶大败"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "gan",
+    "baseGanZhiName": "xin",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhi",
+    "checkGanZhiNames": "si",
+    "result": "十恶大败"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "gan",
+    "baseGanZhiName": "ji",
+    "check4zhus": "ri",
+    "checkGanOrZhi": "zhi",
+    "checkGanZhiNames": "chou",
+    "result": "十恶大败"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "披麻"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "xu",
+    "result": "披麻"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "披麻"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "披麻"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "披麻"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "披麻"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "披麻"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "披麻"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "披麻"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "披麻"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "披麻"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "披麻"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "zi",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "mao",
+    "result": "红鸾"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chou",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "yin",
+    "result": "红鸾"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "yin",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chou",
+    "result": "红鸾"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "mao",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "zi",
+    "result": "红鸾"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "chen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "hai",
+    "result": "红鸾"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "si",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "红鸾"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "you",
+    "result": "红鸾"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "wei",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "shen",
+    "result": "红鸾"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "shen",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wei",
+    "result": "红鸾"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "you",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "wu",
+    "result": "红鸾"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "xu",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "si",
+    "result": "红鸾"
+  },
+  {
+    "base4zhus": [
+      "nian"
+    ],
+    "baseGanOrZhi": "dizhi",
+    "baseGanZhiName": "hai",
+    "check4zhus": "all",
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": "chen",
+    "result": "红鸾"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "jia",
+    "check4zhus": [
+      "ri"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "chen"
+    ],
+    "result": "十恶大败"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "yi",
+    "check4zhus": [
+      "ri"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "si"
+    ],
+    "result": "十恶大败"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "bing",
+    "check4zhus": [
+      "ri"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "shen"
+    ],
+    "result": "十恶大败"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ding",
+    "check4zhus": [
+      "ri"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "hai"
+    ],
+    "result": "十恶大败"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "wu",
+    "check4zhus": [
+      "ri"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "xu"
+    ],
+    "result": "十恶大败"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ji",
+    "check4zhus": [
+      "ri"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "chou"
+    ],
+    "result": "十恶大败"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "geng",
+    "check4zhus": [
+      "ri"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "chen"
+    ],
+    "result": "十恶大败"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "xin",
+    "check4zhus": [
+      "ri"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "si"
+    ],
+    "result": "十恶大败"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "ren",
+    "check4zhus": [
+      "ri"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "shen"
+    ],
+    "result": "十恶大败"
+  },
+  {
+    "base4zhus": [
+      "ri"
+    ],
+    "baseGanOrZhi": "tiangan",
+    "baseGanZhiName": "gui",
+    "check4zhus": [
+      "ri"
+    ],
+    "checkGanOrZhi": "dizhi",
+    "checkGanZhiNames": [
+      "hai"
+    ],
+    "result": "十恶大败"
+  }
+]

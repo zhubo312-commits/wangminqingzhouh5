@@ -1,0 +1,34 @@
+{
+  "name": "guoxue-laoshi-home",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "npm run build --workspace @guoxue/contracts && npm run build --workspace @guoxue/web && npm run build --workspace @guoxue/server",
+    "dev": "npm run build --workspace @guoxue/contracts && concurrently -n web,api,worker -c blue,red,yellow \"npm run dev --workspace @guoxue/web\" \"npm run dev --workspace @guoxue/server\" \"npm run dev:worker --workspace @guoxue/server\"",
+    "dev:web": "npm run dev --workspace @guoxue/web",
+    "dev:api": "npm run dev --workspace @guoxue/server",
+    "dev:worker": "npm run dev:worker --workspace @guoxue/server",
+    "typecheck": "npm run build --workspace @guoxue/contracts && npm run typecheck --workspace @guoxue/web && npm run typecheck --workspace @guoxue/server",
+    "test": "npm run build --workspace @guoxue/contracts && npm run test --workspace @guoxue/server && npm run test --workspace @guoxue/web",
+    "test:e2e": "playwright test",
+    "preview:paipan": "node scripts/capture-paipan-previews.mjs",
+    "db:migrate": "npm run db:migrate --workspace @guoxue/server",
+    "calendar:import": "npm run calendar:import --workspace @guoxue/server --",
+    "guidance:generate": "npm run guidance:generate --workspace @guoxue/server --",
+    "start": "npm run start --workspace @guoxue/server",
+    "start:worker": "npm run start:worker --workspace @guoxue/server"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "concurrently": "^9.2.1",
+    "typescript": "^5.9.2"
+  }
+}

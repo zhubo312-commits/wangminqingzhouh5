@@ -1,0 +1,115 @@
+name: guoxue-home
+
+services:
+  paipan:
+    image: wangminqingzhouh5-paipan:${RELEASE_TAG:-local}
+    build:
+      context: ./services/paipan
+      args:
+        RELEASE_REVISION: ${RELEASE_TAG:-local}
+    restart: unless-stopped
+    mem_limit: 768m
+    environment:
+      PORT: 8080
+    expose:
+      - "8080"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "http://127.0.0.1:8080/actuator/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  api:
+    image: wangminqingzhouh5-api:${RELEASE_TAG:-local}
+    build:
+      context: .
+      args:
+        PUBLIC_BASE_PATH: ${PUBLIC_BASE_PATH:-/}
+        RELEASE_REVISION: ${RELEASE_TAG:-local}
+    restart: unless-stopped
+    mem_limit: 512m
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3001
+      APP_TIMEZONE: Asia/Shanghai
+      SQLITE_PATH: /data/guoxue.db
+      WEB_DIST_PATH: /app/apps/web/dist
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      PAIPAN_SERVICE_URL: http://paipan:8080
+      PAIPAN_TIMEOUT_MS: ${PAIPAN_TIMEOUT_MS:-8000}
+      PAIPAN_CONTEXT_TTL_SECONDS: ${PAIPAN_CONTEXT_TTL_SECONDS:-7200}
+      INTERPRETATION_URL: ${INTERPRETATION_URL:-https://gx.yipuwh.com/h6/pages/jiedu/chat?isShowPay=1}
+      QUESTION_URL: ${QUESTION_URL:-https://gx.yipuwh.com/h6/pages/jiedu/chat?isShowPay=1}
+      LEARNING_URL: ${LEARNING_URL:-}
+      DIFY_BASE_URL: ${DIFY_BASE_URL:-}
+      DIFY_API_KEY: ${DIFY_API_KEY:-}
+      DIFY_USER: ${DIFY_USER:-daily-guidance-worker}
+      DIFY_TIMEOUT_MS: ${DIFY_TIMEOUT_MS:-60000}
+    ports:
+      - "127.0.0.1:${APP_PORT:-3001}:3001"
+    volumes:
+      - guoxue-data:/data
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3001/ready').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))",
+        ]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    depends_on:
+      paipan:
+        condition: service_healthy
+
+  worker:
+    image: wangminqingzhouh5-api:${RELEASE_TAG:-local}
+    restart: unless-stopped
+    mem_limit: 256m
+    command: ["node", "apps/server/dist/guidance/worker.js"]
+    environment:
+      NODE_ENV: production
+      APP_TIMEZONE: Asia/Shanghai
+      SQLITE_PATH: /data/guoxue.db
+      INTERPRETATION_URL: ${INTERPRETATION_URL:-https://gx.yipuwh.com/h6/pages/jiedu/chat?isShowPay=1}
+      QUESTION_URL: ${QUESTION_URL:-https://gx.yipuwh.com/h6/pages/jiedu/chat?isShowPay=1}
+      LEARNING_URL: ${LEARNING_URL:-}
+      DIFY_BASE_URL: ${DIFY_BASE_URL:-}
+      DIFY_API_KEY: ${DIFY_API_KEY:-}
+      DIFY_USER: ${DIFY_USER:-daily-guidance-worker}
+      DIFY_TIMEOUT_MS: ${DIFY_TIMEOUT_MS:-60000}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    volumes:
+      - guoxue-data:/data
+    depends_on:
+      api:
+        condition: service_healthy
+
+  calendar-import:
+    image: wangminqingzhouh5-api:${RELEASE_TAG:-local}
+    profiles: ["tools"]
+    mem_limit: 512m
+    command:
+      [
+        "node",
+        "apps/server/dist/calendar/import-hko.js",
+        "--start",
+        "1901",
+        "--end",
+        "2100",
+      ]
+    environment:
+      NODE_ENV: development
+      SQLITE_PATH: /data/guoxue.db
+      APP_TIMEZONE: Asia/Shanghai
+    volumes:
+      - guoxue-data:/data
+
+volumes:
+  guoxue-data:
