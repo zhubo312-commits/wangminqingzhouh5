@@ -1,10 +1,12 @@
 FROM node:22-bookworm-slim AS build
 
 ARG PUBLIC_BASE_PATH=/
+ARG DEBIAN_MIRROR=http://deb.debian.org/debian
 ENV PUBLIC_BASE_PATH=${PUBLIC_BASE_PATH}
 
 WORKDIR /app
-RUN apt-get update \
+RUN sed -i "s|http://deb.debian.org/debian|${DEBIAN_MIRROR}|g" /etc/apt/sources.list.d/debian.sources \
+  && apt-get update \
   && apt-get install -y --no-install-recommends python3 make g++ \
   && rm -rf /var/lib/apt/lists/*
 
