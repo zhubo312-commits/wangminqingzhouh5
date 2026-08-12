@@ -3,6 +3,7 @@ import { BookOpenText, ClockCountdown, DiceFive, Hash, SlidersHorizontal } from 
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PageHeader } from "../../../components/PageHeader";
+import { WheelSelectPicker } from "../../../components/WheelSelectPicker";
 import { PaipanPageShell } from "../../../components/paipan/PaipanPageShell";
 import { PaipanSectionCard } from "../../../components/paipan/PaipanSectionCard";
 import { createMeihuaChart } from "../../../lib/api-client";
@@ -11,6 +12,8 @@ import { MeihuaClassicBrowser } from "./MeihuaClassics";
 import { useMeihuaSession, type MeihuaDraft } from "./MeihuaSession";
 
 const TRIGRAMS = ["乾", "兑", "离", "震", "巽", "坎", "艮", "坤"] as const;
+const TRIGRAM_OPTIONS = TRIGRAMS.map((name, index) => ({ value: String(index + 1), label: `${index + 1} · ${name}` }));
+const MOVING_LINE_OPTIONS = Array.from({ length: 6 }, (_, index) => ({ value: String(index + 1), label: `第 ${index + 1} 爻` }));
 type Panel = "time" | "random" | "number" | "specified" | "classics";
 const PANELS: Array<{ key: Panel; label: string; note: string; icon: typeof ClockCountdown }> = [
   { key: "time", label: "时间起盘", note: "按年月日时起卦", icon: ClockCountdown },
@@ -92,7 +95,7 @@ export function MeihuaFormPage() {
             <label className="meihua-hour-toggle"><input type="checkbox" checked={draft.includeHour} onChange={(event) => update("includeHour", event.target.checked)} /><span><strong>动爻计算加入时辰数</strong><small>上下卦仍按所选流派计算</small></span></label>
           </>}
 
-          {panel === "specified" && <div className="meihua-select-grid"><label><span>上卦</span><select value={draft.upperTrigram} onChange={(event) => update("upperTrigram", Number(event.target.value))}>{TRIGRAMS.map((name, index) => <option key={name} value={index + 1}>{index + 1} · {name}</option>)}</select></label><label><span>下卦</span><select value={draft.lowerTrigram} onChange={(event) => update("lowerTrigram", Number(event.target.value))}>{TRIGRAMS.map((name, index) => <option key={name} value={index + 1}>{index + 1} · {name}</option>)}</select></label><label><span>动爻</span><select value={draft.movingLine} onChange={(event) => update("movingLine", Number(event.target.value))}>{Array.from({ length: 6 }, (_, index) => <option key={index + 1} value={index + 1}>第 {index + 1} 爻</option>)}</select></label></div>}
+          {panel === "specified" && <div className="meihua-select-grid"><WheelSelectPicker label="上卦" value={String(draft.upperTrigram)} options={TRIGRAM_OPTIONS} onChange={(value) => update("upperTrigram", Number(value))} /><WheelSelectPicker label="下卦" value={String(draft.lowerTrigram)} options={TRIGRAM_OPTIONS} onChange={(value) => update("lowerTrigram", Number(value))} /><WheelSelectPicker label="动爻" value={String(draft.movingLine)} options={MOVING_LINE_OPTIONS} onChange={(value) => update("movingLine", Number(value))} /></div>}
 
           {panel === "random" && <p className="meihua-mode-note">系统将随机取得上卦、下卦与动爻；起盘时间仅用于四柱信息展示。</p>}
           {panel === "specified" && <p className="meihua-mode-note">日期时间仅用于展示公历、农历与四柱，不参与指定卦象计算。</p>}
