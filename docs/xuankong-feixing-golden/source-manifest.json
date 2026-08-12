@@ -1,0 +1,37 @@
+{
+  "capturedAt": "2026-08-12T07:53:48+08:00",
+  "site": "https://ft.bavor.cn",
+  "runtimeDependency": false,
+  "sources": [
+    {
+      "page": "玄空飞星表单",
+      "url": "https://ft.bavor.cn/static/js/pages-xuankongfeixing-xuankongfeixing.b8c97537.js",
+      "bytes": 8380,
+      "sha256": "50241d2bc74b02d6c3f084ae55757bf84a67db9d68493fe22a27edfaaa1f4ae8"
+    },
+    {
+      "page": "玄空飞星结果",
+      "url": "https://ft.bavor.cn/static/js/pages-xuankongfeixing-result-result.e9aba8f3.js",
+      "bytes": 15659,
+      "sha256": "0d8c886692805d6e532bc70b84bbf664272930923f1fd7df74977b1fbbf79f95"
+    }
+  ],
+  "referenceEndpoint": "https://ft.bavor.cn/prod-api/app/xkfx/getXkfxH5",
+  "responses": [
+    {
+      "case": "case-01",
+      "bytes": 24551,
+      "sha256": "3467d87db406fad851d878538431192e6f2729fe4e39cbaa7a956f84dba6f646"
+    },
+    {
+      "case": "case-02",
+      "bytes": 24531,
+      "sha256": "87065655cb26df419bb8c86c0a6ba5d62505428bee5919238fc48491e6f1b492"
+    },
+    {
+      "case": "case-03",
+      "bytes": 24551,
+      "sha256": "913d9c296dfefadadc0fdd0939228b277ec82145df1821abbd5ea340924622df"
+    }
+  ]
+}
