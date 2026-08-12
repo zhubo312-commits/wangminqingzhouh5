@@ -777,6 +777,95 @@ export const LuojiContextResponseSchema = z.object({
   chart: LuojiChartResponseSchema,
 });
 
+export const XingxiangChartRequestSchema = z.object({
+  name: z.string().trim().min(1).max(10),
+  gender: z.enum(["male", "female"]),
+  birthDateTime: BirthDateTimeSchema,
+  school: z.literal("flying").default("flying"),
+});
+
+const XingxiangPillarsSchema = z.object({
+  year: z.string().length(2),
+  month: z.string().length(2),
+  day: z.string().length(2),
+  hour: z.string().length(2),
+});
+
+export const XingxiangStarSchema = z.object({
+  name: z.string().min(1),
+  category: z.enum(["major", "soft", "flower", "tough", "support"]),
+  brightness: z.string(),
+  natalTransformation: z.enum(["禄", "权", "科", "忌"]).nullish().transform((value) => value ?? null),
+});
+
+export const XingxiangPalaceNameSchema = z.object({
+  branch: z.enum(["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]),
+  name: z.enum(["命宫", "兄弟", "夫妻", "子女", "财帛", "疾厄", "迁移", "交友", "官禄", "田宅", "福德", "父母"]),
+});
+
+const XingxiangTransformationSchema = z.object({
+  transformation: z.enum(["禄", "权", "科", "忌"]),
+  star: z.string().min(1),
+});
+
+export const XingxiangPalaceSchema = XingxiangPalaceNameSchema.extend({
+  heavenlyStem: z.enum(["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"]),
+  bodyPalace: z.boolean(),
+  zodiacPalace: z.boolean(),
+  originPalace: z.boolean(),
+  stars: z.array(XingxiangStarSchema),
+  selfTransformations: z.array(XingxiangTransformationSchema.extend({ inward: z.boolean() })),
+});
+
+const XingxiangAnnualSchema = z.object({
+  age: z.number().int().min(1),
+  year: z.number().int().min(1800).max(2300),
+  ganZhi: z.string().length(2),
+  palaceNames: z.array(XingxiangPalaceNameSchema).length(12),
+  transformations: z.array(XingxiangTransformationSchema).length(4),
+});
+
+const XingxiangPeriodSchema = z.object({
+  ganZhi: z.string().length(2),
+  startAge: z.number().int().min(1),
+  endAge: z.number().int().min(1),
+  startYear: z.number().int(),
+  endYear: z.number().int(),
+  palaceNames: z.array(XingxiangPalaceNameSchema).length(12),
+  transformations: z.array(XingxiangTransformationSchema).length(4),
+  annuals: z.array(XingxiangAnnualSchema).length(10),
+});
+
+export const XingxiangChartResponseSchema = z.object({
+  profile: z.object({
+    name: z.string().min(1).max(10),
+    gender: z.enum(["male", "female"]),
+    genderLabel: z.enum(["男", "女"]),
+    yinYangGender: z.enum(["阳男", "阴男", "阳女", "阴女"]),
+    solarDateTime: BirthDateTimeSchema,
+    lunarDate: z.string().min(1),
+    fiveElementsBureau: z.enum(["水二局", "木三局", "金四局", "土五局", "火六局"]),
+    pillars: XingxiangPillarsSchema,
+  }),
+  palaces: z.array(XingxiangPalaceSchema).length(12),
+  periods: z.array(XingxiangPeriodSchema).length(12),
+});
+
+export const XingxiangChartWithReferenceSchema = XingxiangChartResponseSchema.extend({
+  paipan_ref: PaipanReferenceSchema,
+  expiresAt: z.iso.datetime(),
+});
+
+export const XingxiangContextResponseSchema = z.object({
+  schemaVersion: z.literal("guoxue.paipan.xingxiang.v1"),
+  chartType: z.literal("xingxiang"),
+  paipan_ref: PaipanReferenceSchema,
+  generatedAt: z.iso.datetime(),
+  expiresAt: z.iso.datetime(),
+  chartRequest: XingxiangChartRequestSchema,
+  chart: XingxiangChartResponseSchema,
+});
+
 export const FlowMonthsRequestSchema = z.object({
   chart: BaziChartRequestSchema,
   year: z.number().int().min(1900).max(2200),
@@ -854,6 +943,12 @@ export type LuojiLine = z.infer<typeof LuojiLineSchema>;
 export type LuojiChartResponse = z.infer<typeof LuojiChartResponseSchema>;
 export type LuojiChartWithReference = z.infer<typeof LuojiChartWithReferenceSchema>;
 export type LuojiContextResponse = z.infer<typeof LuojiContextResponseSchema>;
+export type XingxiangChartRequest = z.infer<typeof XingxiangChartRequestSchema>;
+export type XingxiangStar = z.infer<typeof XingxiangStarSchema>;
+export type XingxiangPalace = z.infer<typeof XingxiangPalaceSchema>;
+export type XingxiangChartResponse = z.infer<typeof XingxiangChartResponseSchema>;
+export type XingxiangChartWithReference = z.infer<typeof XingxiangChartWithReferenceSchema>;
+export type XingxiangContextResponse = z.infer<typeof XingxiangContextResponseSchema>;
 export type FlowMonthsRequest = z.infer<typeof FlowMonthsRequestSchema>;
 export type FlowMonthsResponse = z.infer<typeof FlowMonthsResponseSchema>;
 export type ShenShaRequest = z.infer<typeof ShenShaRequestSchema>;

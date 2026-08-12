@@ -10,6 +10,9 @@ import {
   LuojiChartRequestSchema,
   LuojiChartResponseSchema,
   LuojiContextResponseSchema,
+  XingxiangChartRequestSchema,
+  XingxiangChartResponseSchema,
+  XingxiangContextResponseSchema,
   MeihuaChartRequestSchema,
   MeihuaChartResponseSchema,
   MeihuaContextResponseSchema,
@@ -78,6 +81,13 @@ export const paipanContextRegistry = {
     requestSchema: LuojiChartRequestSchema,
     chartSchema: LuojiChartResponseSchema,
     contextSchema: LuojiContextResponseSchema,
+  }),
+  xingxiang: definePaipanContext({
+    chartType: "xingxiang",
+    schemaVersion: "guoxue.paipan.xingxiang.v1",
+    requestSchema: XingxiangChartRequestSchema,
+    chartSchema: XingxiangChartResponseSchema,
+    contextSchema: XingxiangContextResponseSchema,
   }),
 } as const;
 

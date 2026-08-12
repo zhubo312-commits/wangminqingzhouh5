@@ -16,11 +16,14 @@ import { YinpanResultPage } from "./features/paipan/yinpan/YinpanResultPage";
 import { YinpanSessionProvider } from "./features/paipan/yinpan/YinpanSession";
 import { MeihuaSessionProvider } from "./features/paipan/meihua/MeihuaSession";
 import { LuojiSessionProvider } from "./features/paipan/luoji/LuojiSession";
+import { XingxiangSessionProvider } from "./features/paipan/xingxiang/XingxiangSession";
 
 const MeihuaFormPage = lazy(() => import("./features/paipan/meihua/MeihuaFormPage").then((module) => ({ default: module.MeihuaFormPage })));
 const MeihuaResultPage = lazy(() => import("./features/paipan/meihua/MeihuaResultPage").then((module) => ({ default: module.MeihuaResultPage })));
 const LuojiFormPage = lazy(() => import("./features/paipan/luoji/LuojiFormPage").then((module) => ({ default: module.LuojiFormPage })));
 const LuojiResultPage = lazy(() => import("./features/paipan/luoji/LuojiResultPage").then((module) => ({ default: module.LuojiResultPage })));
+const XingxiangFormPage = lazy(() => import("./features/paipan/xingxiang/XingxiangFormPage").then((module) => ({ default: module.XingxiangFormPage })));
+const XingxiangResultPage = lazy(() => import("./features/paipan/xingxiang/XingxiangResultPage").then((module) => ({ default: module.XingxiangResultPage })));
 
 const routerBasename =
   import.meta.env.BASE_URL === "/"
@@ -49,6 +52,10 @@ function MeihuaSessionLayout() {
 
 function LuojiSessionLayout() {
   return <LuojiSessionProvider><Suspense fallback={<div className="route-loading" role="status">正在载入逻辑学…</div>}><Outlet /></Suspense></LuojiSessionProvider>;
+}
+
+function XingxiangSessionLayout() {
+  return <XingxiangSessionProvider><Suspense fallback={<div className="route-loading" role="status">正在载入星像学…</div>}><Outlet /></Suspense></XingxiangSessionProvider>;
 }
 
 export default function App() {
@@ -86,6 +93,10 @@ export default function App() {
         <Route element={<LuojiSessionLayout />}>
           <Route path="/paipan/luoji" element={<LuojiFormPage />} />
           <Route path="/paipan/luoji/result" element={<LuojiResultPage />} />
+        </Route>
+        <Route element={<XingxiangSessionLayout />}>
+          <Route path="/paipan/xingxiang" element={<XingxiangFormPage />} />
+          <Route path="/paipan/xingxiang/result" element={<XingxiangResultPage />} />
         </Route>
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>

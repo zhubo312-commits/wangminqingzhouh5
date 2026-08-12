@@ -3,6 +3,7 @@ import {
   DunjiaChartResponseSchema,
   JueceChartResponseSchema,
   LuojiChartResponseSchema,
+  XingxiangChartResponseSchema,
   MeihuaChartResponseSchema,
   YinpanChartResponseSchema,
   FlowMonthsResponseSchema,
@@ -20,6 +21,8 @@ import {
   type JueceChartResponse,
   type LuojiChartRequest,
   type LuojiChartResponse,
+  type XingxiangChartRequest,
+  type XingxiangChartResponse,
   type MeihuaChartRequest,
   type MeihuaChartResponse,
   type YinpanChartRequest,
@@ -236,6 +239,14 @@ export class PaipanClient {
       "/internal/v1/luoji/chart",
       request,
       LuojiChartResponseSchema,
+    );
+  }
+
+  async xingxiangChart(request: XingxiangChartRequest): Promise<XingxiangChartResponse> {
+    return this.request(
+      "/internal/v1/xingxiang/chart",
+      request,
+      XingxiangChartResponseSchema,
     );
   }
 

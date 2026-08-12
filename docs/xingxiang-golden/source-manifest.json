@@ -1,0 +1,55 @@
+{
+  "capturedAt": "2026-08-12T08:06:11+08:00",
+  "reference": {
+    "formPage": "https://ft.bavor.cn/pages/ziwei/ziwei",
+    "resultPage": "https://ft.bavor.cn/pages/ziwei/result/result",
+    "pageShellSha256": "4fd4fafc0296a3025d9dc7be476784ded1af9f0748863879486f15a16638ac2b",
+    "formScript": {
+      "url": "https://ft.bavor.cn/static/js/pages-ziwei-ziwei.e75f4387.js",
+      "sha256": "f9a70ce72a07c6f2506741b6ff9c8b3b24c7c78edd903ebb6cd2355a7376f13a"
+    },
+    "resultScript": {
+      "url": "https://ft.bavor.cn/static/js/pages-ziwei-result-result.e71252a6.js",
+      "sha256": "d1455c5359d58764b9800f8fa979c4a76c967ce3f171c0ec7f7c6e63ed097861"
+    },
+    "indexScript": {
+      "url": "https://ft.bavor.cn/static/js/index.3d1307ad.js",
+      "sha256": "b4a6e7c8c57f48e0045baffdeb116382a52ff8e18db038551102cad54d0edc99"
+    },
+    "api": {
+      "chart": "/prod-api/app/ziwei/getZiWeiPanH5",
+      "transformations": "/prod-api/app/ziwei/getZiHuaStar"
+    }
+  },
+  "algorithmSources": {
+    "iztro": {
+      "version": "2.5.8",
+      "packageUrl": "https://registry.npmjs.org/iztro/-/iztro-2.5.8.tgz",
+      "packageSha256": "8293c6a587de521b0713e45826745ba4b7482fc507bd2da43fc820cadf06deca",
+      "packageSha512": "kgyyvxdSEvgJxi6zvHpvzGbXZLGXCdhTHYK2Pe/sRdBIQ7RfCArvupmg2ChUMQCSQGomW7XCI0gWwUuKJwPENg==",
+      "license": "MIT",
+      "attribution": "iztro, Copyright (c) 2023 All Contributors",
+      "repository": "https://github.com/SylarLong/iztro",
+      "localArchive": "upstream/iztro-2.5.8.tgz",
+      "localSource": "upstream/iztro-2.5.8/",
+      "licenseFile": "upstream/iztro-2.5.8/LICENSE"
+    },
+    "lunarJava": {
+      "maven": "cn.6tail:lunar:1.3.15",
+      "projectUrl": "https://github.com/6tail/lunar-java",
+      "jarSha256": "5e8f909ffd66eb8f5f16ca9aa04666d0f67a6f9362dfabd3e44df04c782f8aac",
+      "license": "MIT",
+      "versionLock": "services/paipan/pom.xml"
+    }
+  },
+  "fixtures": [
+    { "path": "case-01/reference-request.json", "sha256": "9eb42d1e615136915a8b840924f110f3aa626f34fbb196c91aa7e71627c63e4d" },
+    { "path": "case-01/reference-response.redacted.json", "sha256": "10a9e43f69ee61fed7cdfb55de415e82301e0809e65802a3616468912fe0218e" },
+    { "path": "case-01/reference-transformations.redacted.json", "sha256": "967ba1dc77c9d147b2df7154aef3ce24d644a50e6ad796c96a84ea9c4e98c7a3" },
+    { "path": "case-02/reference-request.json", "sha256": "2aa906f0bd05cb653cfabdee7ad4d6695e749d97f5db3366cd3c1f9d89e372f2" },
+    { "path": "case-02/reference-response.redacted.json", "sha256": "87dc93dc9194af36b584a226269ce8a832a050c2960b2cae66c0d13052540974" },
+    { "path": "case-03/reference-request.json", "sha256": "6b17f7b593bccfe44d74ba2404c2ac0aadabfc2695154d5eff63a9e7d4d28900" },
+    { "path": "case-03/reference-response.redacted.json", "sha256": "418b3bca21515f018f7744e03ac66b30fc6fb49b84e0c3eaa61409ef9a6de271" }
+  ],
+  "privacy": "All names are synthetic and the requests contain no account, token, cookie, phone, precise location, or real customer data."
+}
