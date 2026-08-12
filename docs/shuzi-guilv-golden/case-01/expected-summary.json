@@ -1,0 +1,24 @@
+{
+  "evidenceScope": "single_reference_sample_only",
+  "overview": {
+    "name": "测试者",
+    "gender": "male",
+    "solarDateTime": "1990-01-01 12:00",
+    "lunarDate": "一九八九年腊月初五日午时",
+    "chineseZodiac": "蛇"
+  },
+  "innateNumbers": [[6], [12], [5], [7]],
+  "innateYinYang": [["阴"], ["阳"], ["阴"], ["阴"]],
+  "innateElements": [["火"], ["水"], ["木"], ["火"]],
+  "acquiredNumbers": [[12], [6], [11], [1]],
+  "acquiredYinYang": [["阳"], ["阴"], ["阳"], ["阳"]],
+  "acquiredElements": [["水"], ["火"], ["金"], ["水"]],
+  "interpretations": [
+    {
+      "combination": "6-12/12-6",
+      "position": "年月",
+      "category": "绝冲数组",
+      "occurrences": 2
+    }
+  ]
+}

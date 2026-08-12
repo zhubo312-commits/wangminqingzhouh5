@@ -1,0 +1,20 @@
+{
+  "capturedAt": "2026-08-12T07:46:00+08:00",
+  "site": "https://ft.bavor.cn",
+  "evidenceOnly": true,
+  "localRuntimeReady": false,
+  "sources": [
+    {
+      "page": "数字规律表单（命理神数）",
+      "url": "https://ft.bavor.cn/static/js/pages-minglishenshu-minglishenshu.f3c67ae0.js",
+      "sha256": "92fec4a985d364185106c171953eac42896dff1956137351f97e44c8d9120769"
+    },
+    {
+      "page": "数字规律结果（命理神数）",
+      "url": "https://ft.bavor.cn/static/js/pages-minglishenshu-result-result.6debc127.js",
+      "sha256": "c608f6e292809bd8162a697854303006b5e681ff48dd0febccea86acc8a73944"
+    }
+  ],
+  "referenceEndpoint": "GET https://ft.bavor.cn/prod-api/app/shenshu/getShenshu",
+  "blocker": "The versioned frontend scripts expose request and display structure but not the server-side number, yin-yang, special-array, or interpretation rules."
+}
