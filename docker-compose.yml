@@ -4,7 +4,8 @@ services:
   paipan:
     image: wangminqingzhouh5-paipan:${RELEASE_TAG:-local}
     build:
-      context: ./services/paipan
+      context: .
+      dockerfile: services/paipan/Dockerfile
       args:
         RELEASE_REVISION: ${RELEASE_TAG:-local}
     restart: unless-stopped

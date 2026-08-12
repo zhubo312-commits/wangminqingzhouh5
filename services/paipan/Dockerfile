@@ -1,9 +1,10 @@
 FROM maven:3.9.11-eclipse-temurin-17 AS build
 
-WORKDIR /build
-COPY pom.xml ./
+WORKDIR /workspace/services/paipan
+COPY services/paipan/pom.xml ./
 RUN mvn -q dependency:go-offline
-COPY src ./src
+COPY services/paipan/src ./src
+COPY docs/xingxiang-golden /workspace/docs/xingxiang-golden
 RUN mvn -q verify
 
 FROM eclipse-temurin:17-jre-jammy AS runtime
@@ -17,7 +18,7 @@ RUN apt-get update \
   && useradd --system --uid 10001 --create-home paipan
 
 WORKDIR /app
-COPY --from=build --chown=paipan:paipan /build/target/paipan-service-1.0.0.jar ./paipan-service.jar
+COPY --from=build --chown=paipan:paipan /workspace/services/paipan/target/paipan-service-1.0.0.jar ./paipan-service.jar
 
 USER paipan
 EXPOSE 8080
