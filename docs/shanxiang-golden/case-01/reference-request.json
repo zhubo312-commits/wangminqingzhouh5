@@ -1,0 +1,14 @@
+{
+  "method": "POST",
+  "url": "https://ft.bavor.cn/prod-api/app/qimen/getShanXiangQiMenList",
+  "body": {
+    "degreesList": [0, 5, 10],
+    "year": 2026,
+    "isKe": 2
+  },
+  "newRequest": {
+    "year": 2026,
+    "degrees": 0,
+    "question": ""
+  }
+}

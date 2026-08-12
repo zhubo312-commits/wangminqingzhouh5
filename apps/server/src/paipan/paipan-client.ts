@@ -5,6 +5,7 @@ import {
   LuojiChartResponseSchema,
   MeihuaChartResponseSchema,
   YinpanChartResponseSchema,
+  ShanxiangChartResponseSchema,
   FlowMonthsResponseSchema,
   PaipanAreaNodeSchema,
   ResolveBirthResponseSchema,
@@ -24,6 +25,8 @@ import {
   type MeihuaChartResponse,
   type YinpanChartRequest,
   type YinpanChartResponse,
+  type ShanxiangChartRequest,
+  type ShanxiangChartResponse,
   type ResolveBirthRequest,
   type ResolveBirthResponse,
   type ShenShaRequest,
@@ -236,6 +239,14 @@ export class PaipanClient {
       "/internal/v1/luoji/chart",
       request,
       LuojiChartResponseSchema,
+    );
+  }
+
+  async shanxiangChart(request: ShanxiangChartRequest): Promise<ShanxiangChartResponse> {
+    return this.request(
+      "/internal/v1/shanxiang-juece/chart",
+      request,
+      ShanxiangChartResponseSchema,
     );
   }
 

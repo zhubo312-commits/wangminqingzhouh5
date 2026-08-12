@@ -24,6 +24,10 @@ import {
   type YinpanChartResponse,
   type YinpanChartWithReference,
   type YinpanContextResponse,
+  type ShanxiangChartRequest,
+  type ShanxiangChartResponse,
+  type ShanxiangChartWithReference,
+  type ShanxiangContextResponse,
 } from "@guoxue/contracts";
 import { GoneAppError, NotFoundAppError } from "../shared/errors/app-error.js";
 import { PaipanContextRepository } from "./paipan-context.repository.js";
@@ -149,6 +153,14 @@ export class PaipanContextService {
     return this.createRegistered("luoji", chartRequest, chart, now) as LuojiChartWithReference;
   }
 
+  createShanxiang(
+    chartRequest: ShanxiangChartRequest,
+    chart: ShanxiangChartResponse,
+    now = new Date(),
+  ): ShanxiangChartWithReference {
+    return this.createRegistered("shanxiang", chartRequest, chart, now) as ShanxiangChartWithReference;
+  }
+
   resolve(paipanRef: string, now = new Date()): PaipanContextResponse {
     return this.resolveRegistered("bazi", paipanRef, now) as PaipanContextResponse;
   }
@@ -171,5 +183,9 @@ export class PaipanContextService {
 
   resolveLuoji(paipanRef: string, now = new Date()): LuojiContextResponse {
     return this.resolveRegistered("luoji", paipanRef, now) as LuojiContextResponse;
+  }
+
+  resolveShanxiang(paipanRef: string, now = new Date()): ShanxiangContextResponse {
+    return this.resolveRegistered("shanxiang", paipanRef, now) as ShanxiangContextResponse;
   }
 }

@@ -777,6 +777,56 @@ export const LuojiContextResponseSchema = z.object({
   chart: LuojiChartResponseSchema,
 });
 
+export const ShanxiangChartRequestSchema = z.object({
+  year: z.number().int().min(1930).max(2100),
+  degrees: z.number().min(0).max(360),
+  question: z.string().trim().max(80).default(""),
+});
+
+export const ShanxiangPanelSchema = z.object({
+  overview: z.object({
+    degrees: z.number().min(0).max(360),
+    direction: z.string().length(1),
+    mountain: z.string().length(1),
+    degreeRange: z.string().min(3),
+    dunType: z.enum(["阴", "阳"]),
+    juNumber: z.number().int().min(1).max(9),
+    yearPillar: z.string().length(2),
+    hourPillar: z.string().length(2),
+    voidBranches: z.string().length(2),
+    xunShou: z.string().min(2),
+    chiefStar: z.object({ name: z.string().min(1), palace: z.number().int().min(1).max(9) }),
+    chiefDoor: z.object({ name: z.string().min(1), palace: z.number().int().min(1).max(9) }),
+    horse: z.object({ branch: z.string().length(1), palace: z.number().int().min(1).max(9) }),
+    huangQuan: z.string().min(1),
+  }),
+  palaces: z.array(YinpanPalaceSchema).length(9),
+});
+
+export const ShanxiangChartResponseSchema = z.object({
+  overview: z.object({
+    year: z.number().int().min(1930).max(2100),
+    selectedDegrees: z.number().min(0).max(360),
+    question: z.string(),
+  }),
+  panels: z.array(ShanxiangPanelSchema).length(3),
+});
+
+export const ShanxiangChartWithReferenceSchema = ShanxiangChartResponseSchema.extend({
+  paipan_ref: PaipanReferenceSchema,
+  expiresAt: z.iso.datetime(),
+});
+
+export const ShanxiangContextResponseSchema = z.object({
+  schemaVersion: z.literal("guoxue.paipan.shanxiang_juece.v1"),
+  chartType: z.literal("shanxiang_juece"),
+  paipan_ref: PaipanReferenceSchema,
+  generatedAt: z.iso.datetime(),
+  expiresAt: z.iso.datetime(),
+  chartRequest: ShanxiangChartRequestSchema,
+  chart: ShanxiangChartResponseSchema,
+});
+
 export const FlowMonthsRequestSchema = z.object({
   chart: BaziChartRequestSchema,
   year: z.number().int().min(1900).max(2200),
@@ -854,6 +904,11 @@ export type LuojiLine = z.infer<typeof LuojiLineSchema>;
 export type LuojiChartResponse = z.infer<typeof LuojiChartResponseSchema>;
 export type LuojiChartWithReference = z.infer<typeof LuojiChartWithReferenceSchema>;
 export type LuojiContextResponse = z.infer<typeof LuojiContextResponseSchema>;
+export type ShanxiangChartRequest = z.infer<typeof ShanxiangChartRequestSchema>;
+export type ShanxiangPanel = z.infer<typeof ShanxiangPanelSchema>;
+export type ShanxiangChartResponse = z.infer<typeof ShanxiangChartResponseSchema>;
+export type ShanxiangChartWithReference = z.infer<typeof ShanxiangChartWithReferenceSchema>;
+export type ShanxiangContextResponse = z.infer<typeof ShanxiangContextResponseSchema>;
 export type FlowMonthsRequest = z.infer<typeof FlowMonthsRequestSchema>;
 export type FlowMonthsResponse = z.infer<typeof FlowMonthsResponseSchema>;
 export type ShenShaRequest = z.infer<typeof ShenShaRequestSchema>;

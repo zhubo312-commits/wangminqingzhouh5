@@ -450,6 +450,55 @@ paths:
           $ref: "#/components/responses/Gone"
         "422":
           $ref: "#/components/responses/ValidationError"
+  /api/v1/paipan/shanxiang-juece/chart:
+    post:
+      summary: 生成山向决策三盘
+      description: 按输入角度所在十五度分区生成三个五度山向奇门盘，并返回短期恢复引用。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ShanxiangChartRequest"
+      responses:
+        "200":
+          description: 山向决策排盘结果与短期引用
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShanxiangChartWithReference"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+        "502":
+          $ref: "#/components/responses/BadGateway"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+  /api/v1/paipan/shanxiang-juece/context:
+    post:
+      summary: 读取短期山向决策排盘上下文
+      description: paipan_ref 只用于当前标签页短期恢复，服务端数据库仅保存引用哈希。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [paipan_ref]
+              properties:
+                paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+      responses:
+        "200":
+          description: 带版本号的完整山向决策排盘上下文
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShanxiangContext"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "410":
+          $ref: "#/components/responses/Gone"
+        "422":
+          $ref: "#/components/responses/ValidationError"
   /health:
     get:
       summary: Fastify 存活检查
@@ -1404,6 +1453,82 @@ components:
         expiresAt: { type: string, format: date-time }
         chartRequest: { $ref: "#/components/schemas/LuojiChartRequest" }
         chart: { $ref: "#/components/schemas/LuojiChartResponse" }
+    ShanxiangChartRequest:
+      type: object
+      additionalProperties: false
+      required: [year, degrees]
+      properties:
+        year: { type: integer, minimum: 1930, maximum: 2100 }
+        degrees: { type: number, minimum: 0, maximum: 360 }
+        question: { type: string, maxLength: 80, default: "" }
+    ShanxiangPanelOverview:
+      type: object
+      required: [degrees, direction, mountain, degreeRange, dunType, juNumber, yearPillar, hourPillar, voidBranches, xunShou, chiefStar, chiefDoor, horse, huangQuan]
+      properties:
+        degrees: { type: number, minimum: 0, maximum: 360 }
+        direction: { type: string, minLength: 1, maxLength: 1 }
+        mountain: { type: string, minLength: 1, maxLength: 1 }
+        degreeRange: { type: string, minLength: 3 }
+        dunType: { type: string, enum: [阴, 阳] }
+        juNumber: { type: integer, minimum: 1, maximum: 9 }
+        yearPillar: { type: string, minLength: 2, maxLength: 2 }
+        hourPillar: { type: string, minLength: 2, maxLength: 2 }
+        voidBranches: { type: string, minLength: 2, maxLength: 2 }
+        xunShou: { type: string, minLength: 2 }
+        chiefStar: { $ref: "#/components/schemas/JueceChief" }
+        chiefDoor: { $ref: "#/components/schemas/JueceChief" }
+        horse:
+          type: object
+          required: [branch, palace]
+          properties:
+            branch: { type: string, minLength: 1, maxLength: 1 }
+            palace: { type: integer, minimum: 1, maximum: 9 }
+        huangQuan: { type: string, minLength: 1 }
+    ShanxiangPanel:
+      type: object
+      required: [overview, palaces]
+      properties:
+        overview: { $ref: "#/components/schemas/ShanxiangPanelOverview" }
+        palaces:
+          type: array
+          minItems: 9
+          maxItems: 9
+          items: { $ref: "#/components/schemas/YinpanPalace" }
+    ShanxiangChartResponse:
+      type: object
+      required: [overview, panels]
+      properties:
+        overview:
+          type: object
+          required: [year, selectedDegrees, question]
+          properties:
+            year: { type: integer, minimum: 1930, maximum: 2100 }
+            selectedDegrees: { type: number, minimum: 0, maximum: 360 }
+            question: { type: string }
+        panels:
+          type: array
+          minItems: 3
+          maxItems: 3
+          items: { $ref: "#/components/schemas/ShanxiangPanel" }
+    ShanxiangChartWithReference:
+      allOf:
+        - $ref: "#/components/schemas/ShanxiangChartResponse"
+        - type: object
+          required: [paipan_ref, expiresAt]
+          properties:
+            paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+            expiresAt: { type: string, format: date-time }
+    ShanxiangContext:
+      type: object
+      required: [schemaVersion, chartType, paipan_ref, generatedAt, expiresAt, chartRequest, chart]
+      properties:
+        schemaVersion: { const: guoxue.paipan.shanxiang_juece.v1 }
+        chartType: { const: shanxiang_juece }
+        paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+        generatedAt: { type: string, format: date-time }
+        expiresAt: { type: string, format: date-time }
+        chartRequest: { $ref: "#/components/schemas/ShanxiangChartRequest" }
+        chart: { $ref: "#/components/schemas/ShanxiangChartResponse" }
     FlowMonth:
       type: object
       required: [index, monthName, ganZhi, solarTermName, solarTermDateTime, tenGods, hiddenStems, hiddenStemTenGods, heavenlyStemAttention, earthlyBranchAttention, shenSha]

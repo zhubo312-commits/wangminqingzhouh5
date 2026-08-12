@@ -10,6 +10,8 @@ import {
   LuojiContextResponseSchema,
   YinpanChartWithReferenceSchema,
   YinpanContextResponseSchema,
+  ShanxiangChartWithReferenceSchema,
+  ShanxiangContextResponseSchema,
   FlowMonthsResponseSchema,
   HomeResponseSchema,
   PaipanContextResponseSchema,
@@ -32,6 +34,9 @@ import {
   type YinpanChartRequest,
   type YinpanChartWithReference,
   type YinpanContextResponse,
+  type ShanxiangChartRequest,
+  type ShanxiangChartWithReference,
+  type ShanxiangContextResponse,
   type FlowMonthsRequest,
   type FlowMonthsResponse,
   type PaipanAreaNode,
@@ -239,6 +244,28 @@ export function fetchLuojiContext(
   signal?: AbortSignal,
 ): Promise<LuojiContextResponse> {
   return requestJson("/api/v1/paipan/luoji/context", LuojiContextResponseSchema, {
+    method: "POST",
+    body: JSON.stringify({ paipan_ref: paipanRef }),
+    ...(signal ? { signal } : {}),
+  });
+}
+
+export function createShanxiangChart(
+  request: ShanxiangChartRequest,
+  signal?: AbortSignal,
+): Promise<ShanxiangChartWithReference> {
+  return requestJson("/api/v1/paipan/shanxiang-juece/chart", ShanxiangChartWithReferenceSchema, {
+    method: "POST",
+    body: JSON.stringify(request),
+    ...(signal ? { signal } : {}),
+  });
+}
+
+export function fetchShanxiangContext(
+  paipanRef: string,
+  signal?: AbortSignal,
+): Promise<ShanxiangContextResponse> {
+  return requestJson("/api/v1/paipan/shanxiang-juece/context", ShanxiangContextResponseSchema, {
     method: "POST",
     body: JSON.stringify({ paipan_ref: paipanRef }),
     ...(signal ? { signal } : {}),
