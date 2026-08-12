@@ -499,6 +499,46 @@ paths:
           $ref: "#/components/responses/Gone"
         "422":
           $ref: "#/components/responses/ValidationError"
+  /api/v1/paipan/xingxiang/chart:
+    post:
+      summary: 生成飞星紫微盘
+      description: 返回十二宫、星曜、生年四化、宫干自化、十二大限与每限十个流年，并签发短期排盘引用。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/XingxiangChartRequest" }
+      responses:
+        "200":
+          description: 标准化飞星紫微盘及短期排盘引用
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/XingxiangChartWithReference" }
+        "422": { $ref: "#/components/responses/ValidationError" }
+        "502": { $ref: "#/components/responses/BadGateway" }
+        "504": { $ref: "#/components/responses/GatewayTimeout" }
+  /api/v1/paipan/xingxiang/context:
+    post:
+      summary: 使用短期排盘引用读取星像上下文
+      description: paipan_ref 只用于当前标签页短期恢复，服务端数据库仅保存引用哈希。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [paipan_ref]
+              properties:
+                paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+      responses:
+        "200":
+          description: 带版本号的完整星像排盘上下文
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/XingxiangContext" }
+        "404": { $ref: "#/components/responses/NotFound" }
+        "410": { $ref: "#/components/responses/Gone" }
+        "422": { $ref: "#/components/responses/ValidationError" }
   /health:
     get:
       summary: Fastify 存活检查
@@ -1518,6 +1558,102 @@ components:
           properties:
             paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
             expiresAt: { type: string, format: date-time }
+    XingxiangChartRequest:
+      type: object
+      additionalProperties: false
+      required: [name, gender, birthDateTime, school]
+      properties:
+        name: { type: string, minLength: 1, maxLength: 10 }
+        gender: { type: string, enum: [male, female] }
+        birthDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+        school: { const: flying }
+    XingxiangTransformation:
+      type: object
+      required: [transformation, star]
+      properties:
+        transformation: { type: string, enum: [禄, 权, 科, 忌] }
+        star: { type: string }
+    XingxiangPalaceName:
+      type: object
+      required: [branch, name]
+      properties:
+        branch: { type: string, enum: [子, 丑, 寅, 卯, 辰, 巳, 午, 未, 申, 酉, 戌, 亥] }
+        name: { type: string, enum: [命宫, 兄弟, 夫妻, 子女, 财帛, 疾厄, 迁移, 交友, 官禄, 田宅, 福德, 父母] }
+    XingxiangAnnual:
+      type: object
+      required: [age, year, ganZhi, palaceNames, transformations]
+      properties:
+        age: { type: integer, minimum: 1 }
+        year: { type: integer }
+        ganZhi: { type: string, minLength: 2, maxLength: 2 }
+        palaceNames: { type: array, minItems: 12, maxItems: 12, items: { $ref: "#/components/schemas/XingxiangPalaceName" } }
+        transformations: { type: array, minItems: 4, maxItems: 4, items: { $ref: "#/components/schemas/XingxiangTransformation" } }
+    XingxiangPeriod:
+      type: object
+      required: [ganZhi, startAge, endAge, startYear, endYear, palaceNames, transformations, annuals]
+      properties:
+        ganZhi: { type: string, minLength: 2, maxLength: 2 }
+        startAge: { type: integer, minimum: 1 }
+        endAge: { type: integer, minimum: 1 }
+        startYear: { type: integer }
+        endYear: { type: integer }
+        palaceNames: { type: array, minItems: 12, maxItems: 12, items: { $ref: "#/components/schemas/XingxiangPalaceName" } }
+        transformations: { type: array, minItems: 4, maxItems: 4, items: { $ref: "#/components/schemas/XingxiangTransformation" } }
+        annuals: { type: array, minItems: 10, maxItems: 10, items: { $ref: "#/components/schemas/XingxiangAnnual" } }
+    XingxiangPalace:
+      allOf:
+        - $ref: "#/components/schemas/XingxiangPalaceName"
+        - type: object
+          required: [heavenlyStem, bodyPalace, zodiacPalace, originPalace, stars, selfTransformations]
+          properties:
+            heavenlyStem: { type: string, enum: [甲, 乙, 丙, 丁, 戊, 己, 庚, 辛, 壬, 癸] }
+            bodyPalace: { type: boolean }
+            zodiacPalace: { type: boolean }
+            originPalace: { type: boolean }
+            stars:
+              type: array
+              items:
+                type: object
+                required: [name, category, brightness, natalTransformation]
+                properties:
+                  name: { type: string }
+                  category: { type: string, enum: [major, soft, flower, tough, support] }
+                  brightness: { type: string }
+                  natalTransformation: { type: [string, "null"], enum: [禄, 权, 科, 忌, null] }
+            selfTransformations:
+              type: array
+              items:
+                allOf:
+                  - $ref: "#/components/schemas/XingxiangTransformation"
+                  - type: object
+                    required: [inward]
+                    properties: { inward: { type: boolean } }
+    XingxiangChartResponse:
+      type: object
+      required: [profile, palaces, periods]
+      properties:
+        profile:
+          type: object
+          required: [name, gender, genderLabel, yinYangGender, solarDateTime, lunarDate, fiveElementsBureau, pillars]
+          properties:
+            name: { type: string }
+            gender: { type: string, enum: [male, female] }
+            genderLabel: { type: string, enum: [男, 女] }
+            yinYangGender: { type: string, enum: [阳男, 阴男, 阳女, 阴女] }
+            solarDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+            lunarDate: { type: string }
+            fiveElementsBureau: { type: string, enum: [水二局, 木三局, 金四局, 土五局, 火六局] }
+            pillars: { $ref: "#/components/schemas/JuecePillars" }
+        palaces: { type: array, minItems: 12, maxItems: 12, items: { $ref: "#/components/schemas/XingxiangPalace" } }
+        periods: { type: array, minItems: 12, maxItems: 12, items: { $ref: "#/components/schemas/XingxiangPeriod" } }
+    XingxiangChartWithReference:
+      allOf:
+        - $ref: "#/components/schemas/XingxiangChartResponse"
+        - type: object
+          required: [paipan_ref, expiresAt]
+          properties:
+            paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+            expiresAt: { type: string, format: date-time }
     ShanxiangContext:
       type: object
       required: [schemaVersion, chartType, paipan_ref, generatedAt, expiresAt, chartRequest, chart]
@@ -1529,6 +1665,17 @@ components:
         expiresAt: { type: string, format: date-time }
         chartRequest: { $ref: "#/components/schemas/ShanxiangChartRequest" }
         chart: { $ref: "#/components/schemas/ShanxiangChartResponse" }
+    XingxiangContext:
+      type: object
+      required: [schemaVersion, chartType, paipan_ref, generatedAt, expiresAt, chartRequest, chart]
+      properties:
+        schemaVersion: { const: guoxue.paipan.xingxiang.v1 }
+        chartType: { const: xingxiang }
+        paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+        generatedAt: { type: string, format: date-time }
+        expiresAt: { type: string, format: date-time }
+        chartRequest: { $ref: "#/components/schemas/XingxiangChartRequest" }
+        chart: { $ref: "#/components/schemas/XingxiangChartResponse" }
     FlowMonth:
       type: object
       required: [index, monthName, ganZhi, solarTermName, solarTermDateTime, tenGods, hiddenStems, hiddenStemTenGods, heavenlyStemAttention, earthlyBranchAttention, shenSha]

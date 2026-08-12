@@ -19,6 +19,10 @@ import {
   type LuojiChartResponse,
   type LuojiChartWithReference,
   type LuojiContextResponse,
+  type XingxiangChartRequest,
+  type XingxiangChartResponse,
+  type XingxiangChartWithReference,
+  type XingxiangContextResponse,
   type PaipanContextResponse,
   type YinpanChartRequest,
   type YinpanChartResponse,
@@ -161,6 +165,14 @@ export class PaipanContextService {
     return this.createRegistered("shanxiang", chartRequest, chart, now) as ShanxiangChartWithReference;
   }
 
+  createXingxiang(
+    chartRequest: XingxiangChartRequest,
+    chart: XingxiangChartResponse,
+    now = new Date(),
+  ): XingxiangChartWithReference {
+    return this.createRegistered("xingxiang", chartRequest, chart, now) as XingxiangChartWithReference;
+  }
+
   resolve(paipanRef: string, now = new Date()): PaipanContextResponse {
     return this.resolveRegistered("bazi", paipanRef, now) as PaipanContextResponse;
   }
@@ -187,5 +199,9 @@ export class PaipanContextService {
 
   resolveShanxiang(paipanRef: string, now = new Date()): ShanxiangContextResponse {
     return this.resolveRegistered("shanxiang", paipanRef, now) as ShanxiangContextResponse;
+  }
+
+  resolveXingxiang(paipanRef: string, now = new Date()): XingxiangContextResponse {
+    return this.resolveRegistered("xingxiang", paipanRef, now) as XingxiangContextResponse;
   }
 }

@@ -8,6 +8,8 @@ import {
   MeihuaContextResponseSchema,
   LuojiChartWithReferenceSchema,
   LuojiContextResponseSchema,
+  XingxiangChartWithReferenceSchema,
+  XingxiangContextResponseSchema,
   YinpanChartWithReferenceSchema,
   YinpanContextResponseSchema,
   ShanxiangChartWithReferenceSchema,
@@ -31,6 +33,9 @@ import {
   type LuojiChartRequest,
   type LuojiChartWithReference,
   type LuojiContextResponse,
+  type XingxiangChartRequest,
+  type XingxiangChartWithReference,
+  type XingxiangContextResponse,
   type YinpanChartRequest,
   type YinpanChartWithReference,
   type YinpanContextResponse,
@@ -261,11 +266,33 @@ export function createShanxiangChart(
   });
 }
 
+export function createXingxiangChart(
+  request: XingxiangChartRequest,
+  signal?: AbortSignal,
+): Promise<XingxiangChartWithReference> {
+  return requestJson("/api/v1/paipan/xingxiang/chart", XingxiangChartWithReferenceSchema, {
+    method: "POST",
+    body: JSON.stringify(request),
+    ...(signal ? { signal } : {}),
+  });
+}
+
 export function fetchShanxiangContext(
   paipanRef: string,
   signal?: AbortSignal,
 ): Promise<ShanxiangContextResponse> {
   return requestJson("/api/v1/paipan/shanxiang-juece/context", ShanxiangContextResponseSchema, {
+    method: "POST",
+    body: JSON.stringify({ paipan_ref: paipanRef }),
+    ...(signal ? { signal } : {}),
+  });
+}
+
+export function fetchXingxiangContext(
+  paipanRef: string,
+  signal?: AbortSignal,
+): Promise<XingxiangContextResponse> {
+  return requestJson("/api/v1/paipan/xingxiang/context", XingxiangContextResponseSchema, {
     method: "POST",
     body: JSON.stringify({ paipan_ref: paipanRef }),
     ...(signal ? { signal } : {}),

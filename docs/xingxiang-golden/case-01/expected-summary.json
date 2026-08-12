@@ -1,0 +1,19 @@
+{
+  "solarDateTime": "1990-01-01 12:00",
+  "lunarDate": "一九八九年腊月初五日午时",
+  "yinYangGender": "阴男",
+  "fiveElementsBureau": "土五局",
+  "pillars": { "year": "己巳", "month": "丙子", "day": "丙寅", "hour": "甲午" },
+  "palaceCount": 12,
+  "periodCount": 12,
+  "firstPeriod": { "ganZhi": "辛未", "ages": [5, 14], "years": [1993, 2002] },
+  "firstAnnual": { "age": 5, "year": 1993, "ganZhi": "癸酉" },
+  "selfTransformations": {
+    "子": [{ "transformation": "忌", "star": "廉贞", "inward": false }],
+    "丑": [{ "transformation": "科", "star": "天机", "inward": true }],
+    "卯": [
+      { "transformation": "禄", "star": "太阴", "inward": true },
+      { "transformation": "权", "star": "天同", "inward": false }
+    ]
+  }
+}

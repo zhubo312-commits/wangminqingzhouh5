@@ -32,7 +32,7 @@ export const PAIPAN_ITEMS: readonly PaipanItem[] = [
   { name: "阴盘决策", icon: YinYang, enabled: true, path: "/paipan/yinpan-juece" },
   { name: "梅花学", icon: FlowerLotus, enabled: true, path: "/paipan/meihua" },
   { name: "逻辑学", icon: CirclesThree, enabled: true, path: "/paipan/luoji" },
-  { name: "星像学", icon: Planet, enabled: false },
+  { name: "星像学", icon: Planet, enabled: true, path: "/paipan/xingxiang" },
   { name: "姓名学", icon: IdentificationCard, enabled: false },
   { name: "数字规律", icon: SlidersHorizontal, enabled: false },
   { name: "山向决策", icon: CompassRose, enabled: true, path: "/paipan/shanxiang-juece" },

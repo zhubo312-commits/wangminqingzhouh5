@@ -4906,3 +4906,131 @@ footer {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* 星像学：十二宫、四化、大限与流年的专属阅读层 */
+.xingxiang-form,
+.xingxiang-result-page .paipan-content {
+  display: grid;
+  gap: 14px;
+}
+
+.xingxiang-intro,
+.xingxiang-profile-hero {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 4px 2px;
+}
+
+.xingxiang-intro > svg { color: var(--deep-red); flex: 0 0 auto; }
+.xingxiang-intro h2,
+.xingxiang-profile-hero h2 { margin: 0; color: var(--ink); font-family: var(--font-display); }
+.xingxiang-intro p,
+.xingxiang-profile-hero p { margin: 4px 0 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+
+.xingxiang-school {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 11px;
+  padding: 13px;
+  border: 1px solid rgba(144, 93, 42, 0.22);
+  border-radius: 12px;
+  background: rgba(248, 239, 218, 0.56);
+}
+.xingxiang-school svg { color: #a86b1f; }
+.xingxiang-school strong,
+.xingxiang-school small { display: block; }
+.xingxiang-school small { margin-top: 3px; color: var(--muted); line-height: 1.5; }
+.xingxiang-school > span { color: var(--deep-red); font-size: 11px; font-weight: 700; }
+
+.xingxiang-profile-hero > span {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  color: #fff8e9;
+  background: linear-gradient(145deg, #7f2722, #b15b36);
+  font-family: var(--font-display);
+  font-size: 25px;
+}
+.xingxiang-profile-hero small { color: var(--hint); }
+
+.xingxiang-periods,
+.xingxiang-annuals {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+  margin-top: 11px;
+}
+.xingxiang-periods button,
+.xingxiang-annuals button {
+  min-width: 0;
+  padding: 9px 7px;
+  border: 1px solid rgba(123, 84, 46, 0.2);
+  border-radius: 9px;
+  color: var(--ink);
+  background: rgba(255, 253, 246, 0.68);
+  font: inherit;
+  font-weight: 700;
+}
+.xingxiang-periods small,
+.xingxiang-annuals small { display: block; margin-top: 2px; color: var(--muted); font-size: 9px; font-weight: 500; }
+.xingxiang-periods button.active,
+.xingxiang-annuals button.active { border-color: rgba(145, 42, 34, 0.7); color: var(--deep-red); background: rgba(157, 49, 38, 0.09); box-shadow: inset 0 0 0 1px rgba(145, 42, 34, 0.12); }
+
+.xingxiang-transform-row { display: grid; gap: 8px; margin-top: 12px; }
+.xingxiang-transformations { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 9px; border-radius: 9px; background: rgba(78, 62, 42, 0.05); }
+.xingxiang-transformations > strong { width: 100%; color: var(--muted); font-size: 10px; }
+.xingxiang-transformations span { display: inline-flex; align-items: center; gap: 4px; color: #514235; font-size: 10px; }
+.xingxiang-transformations b { display: grid; width: 20px; height: 20px; place-items: center; border-radius: 50%; color: #fff8e9; background: var(--deep-red); font-size: 9px; }
+
+.xingxiang-chart-title { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.xingxiang-chart-title button { display: inline-flex; align-items: center; gap: 4px; padding: 7px 9px; border: 1px solid rgba(139, 50, 40, 0.28); border-radius: 8px; color: var(--deep-red); background: transparent; font: inherit; font-size: 10px; }
+.xingxiang-chart-note { margin: 8px 0 10px; color: var(--muted); font-size: 10px; line-height: 1.6; }
+
+.xingxiang-palace-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.xingxiang-palace-grid > button { position: relative; min-width: 0; min-height: 142px; padding: 8px; overflow: hidden; border: 1px solid rgba(121, 78, 41, 0.21); border-radius: 8px; color: var(--ink); background: rgba(255, 253, 247, 0.74); font: inherit; text-align: left; }
+.xingxiang-palace-grid > button.selected { border-color: var(--deep-red); background: rgba(145, 42, 34, 0.055); box-shadow: inset 0 0 0 1px rgba(145, 42, 34, 0.13); }
+.xingxiang-palace-head { display: flex; justify-content: space-between; gap: 5px; align-items: baseline; padding-bottom: 5px; border-bottom: 1px solid rgba(111, 76, 44, 0.12); }
+.xingxiang-palace-head span { color: var(--muted); font-size: 9px; }
+.xingxiang-palace-head strong { color: var(--deep-red); font-family: var(--font-display); font-size: 13px; }
+.xingxiang-palace-flags { display: flex; gap: 3px; min-height: 16px; padding-top: 4px; }
+.xingxiang-palace-flags i { padding: 1px 4px; border-radius: 4px; color: #78531f; background: rgba(188, 143, 64, 0.16); font-size: 8px; font-style: normal; }
+.xingxiang-stars { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 3px 5px; }
+.xingxiang-stars span { display: inline-flex; align-items: center; gap: 2px; color: #534638; font-size: 9px; white-space: nowrap; }
+.xingxiang-stars b { font-size: 10px; }
+.xingxiang-stars small { color: var(--hint); font-size: 7px; }
+.xingxiang-stars em { display: grid; width: 14px; height: 14px; place-items: center; border-radius: 50%; color: #fff; background: var(--deep-red); font-size: 7px; font-style: normal; }
+.xingxiang-stars .star-major b { color: #9a342d; font-size: 11px; }
+.xingxiang-stars .star-tough b { color: #394e68; }
+.xingxiang-stars .star-flower b { color: #a66a2a; }
+.xingxiang-self { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 5px; }
+.xingxiang-self span { padding: 2px 4px; border-radius: 4px; color: #8f332c; background: rgba(145, 42, 34, 0.08); font-size: 7px; }
+
+.xingxiang-palace-detail { display: grid; grid-template-columns: auto 1fr; gap: 7px 12px; margin-top: 10px; padding: 12px; border-left: 3px solid var(--deep-red); border-radius: 4px 9px 9px 4px; background: rgba(120, 83, 44, 0.06); }
+.xingxiang-palace-detail small { color: var(--hint); }
+.xingxiang-palace-detail h3 { margin: 2px 0 0; color: var(--deep-red); font-family: var(--font-display); }
+.xingxiang-palace-detail p { margin: 0; color: #55493d; font-size: 10px; line-height: 1.7; }
+.xingxiang-palace-detail .xingxiang-detail-transform { grid-column: 1 / -1; color: var(--deep-red); }
+.xingxiang-edit { display: inline-flex; width: 100%; align-items: center; justify-content: center; gap: 6px; }
+
+.xingxiang-dialog { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 12px; background: rgba(30, 24, 19, 0.76); }
+.xingxiang-dialog > div { position: relative; width: min(760px, 100%); max-height: calc(100dvh - 24px); padding: 17px 12px 12px; overflow: auto; border-radius: 13px; background: #f8f1e3; box-shadow: 0 20px 70px rgba(0, 0, 0, 0.35); }
+.xingxiang-dialog h2 { margin: 0 40px 13px 0; color: var(--ink); font-family: var(--font-display); font-size: 16px; }
+.xingxiang-dialog-close { position: absolute; top: 9px; right: 9px; display: grid; width: 34px; height: 34px; place-items: center; padding: 0; border: 0; border-radius: 50%; color: var(--ink); background: rgba(87, 67, 48, 0.08); }
+
+@media (min-width: 700px) {
+  .xingxiang-periods { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .xingxiang-annuals { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .xingxiang-transform-row { grid-template-columns: 1fr 1fr; }
+  .xingxiang-palace-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (max-width: 370px) {
+  .xingxiang-palace-grid { gap: 4px; }
+  .xingxiang-palace-grid > button { min-height: 135px; padding: 6px; }
+  .xingxiang-stars { gap-inline: 3px; }
+}

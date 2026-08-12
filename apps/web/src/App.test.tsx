@@ -86,7 +86,7 @@ describe("homepage", () => {
     await waitFor(() => expect(fetch).toHaveBeenCalledWith("/api/v1/events", expect.anything()));
   });
 
-  it("shows exactly eleven chart entries and enables the seven completed charts", async () => {
+  it("shows exactly eleven chart entries and enables the eight completed charts", async () => {
     window.history.pushState({}, "", "/paipan");
     render(<App />);
 
@@ -120,8 +120,12 @@ describe("homepage", () => {
       "href",
       "/paipan/shanxiang-juece",
     );
-    expect(navigation.querySelectorAll('[aria-disabled="true"]')).toHaveLength(4);
-    expect(screen.getAllByText("即将上线")).toHaveLength(4);
+    expect(screen.getByRole("link", { name: "星像学" })).toHaveAttribute(
+      "href",
+      "/paipan/xingxiang",
+    );
+    expect(navigation.querySelectorAll('[aria-disabled="true"]')).toHaveLength(3);
+    expect(screen.getAllByText("即将上线")).toHaveLength(3);
   });
 
   it("registers the decision route in the normal build", async () => {

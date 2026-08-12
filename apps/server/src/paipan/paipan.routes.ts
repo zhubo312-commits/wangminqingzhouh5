@@ -5,6 +5,7 @@ import {
   JueceChartRequestSchema,
   MeihuaChartRequestSchema,
   LuojiChartRequestSchema,
+  XingxiangChartRequestSchema,
   PaipanContextLookupRequestSchema,
   ResolveBirthRequestSchema,
   ShenShaRequestSchema,
@@ -169,11 +170,30 @@ export function createPaipanRoutes(
     );
 
     app.post(
+      "/api/v1/paipan/xingxiang/chart",
+      { config: { rateLimit: { max: 30, timeWindow: "1 minute" } } },
+      async (request) => {
+        const chartRequest = parseRequest(XingxiangChartRequestSchema, request.body);
+        const chart = await client.xingxiangChart(chartRequest);
+        return contextService.createXingxiang(chartRequest, chart);
+      },
+    );
+
+    app.post(
       "/api/v1/paipan/shanxiang-juece/context",
       { config: { rateLimit: { max: 60, timeWindow: "1 minute" } } },
       async (request) => {
         const lookup = parseRequest(PaipanContextLookupRequestSchema, request.body);
         return contextService.resolveShanxiang(lookup.paipan_ref);
+      },
+    );
+
+    app.post(
+      "/api/v1/paipan/xingxiang/context",
+      { config: { rateLimit: { max: 60, timeWindow: "1 minute" } } },
+      async (request) => {
+        const lookup = parseRequest(PaipanContextLookupRequestSchema, request.body);
+        return contextService.resolveXingxiang(lookup.paipan_ref);
       },
     );
 

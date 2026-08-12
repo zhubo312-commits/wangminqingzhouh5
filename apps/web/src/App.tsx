@@ -17,6 +17,7 @@ import { YinpanSessionProvider } from "./features/paipan/yinpan/YinpanSession";
 import { MeihuaSessionProvider } from "./features/paipan/meihua/MeihuaSession";
 import { LuojiSessionProvider } from "./features/paipan/luoji/LuojiSession";
 import { ShanxiangSessionProvider } from "./features/paipan/shanxiang/ShanxiangSession";
+import { XingxiangSessionProvider } from "./features/paipan/xingxiang/XingxiangSession";
 
 const MeihuaFormPage = lazy(() => import("./features/paipan/meihua/MeihuaFormPage").then((module) => ({ default: module.MeihuaFormPage })));
 const MeihuaResultPage = lazy(() => import("./features/paipan/meihua/MeihuaResultPage").then((module) => ({ default: module.MeihuaResultPage })));
@@ -24,6 +25,8 @@ const LuojiFormPage = lazy(() => import("./features/paipan/luoji/LuojiFormPage")
 const LuojiResultPage = lazy(() => import("./features/paipan/luoji/LuojiResultPage").then((module) => ({ default: module.LuojiResultPage })));
 const ShanxiangFormPage = lazy(() => import("./features/paipan/shanxiang/ShanxiangFormPage").then((module) => ({ default: module.ShanxiangFormPage })));
 const ShanxiangResultPage = lazy(() => import("./features/paipan/shanxiang/ShanxiangResultPage").then((module) => ({ default: module.ShanxiangResultPage })));
+const XingxiangFormPage = lazy(() => import("./features/paipan/xingxiang/XingxiangFormPage").then((module) => ({ default: module.XingxiangFormPage })));
+const XingxiangResultPage = lazy(() => import("./features/paipan/xingxiang/XingxiangResultPage").then((module) => ({ default: module.XingxiangResultPage })));
 
 const routerBasename =
   import.meta.env.BASE_URL === "/"
@@ -56,6 +59,10 @@ function LuojiSessionLayout() {
 
 function ShanxiangSessionLayout() {
   return <ShanxiangSessionProvider><Suspense fallback={<div className="route-loading" role="status">正在载入山向决策…</div>}><Outlet /></Suspense></ShanxiangSessionProvider>;
+}
+
+function XingxiangSessionLayout() {
+  return <XingxiangSessionProvider><Suspense fallback={<div className="route-loading" role="status">正在载入星像学…</div>}><Outlet /></Suspense></XingxiangSessionProvider>;
 }
 
 export default function App() {
@@ -97,6 +104,10 @@ export default function App() {
         <Route element={<ShanxiangSessionLayout />}>
           <Route path="/paipan/shanxiang-juece" element={<ShanxiangFormPage />} />
           <Route path="/paipan/shanxiang-juece/result" element={<ShanxiangResultPage />} />
+        </Route>
+        <Route element={<XingxiangSessionLayout />}>
+          <Route path="/paipan/xingxiang" element={<XingxiangFormPage />} />
+          <Route path="/paipan/xingxiang/result" element={<XingxiangResultPage />} />
         </Route>
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
