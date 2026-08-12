@@ -1,0 +1,41 @@
+{
+  "capturedAt": "2026-08-12T07:53:00+08:00",
+  "site": "https://ft.bavor.cn",
+  "runtimeDependency": false,
+  "sources": [
+    {
+      "page": "当前入口索引",
+      "url": "https://ft.bavor.cn/static/js/index.3d1307ad.js",
+      "sha256": "b4a6e7c8c57f48e0045baffdeb116382a52ff8e18db038551102cad54d0edc99"
+    },
+    {
+      "page": "山向决策表单",
+      "url": "https://ft.bavor.cn/static/js/pages-shanxiang-shanxiang.61097b4f.js",
+      "sha256": "bf2deb4207d50e80d957ccf63fd3d62092924e2c2cb05f8d8ee8da8c0f021c08"
+    },
+    {
+      "page": "山向决策结果",
+      "url": "https://ft.bavor.cn/static/js/pages-shanxiang-result-result.ab31724f.js",
+      "sha256": "d998901a151b7f7025264dd47e5f98336d16dcb4d4d504429a9bae2f2219ec4d"
+    },
+    {
+      "page": "当前三盘接口",
+      "url": "https://ft.bavor.cn/prod-api/app/qimen/getShanXiangQiMenList",
+      "method": "POST"
+    }
+  ],
+  "localAlgorithmSources": [
+    {
+      "path": "services/paipan/src/main/java/com/sunland/app/domain/qimen/QiMenZao.java",
+      "sha256": "b16a599f3cdc8fbf2fc35c44dd390656521006ce997794357855c613a051c624"
+    },
+    {
+      "path": "services/paipan/src/main/java/com/sunland/app/utils/qimen/QimenPanUtil.java",
+      "sha256": "5b6a17e644d41868de1da4c591f44f10e1c435f7c3708db51959180a39f7b015"
+    },
+    {
+      "path": "services/paipan/src/main/java/com/sunland/app/utils/qimen/QimenPan.java",
+      "sha256": "ff59775af2bcfabb5ea2a4c5811dba257e68a5a361869915121758774863e75b"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "panelOrder": [0, 5, 10],
+  "firstPanel": {
+    "label": "丁山癸向",
+    "degreeRange": "0~4",
+    "bureau": "阴遁7局",
+    "yearPillar": "丙午",
+    "hourPillar": "己丑",
+    "xunShou": "甲申庚",
+    "voidBranches": "午未",
+    "chiefStar": "天芮星·6宫",
+    "chiefDoor": "死门·9宫",
+    "horse": "亥·6宫",
+    "huangQuan": "黄泉亥",
+    "palaceCount": 9
+  },
+  "selectionBehavior": {
+    "degrees7": [5, 0, 10],
+    "degrees360": [0, 5, 10]
+  }
+}

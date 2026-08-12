@@ -35,6 +35,6 @@ export const PAIPAN_ITEMS: readonly PaipanItem[] = [
   { name: "星像学", icon: Planet, enabled: false },
   { name: "姓名学", icon: IdentificationCard, enabled: false },
   { name: "数字规律", icon: SlidersHorizontal, enabled: false },
-  { name: "山向决策", icon: CompassRose, enabled: false },
+  { name: "山向决策", icon: CompassRose, enabled: true, path: "/paipan/shanxiang-juece" },
   { name: "玄空飞星", icon: StarFour, enabled: false },
 ] as const;

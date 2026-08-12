@@ -1,0 +1,51 @@
+{
+  "responseCode": 200,
+  "panels": [
+    {
+      "degrees": 0,
+      "direction": "癸",
+      "mountain": "丁",
+      "degreeRange": "0~4",
+      "yearPillar": "丙午",
+      "hourPillar": "己丑",
+      "dunType": "阴",
+      "juNumber": 7,
+      "xunShou": "甲申庚",
+      "voidBranches": "午未",
+      "chiefStar": { "name": "天芮星", "palace": 6 },
+      "chiefDoor": { "name": "死", "palace": 9 },
+      "horse": { "branch": "亥", "palace": 6 },
+      "huangQuan": "黄泉亥",
+      "palace1": {
+        "trigram": "坎",
+        "direction": "北方",
+        "element": "水",
+        "deity": "九天",
+        "star": "天柱",
+        "door": "生",
+        "heavenStems": ["戊"],
+        "earthStems": ["丁"],
+        "hiddenStem": "辛",
+        "harms": [{ "symbol": "生", "type": "迫" }],
+        "heavenGrowth": [{ "branch": "子", "stage": "胎" }],
+        "earthGrowth": [{ "branch": "子", "stage": "绝" }]
+      }
+    },
+    {
+      "degrees": 5,
+      "degreeRange": "5~9",
+      "dunType": "阴",
+      "juNumber": 1,
+      "chiefStar": { "name": "天任星", "palace": 9 },
+      "chiefDoor": { "name": "生", "palace": 3 }
+    },
+    {
+      "degrees": 10,
+      "degreeRange": "10~14",
+      "dunType": "阴",
+      "juNumber": 4,
+      "chiefStar": { "name": "天芮星", "palace": 3 },
+      "chiefDoor": { "name": "死", "palace": 6 }
+    }
+  ]
+}

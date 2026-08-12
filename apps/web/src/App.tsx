@@ -16,11 +16,14 @@ import { YinpanResultPage } from "./features/paipan/yinpan/YinpanResultPage";
 import { YinpanSessionProvider } from "./features/paipan/yinpan/YinpanSession";
 import { MeihuaSessionProvider } from "./features/paipan/meihua/MeihuaSession";
 import { LuojiSessionProvider } from "./features/paipan/luoji/LuojiSession";
+import { ShanxiangSessionProvider } from "./features/paipan/shanxiang/ShanxiangSession";
 
 const MeihuaFormPage = lazy(() => import("./features/paipan/meihua/MeihuaFormPage").then((module) => ({ default: module.MeihuaFormPage })));
 const MeihuaResultPage = lazy(() => import("./features/paipan/meihua/MeihuaResultPage").then((module) => ({ default: module.MeihuaResultPage })));
 const LuojiFormPage = lazy(() => import("./features/paipan/luoji/LuojiFormPage").then((module) => ({ default: module.LuojiFormPage })));
 const LuojiResultPage = lazy(() => import("./features/paipan/luoji/LuojiResultPage").then((module) => ({ default: module.LuojiResultPage })));
+const ShanxiangFormPage = lazy(() => import("./features/paipan/shanxiang/ShanxiangFormPage").then((module) => ({ default: module.ShanxiangFormPage })));
+const ShanxiangResultPage = lazy(() => import("./features/paipan/shanxiang/ShanxiangResultPage").then((module) => ({ default: module.ShanxiangResultPage })));
 
 const routerBasename =
   import.meta.env.BASE_URL === "/"
@@ -49,6 +52,10 @@ function MeihuaSessionLayout() {
 
 function LuojiSessionLayout() {
   return <LuojiSessionProvider><Suspense fallback={<div className="route-loading" role="status">正在载入逻辑学…</div>}><Outlet /></Suspense></LuojiSessionProvider>;
+}
+
+function ShanxiangSessionLayout() {
+  return <ShanxiangSessionProvider><Suspense fallback={<div className="route-loading" role="status">正在载入山向决策…</div>}><Outlet /></Suspense></ShanxiangSessionProvider>;
 }
 
 export default function App() {
@@ -86,6 +93,10 @@ export default function App() {
         <Route element={<LuojiSessionLayout />}>
           <Route path="/paipan/luoji" element={<LuojiFormPage />} />
           <Route path="/paipan/luoji/result" element={<LuojiResultPage />} />
+        </Route>
+        <Route element={<ShanxiangSessionLayout />}>
+          <Route path="/paipan/shanxiang-juece" element={<ShanxiangFormPage />} />
+          <Route path="/paipan/shanxiang-juece/result" element={<ShanxiangResultPage />} />
         </Route>
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>

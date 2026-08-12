@@ -9,7 +9,7 @@ describe("paipanContextRegistry", () => {
     const identities = Object.values(paipanContextRegistry).map(
       ({ chartType, schemaVersion }) => `${chartType}:${schemaVersion}`,
     );
-    expect(identities).toHaveLength(6);
+    expect(identities).toHaveLength(7);
     expect(new Set(identities).size).toBe(identities.length);
   });
 
@@ -26,6 +26,7 @@ describe("paipanContextRegistry", () => {
     )).toBe(true);
     expect(isRegisteredPaipanIdentity("meihua", "guoxue.paipan.meihua.v1")).toBe(true);
     expect(isRegisteredPaipanIdentity("luoji", "guoxue.paipan.luoji.v1")).toBe(true);
+    expect(isRegisteredPaipanIdentity("shanxiang_juece", "guoxue.paipan.shanxiang_juece.v1")).toBe(true);
     expect(isRegisteredPaipanIdentity("unknown", "guoxue.paipan.unknown.v1")).toBe(false);
     expect(isRegisteredPaipanIdentity("dunjia", "guoxue.paipan.bazi.v1")).toBe(false);
   });

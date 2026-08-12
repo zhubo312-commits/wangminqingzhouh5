@@ -17,6 +17,9 @@ import {
   YinpanChartRequestSchema,
   YinpanChartResponseSchema,
   YinpanContextResponseSchema,
+  ShanxiangChartRequestSchema,
+  ShanxiangChartResponseSchema,
+  ShanxiangContextResponseSchema,
 } from "@guoxue/contracts";
 import type { z } from "zod";
 
@@ -78,6 +81,13 @@ export const paipanContextRegistry = {
     requestSchema: LuojiChartRequestSchema,
     chartSchema: LuojiChartResponseSchema,
     contextSchema: LuojiContextResponseSchema,
+  }),
+  shanxiang: definePaipanContext({
+    chartType: "shanxiang_juece",
+    schemaVersion: "guoxue.paipan.shanxiang_juece.v1",
+    requestSchema: ShanxiangChartRequestSchema,
+    chartSchema: ShanxiangChartResponseSchema,
+    contextSchema: ShanxiangContextResponseSchema,
   }),
 } as const;
 

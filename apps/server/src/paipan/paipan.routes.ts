@@ -9,6 +9,7 @@ import {
   ResolveBirthRequestSchema,
   ShenShaRequestSchema,
   YinpanChartRequestSchema,
+  ShanxiangChartRequestSchema,
 } from "@guoxue/contracts";
 import type { FastifyPluginAsync } from "fastify";
 import type { z } from "zod";
@@ -154,6 +155,25 @@ export function createPaipanRoutes(
       async (request) => {
         const lookup = parseRequest(PaipanContextLookupRequestSchema, request.body);
         return contextService.resolveLuoji(lookup.paipan_ref);
+      },
+    );
+
+    app.post(
+      "/api/v1/paipan/shanxiang-juece/chart",
+      { config: { rateLimit: { max: 30, timeWindow: "1 minute" } } },
+      async (request) => {
+        const chartRequest = parseRequest(ShanxiangChartRequestSchema, request.body);
+        const chart = await client.shanxiangChart(chartRequest);
+        return contextService.createShanxiang(chartRequest, chart);
+      },
+    );
+
+    app.post(
+      "/api/v1/paipan/shanxiang-juece/context",
+      { config: { rateLimit: { max: 60, timeWindow: "1 minute" } } },
+      async (request) => {
+        const lookup = parseRequest(PaipanContextLookupRequestSchema, request.body);
+        return contextService.resolveShanxiang(lookup.paipan_ref);
       },
     );
 
