@@ -1,0 +1,9 @@
+{
+  "method": "GET",
+  "url": "https://ft.bavor.cn/prod-api/app/shenshu/getShenshu",
+  "query": {
+    "userName": "测试者",
+    "birthDay": "1990-01-01 12:00",
+    "sex": "男"
+  }
+}

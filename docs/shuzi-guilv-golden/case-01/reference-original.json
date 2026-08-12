@@ -1,0 +1,57 @@
+{
+  "msg": "操作成功",
+  "code": 200,
+  "data": {
+    "userName": "测试者",
+    "sex": "男",
+    "yearGongLi": "1990-01-01 12:00",
+    "yearNongLi": "一九八九年腊月初五日午时",
+    "chineseZodiac": "蛇",
+    "yearNumber": 6,
+    "monthNumber": 12,
+    "dayNumber": [5],
+    "hourNumber": 7,
+    "prev": {
+      "year": 6,
+      "month": 12,
+      "day": [5],
+      "hour": 7,
+      "yearYinYang": "阴",
+      "monthYinYang": "阳",
+      "dayYinYang": ["阴"],
+      "hourYinYang": "阴",
+      "yearWuXing": "火",
+      "monthWuXing": "水",
+      "dayWuXing": ["木"],
+      "hourWuXing": "火"
+    },
+    "next": {
+      "year": 12,
+      "month": 6,
+      "day": [11],
+      "hour": 1,
+      "yearYinYang": "阳",
+      "monthYinYang": "阴",
+      "dayYinYang": ["阳"],
+      "hourYinYang": "阳",
+      "yearWuXing": "水",
+      "monthWuXing": "火",
+      "dayWuXing": ["金"],
+      "hourWuXing": "水"
+    },
+    "shuDesList": [
+      {
+        "numericalArray": "6-12/12-6",
+        "specialArray": "年月",
+        "occurrencePositions": "绝冲数组",
+        "resultDescription": "一、从小背乡离家，外出求学、创业，不在家。20岁前就离家 二、晚婚，24岁以上 三、一生多次搬家"
+      },
+      {
+        "numericalArray": "6-12/12-6",
+        "specialArray": "年月",
+        "occurrencePositions": "绝冲数组",
+        "resultDescription": "一、从小背乡离家，外出求学、创业，不在家。20岁前就离家 二、晚婚，24岁以上 三、一生多次搬家"
+      }
+    ]
+  }
+}
