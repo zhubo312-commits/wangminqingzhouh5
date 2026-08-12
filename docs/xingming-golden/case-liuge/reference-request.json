@@ -1,0 +1,16 @@
+{
+  "method": "GET",
+  "url": "https://ft.bavor.cn/prod-api/app/getPartialAnalysis",
+  "query": {
+    "birthday": "1996-12-12 00:00:00",
+    "firstname": "子涵",
+    "lastname": "欧阳",
+    "sex": "1",
+    "type": "1"
+  },
+  "formMeaning": {
+    "surname": "欧阳",
+    "givenName": "子涵",
+    "school": "三才六格"
+  }
+}

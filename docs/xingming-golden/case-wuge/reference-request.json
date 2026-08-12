@@ -1,0 +1,16 @@
+{
+  "method": "GET",
+  "url": "https://ft.bavor.cn/prod-api/app/getPartialAnalysis",
+  "query": {
+    "birthday": "1996-12-12 00:00:00",
+    "firstname": "明",
+    "lastname": "李",
+    "sex": "1",
+    "type": "0"
+  },
+  "formMeaning": {
+    "surname": "李",
+    "givenName": "明",
+    "school": "三才五格"
+  }
+}
