@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: 国学老师 H5 API
-  version: 2.4.0
+  version: 2.5.0
   description: 首页与专业排盘公开接口。出生或起盘信息和排盘引用仅通过 POST 请求体提交。
 paths:
   /api/v1/home:
@@ -536,6 +536,84 @@ paths:
           content:
             application/json:
               schema: { $ref: "#/components/schemas/XingxiangContext" }
+        "404": { $ref: "#/components/responses/NotFound" }
+        "410": { $ref: "#/components/responses/Gone" }
+        "422": { $ref: "#/components/responses/ValidationError" }
+  /api/v1/paipan/shuzi-guilv/chart:
+    post:
+      summary: 生成先后天数字规律盘
+      description: 按生肖、农历月日与时辰取数，返回先后天数字、阴阳五行及原系统特殊数组解读。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ShuziGuilvChartRequest" }
+      responses:
+        "200":
+          description: 标准化数字规律盘及短期排盘引用
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ShuziGuilvChartWithReference" }
+        "422": { $ref: "#/components/responses/ValidationError" }
+        "502": { $ref: "#/components/responses/BadGateway" }
+        "504": { $ref: "#/components/responses/GatewayTimeout" }
+  /api/v1/paipan/shuzi-guilv/context:
+    post:
+      summary: 使用短期排盘引用读取数字规律上下文
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [paipan_ref]
+              properties:
+                paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+      responses:
+        "200":
+          description: 带版本号的完整数字规律排盘上下文
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ShuziGuilvContext" }
+        "404": { $ref: "#/components/responses/NotFound" }
+        "410": { $ref: "#/components/responses/Gone" }
+        "422": { $ref: "#/components/responses/ValidationError" }
+  /api/v1/paipan/xuankong-feixing/chart:
+    post:
+      summary: 生成玄空飞星九宫盘
+      description: 按元运、二十四山、下盘或替盘规则布运星、山星、向星及年月日时飞星。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/XuankongFeixingChartRequest" }
+      responses:
+        "200":
+          description: 标准化玄空飞星盘及短期排盘引用
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/XuankongFeixingChartWithReference" }
+        "422": { $ref: "#/components/responses/ValidationError" }
+        "502": { $ref: "#/components/responses/BadGateway" }
+        "504": { $ref: "#/components/responses/GatewayTimeout" }
+  /api/v1/paipan/xuankong-feixing/context:
+    post:
+      summary: 使用短期排盘引用读取玄空飞星上下文
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [paipan_ref]
+              properties:
+                paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+      responses:
+        "200":
+          description: 带版本号的完整玄空飞星排盘上下文
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/XuankongFeixingContext" }
         "404": { $ref: "#/components/responses/NotFound" }
         "410": { $ref: "#/components/responses/Gone" }
         "422": { $ref: "#/components/responses/ValidationError" }
@@ -1676,6 +1754,172 @@ components:
         expiresAt: { type: string, format: date-time }
         chartRequest: { $ref: "#/components/schemas/XingxiangChartRequest" }
         chart: { $ref: "#/components/schemas/XingxiangChartResponse" }
+    ShuziGuilvChartRequest:
+      type: object
+      additionalProperties: false
+      required: [name, gender, birthDateTime]
+      properties:
+        name: { type: string, minLength: 1, maxLength: 10 }
+        gender: { type: string, enum: [male, female] }
+        birthDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+    ShuziNumberCell:
+      type: object
+      required: [numbers, yinYang, elements]
+      properties:
+        numbers:
+          type: array
+          minItems: 1
+          maxItems: 3
+          items: { type: integer, minimum: 1, maximum: 12 }
+        yinYang:
+          type: array
+          minItems: 1
+          maxItems: 3
+          items: { type: string, enum: [阴, 阳] }
+        elements:
+          type: array
+          minItems: 1
+          maxItems: 3
+          items: { type: string, enum: [金, 木, 水, 火, 土] }
+    ShuziNumberSet:
+      type: object
+      required: [year, month, day, hour]
+      properties:
+        year: { $ref: "#/components/schemas/ShuziNumberCell" }
+        month: { $ref: "#/components/schemas/ShuziNumberCell" }
+        day: { $ref: "#/components/schemas/ShuziNumberCell" }
+        hour: { $ref: "#/components/schemas/ShuziNumberCell" }
+    ShuziGuilvChartResponse:
+      type: object
+      required: [overview, innate, acquired, interpretations]
+      properties:
+        overview:
+          type: object
+          required: [name, gender, genderLabel, solarDateTime, lunarDate, chineseZodiac]
+          properties:
+            name: { type: string, minLength: 1, maxLength: 10 }
+            gender: { type: string, enum: [male, female] }
+            genderLabel: { type: string, enum: [男, 女] }
+            solarDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+            lunarDate: { type: string }
+            chineseZodiac: { type: string, minLength: 1, maxLength: 1 }
+        innate: { $ref: "#/components/schemas/ShuziNumberSet" }
+        acquired: { $ref: "#/components/schemas/ShuziNumberSet" }
+        interpretations:
+          type: array
+          items:
+            type: object
+            required: [combination, position, category, description, occurrences]
+            properties:
+              combination: { type: string }
+              position: { type: string, enum: [年月, 月日, 日时] }
+              category: { type: string }
+              description: { type: string }
+              occurrences: { type: integer, minimum: 1 }
+    ShuziGuilvChartWithReference:
+      allOf:
+        - $ref: "#/components/schemas/ShuziGuilvChartResponse"
+        - type: object
+          required: [paipan_ref, expiresAt]
+          properties:
+            paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+            expiresAt: { type: string, format: date-time }
+    ShuziGuilvContext:
+      type: object
+      required: [schemaVersion, chartType, paipan_ref, generatedAt, expiresAt, chartRequest, chart]
+      properties:
+        schemaVersion: { const: guoxue.paipan.shuzi_guilv.v1 }
+        chartType: { const: shuzi_guilv }
+        paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+        generatedAt: { type: string, format: date-time }
+        expiresAt: { type: string, format: date-time }
+        chartRequest: { $ref: "#/components/schemas/ShuziGuilvChartRequest" }
+        chart: { $ref: "#/components/schemas/ShuziGuilvChartResponse" }
+    XuankongOrientation:
+      type: string
+      enum: [壬山丙向, 子山午向, 癸山丁向, 丑山未向, 艮山坤向, 寅山申向, 甲山庚向, 卯山酉向, 乙山辛向, 辰山戌向, 巽山乾向, 巳山亥向, 丙山壬向, 午山子向, 丁山癸向, 未山丑向, 坤山艮向, 申山寅向, 庚山甲向, 酉山卯向, 辛山乙向, 戌山辰向, 乾山巽向, 亥山巳向]
+    XuankongFeixingChartRequest:
+      type: object
+      additionalProperties: false
+      required: [chartDateTime, fortunePeriod, orientation, method]
+      properties:
+        chartDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+        fortunePeriod: { type: integer, minimum: 1, maximum: 9 }
+        orientation: { $ref: "#/components/schemas/XuankongOrientation" }
+        method: { type: string, enum: [base, replacement] }
+        note: { type: string, maxLength: 10, default: "" }
+    XuankongFeixingPalace:
+      type: object
+      required: [index, trigram, direction, element, star, fortuneStar, mountainStar, facingStar, annualStar, monthlyStar, dailyStar, hourlyStar, mountainPosition, facingPosition, interpretations]
+      properties:
+        index: { type: integer, minimum: 1, maximum: 9 }
+        trigram: { type: string, enum: [乾, 兑, 离, 震, 巽, 坎, 艮, 坤, 中] }
+        direction: { type: string, enum: [北方, 东北, 东方, 东南, 南方, 西南, 西方, 西北, 中央] }
+        element: { type: string, enum: [金, 木, 水, 火, 土] }
+        star: { type: string }
+        fortuneStar: { type: integer, minimum: 1, maximum: 9 }
+        mountainStar: { type: integer, minimum: 1, maximum: 9 }
+        facingStar: { type: integer, minimum: 1, maximum: 9 }
+        annualStar: { type: integer, minimum: 1, maximum: 9 }
+        monthlyStar: { type: integer, minimum: 1, maximum: 9 }
+        dailyStar: { type: integer, minimum: 1, maximum: 9 }
+        hourlyStar: { type: integer, minimum: 1, maximum: 9 }
+        mountainPosition: { type: [string, "null"] }
+        facingPosition: { type: [string, "null"] }
+        interpretations:
+          type: object
+          required: [combination, fortune, mountain, facing, annual]
+          properties:
+            combination: { type: string }
+            fortune: { type: string }
+            mountain: { type: string }
+            facing: { type: string }
+            annual: { type: string }
+    XuankongFeixingChartResponse:
+      type: object
+      required: [overview, directions, palaces]
+      properties:
+        overview:
+          type: object
+          required: [chartDateTime, lunarDate, fortunePeriod, fortuneLabel, orientation, method, methodLabel, note]
+          properties:
+            chartDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+            lunarDate: { type: string }
+            fortunePeriod: { type: integer, minimum: 1, maximum: 9 }
+            fortuneLabel: { type: string, pattern: '^[一二三四五六七八九]运$' }
+            orientation: { $ref: "#/components/schemas/XuankongOrientation" }
+            method: { type: string, enum: [base, replacement] }
+            methodLabel: { type: string, enum: [下盘, 替盘] }
+            note: { type: string, maxLength: 10 }
+        directions:
+          type: array
+          minItems: 8
+          maxItems: 8
+          items: { type: string }
+        palaces:
+          type: array
+          minItems: 9
+          maxItems: 9
+          items: { $ref: "#/components/schemas/XuankongFeixingPalace" }
+    XuankongFeixingChartWithReference:
+      allOf:
+        - $ref: "#/components/schemas/XuankongFeixingChartResponse"
+        - type: object
+          required: [paipan_ref, expiresAt]
+          properties:
+            paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+            expiresAt: { type: string, format: date-time }
+    XuankongFeixingContext:
+      type: object
+      required: [schemaVersion, chartType, paipan_ref, generatedAt, expiresAt, chartRequest, chart]
+      properties:
+        schemaVersion: { const: guoxue.paipan.xuankong_feixing.v1 }
+        chartType: { const: xuankong_feixing }
+        paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+        generatedAt: { type: string, format: date-time }
+        expiresAt: { type: string, format: date-time }
+        chartRequest: { $ref: "#/components/schemas/XuankongFeixingChartRequest" }
+        chart: { $ref: "#/components/schemas/XuankongFeixingChartResponse" }
     FlowMonth:
       type: object
       required: [index, monthName, ganZhi, solarTermName, solarTermDateTime, tenGods, hiddenStems, hiddenStemTenGods, heavenlyStemAttention, earthlyBranchAttention, shenSha]

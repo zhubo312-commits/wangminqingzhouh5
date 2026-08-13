@@ -896,6 +896,109 @@ export const XingxiangChartWithReferenceSchema = XingxiangChartResponseSchema.ex
   expiresAt: z.iso.datetime(),
 });
 
+export const ShuziGuilvChartRequestSchema = z.object({
+  name: z.string().trim().min(1).max(10),
+  gender: z.enum(["male", "female"]),
+  birthDateTime: BirthDateTimeSchema,
+});
+
+const ShuziNumberCellSchema = z.object({
+  numbers: z.array(z.number().int().min(1).max(12)).min(1).max(3),
+  yinYang: z.array(z.enum(["阴", "阳"])).min(1).max(3),
+  elements: z.array(z.enum(["金", "木", "水", "火", "土"])).min(1).max(3),
+});
+
+const ShuziNumberSetSchema = z.object({
+  year: ShuziNumberCellSchema,
+  month: ShuziNumberCellSchema,
+  day: ShuziNumberCellSchema,
+  hour: ShuziNumberCellSchema,
+});
+
+export const ShuziGuilvChartResponseSchema = z.object({
+  overview: z.object({
+    name: z.string().min(1).max(10),
+    gender: z.enum(["male", "female"]),
+    genderLabel: z.enum(["男", "女"]),
+    solarDateTime: BirthDateTimeSchema,
+    lunarDate: z.string().min(1),
+    chineseZodiac: z.string().length(1),
+  }),
+  innate: ShuziNumberSetSchema,
+  acquired: ShuziNumberSetSchema,
+  interpretations: z.array(z.object({
+    combination: z.string().min(3),
+    position: z.enum(["年月", "月日", "日时"]),
+    category: z.string().min(1),
+    description: z.string().min(1),
+    occurrences: z.number().int().min(1),
+  })),
+});
+
+export const ShuziGuilvChartWithReferenceSchema = ShuziGuilvChartResponseSchema.extend({
+  paipan_ref: PaipanReferenceSchema,
+  expiresAt: z.iso.datetime(),
+});
+
+export const XUANKONG_ORIENTATIONS = [
+  "壬山丙向", "子山午向", "癸山丁向", "丑山未向", "艮山坤向", "寅山申向",
+  "甲山庚向", "卯山酉向", "乙山辛向", "辰山戌向", "巽山乾向", "巳山亥向",
+  "丙山壬向", "午山子向", "丁山癸向", "未山丑向", "坤山艮向", "申山寅向",
+  "庚山甲向", "酉山卯向", "辛山乙向", "戌山辰向", "乾山巽向", "亥山巳向",
+] as const;
+
+export const XuankongFeixingChartRequestSchema = z.object({
+  chartDateTime: BirthDateTimeSchema,
+  fortunePeriod: z.number().int().min(1).max(9),
+  orientation: z.enum(XUANKONG_ORIENTATIONS),
+  method: z.enum(["base", "replacement"]),
+  note: z.string().trim().max(10).default(""),
+});
+
+export const XuankongFeixingPalaceSchema = z.object({
+  index: z.number().int().min(1).max(9),
+  trigram: z.enum(["乾", "兑", "离", "震", "巽", "坎", "艮", "坤", "中"]),
+  direction: z.enum(["北方", "东北", "东方", "东南", "南方", "西南", "西方", "西北", "中央"]),
+  element: z.enum(["金", "木", "水", "火", "土"]),
+  star: z.string().min(2),
+  fortuneStar: z.number().int().min(1).max(9),
+  mountainStar: z.number().int().min(1).max(9),
+  facingStar: z.number().int().min(1).max(9),
+  annualStar: z.number().int().min(1).max(9),
+  monthlyStar: z.number().int().min(1).max(9),
+  dailyStar: z.number().int().min(1).max(9),
+  hourlyStar: z.number().int().min(1).max(9),
+  mountainPosition: z.string().length(1).nullish().transform((value) => value ?? null),
+  facingPosition: z.string().length(1).nullish().transform((value) => value ?? null),
+  interpretations: z.object({
+    combination: z.string(),
+    fortune: z.string(),
+    mountain: z.string(),
+    facing: z.string(),
+    annual: z.string(),
+  }),
+});
+
+export const XuankongFeixingChartResponseSchema = z.object({
+  overview: z.object({
+    chartDateTime: BirthDateTimeSchema,
+    lunarDate: z.string().min(1),
+    fortunePeriod: z.number().int().min(1).max(9),
+    fortuneLabel: z.string().regex(/^[一二三四五六七八九]运$/),
+    orientation: z.enum(XUANKONG_ORIENTATIONS),
+    method: z.enum(["base", "replacement"]),
+    methodLabel: z.enum(["下盘", "替盘"]),
+    note: z.string().max(10),
+  }),
+  directions: z.array(z.string().min(1)).length(8),
+  palaces: z.array(XuankongFeixingPalaceSchema).length(9),
+});
+
+export const XuankongFeixingChartWithReferenceSchema = XuankongFeixingChartResponseSchema.extend({
+  paipan_ref: PaipanReferenceSchema,
+  expiresAt: z.iso.datetime(),
+});
+
 export const ShanxiangContextResponseSchema = z.object({
   schemaVersion: z.literal("guoxue.paipan.shanxiang_juece.v1"),
   chartType: z.literal("shanxiang_juece"),
@@ -914,6 +1017,26 @@ export const XingxiangContextResponseSchema = z.object({
   expiresAt: z.iso.datetime(),
   chartRequest: XingxiangChartRequestSchema,
   chart: XingxiangChartResponseSchema,
+});
+
+export const ShuziGuilvContextResponseSchema = z.object({
+  schemaVersion: z.literal("guoxue.paipan.shuzi_guilv.v1"),
+  chartType: z.literal("shuzi_guilv"),
+  paipan_ref: PaipanReferenceSchema,
+  generatedAt: z.iso.datetime(),
+  expiresAt: z.iso.datetime(),
+  chartRequest: ShuziGuilvChartRequestSchema,
+  chart: ShuziGuilvChartResponseSchema,
+});
+
+export const XuankongFeixingContextResponseSchema = z.object({
+  schemaVersion: z.literal("guoxue.paipan.xuankong_feixing.v1"),
+  chartType: z.literal("xuankong_feixing"),
+  paipan_ref: PaipanReferenceSchema,
+  generatedAt: z.iso.datetime(),
+  expiresAt: z.iso.datetime(),
+  chartRequest: XuankongFeixingChartRequestSchema,
+  chart: XuankongFeixingChartResponseSchema,
 });
 
 export const FlowMonthsRequestSchema = z.object({
@@ -1004,6 +1127,16 @@ export type XingxiangPalace = z.infer<typeof XingxiangPalaceSchema>;
 export type XingxiangChartResponse = z.infer<typeof XingxiangChartResponseSchema>;
 export type XingxiangChartWithReference = z.infer<typeof XingxiangChartWithReferenceSchema>;
 export type XingxiangContextResponse = z.infer<typeof XingxiangContextResponseSchema>;
+export type ShuziGuilvChartRequest = z.infer<typeof ShuziGuilvChartRequestSchema>;
+export type ShuziNumberCell = z.infer<typeof ShuziNumberCellSchema>;
+export type ShuziGuilvChartResponse = z.infer<typeof ShuziGuilvChartResponseSchema>;
+export type ShuziGuilvChartWithReference = z.infer<typeof ShuziGuilvChartWithReferenceSchema>;
+export type ShuziGuilvContextResponse = z.infer<typeof ShuziGuilvContextResponseSchema>;
+export type XuankongFeixingChartRequest = z.infer<typeof XuankongFeixingChartRequestSchema>;
+export type XuankongFeixingPalace = z.infer<typeof XuankongFeixingPalaceSchema>;
+export type XuankongFeixingChartResponse = z.infer<typeof XuankongFeixingChartResponseSchema>;
+export type XuankongFeixingChartWithReference = z.infer<typeof XuankongFeixingChartWithReferenceSchema>;
+export type XuankongFeixingContextResponse = z.infer<typeof XuankongFeixingContextResponseSchema>;
 export type FlowMonthsRequest = z.infer<typeof FlowMonthsRequestSchema>;
 export type FlowMonthsResponse = z.infer<typeof FlowMonthsResponseSchema>;
 export type ShenShaRequest = z.infer<typeof ShenShaRequestSchema>;

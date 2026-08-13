@@ -10,6 +10,7 @@ if (!Number.isInteger(webPort) || webPort < 1 || webPort > 65_535) {
   throw new Error("E2E_PORT must be a valid TCP port");
 }
 const webOrigin = `http://127.0.0.1:${webPort}`;
+const skipWebServer = process.env.E2E_SKIP_WEBSERVER === "1";
 
 export default defineConfig({
   testDir: "./e2e",
@@ -25,7 +26,7 @@ export default defineConfig({
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
   },
-  webServer: {
+  webServer: skipWebServer ? undefined : {
     command: `PUBLIC_BASE_PATH=${publicBasePath} npm run dev --workspace @guoxue/web -- --host 127.0.0.1 --port ${webPort}`,
     url: `${webOrigin}${publicBasePath}`,
     reuseExistingServer: true,

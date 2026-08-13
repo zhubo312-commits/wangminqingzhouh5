@@ -14,6 +14,10 @@ import {
   YinpanContextResponseSchema,
   ShanxiangChartWithReferenceSchema,
   ShanxiangContextResponseSchema,
+  ShuziGuilvChartWithReferenceSchema,
+  ShuziGuilvContextResponseSchema,
+  XuankongFeixingChartWithReferenceSchema,
+  XuankongFeixingContextResponseSchema,
   FlowMonthsResponseSchema,
   HomeResponseSchema,
   PaipanContextResponseSchema,
@@ -42,6 +46,12 @@ import {
   type ShanxiangChartRequest,
   type ShanxiangChartWithReference,
   type ShanxiangContextResponse,
+  type ShuziGuilvChartRequest,
+  type ShuziGuilvChartWithReference,
+  type ShuziGuilvContextResponse,
+  type XuankongFeixingChartRequest,
+  type XuankongFeixingChartWithReference,
+  type XuankongFeixingContextResponse,
   type FlowMonthsRequest,
   type FlowMonthsResponse,
   type PaipanAreaNode,
@@ -293,6 +303,50 @@ export function fetchXingxiangContext(
   signal?: AbortSignal,
 ): Promise<XingxiangContextResponse> {
   return requestJson("/api/v1/paipan/xingxiang/context", XingxiangContextResponseSchema, {
+    method: "POST",
+    body: JSON.stringify({ paipan_ref: paipanRef }),
+    ...(signal ? { signal } : {}),
+  });
+}
+
+export function createShuziGuilvChart(
+  request: ShuziGuilvChartRequest,
+  signal?: AbortSignal,
+): Promise<ShuziGuilvChartWithReference> {
+  return requestJson("/api/v1/paipan/shuzi-guilv/chart", ShuziGuilvChartWithReferenceSchema, {
+    method: "POST",
+    body: JSON.stringify(request),
+    ...(signal ? { signal } : {}),
+  });
+}
+
+export function fetchShuziGuilvContext(
+  paipanRef: string,
+  signal?: AbortSignal,
+): Promise<ShuziGuilvContextResponse> {
+  return requestJson("/api/v1/paipan/shuzi-guilv/context", ShuziGuilvContextResponseSchema, {
+    method: "POST",
+    body: JSON.stringify({ paipan_ref: paipanRef }),
+    ...(signal ? { signal } : {}),
+  });
+}
+
+export function createXuankongFeixingChart(
+  request: XuankongFeixingChartRequest,
+  signal?: AbortSignal,
+): Promise<XuankongFeixingChartWithReference> {
+  return requestJson("/api/v1/paipan/xuankong-feixing/chart", XuankongFeixingChartWithReferenceSchema, {
+    method: "POST",
+    body: JSON.stringify(request),
+    ...(signal ? { signal } : {}),
+  });
+}
+
+export function fetchXuankongFeixingContext(
+  paipanRef: string,
+  signal?: AbortSignal,
+): Promise<XuankongFeixingContextResponse> {
+  return requestJson("/api/v1/paipan/xuankong-feixing/context", XuankongFeixingContextResponseSchema, {
     method: "POST",
     body: JSON.stringify({ paipan_ref: paipanRef }),
     ...(signal ? { signal } : {}),

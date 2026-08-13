@@ -34,7 +34,7 @@ export const PAIPAN_ITEMS: readonly PaipanItem[] = [
   { name: "逻辑学", icon: CirclesThree, enabled: true, path: "/paipan/luoji" },
   { name: "星像学", icon: Planet, enabled: true, path: "/paipan/xingxiang" },
   { name: "姓名学", icon: IdentificationCard, enabled: false },
-  { name: "数字规律", icon: SlidersHorizontal, enabled: false },
+  { name: "数字规律", icon: SlidersHorizontal, enabled: true, path: "/paipan/shuzi-guilv" },
   { name: "山向决策", icon: CompassRose, enabled: true, path: "/paipan/shanxiang-juece" },
-  { name: "玄空飞星", icon: StarFour, enabled: false },
+  { name: "玄空飞星", icon: StarFour, enabled: true, path: "/paipan/xuankong-feixing" },
 ] as const;

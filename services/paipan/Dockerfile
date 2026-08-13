@@ -5,6 +5,7 @@ COPY services/paipan/pom.xml ./
 RUN mvn -q dependency:go-offline
 COPY services/paipan/src ./src
 COPY docs/xingxiang-golden /workspace/docs/xingxiang-golden
+COPY docs/xuankong-feixing-golden /workspace/docs/xuankong-feixing-golden
 RUN mvn -q verify
 
 FROM eclipse-temurin:17-jre-jammy AS runtime

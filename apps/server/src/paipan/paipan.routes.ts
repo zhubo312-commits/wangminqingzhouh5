@@ -11,6 +11,8 @@ import {
   ShenShaRequestSchema,
   YinpanChartRequestSchema,
   ShanxiangChartRequestSchema,
+  ShuziGuilvChartRequestSchema,
+  XuankongFeixingChartRequestSchema,
 } from "@guoxue/contracts";
 import type { FastifyPluginAsync } from "fastify";
 import type { z } from "zod";
@@ -194,6 +196,44 @@ export function createPaipanRoutes(
       async (request) => {
         const lookup = parseRequest(PaipanContextLookupRequestSchema, request.body);
         return contextService.resolveXingxiang(lookup.paipan_ref);
+      },
+    );
+
+    app.post(
+      "/api/v1/paipan/shuzi-guilv/chart",
+      { config: { rateLimit: { max: 30, timeWindow: "1 minute" } } },
+      async (request) => {
+        const chartRequest = parseRequest(ShuziGuilvChartRequestSchema, request.body);
+        const chart = await client.shuziGuilvChart(chartRequest);
+        return contextService.createShuziGuilv(chartRequest, chart);
+      },
+    );
+
+    app.post(
+      "/api/v1/paipan/shuzi-guilv/context",
+      { config: { rateLimit: { max: 60, timeWindow: "1 minute" } } },
+      async (request) => {
+        const lookup = parseRequest(PaipanContextLookupRequestSchema, request.body);
+        return contextService.resolveShuziGuilv(lookup.paipan_ref);
+      },
+    );
+
+    app.post(
+      "/api/v1/paipan/xuankong-feixing/chart",
+      { config: { rateLimit: { max: 30, timeWindow: "1 minute" } } },
+      async (request) => {
+        const chartRequest = parseRequest(XuankongFeixingChartRequestSchema, request.body);
+        const chart = await client.xuankongFeixingChart(chartRequest);
+        return contextService.createXuankongFeixing(chartRequest, chart);
+      },
+    );
+
+    app.post(
+      "/api/v1/paipan/xuankong-feixing/context",
+      { config: { rateLimit: { max: 60, timeWindow: "1 minute" } } },
+      async (request) => {
+        const lookup = parseRequest(PaipanContextLookupRequestSchema, request.body);
+        return contextService.resolveXuankongFeixing(lookup.paipan_ref);
       },
     );
 

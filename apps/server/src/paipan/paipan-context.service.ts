@@ -32,6 +32,14 @@ import {
   type ShanxiangChartResponse,
   type ShanxiangChartWithReference,
   type ShanxiangContextResponse,
+  type ShuziGuilvChartRequest,
+  type ShuziGuilvChartResponse,
+  type ShuziGuilvChartWithReference,
+  type ShuziGuilvContextResponse,
+  type XuankongFeixingChartRequest,
+  type XuankongFeixingChartResponse,
+  type XuankongFeixingChartWithReference,
+  type XuankongFeixingContextResponse,
 } from "@guoxue/contracts";
 import { GoneAppError, NotFoundAppError } from "../shared/errors/app-error.js";
 import { PaipanContextRepository } from "./paipan-context.repository.js";
@@ -173,6 +181,22 @@ export class PaipanContextService {
     return this.createRegistered("xingxiang", chartRequest, chart, now) as XingxiangChartWithReference;
   }
 
+  createShuziGuilv(
+    chartRequest: ShuziGuilvChartRequest,
+    chart: ShuziGuilvChartResponse,
+    now = new Date(),
+  ): ShuziGuilvChartWithReference {
+    return this.createRegistered("shuziGuilv", chartRequest, chart, now) as ShuziGuilvChartWithReference;
+  }
+
+  createXuankongFeixing(
+    chartRequest: XuankongFeixingChartRequest,
+    chart: XuankongFeixingChartResponse,
+    now = new Date(),
+  ): XuankongFeixingChartWithReference {
+    return this.createRegistered("xuankongFeixing", chartRequest, chart, now) as XuankongFeixingChartWithReference;
+  }
+
   resolve(paipanRef: string, now = new Date()): PaipanContextResponse {
     return this.resolveRegistered("bazi", paipanRef, now) as PaipanContextResponse;
   }
@@ -203,5 +227,13 @@ export class PaipanContextService {
 
   resolveXingxiang(paipanRef: string, now = new Date()): XingxiangContextResponse {
     return this.resolveRegistered("xingxiang", paipanRef, now) as XingxiangContextResponse;
+  }
+
+  resolveShuziGuilv(paipanRef: string, now = new Date()): ShuziGuilvContextResponse {
+    return this.resolveRegistered("shuziGuilv", paipanRef, now) as ShuziGuilvContextResponse;
+  }
+
+  resolveXuankongFeixing(paipanRef: string, now = new Date()): XuankongFeixingContextResponse {
+    return this.resolveRegistered("xuankongFeixing", paipanRef, now) as XuankongFeixingContextResponse;
   }
 }

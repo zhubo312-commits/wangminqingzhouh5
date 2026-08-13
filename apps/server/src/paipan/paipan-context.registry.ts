@@ -23,6 +23,12 @@ import {
   ShanxiangChartRequestSchema,
   ShanxiangChartResponseSchema,
   ShanxiangContextResponseSchema,
+  ShuziGuilvChartRequestSchema,
+  ShuziGuilvChartResponseSchema,
+  ShuziGuilvContextResponseSchema,
+  XuankongFeixingChartRequestSchema,
+  XuankongFeixingChartResponseSchema,
+  XuankongFeixingContextResponseSchema,
 } from "@guoxue/contracts";
 import type { z } from "zod";
 
@@ -98,6 +104,20 @@ export const paipanContextRegistry = {
     requestSchema: XingxiangChartRequestSchema,
     chartSchema: XingxiangChartResponseSchema,
     contextSchema: XingxiangContextResponseSchema,
+  }),
+  shuziGuilv: definePaipanContext({
+    chartType: "shuzi_guilv",
+    schemaVersion: "guoxue.paipan.shuzi_guilv.v1",
+    requestSchema: ShuziGuilvChartRequestSchema,
+    chartSchema: ShuziGuilvChartResponseSchema,
+    contextSchema: ShuziGuilvContextResponseSchema,
+  }),
+  xuankongFeixing: definePaipanContext({
+    chartType: "xuankong_feixing",
+    schemaVersion: "guoxue.paipan.xuankong_feixing.v1",
+    requestSchema: XuankongFeixingChartRequestSchema,
+    chartSchema: XuankongFeixingChartResponseSchema,
+    contextSchema: XuankongFeixingContextResponseSchema,
   }),
 } as const;
 

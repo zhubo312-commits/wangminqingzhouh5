@@ -7,6 +7,8 @@ import {
   MeihuaChartResponseSchema,
   YinpanChartResponseSchema,
   ShanxiangChartResponseSchema,
+  ShuziGuilvChartResponseSchema,
+  XuankongFeixingChartResponseSchema,
   FlowMonthsResponseSchema,
   PaipanAreaNodeSchema,
   ResolveBirthResponseSchema,
@@ -30,6 +32,10 @@ import {
   type YinpanChartResponse,
   type ShanxiangChartRequest,
   type ShanxiangChartResponse,
+  type ShuziGuilvChartRequest,
+  type ShuziGuilvChartResponse,
+  type XuankongFeixingChartRequest,
+  type XuankongFeixingChartResponse,
   type ResolveBirthRequest,
   type ResolveBirthResponse,
   type ShenShaRequest,
@@ -258,6 +264,22 @@ export class PaipanClient {
       "/internal/v1/xingxiang/chart",
       request,
       XingxiangChartResponseSchema,
+    );
+  }
+
+  async shuziGuilvChart(request: ShuziGuilvChartRequest): Promise<ShuziGuilvChartResponse> {
+    return this.request(
+      "/internal/v1/shuzi-guilv/chart",
+      request,
+      ShuziGuilvChartResponseSchema,
+    );
+  }
+
+  async xuankongFeixingChart(request: XuankongFeixingChartRequest): Promise<XuankongFeixingChartResponse> {
+    return this.request(
+      "/internal/v1/xuankong-feixing/chart",
+      request,
+      XuankongFeixingChartResponseSchema,
     );
   }
 

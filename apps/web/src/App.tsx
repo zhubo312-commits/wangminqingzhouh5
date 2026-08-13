@@ -18,6 +18,8 @@ import { MeihuaSessionProvider } from "./features/paipan/meihua/MeihuaSession";
 import { LuojiSessionProvider } from "./features/paipan/luoji/LuojiSession";
 import { ShanxiangSessionProvider } from "./features/paipan/shanxiang/ShanxiangSession";
 import { XingxiangSessionProvider } from "./features/paipan/xingxiang/XingxiangSession";
+import { ShuziGuilvSessionProvider } from "./features/paipan/shuzi/ShuziGuilvSession";
+import { XuankongFeixingSessionProvider } from "./features/paipan/xuankong/XuankongFeixingSession";
 
 const MeihuaFormPage = lazy(() => import("./features/paipan/meihua/MeihuaFormPage").then((module) => ({ default: module.MeihuaFormPage })));
 const MeihuaResultPage = lazy(() => import("./features/paipan/meihua/MeihuaResultPage").then((module) => ({ default: module.MeihuaResultPage })));
@@ -27,6 +29,10 @@ const ShanxiangFormPage = lazy(() => import("./features/paipan/shanxiang/Shanxia
 const ShanxiangResultPage = lazy(() => import("./features/paipan/shanxiang/ShanxiangResultPage").then((module) => ({ default: module.ShanxiangResultPage })));
 const XingxiangFormPage = lazy(() => import("./features/paipan/xingxiang/XingxiangFormPage").then((module) => ({ default: module.XingxiangFormPage })));
 const XingxiangResultPage = lazy(() => import("./features/paipan/xingxiang/XingxiangResultPage").then((module) => ({ default: module.XingxiangResultPage })));
+const ShuziGuilvFormPage = lazy(() => import("./features/paipan/shuzi/ShuziGuilvFormPage").then((module) => ({ default: module.ShuziGuilvFormPage })));
+const ShuziGuilvResultPage = lazy(() => import("./features/paipan/shuzi/ShuziGuilvResultPage").then((module) => ({ default: module.ShuziGuilvResultPage })));
+const XuankongFeixingFormPage = lazy(() => import("./features/paipan/xuankong/XuankongFeixingFormPage").then((module) => ({ default: module.XuankongFeixingFormPage })));
+const XuankongFeixingResultPage = lazy(() => import("./features/paipan/xuankong/XuankongFeixingResultPage").then((module) => ({ default: module.XuankongFeixingResultPage })));
 
 const routerBasename =
   import.meta.env.BASE_URL === "/"
@@ -63,6 +69,14 @@ function ShanxiangSessionLayout() {
 
 function XingxiangSessionLayout() {
   return <XingxiangSessionProvider><Suspense fallback={<div className="route-loading" role="status">正在载入星像学…</div>}><Outlet /></Suspense></XingxiangSessionProvider>;
+}
+
+function ShuziGuilvSessionLayout() {
+  return <ShuziGuilvSessionProvider><Suspense fallback={<div className="route-loading" role="status">正在载入数字规律…</div>}><Outlet /></Suspense></ShuziGuilvSessionProvider>;
+}
+
+function XuankongFeixingSessionLayout() {
+  return <XuankongFeixingSessionProvider><Suspense fallback={<div className="route-loading" role="status">正在载入玄空飞星…</div>}><Outlet /></Suspense></XuankongFeixingSessionProvider>;
 }
 
 export default function App() {
@@ -108,6 +122,14 @@ export default function App() {
         <Route element={<XingxiangSessionLayout />}>
           <Route path="/paipan/xingxiang" element={<XingxiangFormPage />} />
           <Route path="/paipan/xingxiang/result" element={<XingxiangResultPage />} />
+        </Route>
+        <Route element={<ShuziGuilvSessionLayout />}>
+          <Route path="/paipan/shuzi-guilv" element={<ShuziGuilvFormPage />} />
+          <Route path="/paipan/shuzi-guilv/result" element={<ShuziGuilvResultPage />} />
+        </Route>
+        <Route element={<XuankongFeixingSessionLayout />}>
+          <Route path="/paipan/xuankong-feixing" element={<XuankongFeixingFormPage />} />
+          <Route path="/paipan/xuankong-feixing/result" element={<XuankongFeixingResultPage />} />
         </Route>
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
