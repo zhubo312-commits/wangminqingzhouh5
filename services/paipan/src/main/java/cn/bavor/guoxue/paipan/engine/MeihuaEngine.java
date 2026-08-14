@@ -60,8 +60,10 @@ public class MeihuaEngine {
                         hourGanZhi(lunar.getDayGan(), hourIndex)),
                 lunar.getDayXunKong(),
                 "number".equals(request.mode()) ? request.school() : null,
+                "number".equals(request.mode()) ? request.numberCount() : null,
                 "number".equals(request.mode()) ? request.numberOne() : null,
                 "number".equals(request.mode()) ? request.numberTwo() : null,
+                "number".equals(request.mode()) ? request.numberThree() : null,
                 "number".equals(request.mode()) && Boolean.TRUE.equals(request.includeHour()));
         return new ChartResponse(
                 overview,
@@ -86,15 +88,25 @@ public class MeihuaEngine {
                     request.lowerTrigram(),
                     request.movingLine());
             case "number" -> {
+                boolean triple = request.numberCount() == 3;
                 int upperSource = "digit_sum".equals(request.school())
                         ? digitSum(request.numberOne())
                         : Math.toIntExact(request.numberOne());
                 int lowerSource = "digit_sum".equals(request.school())
                         ? digitSum(request.numberTwo())
                         : Math.toIntExact(request.numberTwo());
-                long movingSource = Boolean.TRUE.equals(request.includeHour())
-                        ? request.numberOne() + request.numberTwo() + hourIndex
-                        : (long) upperSource + lowerSource;
+                long movingSource;
+                if (Boolean.TRUE.equals(request.includeHour())) {
+                    movingSource = triple
+                            ? request.numberThree() + hourIndex
+                            : request.numberOne() + request.numberTwo() + hourIndex;
+                } else if (triple) {
+                    movingSource = "digit_sum".equals(request.school())
+                            ? digitSum(request.numberThree())
+                            : request.numberThree();
+                } else {
+                    movingSource = (long) upperSource + lowerSource;
+                }
                 yield new Indices(
                         mod(upperSource, 8),
                         mod(lowerSource, 8),
@@ -194,9 +206,16 @@ public class MeihuaEngine {
             throw new IllegalArgumentException("起盘参数与起盘方式不匹配");
         }
         if ("number".equals(request.mode())) {
+            if (request.numberCount() == null || (request.numberCount() != 2 && request.numberCount() != 3)) {
+                throw new IllegalArgumentException("报数起盘方式必须为双数或三数");
+            }
             if (request.numberOne() < 1 || request.numberTwo() < 1
                     || request.numberOne() > 999_999_999 || request.numberTwo() > 999_999_999) {
                 throw new IllegalArgumentException("报数必须为 1–999999999 的整数");
+            }
+            if (request.numberCount() == 3
+                    && (request.numberThree() < 1 || request.numberThree() > 999_999_999)) {
+                throw new IllegalArgumentException("第三个报数必须为 1–999999999 的整数");
             }
             if (!List.of("digit_sum", "raw_number").contains(request.school())) {
                 throw new IllegalArgumentException("不支持的报数流派");

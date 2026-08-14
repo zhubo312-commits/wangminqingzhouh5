@@ -71,17 +71,20 @@ function FourDirectionsOverlay({ focusBranch }: { focusBranch: Branch }) {
   </svg>;
 }
 
-function PalaceCenter({ profile, period, annual, focusBranch, temporalCopy }: { profile: Profile; period: Period; annual: Annual | null; focusBranch: Branch; temporalCopy: boolean }) {
+function PalaceCenter({ profile, period, annual, focusBranch, compact }: { profile: Profile; period: Period; annual: Annual | null; focusBranch: Branch; compact: boolean }) {
   const related = fourDirections(focusBranch);
-  return <div className="xingxiang-palace-center" role="group" aria-label={temporalCopy ? "运限盘摘要" : "命盘摘要"}>
+  return <div className="xingxiang-palace-center" role="group" aria-label="命盘摘要">
     <FourDirectionsOverlay focusBranch={focusBranch} />
     <div className="xingxiang-center-content">
-      <small>{temporalCopy ? "大限流年 · 运限副盘" : "飞星紫微 · 命盘中宫"}</small>
+      <small>飞星紫微 · 命盘中宫</small>
       <strong>{profile.name} · {profile.yinYangGender}</strong>
       <span>{profile.fiveElementsBureau}</span>
-      <span className="xingxiang-center-date">阳历 {profile.solarDateTime}</span>
-      <span className="xingxiang-center-date">农历 {profile.lunarDate}</span>
-      <div className="xingxiang-center-pillars" aria-label="中宫四柱"><span>四柱</span><b>{profile.pillars.year}</b><b>{profile.pillars.month}</b><b>{profile.pillars.day}</b><b>{profile.pillars.hour}</b></div>
+      {!compact && <>
+        <span className="xingxiang-center-date">阳历 {profile.solarDateTime}</span>
+        {profile.trueSolarTime && <span className="xingxiang-center-date">真太阳时 {profile.trueSolarTime}</span>}
+        <span className="xingxiang-center-date">农历 {profile.lunarDate}</span>
+        <div className="xingxiang-center-pillars" aria-label="中宫四柱"><span>四柱</span><b>{profile.pillars.year}</b><b>{profile.pillars.month}</b><b>{profile.pillars.day}</b><b>{profile.pillars.hour}</b></div>
+      </>}
       <div className="xingxiang-center-legend" aria-label="禄权科忌图例">{["禄", "权", "科", "忌"].map((item) => <i className={`is-${TRANSFORMATION_COLORS[item]}`} key={item}>{item}</i>)}</div>
       <span>{period.ganZhi}大限 · {annual ? `${annual.year}年${annual.ganZhi}流年` : "未选择流年"}</span>
       <span className="xingxiang-focus-copy">三方四正：{related.join(" · ")}</span>
@@ -89,23 +92,23 @@ function PalaceCenter({ profile, period, annual, focusBranch, temporalCopy }: { 
   </div>;
 }
 
-function PalaceButton({ palace, periodNames, annualNames, periodMarker, month, periodTransformations, annual, selected, flyingByStar, temporalCopy, detailId, onSelect }: { palace: XingxiangPalace; periodNames: Map<string, string>; annualNames: Map<string, string>; periodMarker: Annual | undefined; month: Annual["months"][number] | undefined; periodTransformations: Map<string, Period["transformations"][number]>; annual: Annual | null; selected: boolean; flyingByStar: Map<string, string>; temporalCopy: boolean; detailId: string; onSelect: () => void }) {
+function PalaceButton({ palace, periodNames, annualNames, periodMarker, month, periodTransformations, annual, selected, flyingByStar, compact, detailId, onSelect }: { palace: XingxiangPalace; periodNames: Map<string, string>; annualNames: Map<string, string>; periodMarker: Annual | undefined; month: Annual["months"][number] | undefined; periodTransformations: Map<string, Period["transformations"][number]>; annual: Annual | null; selected: boolean; flyingByStar: Map<string, string>; compact: boolean; detailId: string; onSelect: () => void }) {
   const periodPalaceName = palaceName(periodNames, palace.branch);
   const annualPalaceName = palaceName(annualNames, palace.branch);
   const classNames = [
     selected ? "selected" : "",
     flyingByStar.size > 0 ? "has-flying-layer" : "",
-    temporalCopy && periodPalaceName === "命宫" ? "is-period-life" : "",
-    temporalCopy && annualPalaceName === "命宫" ? "is-annual-life" : "",
+    periodPalaceName === "命宫" ? "is-period-life" : "",
+    annualPalaceName === "命宫" ? "is-annual-life" : "",
   ].filter(Boolean).join(" ");
   return <button type="button" className={classNames} aria-label={`${palace.heavenlyStem}${palace.branch} ${palace.name}宫`} aria-pressed={selected} aria-expanded={selected} aria-controls={detailId} onClick={onSelect}>
       <div className="xingxiang-palace-head"><span>{palace.heavenlyStem}{palace.branch}</span><strong>{palace.name}</strong></div>
       <div className="xingxiang-palace-flags">{palace.bodyPalace && <i>身</i>}{palace.zodiacPalace && <i>肖</i>}{palace.originPalace && <i>来因</i>}</div>
       <div className="xingxiang-palace-scopes">
-        <span>{periodMarker ? `${periodMarker.age}岁 · ${periodMarker.year}` : ""}</span>
-        <span className={temporalCopy ? "is-period-change" : ""}>{periodPalaceName && `大${periodPalaceName}`}</span>
-        {annual && <span className={temporalCopy ? "is-annual-change" : ""}>{annualPalaceName && `年${annualPalaceName}`}</span>}
-        {month && <span title={`${month.monthName} · ${month.ganZhi}`}>{month.monthName} · {month.ganZhi}</span>}
+        {!compact && <span>{periodMarker ? `${periodMarker.age}岁 · ${periodMarker.year}` : ""}</span>}
+        <span className="is-period-change">{periodPalaceName && `大${periodPalaceName}`}</span>
+        {annual && <span className="is-annual-change">{annualPalaceName && `年${annualPalaceName}`}</span>}
+        {!compact && month && <span title={`${month.monthName} · ${month.ganZhi}`}>{month.monthName} · {month.ganZhi}</span>}
       </div>
       <div className="xingxiang-stars">{palace.stars.map((star) => {
         const flyingTransformation = flyingByStar.get(star.name);
@@ -115,10 +118,10 @@ function PalaceButton({ palace, periodNames, annualNames, periodMarker, month, p
         const starClassNames = [
           `star-${star.category}`,
           flyingTransformation ? `flying-${TRANSFORMATION_COLORS[flyingTransformation]}` : "",
-          temporalCopy && periodTransformation ? "is-period-change" : "",
-          temporalCopy && annualTransformation ? "is-annual-change" : "",
+          periodTransformation ? "is-period-change" : "",
+          annualTransformation ? "is-annual-change" : "",
         ].filter(Boolean).join(" ");
-        return <span key={star.name} className={starClassNames}><b>{star.name}</b>{star.brightness && <small>{star.brightness}</small>}{star.natalTransformation && <em>{star.natalTransformation}</em>}{temporalCopy && periodTransformation && <em className="period" aria-label={`大限化${periodTransformation}`}>{periodTransformation}</em>}{annualTransformation && <em className="annual" aria-label={`流年化${annualTransformation}`}>{annualTransformation}</em>}</span>;
+        return <span key={star.name} className={starClassNames}><b>{star.name}</b>{star.brightness && <small>{star.brightness}</small>}{star.natalTransformation && <em>{star.natalTransformation}</em>}{periodTransformation && <em className="period" aria-label={`大限化${periodTransformation}`}>{periodTransformation}</em>}{annualTransformation && <em className="annual" aria-label={`流年化${annualTransformation}`}>{annualTransformation}</em>}</span>;
       })}</div>
       {palace.selfTransformations.length > 0 && <div className="xingxiang-self">{palace.selfTransformations.map((item) => <span className={`is-${TRANSFORMATION_COLORS[item.transformation]}`} key={`${item.star}-${item.transformation}`}>{item.direction === "outward" ? "↗" : "↙"}{item.star}化{item.transformation}</span>)}</div>}
     </button>;
@@ -163,7 +166,7 @@ function PalaceDetail({ id, palace, periodNames, annualNames, annual, direction,
   </div>;
 }
 
-function PalaceGrid({ palaces, periodNames, annualNames, selectedBranch, focusBranch, boardLabel = "十二宫星盘", temporalCopy = false, detailId, profile, period, annual, autoReveal, onSelect }: { palaces: XingxiangPalace[]; periodNames: Map<string, string>; annualNames: Map<string, string>; selectedBranch: Branch | null; focusBranch: Branch; boardLabel?: string; temporalCopy?: boolean; detailId: string; profile: Profile; period: Period; annual: Annual | null; autoReveal: boolean; onSelect: (branch: Branch) => void }) {
+function PalaceGrid({ palaces, periodNames, annualNames, selectedBranch, focusBranch, boardLabel = "十二宫星盘", compact = false, detailId, profile, period, annual, autoReveal, onSelect }: { palaces: XingxiangPalace[]; periodNames: Map<string, string>; annualNames: Map<string, string>; selectedBranch: Branch | null; focusBranch: Branch; boardLabel?: string; compact?: boolean; detailId: string; profile: Profile; period: Period; annual: Annual | null; autoReveal: boolean; onSelect: (branch: Branch) => void }) {
   const palaceByBranch = useMemo(() => new Map(palaces.map((palace) => [palace.branch, palace])), [palaces]);
   const periodMarkers = useMemo(() => new Map(period.annuals.map((item) => {
     const lifePalace = item.palaceNames.find((name) => name.name === "命宫");
@@ -176,13 +179,13 @@ function PalaceGrid({ palaces, periodNames, annualNames, selectedBranch, focusBr
   const flyingByStar = useMemo(() => new Map(selected?.flyingTransformations.map((item) => [item.star, item.transformation]) ?? []), [selected]);
   const renderPalace = (branch: XingxiangPalace["branch"]) => {
     const palace = palaceByBranch.get(branch);
-    return palace ? <PalaceButton key={branch} palace={palace} periodNames={periodNames} annualNames={annualNames} periodMarker={periodMarkers.get(branch)} month={months.get(branch)} periodTransformations={periodTransformations} annual={annual} selected={selectedBranch === branch} flyingByStar={flyingByStar} temporalCopy={temporalCopy} detailId={detailId} onSelect={() => onSelect(branch)} /> : null;
+    return palace ? <PalaceButton key={branch} palace={palace} periodNames={periodNames} annualNames={annualNames} periodMarker={periodMarkers.get(branch)} month={months.get(branch)} periodTransformations={periodTransformations} annual={annual} selected={selectedBranch === branch} flyingByStar={flyingByStar} compact={compact} detailId={detailId} onSelect={() => onSelect(branch)} /> : null;
   };
   const renderDetail = (slot: "upper" | "lower" | "bottom") => selected && placement?.slot === slot
     ? <div className={`xingxiang-detail-slot ${slot}`}><PalaceDetail id={detailId} palace={selected} periodNames={periodNames} annualNames={annualNames} annual={annual} direction={placement.direction} autoReveal={autoReveal} /></div>
     : null;
 
-  return <div className={`xingxiang-board-shell${temporalCopy ? " is-temporal-copy" : ""}`}>
+  return <div className={`xingxiang-board-shell has-temporal-changes${compact ? " is-compact" : ""}`}>
     <div className="xingxiang-direction-row top" aria-label="南方方位">{TOP_BRANCHES.map((branch) => <span key={branch}>{DIRECTIONS[branch]}</span>)}</div>
     <div className="xingxiang-direction-side left" aria-label="东方方位"><span>{DIRECTIONS.辰}</span><span>{DIRECTIONS.卯}</span></div>
     <div className="xingxiang-direction-side right" aria-label="西方方位"><span>{DIRECTIONS.酉}</span><span>{DIRECTIONS.戌}</span></div>
@@ -191,7 +194,7 @@ function PalaceGrid({ palaces, periodNames, annualNames, selectedBranch, focusBr
       {renderDetail("upper")}
       <div className="xingxiang-palace-middle" data-layout-band="middle">
         <div className="xingxiang-palace-side upper">{UPPER_MIDDLE_BRANCHES.map(renderPalace)}</div>
-        <PalaceCenter profile={profile} period={period} annual={annual} focusBranch={focusBranch} temporalCopy={temporalCopy} />
+        <PalaceCenter profile={profile} period={period} annual={annual} focusBranch={focusBranch} compact={compact} />
         <div className="xingxiang-palace-side lower">{LOWER_MIDDLE_BRANCHES.map(renderPalace)}</div>
       </div>
       {renderDetail("lower")}
@@ -232,7 +235,6 @@ export function XingxiangResultPage() {
   const [annualIndex, setAnnualIndex] = useState<number | null>(null);
   const [expandedPeriodIndex, setExpandedPeriodIndex] = useState<number | null>(0);
   const [periodAutoReveal, setPeriodAutoReveal] = useState(false);
-  const [temporalSelectedBranch, setTemporalSelectedBranch] = useState<Branch | null>(null);
   const [selectedBranch, setSelectedBranch] = useState<Branch | null>(null);
   const [expanded, setExpanded] = useState(false);
   const dialogCloseRef = useRef<HTMLButtonElement>(null);
@@ -244,7 +246,6 @@ export function XingxiangResultPage() {
   const temporalFocus = (annual?.palaceNames.find((item) => item.name === "命宫")?.branch
     ?? period?.palaceNames.find((item) => item.name === "命宫")?.branch
     ?? "子") as Branch;
-  const temporalCopyFocus = temporalSelectedBranch ?? temporalFocus;
   const focusBranch = selectedBranch ?? temporalFocus;
 
   useEffect(() => {
@@ -274,7 +275,7 @@ export function XingxiangResultPage() {
     <PageHeader title="星像学" backTo="/paipan/xingxiang" backLabel="返回星像起盘" />
     <PaipanSectionCard className="xingxiang-profile" labelledBy="xingxiang-profile-heading">
       <div className="xingxiang-profile-hero"><span>紫</span><div><small>飞星派 · {profile.solarDateTime}</small><h2 id="xingxiang-profile-heading">{profile.name} · {profile.yinYangGender}</h2><p>{profile.lunarDate} · {profile.fiveElementsBureau}</p></div></div>
-      <InfoGrid><InfoPair label="公历" value={profile.solarDateTime} /><InfoPair label="农历" value={profile.lunarDate} /></InfoGrid>
+      <InfoGrid><InfoPair label="公历" value={profile.solarDateTime} /><InfoPair label="出生地区" value={profile.area} />{profile.trueSolarTime && <InfoPair label="真太阳时" value={profile.trueSolarTime} />}<InfoPair label="农历" value={profile.lunarDate} /></InfoGrid>
       <div className="dunjia-pillar-strip" aria-label="四柱"><div><small>年柱</small><strong>{profile.pillars.year}</strong></div><div><small>月柱</small><strong>{profile.pillars.month}</strong></div><div><small>日柱</small><strong>{profile.pillars.day}</strong></div><div><small>时柱</small><strong>{profile.pillars.hour}</strong></div></div>
     </PaipanSectionCard>
 
@@ -299,29 +300,22 @@ export function XingxiangResultPage() {
               setPeriodIndex(index);
               setAnnualIndex(null);
               setExpandedPeriodIndex(index);
-              setTemporalSelectedBranch(null);
               setSelectedBranch(null);
             }}>{item.ganZhi}<small>{item.startAge}–{item.endAge}岁</small></button>;
           })}</div>
-          {detailOpen && <>
-            <PeriodDetail id={detailId} period={period} annual={annual} annualIndex={annualIndex} autoReveal={periodAutoReveal} onAnnualSelect={(index) => { setAnnualIndex(index); setTemporalSelectedBranch(null); setSelectedBranch(null); }} />
-            <section className="xingxiang-temporal-chart" aria-labelledby={`xingxiang-temporal-heading-${rowIndex}`} aria-live="polite">
-              <div className="xingxiang-temporal-heading">
-                <div><small>随选择即时联动</small><h3 id={`xingxiang-temporal-heading-${rowIndex}`}>{period.ganZhi}大限{annual ? ` · ${annual.year}年${annual.ganZhi}流年` : ""}星盘</h3></div>
-                <div className="xingxiang-temporal-legend" aria-label="运限变化图例"><span className="period"><i />大限变化</span><span className={`annual${annual ? "" : " is-inactive"}`}><i />流年变化</span></div>
-              </div>
-              <p>蓝底标出大限宫位与四化，选择流年后，朱红底标出本年新增变化。</p>
-              <PalaceGrid palaces={chart.palaces} periodNames={periodNames} annualNames={annualNames} selectedBranch={temporalSelectedBranch} focusBranch={temporalCopyFocus} boardLabel="运限十二宫星盘" temporalCopy detailId={`xingxiang-temporal-palace-detail-${rowIndex}`} profile={profile} period={period} annual={annual} autoReveal={false} onSelect={(branch) => setTemporalSelectedBranch((current) => current === branch ? null : branch)} />
-            </section>
-          </>}
+          {detailOpen && <PeriodDetail id={detailId} period={period} annual={annual} annualIndex={annualIndex} autoReveal={periodAutoReveal} onAnnualSelect={(index) => { setAnnualIndex(index); setSelectedBranch(null); }} />}
         </div>;
       })}</div>
     </PaipanSectionCard>
 
     <PaipanSectionCard className="xingxiang-chart-card" labelledBy="xingxiang-chart-heading">
       <div className="xingxiang-chart-title"><h2 className="result-section-title" id="xingxiang-chart-heading"><span>02</span>十二宫星盘</h2><PaipanActionButton variant="zoom" onClick={() => setExpanded(true)}>放大查看</PaipanActionButton></div>
-      <p className="xingxiang-chart-note">当前叠加：{period.ganZhi}大限 · {annual ? `${annual.year}年${annual.ganZhi}流年` : "未选择流年"}。虚线为当前焦点宫的三方四正；点击宫位可查看宫干飞化与完整详情。</p>
-      <PalaceGrid palaces={chart.palaces} periodNames={periodNames} annualNames={annualNames} selectedBranch={selectedBranch} focusBranch={focusBranch} detailId="xingxiang-palace-detail" profile={profile} period={period} annual={annual} autoReveal={!expanded} onSelect={(branch) => setSelectedBranch((current) => current === branch ? null : branch)} />
+      <div className="xingxiang-change-bar" aria-live="polite">
+        <p className="xingxiang-change-summary">当前：<strong>{period.ganZhi}大限</strong><span>{annual ? `${annual.year}年${annual.ganZhi}流年` : "未选择流年"}</span></p>
+        <div className="xingxiang-change-legend" aria-label="十二宫变化图例"><span className="period"><i />大限变化</span><span className={`annual${annual ? "" : " is-inactive"}`}><i />流年变化</span></div>
+      </div>
+      <p className="xingxiang-chart-note">蓝标为大限，朱红标为流年；点击宫位查看完整星曜与飞化。</p>
+      <PalaceGrid palaces={chart.palaces} periodNames={periodNames} annualNames={annualNames} selectedBranch={selectedBranch} focusBranch={focusBranch} compact detailId="xingxiang-palace-detail" profile={profile} period={period} annual={annual} autoReveal={!expanded} onSelect={(branch) => setSelectedBranch((current) => current === branch ? null : branch)} />
     </PaipanSectionCard>
 
     <PaipanActionButton variant="restart" className="xingxiang-edit" onClick={() => navigate("/paipan/xingxiang")}>重新排盘</PaipanActionButton>

@@ -14,8 +14,10 @@ const chart = {
     pillars: { year: "丙午", month: "丙申", day: "丁巳", hour: "辛亥" },
     voidBranches: "子丑",
     school: null,
+    numberCount: null,
     numberOne: null,
     numberTwo: null,
+    numberThree: null,
     includeHour: false,
   },
   upperTrigram: 2,
@@ -35,7 +37,7 @@ test("covers the five Meihua entries, chart result, classics and context restore
   await page.route("**/api/v1/paipan/meihua/context", (route) => route.fulfill({
     status: 200,
     contentType: "application/json",
-    body: JSON.stringify({ schemaVersion: "guoxue.paipan.meihua.v1", chartType: "meihua", paipan_ref: paipanRef, generatedAt: "2026-08-12T10:00:00.000Z", expiresAt: "2026-08-12T12:00:00.000Z", chartRequest: latestRequest, chart: { ...chart, overview: { ...chart.overview, solarDateTime: latestRequest.chartDateTime } } }),
+    body: JSON.stringify({ schemaVersion: "guoxue.paipan.meihua.v2", chartType: "meihua", paipan_ref: paipanRef, generatedAt: "2026-08-12T10:00:00.000Z", expiresAt: "2026-08-12T12:00:00.000Z", chartRequest: latestRequest, chart: { ...chart, overview: { ...chart.overview, solarDateTime: latestRequest.chartDateTime } } }),
   }));
 
   await page.goto(appPath("/paipan/meihua"));
@@ -47,6 +49,13 @@ test("covers the five Meihua entries, chart result, classics and context restore
   await expect(page.getByText(/随机取得上卦、下卦与动爻/)).toBeVisible();
   await page.getByRole("button", { name: /报数起盘/ }).click();
   await expect(page.getByPlaceholder("请输入正整数")).toHaveCount(2);
+  await page.getByRole("button", { name: "三数起盘", exact: true }).click();
+  await expect(page.getByLabel("第三个数")).toBeVisible();
+  await expect(page.getByPlaceholder("用于计算动爻")).toBeVisible();
+  await expect(page.locator(".meihua-number-grid.is-triple")).toHaveCSS("grid-template-columns", /\S+\s+\S+\s+\S+/);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)).toBe(false);
+  await page.getByRole("button", { name: "双数起盘", exact: true }).click();
+  await expect(page.getByLabel("第三个数")).not.toBeVisible();
   await expect(page.getByRole("button", { name: "朱昱／易谦老师" })).toBeVisible();
   await expect(page.getByRole("button", { name: "广元老师" })).toBeVisible();
   await page.getByRole("button", { name: /指定起盘/ }).click();

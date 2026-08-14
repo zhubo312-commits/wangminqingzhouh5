@@ -46,7 +46,9 @@ class MeihuaControllerTest {
                                 {
                                   "chartDateTime":"2026-08-11 21:31",
                                   "mode":"number",
+                                  "numberCount":3,
                                   "numberOne":123,
+                                  "numberTwo":456,
                                   "includeHour":false,
                                   "school":"digit_sum"
                                 }

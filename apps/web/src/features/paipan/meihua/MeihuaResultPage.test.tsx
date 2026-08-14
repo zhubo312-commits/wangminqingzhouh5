@@ -55,4 +55,41 @@ describe("MeihuaResultPage", () => {
     fireEvent.click(screen.getByRole("button", { name: /重新起盘或查阅六十四卦/ }));
     expect(screen.getByText("梅花表单页")).toBeVisible();
   });
+
+  it("shows triple-number inputs and the hour option", () => {
+    vi.mocked(useMeihuaSession).mockReturnValue({
+      draft: {} as never,
+      setDraft: vi.fn(),
+      chart: {
+        ...chart,
+        overview: {
+          ...chart.overview,
+          method: "报数起盘",
+          school: "digit_sum",
+          numberCount: 3,
+          numberOne: 123,
+          numberTwo: 456,
+          numberThree: 788,
+          includeHour: true,
+        },
+      },
+      chartRequest: {
+        chartDateTime: "2026-08-11 21:31",
+        mode: "number",
+        numberCount: 3,
+        numberOne: 123,
+        numberTwo: 456,
+        numberThree: 788,
+        includeHour: true,
+        school: "digit_sum",
+      },
+      isRestoring: false,
+      setResult: vi.fn(),
+    });
+
+    render(<MemoryRouter initialEntries={["/paipan/meihua/result"]}><Routes><Route path="/paipan/meihua/result" element={<MeihuaResultPage />} /></Routes></MemoryRouter>);
+
+    expect(screen.getByText("三数 · 加时辰")).toBeVisible();
+    expect(screen.getByText("123、456、788")).toBeVisible();
+  });
 });

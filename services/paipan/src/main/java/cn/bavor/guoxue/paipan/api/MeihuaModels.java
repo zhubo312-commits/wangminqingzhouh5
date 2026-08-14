@@ -13,8 +13,10 @@ public final class MeihuaModels {
     public record ChartRequest(
             @NotBlank @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}") String chartDateTime,
             @NotBlank @Pattern(regexp = "time|random|number|specified") String mode,
+            @Min(2) @Max(3) Integer numberCount,
             @Min(1) @Max(999_999_999) Long numberOne,
             @Min(1) @Max(999_999_999) Long numberTwo,
+            @Min(1) @Max(999_999_999) Long numberThree,
             Boolean includeHour,
             @Pattern(regexp = "digit_sum|raw_number") String school,
             @Min(1) @Max(8) Integer upperTrigram,
@@ -24,7 +26,13 @@ public final class MeihuaModels {
         @AssertTrue(message = "起盘参数与起盘方式不匹配")
         public boolean isModeConfigurationValid() {
             if ("number".equals(mode)) {
-                return numberOne != null && numberTwo != null && includeHour != null && school != null;
+                return numberCount != null
+                        && (numberCount == 2 || numberCount == 3)
+                        && numberOne != null
+                        && numberTwo != null
+                        && (numberCount == 3 ? numberThree != null : numberThree == null)
+                        && includeHour != null
+                        && school != null;
             }
             if ("random".equals(mode) || "specified".equals(mode)) {
                 return upperTrigram != null && lowerTrigram != null && movingLine != null;
@@ -42,8 +50,10 @@ public final class MeihuaModels {
             Pillars pillars,
             String voidBranches,
             String school,
+            Integer numberCount,
             Long numberOne,
             Long numberTwo,
+            Long numberThree,
             boolean includeHour) {}
 
     public record Trigram(

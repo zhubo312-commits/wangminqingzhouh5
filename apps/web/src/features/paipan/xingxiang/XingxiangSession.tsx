@@ -10,8 +10,20 @@ function initialDateTime() {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T12:00`;
 }
 
-export interface XingxiangDraft { name: string; gender: "male" | "female"; birthDateTime: string }
-const initialDraft: XingxiangDraft = { name: "", gender: "male", birthDateTime: initialDateTime() };
+export interface XingxiangDraft {
+  name: string;
+  gender: "male" | "female";
+  birthDateTime: string;
+  areaCode: string;
+  useTrueSolarTime: boolean;
+}
+const initialDraft: XingxiangDraft = {
+  name: "",
+  gender: "male",
+  birthDateTime: initialDateTime(),
+  areaCode: "110101",
+  useTrueSolarTime: false,
+};
 
 interface XingxiangSessionValue {
   draft: XingxiangDraft;
@@ -29,7 +41,7 @@ export function XingxiangSessionProvider({ children }: { children: ReactNode }) 
   const [chart, setChart] = useState<XingxiangChartResponse | null>(null);
   const [chartRequest, setChartRequest] = useState<XingxiangChartRequest | null>(null);
   const { isRestoring, rememberReference } = usePaipanSessionRestore({
-    storageKey: "guoxue.paipan.xingxiang_ref.v2",
+    storageKey: "guoxue.paipan.xingxiang_ref.v3",
     fetchContext: fetchXingxiangContext,
     onRestore(value) { setChart(value.chart); setChartRequest(value.chartRequest); },
   });

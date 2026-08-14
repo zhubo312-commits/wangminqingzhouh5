@@ -13,11 +13,19 @@ async function assertNoOverflow(page, label) {
 }
 
 async function mockResult(page) {
-  await page.addInitScript(({ key, value }) => window.sessionStorage.setItem(key, value), { key: "guoxue.paipan.xingxiang_ref.v2", value: paipanRef });
+  await page.addInitScript(({ key, value }) => window.sessionStorage.setItem(key, value), { key: "guoxue.paipan.xingxiang_ref.v3", value: paipanRef });
   await page.route("**/api/v1/paipan/xingxiang/context", (route) => route.fulfill({
     status: 200,
     contentType: "application/json",
-    body: JSON.stringify({ schemaVersion: "guoxue.paipan.xingxiang.v2", chartType: "xingxiang", paipan_ref: paipanRef, generatedAt: "2026-08-12T00:00:00.000Z", expiresAt: "2027-08-12T12:00:00.000Z", chartRequest: xingxiangRequest, chart: xingxiangChart }),
+    body: JSON.stringify({ schemaVersion: "guoxue.paipan.xingxiang.v3", chartType: "xingxiang", paipan_ref: paipanRef, generatedAt: "2026-08-12T00:00:00.000Z", expiresAt: "2027-08-12T12:00:00.000Z", chartRequest: xingxiangRequest, chart: xingxiangChart }),
+  }));
+}
+
+async function mockAreas(page) {
+  await page.route("**/api/v1/paipan/areas", (route) => route.fulfill({
+    status: 200,
+    contentType: "application/json",
+    body: JSON.stringify([{ label: "北京市", code: "110000", children: [{ label: "东城", code: "110101", children: [] }] }]),
   }));
 }
 
@@ -27,6 +35,7 @@ try {
   for (const viewport of viewports) {
     const formContext = await browser.newContext({ viewport, deviceScaleFactor: 2, hasTouch: true, isMobile: true, reducedMotion: "reduce" });
     const formPage = await formContext.newPage();
+    await mockAreas(formPage);
     await formPage.goto(`${baseUrl}/paipan/xingxiang`);
     await formPage.getByRole("heading", { name: "出生信息" }).waitFor();
     await formPage.getByPlaceholder("请输入姓名").fill("测试");

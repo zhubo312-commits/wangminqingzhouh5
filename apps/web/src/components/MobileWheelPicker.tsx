@@ -110,7 +110,7 @@ function WheelColumnView({ column, open }: { column: WheelColumn; open: boolean 
                 key={option.value}
                 onClick={() => {
                   const nextIndex = column.options.findIndex((item) => item.value === option.value);
-                  viewportRef.current?.scrollTo({ top: nextIndex * ITEM_HEIGHT, behavior: "smooth" });
+                  viewportRef.current?.scrollTo({ top: nextIndex * ITEM_HEIGHT });
                   column.onChange(option.value);
                 }}
               >

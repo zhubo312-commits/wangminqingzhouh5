@@ -82,7 +82,7 @@ export const paipanContextRegistry = {
   }),
   meihua: definePaipanContext({
     chartType: "meihua",
-    schemaVersion: "guoxue.paipan.meihua.v1",
+    schemaVersion: "guoxue.paipan.meihua.v2",
     requestSchema: MeihuaChartRequestSchema,
     chartSchema: MeihuaChartResponseSchema,
     contextSchema: MeihuaContextResponseSchema,
@@ -103,7 +103,7 @@ export const paipanContextRegistry = {
   }),
   xingxiang: definePaipanContext({
     chartType: "xingxiang",
-    schemaVersion: "guoxue.paipan.xingxiang.v2",
+    schemaVersion: "guoxue.paipan.xingxiang.v3",
     requestSchema: XingxiangChartRequestSchema,
     chartSchema: XingxiangChartResponseSchema,
     contextSchema: XingxiangContextResponseSchema,

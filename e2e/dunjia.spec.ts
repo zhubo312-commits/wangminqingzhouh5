@@ -105,6 +105,24 @@ test.beforeEach(async ({ page }) => {
 });
 
 test("completes and restores the Dunjia chart without horizontal overflow", async ({ page }) => {
+  const resolvedLunarSolarDateTime = "1990-07-21 12:00";
+  let receivedBirthRequest: Record<string, unknown> | null = null;
+  await page.route("**/api/v1/paipan/bazi/resolve-birth", async (route) => {
+    receivedBirthRequest = route.request().postDataJSON() as Record<string, unknown>;
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        candidates: [{
+          id: resolvedLunarSolarDateTime,
+          solarDateTime: resolvedLunarSolarDateTime,
+          label: `${resolvedLunarSolarDateTime}（阳历）`,
+        }],
+        sect: 2,
+      }),
+    });
+  });
+
   await page.goto(appPath("/paipan/dunjia"));
 
   await expect(page.getByRole("heading", { name: "起盘时间" })).toBeVisible();
@@ -116,7 +134,53 @@ test("completes and restores the Dunjia chart without horizontal overflow", asyn
   await expect(page.getByRole("button", { name: "选择阳历时间" })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)).toBe(false);
 
+  await page.getByRole("tab", { name: "阴历" }).click();
+  const lunarDatePicker = page.getByRole("button", { name: "选择阴历日期" });
+  await lunarDatePicker.click();
+  const lunarDateDialog = page.getByRole("dialog", { name: "选择阴历起盘日期" });
+  const yearWheel = lunarDateDialog.getByRole("listbox", { name: "年滚轮" });
+  const monthWheel = lunarDateDialog.getByRole("listbox", { name: "月滚轮" });
+  const dayWheel = lunarDateDialog.getByRole("listbox", { name: "日滚轮" });
+
+  await yearWheel.getByRole("option", { name: "1989", exact: true }).click();
+  await expect(monthWheel.getByRole("option", { name: /^闰/ })).toHaveCount(0);
+
+  await yearWheel.getByRole("option", { name: "1990", exact: true }).click();
+  const ordinaryMay = monthWheel.getByRole("option", { name: "五月（5）", exact: true });
+  const leapMay = monthWheel.getByRole("option", { name: "闰五月（5）", exact: true });
+  await expect(leapMay).toBeVisible();
+  await ordinaryMay.click();
+  const dayThirty = dayWheel.getByRole("option", { name: "三十（30）", exact: true });
+  await expect(dayThirty).toBeVisible();
+  await dayThirty.click();
+  await leapMay.click();
+  await expect(dayThirty).toHaveCount(0);
+  await expect(dayWheel.getByRole("option", { name: "廿九（29）", exact: true })).toHaveAttribute("aria-selected", "true");
+
+  await yearWheel.getByRole("option", { name: "1989", exact: true }).click();
+  await expect(monthWheel.getByRole("option", { name: /^闰/ })).toHaveCount(0);
+  await expect(monthWheel.getByRole("option", { name: "五月（5）", exact: true })).toHaveAttribute("aria-selected", "true");
+  await yearWheel.getByRole("option", { name: "1990", exact: true }).click();
+  await monthWheel.getByRole("option", { name: "闰五月（5）", exact: true }).click();
+  expect(await lunarDateDialog.evaluate((dialog) => dialog.scrollWidth > dialog.clientWidth)).toBe(false);
+  await lunarDateDialog.getByRole("button", { name: "确定" }).click();
+  await expect(lunarDatePicker).toContainText("1990年 闰五月（5） 廿九（29）");
+
+  const chartRequestPromise = page.waitForRequest("**/api/v1/paipan/dunjia/chart");
   await page.getByRole("button", { name: "开始排盘" }).click();
+  const chartRequest = await chartRequestPromise;
+  expect(receivedBirthRequest).toEqual({
+    mode: "lunar",
+    lunar: {
+      year: 1990,
+      month: 5,
+      day: 29,
+      hour: 12,
+      minute: 0,
+      leapMonth: true,
+    },
+  });
+  expect(chartRequest.postDataJSON()).toMatchObject({ chartDateTime: resolvedLunarSolarDateTime });
   await expect(page).toHaveURL(/\/paipan\/dunjia\/result$/);
   await expect(page.getByRole("heading", { name: "阴遁5局" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "节气与旬首" })).toBeVisible();

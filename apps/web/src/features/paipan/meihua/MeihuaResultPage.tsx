@@ -40,6 +40,7 @@ export function MeihuaResultPage() {
 
   const { overview } = chart;
   const schoolLabel = overview.school === "digit_sum" ? "朱昱／易谦老师" : overview.school === "raw_number" ? "广元老师" : null;
+  const reportedNumbers = [overview.numberOne, overview.numberTwo, overview.numberThree].filter((value): value is number => value !== null);
   const openClassic = (hexagram: MeihuaHexagram) => {
     const found = findMeihuaClassic(hexagram.key);
     if (found) setClassic(found);
@@ -52,7 +53,8 @@ export function MeihuaResultPage() {
         <div className="meihua-result-hero"><span>梅</span><div><small>{overview.method} · {overview.solarDateTime}</small><h2 id="meihua-overview-heading">{chart.original.name}</h2><p>{chart.original.upper.symbol} {chart.original.upper.name}上 · {chart.original.lower.symbol} {chart.original.lower.name}下 · 第{chart.movingLine}爻动</p></div></div>
         <InfoGrid>
           <InfoPair label="农历" value={overview.lunarDate} /><InfoPair label="旬空" value={overview.voidBranches} />
-          <InfoPair label="起卦流派" value={schoolLabel ?? "—"} /><InfoPair label="报数" value={overview.numberOne && overview.numberTwo ? `${overview.numberOne}、${overview.numberTwo}` : "—"} />
+          <InfoPair label="起卦流派" value={schoolLabel ?? "—"} /><InfoPair label="报数方式" value={overview.numberCount ? `${overview.numberCount === 3 ? "三数" : "双数"}${overview.includeHour ? " · 加时辰" : ""}` : "—"} />
+          <InfoPair label="报数" value={reportedNumbers.length >= 2 ? reportedNumbers.join("、") : "—"} />
         </InfoGrid>
         <div className="dunjia-pillar-strip" aria-label="四柱"><div><small>年柱</small><strong>{overview.pillars.year}</strong></div><div><small>月柱</small><strong>{overview.pillars.month}</strong></div><div><small>日柱</small><strong>{overview.pillars.day}</strong></div><div><small>时柱</small><strong>{overview.pillars.hour}</strong></div></div>
       </PaipanSectionCard>

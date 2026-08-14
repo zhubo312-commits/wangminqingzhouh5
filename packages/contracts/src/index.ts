@@ -605,8 +605,10 @@ export const YinpanContextResponseSchema = z.object({
 export const MeihuaChartRequestSchema = z.object({
   chartDateTime: BirthDateTimeSchema,
   mode: z.enum(["time", "random", "number", "specified"]),
+  numberCount: z.union([z.literal(2), z.literal(3)]).optional(),
   numberOne: z.number().int().min(1).max(999_999_999).optional(),
   numberTwo: z.number().int().min(1).max(999_999_999).optional(),
+  numberThree: z.number().int().min(1).max(999_999_999).optional(),
   includeHour: z.boolean().optional(),
   school: z.enum(["digit_sum", "raw_number"]).optional(),
   upperTrigram: z.number().int().min(1).max(8).optional(),
@@ -615,12 +617,19 @@ export const MeihuaChartRequestSchema = z.object({
 }).superRefine((value, context) => {
   if (value.mode === "number") {
     for (const [field, valid] of [
+      ["numberCount", value.numberCount !== undefined],
       ["numberOne", value.numberOne !== undefined],
       ["numberTwo", value.numberTwo !== undefined],
       ["includeHour", value.includeHour !== undefined],
       ["school", value.school !== undefined],
     ] as const) {
       if (!valid) context.addIssue({ code: "custom", path: [field], message: "报数起盘参数不完整" });
+    }
+    if (value.numberCount === 3 && value.numberThree === undefined) {
+      context.addIssue({ code: "custom", path: ["numberThree"], message: "三数起盘必须填写第三个数" });
+    }
+    if (value.numberCount === 2 && value.numberThree !== undefined) {
+      context.addIssue({ code: "custom", path: ["numberThree"], message: "双数起盘不能填写第三个数" });
     }
   }
   if (value.mode === "random" || value.mode === "specified") {
@@ -664,8 +673,10 @@ export const MeihuaChartResponseSchema = z.object({
     }),
     voidBranches: z.string().length(2),
     school: z.enum(["digit_sum", "raw_number"]).nullish().transform((value) => value ?? null),
+    numberCount: z.union([z.literal(2), z.literal(3)]).nullish().transform((value) => value ?? null),
     numberOne: z.number().int().nullish().transform((value) => value ?? null),
     numberTwo: z.number().int().nullish().transform((value) => value ?? null),
+    numberThree: z.number().int().nullish().transform((value) => value ?? null),
     includeHour: z.boolean(),
   }),
   upperTrigram: z.number().int().min(1).max(8),
@@ -682,7 +693,7 @@ export const MeihuaChartWithReferenceSchema = MeihuaChartResponseSchema.extend({
 });
 
 export const MeihuaContextResponseSchema = z.object({
-  schemaVersion: z.literal("guoxue.paipan.meihua.v1"),
+  schemaVersion: z.literal("guoxue.paipan.meihua.v2"),
   chartType: z.literal("meihua"),
   paipan_ref: PaipanReferenceSchema,
   generatedAt: z.iso.datetime(),
@@ -821,7 +832,17 @@ export const XingxiangChartRequestSchema = z.object({
   name: z.string().trim().min(1).max(10),
   gender: z.enum(["male", "female"]),
   birthDateTime: BirthDateTimeSchema,
+  areaCode: z.string().regex(/^\d{6}$/),
+  useTrueSolarTime: z.boolean(),
   school: z.literal("flying").default("flying"),
+}).superRefine((value, context) => {
+  if (value.useTrueSolarTime && value.areaCode === "999999") {
+    context.addIssue({
+      code: "custom",
+      path: ["areaCode"],
+      message: "真太阳时必须选择具体的国内出生地区",
+    });
+  }
 });
 
 const XingxiangPillarsSchema = z.object({
@@ -898,6 +919,9 @@ export const XingxiangChartResponseSchema = z.object({
     genderLabel: z.enum(["男", "女"]),
     yinYangGender: z.enum(["阳男", "阴男", "阳女", "阴女"]),
     solarDateTime: BirthDateTimeSchema,
+    area: z.string().min(1),
+    areaCode: z.string().regex(/^\d{6}$/),
+    trueSolarTime: BirthDateTimeSchema.nullable(),
     lunarDate: z.string().min(1),
     fiveElementsBureau: z.enum(["水二局", "木三局", "金四局", "土五局", "火六局"]),
     pillars: XingxiangPillarsSchema,
@@ -1025,7 +1049,7 @@ export const ShanxiangContextResponseSchema = z.object({
 });
 
 export const XingxiangContextResponseSchema = z.object({
-  schemaVersion: z.literal("guoxue.paipan.xingxiang.v2"),
+  schemaVersion: z.literal("guoxue.paipan.xingxiang.v3"),
   chartType: z.literal("xingxiang"),
   paipan_ref: PaipanReferenceSchema,
   generatedAt: z.iso.datetime(),

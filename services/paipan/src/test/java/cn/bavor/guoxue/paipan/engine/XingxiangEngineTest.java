@@ -13,11 +13,13 @@ class XingxiangEngineTest {
     @Test
     void matchesTheFrozenReferenceGoldenCase() {
         ChartResponse chart = engine.chart(new ChartRequest(
-                "测试", "male", "1990-01-01 12:00", "flying"));
+                "测试", "male", "1990-01-01 12:00", "110101", false, "flying"));
 
         assertThat(chart.profile().lunarDate()).isEqualTo("一九八九年腊月初五日午时");
         assertThat(chart.profile().fiveElementsBureau()).isEqualTo("土五局");
         assertThat(chart.profile().yinYangGender()).isEqualTo("阴男");
+        assertThat(chart.profile().area()).isEqualTo("北京市东城");
+        assertThat(chart.profile().trueSolarTime()).isNull();
         assertThat(chart.profile().pillars()).isEqualTo(new Pillars("己巳", "丙子", "丙寅", "甲午"));
         assertThat(chart.palaces()).hasSize(12);
         assertThat(chart.palaces()).extracting(Palace::branch)
@@ -78,15 +80,39 @@ class XingxiangEngineTest {
     }
 
     @Test
+    void appliesTrueSolarTimeBeforeTheLateRatHourRule() {
+        ChartResponse corrected = engine.chart(new ChartRequest(
+                "测试", "male", "1990-01-01 01:30", "650100", true, "flying"));
+        ChartResponse effectiveStandard = engine.chart(new ChartRequest(
+                "测试", "male", "1989-12-31 23:17", "650100", false, "flying"));
+
+        assertThat(corrected.profile().solarDateTime()).isEqualTo("1990-01-01 01:30");
+        assertThat(corrected.profile().trueSolarTime()).isEqualTo("1989-12-31 23:17");
+        assertThat(corrected.profile().area()).isEqualTo("新疆维吾尔自治区乌鲁木齐市");
+        assertThat(corrected.profile().lunarDate()).isEqualTo(effectiveStandard.profile().lunarDate());
+        assertThat(corrected.profile().pillars()).isEqualTo(effectiveStandard.profile().pillars());
+        assertThat(corrected.palaces()).isEqualTo(effectiveStandard.palaces());
+        assertThat(corrected.periods()).isEqualTo(effectiveStandard.periods());
+    }
+
+    @Test
     void rejectsImpossibleOrOutOfRangeDates() {
         assertThatThrownBy(() -> engine.chart(new ChartRequest(
-                "测试", "female", "2024-02-30 12:00", "flying")))
+                "测试", "female", "2024-02-30 12:00", "110101", false, "flying")))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("无效");
         assertThatThrownBy(() -> engine.chart(new ChartRequest(
-                "测试", "female", "1899-12-01 12:00", "flying")))
+                "测试", "female", "1899-12-01 12:00", "110101", false, "flying")))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("1900");
+        assertThatThrownBy(() -> engine.chart(new ChartRequest(
+                "测试", "female", "1990-01-01 12:00", "000000", true, "flying")))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("地区无效");
+        assertThatThrownBy(() -> engine.chart(new ChartRequest(
+                "测试", "female", "1990-01-01 12:00", "999999", true, "flying")))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("具体的国内");
     }
 
     private Palace palace(ChartResponse chart, String branch) {

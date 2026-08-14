@@ -1,6 +1,6 @@
-import type { FlowMonthsResponse } from "@guoxue/contracts";
+import type { BaziChartResponse, FlowMonthsResponse } from "@guoxue/contracts";
 import { CalendarDots } from "@phosphor-icons/react";
-import { type ReactNode, useCallback, useEffect, useMemo, useState } from "react";
+import { type CSSProperties, type ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PageHeader } from "../../../components/PageHeader";
 import { InterpretationEntry } from "../../../components/InterpretationEntry";
@@ -65,6 +65,171 @@ export function displayProfileName(name: string) {
   return name.trim() || "同修";
 }
 
+type FortunePeriod = BaziChartResponse["fortune"]["periods"][number];
+type FlowYear = FortunePeriod["years"][number];
+type FlowMonth = FlowMonthsResponse["months"][number];
+type FortuneViewMode = "traditional" | "large-type";
+
+const GAN_ZHI_ELEMENTS: Record<string, string> = {
+  甲: "木", 乙: "木", 寅: "木", 卯: "木",
+  丙: "火", 丁: "火", 巳: "火", 午: "火",
+  戊: "土", 己: "土", 辰: "土", 戌: "土", 丑: "土", 未: "土",
+  庚: "金", 辛: "金", 申: "金", 酉: "金",
+  壬: "水", 癸: "水", 子: "水", 亥: "水",
+};
+
+function ganZhiCharacterClass(character: string) {
+  return ELEMENT_CLASS[GAN_ZHI_ELEMENTS[character] ?? ""] ?? "";
+}
+
+interface TraditionalFortuneItem {
+  key: string | number;
+  ariaLabel: string;
+  primary: string;
+  secondary: string;
+  ganZhi: string;
+  tenGods: string[];
+  active: boolean;
+  onSelect: () => void;
+}
+
+function TraditionalFortuneRow({
+  label,
+  items,
+  compact = false,
+}: {
+  label: "大运" | "流年" | "流月";
+  items: TraditionalFortuneItem[];
+  compact?: boolean;
+}) {
+  const style = { "--traditional-columns": Math.max(items.length, 1) } as CSSProperties;
+  return (
+    <div className={`traditional-fortune-row${compact ? " traditional-fortune-row-compact" : ""}`}>
+      <div className="traditional-fortune-row-label" aria-hidden="true">
+        {label.split("").map((character) => <span key={character}>{character}</span>)}
+      </div>
+      <div className="traditional-fortune-cells" role="group" aria-label={`${label}全景选择`} style={style}>
+        {items.map((item) => {
+          const [stem = "", branch = ""] = Array.from(item.ganZhi);
+          return (
+            <button
+              type="button"
+              className={item.active ? "active" : ""}
+              aria-label={item.ariaLabel}
+              aria-pressed={item.active}
+              key={item.key}
+              onClick={item.onSelect}
+            >
+              <span className="traditional-fortune-cell-meta">
+                <strong>{item.primary}</strong>
+                <small>{item.secondary}</small>
+              </span>
+              <span className="traditional-ganzhi-pair">
+                <span><strong className={ganZhiCharacterClass(stem)}>{stem}</strong><small>{item.tenGods[0]}</small></span>
+                <span><strong className={ganZhiCharacterClass(branch)}>{branch}</strong><small>{item.tenGods[1]}</small></span>
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function TraditionalFortuneView({
+  periods,
+  selectedPeriod,
+  selectedYear,
+  months,
+  selectedMonth,
+  monthsLoading,
+  monthsError,
+  onSelectPeriod,
+  onSelectYear,
+  onSelectMonth,
+  onRetryMonths,
+}: {
+  periods: FortunePeriod[];
+  selectedPeriod: FortunePeriod | undefined;
+  selectedYear: FlowYear | undefined;
+  months: FlowMonth[];
+  selectedMonth: FlowMonth | undefined;
+  monthsLoading: boolean;
+  monthsError: string | null;
+  onSelectPeriod: (period: FortunePeriod) => void;
+  onSelectYear: (year: FlowYear) => void;
+  onSelectMonth: (month: FlowMonth) => void;
+  onRetryMonths: () => void;
+}) {
+  const periodItems = periods.map((period) => ({
+    key: period.index,
+    ariaLabel: `${period.ganZhi}大运，${period.startYear}至${period.endYear}年，${period.startAge}至${period.endAge}岁`,
+    primary: String(period.startYear),
+    secondary: `${period.startAge}岁`,
+    ganZhi: period.ganZhi,
+    tenGods: period.tenGods,
+    active: selectedPeriod?.index === period.index,
+    onSelect: () => onSelectPeriod(period),
+  }));
+  const yearItems = (selectedPeriod?.years ?? []).map((item) => ({
+    key: item.year,
+    ariaLabel: `${item.ganZhi}流年，${item.year}年，${item.age}岁`,
+    primary: String(item.year),
+    secondary: `${item.age}岁`,
+    ganZhi: item.ganZhi,
+    tenGods: item.tenGods,
+    active: selectedYear?.year === item.year,
+    onSelect: () => onSelectYear(item),
+  }));
+  const monthItems = months.map((month) => ({
+    key: month.index,
+    ariaLabel: `${month.monthName}流月，${month.solarTermName}，${month.ganZhi}`,
+    primary: month.solarTermDateTime.slice(5, 10),
+    secondary: month.solarTermName,
+    ganZhi: month.ganZhi,
+    tenGods: month.tenGods,
+    active: selectedMonth?.index === month.index,
+    onSelect: () => onSelectMonth(month),
+  }));
+
+  return (
+    <div className="traditional-fortune-view">
+      <div className="traditional-fortune-board">
+        <TraditionalFortuneRow label="大运" items={periodItems} />
+        <TraditionalFortuneRow label="流年" items={yearItems} />
+        {monthsLoading ? (
+          <div className="traditional-fortune-status"><strong>流月</strong><span>正在推演流月…</span></div>
+        ) : monthsError ? (
+          <div className="traditional-fortune-status error"><strong>流月</strong><span>{monthsError}</span><button type="button" onClick={onRetryMonths}>重试</button></div>
+        ) : (
+          <TraditionalFortuneRow label="流月" items={monthItems} compact />
+        )}
+      </div>
+      <p className="traditional-fortune-hint">点选大运与流年，联动查看流月</p>
+      <div className="traditional-fortune-summary" aria-live="polite">
+        <h3>所选大运流年</h3>
+        <div>
+          {selectedPeriod && (
+            <span aria-label={`当前为${selectedPeriod.ganZhi}大运，${selectedPeriod.startYear}至${selectedPeriod.endYear}年，${selectedPeriod.startAge}至${selectedPeriod.endAge}岁`}>
+              <small>大运</small><strong>{selectedPeriod.ganZhi}</strong><em>{selectedPeriod.startAge}–{selectedPeriod.endAge}岁</em>
+            </span>
+          )}
+          {selectedYear && (
+            <span aria-label={`当前为${selectedYear.ganZhi}流年，${selectedYear.year}年，${selectedYear.age}岁`}>
+              <small>流年</small><strong>{selectedYear.ganZhi}</strong><em>{selectedYear.year}年 · {selectedYear.age}岁</em>
+            </span>
+          )}
+          {selectedMonth && (
+            <span>
+              <small>流月</small><strong>{selectedMonth.ganZhi}</strong><em>{selectedMonth.monthName} · {selectedMonth.solarTermName}</em>
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function BaziResultPage() {
   const navigate = useNavigate();
   const { chart, chartRequest, isRestoring } = useBaziSession();
@@ -84,6 +249,7 @@ export function BaziResultPage() {
   const [monthsLoading, setMonthsLoading] = useState(false);
   const [monthsError, setMonthsError] = useState<string | null>(null);
   const [interpretationUrl, setInterpretationUrl] = useState<string | null>(null);
+  const [fortuneViewMode, setFortuneViewMode] = useState<FortuneViewMode>("traditional");
 
   useEffect(() => {
     const controller = new AbortController();
@@ -123,7 +289,7 @@ export function BaziResultPage() {
 
   if (isRestoring) {
     return (
-      <PaipanPageShell pageClassName="result-page">
+      <PaipanPageShell pageClassName="result-page bazi-result-page">
         <PageHeader title="排盘结果" backTo="/paipan/shengping-zishi" backLabel="返回生平子时表单" />
         <PaipanEmptyState
           icon={<CalendarDots size={46} weight="light" aria-hidden="true" />}
@@ -135,7 +301,7 @@ export function BaziResultPage() {
 
   if (!chart || !chartRequest) {
     return (
-      <PaipanPageShell pageClassName="result-page">
+      <PaipanPageShell pageClassName="result-page bazi-result-page">
         <PageHeader title="排盘结果" backTo="/paipan/shengping-zishi" backLabel="返回生平子时表单" />
         <PaipanEmptyState
           icon={<CalendarDots size={46} weight="light" aria-hidden="true" />}
@@ -151,12 +317,10 @@ export function BaziResultPage() {
   const facts = chart.basicFacts;
 
   return (
-    <PaipanPageShell pageClassName="result-page">
+    <PaipanPageShell pageClassName="result-page bazi-result-page">
         <PageHeader title="排盘结果" backTo="/paipan/shengping-zishi" backLabel="返回生平子时表单" />
 
-        <InterpretationEntry href={interpretationUrl} placement="top" />
-
-        <section className="result-card profile-card" aria-labelledby="profile-heading">
+        <section className="result-card profile-card bazi-profile-card" aria-labelledby="profile-heading">
           <div className="result-title-row"><span>命</span><div><h2 id="profile-heading">{displayProfileName(chart.profile.name)}</h2><p>{chart.profile.gender === "male" ? "乾造 · 男" : "坤造 · 女"}</p></div></div>
           <dl className="profile-grid">
             <InfoPair label="阳历" value={<DateTimeValue value={chart.profile.birthDateTime} />} />
@@ -167,11 +331,7 @@ export function BaziResultPage() {
               value={chart.profile.trueSolarTime ? <DateTimeValue value={chart.profile.trueSolarTime} /> : "未启用"}
             />
           </dl>
-        </section>
-
-        <section className="result-card" aria-labelledby="basic-heading">
-          <h2 className="result-section-title" id="basic-heading"><span>01</span>基本信息</h2>
-          <dl className="facts-grid">
+          <dl className="facts-grid bazi-basic-grid">
             <InfoPair label="生肖" value={chart.profile.chineseZodiac} />
             <InfoPair label="星座" value={chart.profile.zodiac} />
             <InfoPair label="本命佛" value={facts.benMingFo} />
@@ -185,8 +345,8 @@ export function BaziResultPage() {
           </dl>
         </section>
 
-        <section className="result-card chart-card" aria-labelledby="pillars-heading">
-          <h2 className="result-section-title" id="pillars-heading"><span>02</span>四柱命盘</h2>
+        <section className="result-card chart-card bazi-chart-card" aria-labelledby="pillars-heading">
+          <h2 className="result-section-title" id="pillars-heading"><span>01</span>四柱命盘</h2>
           <div className="chart-table-wrap">
             <table className="pillar-table">
               <thead><tr><th>盘面</th>{chart.pillars.map((pillar) => <th key={pillar.key}>{pillar.label}</th>)}</tr></thead>
@@ -206,14 +366,47 @@ export function BaziResultPage() {
         </section>
 
         <section className="result-card" aria-labelledby="attention-heading">
-          <h2 className="result-section-title" id="attention-heading"><span>03</span>干支留意</h2>
+          <h2 className="result-section-title" id="attention-heading"><span>02</span>干支留意</h2>
           <div className="attention-group"><h3>天干</h3><div>{chart.attention.heavenlyStems.length ? chart.attention.heavenlyStems.map((item) => <span key={item}>{item}</span>) : <span>无特别留意</span>}</div></div>
           <div className="attention-group"><h3>地支</h3><div>{chart.attention.earthlyBranches.length ? chart.attention.earthlyBranches.map((item) => <span key={item}>{item}</span>) : <span>无特别留意</span>}</div></div>
         </section>
 
         <section className="result-card fortune-card" aria-labelledby="fortune-heading">
-          <h2 className="result-section-title" id="fortune-heading"><span>04</span>十年大运</h2>
+          <h2 className="result-section-title" id="fortune-heading"><span>03</span>十年大运</h2>
           <div className="fortune-meta"><p>{chart.fortune.startDescription}</p><p>{chart.fortune.changeDescription}</p><small>起运：{chart.fortune.startSolar}</small></div>
+          <div className="fortune-view-toggle" role="group" aria-label="大运流年显示方式">
+            <button type="button" className={fortuneViewMode === "traditional" ? "active" : ""} aria-pressed={fortuneViewMode === "traditional"} onClick={() => setFortuneViewMode("traditional")}>
+              <strong>传统全景版</strong><small>适合截图</small>
+            </button>
+            <button type="button" className={fortuneViewMode === "large-type" ? "active" : ""} aria-pressed={fortuneViewMode === "large-type"} onClick={() => setFortuneViewMode("large-type")}>
+              <strong>大字简洁版</strong><small>适合阅读</small>
+            </button>
+          </div>
+          {fortuneViewMode === "traditional" ? (
+            <TraditionalFortuneView
+              periods={availablePeriods}
+              selectedPeriod={selectedPeriod}
+              selectedYear={selectedYear}
+              months={months}
+              selectedMonth={selectedMonth}
+              monthsLoading={monthsLoading}
+              monthsError={monthsError}
+              onSelectPeriod={(period) => {
+                setPeriodIndex(period.index);
+                setExpandedPeriodIndex(period.index);
+              }}
+              onSelectYear={(item) => {
+                setYear(item.year);
+                setExpandedYear(item.year);
+              }}
+              onSelectMonth={(month) => {
+                setSelectedMonthIndex(month.index);
+                setExpandedMonthIndex(month.index);
+              }}
+              onRetryMonths={() => void loadMonths()}
+            />
+          ) : (
+            <>
           <InlineSelectionGrid
             items={availablePeriods}
             columns={2}
@@ -269,10 +462,12 @@ export function BaziResultPage() {
               />
             </>
           )}
+            </>
+          )}
         </section>
 
         <section className="result-card strength-card" aria-labelledby="strength-heading">
-          <h2 className="result-section-title" id="strength-heading"><span>05</span>旺衰参考</h2>
+          <h2 className="result-section-title" id="strength-heading"><span>04</span>旺衰参考</h2>
           <div className="strength-level"><strong>{chart.strength.level}</strong><span>同党 {chart.strength.samePartyScore}</span><span>异党 {chart.strength.otherPartyScore}</span></div>
           <p className="strength-summary">{chart.strength.summary}</p>
           <InfoGrid className="strength-facts"><InfoPair label="格局" value={chart.strength.pattern} /><InfoPair label="喜神参考" value={chart.strength.favorableGod} /><InfoPair label="喜用五行" value={chart.strength.favorableElements.join("、")} /><InfoPair label="旧版分值" value={chart.strength.legacyScore} /></InfoGrid>

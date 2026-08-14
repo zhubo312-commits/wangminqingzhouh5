@@ -4,6 +4,7 @@ import static cn.bavor.guoxue.paipan.api.XingxiangModels.*;
 
 import com.nlf.calendar.Lunar;
 import com.nlf.calendar.Solar;
+import com.sunland.app.utils.bazi.SolarTimeUtil;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -51,18 +52,28 @@ public class XingxiangEngine {
     public ChartResponse chart(ChartRequest request) {
         if (request == null) throw new IllegalArgumentException("请填写完整出生信息");
         LocalDateTime dateTime = parseDateTime(request.birthDateTime());
-        if (dateTime.getYear() < 1900 || dateTime.getYear() > 2100) {
-            throw new IllegalArgumentException("出生年份仅支持 1900 至 2100 年");
+        validateSupportedYear(dateTime);
+        if (!SolarTimeUtil.isContain(request.areaCode())) {
+            throw new IllegalArgumentException("出生地区无效，请重新选择");
         }
+        if (request.useTrueSolarTime() && "999999".equals(request.areaCode())) {
+            throw new IllegalArgumentException("真太阳时仅支持选择具体的国内出生地区");
+        }
+        String area = SolarTimeUtil.getArea(request.areaCode());
+        String trueSolarTime = request.useTrueSolarTime()
+                ? SolarTimeUtil.getSolarTime(request.birthDateTime(), request.areaCode())
+                : null;
+        LocalDateTime effectiveTime = trueSolarTime == null ? dateTime : parseDateTime(trueSolarTime);
+        validateSupportedYear(effectiveTime);
         // 飞星盘采用晚子时换日：23:00 起按次日历日安星与取日柱，展示的公历输入保持不变。
-        LocalDateTime calculationTime = dateTime.getHour() == 23
-                ? dateTime.plusDays(1).withHour(0)
-                : dateTime;
+        LocalDateTime calculationTime = effectiveTime.getHour() == 23
+                ? effectiveTime.plusDays(1).withHour(0)
+                : effectiveTime;
         Solar solar = Solar.fromYmdHms(
                 calculationTime.getYear(), calculationTime.getMonthValue(), calculationTime.getDayOfMonth(),
                 calculationTime.getHour(), calculationTime.getMinute(), 0);
         Lunar lunar = solar.getLunar();
-        int timeIndex = timeIndex(dateTime.getHour());
+        int timeIndex = timeIndex(effectiveTime.getHour());
         int lunarMonthIndex = Math.abs(lunar.getMonth()) - 1;
         int flowMonthBirthMonth = Math.abs(lunar.getMonth())
                 + (lunar.getMonth() < 0 && lunar.getDay() > 15 ? 1 : 0);
@@ -111,6 +122,9 @@ public class XingxiangEngine {
         Profile profile = new Profile(
                 request.name().trim(), request.gender(), genderLabel, yinYangGender,
                 request.birthDateTime(),
+                area,
+                request.areaCode(),
+                trueSolarTime,
                 lunar.getYearInChinese() + "年" + lunar.getMonthInChinese() + "月"
                         + lunar.getDayInChinese() + "日" + lunar.getTimeZhi() + "时",
                 bureau,
@@ -429,6 +443,12 @@ public class XingxiangEngine {
             return LocalDateTime.parse(value, DATE_TIME);
         } catch (DateTimeException exception) {
             throw new IllegalArgumentException("出生日期时间无效", exception);
+        }
+    }
+
+    private void validateSupportedYear(LocalDateTime dateTime) {
+        if (dateTime.getYear() < 1900 || dateTime.getYear() > 2100) {
+            throw new IllegalArgumentException("出生年份仅支持 1900 至 2100 年");
         }
     }
 

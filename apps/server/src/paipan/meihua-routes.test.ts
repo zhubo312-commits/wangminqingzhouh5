@@ -104,13 +104,19 @@ describe("Meihua public routes", () => {
     });
     expect(createdResponse.statusCode, createdResponse.body).toBe(200);
     const created = MeihuaChartWithReferenceSchema.parse(createdResponse.json());
-    expect(created.overview).toMatchObject({ school: null, numberOne: null, numberTwo: null });
+    expect(created.overview).toMatchObject({
+      school: null,
+      numberCount: null,
+      numberOne: null,
+      numberTwo: null,
+      numberThree: null,
+    });
     expect(database.raw.prepare(
       "SELECT reference_hash, chart_type, schema_version FROM paipan_contexts",
     ).get()).toEqual({
       reference_hash: hashPaipanReference(created.paipan_ref),
       chart_type: "meihua",
-      schema_version: "guoxue.paipan.meihua.v1",
+      schema_version: "guoxue.paipan.meihua.v2",
     });
 
     const restoredResponse = await app.inject({
@@ -124,13 +130,70 @@ describe("Meihua public routes", () => {
     expect(restored.chart.original.name).toBe("泽水困");
   });
 
+  it("preserves triple-number inputs through paipan_ref recovery", async () => {
+    const tripleRequest: MeihuaChartRequest = {
+      chartDateTime: "2026-08-11 20:00",
+      mode: "number",
+      numberCount: 3,
+      numberOne: 123,
+      numberTwo: 456,
+      numberThree: 788,
+      includeHour: true,
+      school: "digit_sum",
+    };
+    const tripleChart = {
+      ...chart,
+      overview: {
+        ...chart.overview,
+        method: "报数起盘",
+        solarDateTime: tripleRequest.chartDateTime,
+        school: "digit_sum",
+        numberCount: 3,
+        numberOne: 123,
+        numberTwo: 456,
+        numberThree: 788,
+        includeHour: true,
+      },
+      movingLine: 1,
+    };
+    const fetchMock = vi.fn<typeof fetch>(async (_input, init) => {
+      expect(JSON.parse(String(init?.body))).toEqual(tripleRequest);
+      return new Response(JSON.stringify(tripleChart), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    });
+    const { app } = await setup(fetchMock);
+
+    const createdResponse = await app.inject({
+      method: "POST",
+      url: "/api/v1/paipan/meihua/chart",
+      payload: tripleRequest,
+    });
+    expect(createdResponse.statusCode, createdResponse.body).toBe(200);
+    const created = MeihuaChartWithReferenceSchema.parse(createdResponse.json());
+    const restoredResponse = await app.inject({
+      method: "POST",
+      url: "/api/v1/paipan/meihua/context",
+      payload: { paipan_ref: created.paipan_ref },
+    });
+    const restored = MeihuaContextResponseSchema.parse(restoredResponse.json());
+
+    expect(restored.chartRequest).toEqual(tripleRequest);
+    expect(restored.chart.overview).toMatchObject({
+      numberCount: 3,
+      numberThree: 788,
+      includeHour: true,
+    });
+  });
+
   it("rejects incomplete number input before Java", async () => {
     const fetchMock = vi.fn<typeof fetch>();
     const { app } = await setup(fetchMock);
     const response = await app.inject({
       method: "POST",
       url: "/api/v1/paipan/meihua/chart",
-      payload: { chartDateTime: "2026-08-11 21:31", mode: "number", numberOne: 123 },
+      payload: { chartDateTime: "2026-08-11 21:31", mode: "number", numberCount: 3, numberOne: 123, numberTwo: 456, includeHour: false, school: "digit_sum" },
     });
     expect(response.statusCode).toBe(422);
     expect(fetchMock).not.toHaveBeenCalled();

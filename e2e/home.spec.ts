@@ -60,6 +60,52 @@ const pillar = (
   shenSha: ["天乙贵人"],
 });
 
+const periodGanZhi = ["乙亥", "甲戌", "癸酉", "壬申", "辛未", "庚午", "己巳", "戊辰", "丁卯", "丙寅"];
+const yearGanZhi = ["戊寅", "己卯", "庚辰", "辛巳", "壬午", "癸未", "甲申", "乙酉", "丙戌", "丁亥"];
+const monthGanZhi = ["甲寅", "乙卯", "丙辰", "丁巳", "戊午", "己未", "庚申", "辛酉", "壬戌", "癸亥", "甲子", "乙丑"];
+const monthNames = ["正月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "冬月", "腊月"];
+const solarTerms = ["立春", "惊蛰", "清明", "立夏", "芒种", "小暑", "立秋", "白露", "寒露", "立冬", "大雪", "小寒"];
+
+function flowYear(periodOffset: number, yearOffset: number) {
+  const year = 1998 + periodOffset * 10 + yearOffset;
+  return {
+    index: yearOffset,
+    year,
+    age: 9 + periodOffset * 10 + yearOffset,
+    ganZhi: yearGanZhi[yearOffset],
+    voidBranch: "申酉",
+    tenGods: ["食神", "偏印"],
+    hiddenStems: "甲,丙,戊",
+    hiddenStemTenGods: ["偏印", "比肩", "食神"],
+    wealthStrong: false,
+    heavenlyStemAttention: ["甲己合土"],
+    earthlyBranchAttention: ["寅巳相害"],
+    shenSha: ["国印"],
+  };
+}
+
+function fortunePeriod(offset: number) {
+  const startYear = 1998 + offset * 10;
+  const startAge = 9 + offset * 10;
+  return {
+    index: offset + 1,
+    startYear,
+    endYear: startYear + 9,
+    startAge,
+    endAge: startAge + 9,
+    ganZhi: periodGanZhi[offset],
+    tenGods: ["正印", "七杀"],
+    growth: "绝",
+    hiddenStems: "壬,甲",
+    hiddenStemTenGods: ["七杀", "偏印"],
+    wealthStrong: false,
+    heavenlyStemAttention: ["甲己合土"],
+    earthlyBranchAttention: ["巳亥相冲"],
+    shenSha: ["天乙贵人"],
+    years: Array.from({ length: 10 }, (_, yearOffset) => flowYear(offset, yearOffset)),
+  };
+}
+
 function chartResponse(name: string) {
   return {
     profile: {
@@ -96,40 +142,7 @@ function chartResponse(name: string) {
       startSolar: "1998-05-01 12:00:00",
       startDescription: "出生后8年4月5天20时起运",
       changeDescription: "逢戊、癸年，立夏后1天交大运",
-      periods: [
-        {
-          index: 1,
-          startYear: 1998,
-          endYear: 2007,
-          startAge: 9,
-          endAge: 18,
-          ganZhi: "乙亥",
-          tenGods: ["正印", "七杀"],
-          growth: "绝",
-          hiddenStems: "壬,甲",
-          hiddenStemTenGods: ["七杀", "偏印"],
-          wealthStrong: false,
-          heavenlyStemAttention: ["甲己合土"],
-          earthlyBranchAttention: ["巳亥相冲"],
-          shenSha: ["天乙贵人"],
-          years: [
-            {
-              index: 0,
-              year: 1998,
-              age: 9,
-              ganZhi: "戊寅",
-              voidBranch: "申酉",
-              tenGods: ["食神", "偏印"],
-              hiddenStems: "甲,丙,戊",
-              hiddenStemTenGods: ["偏印", "比肩", "食神"],
-              wealthStrong: false,
-              heavenlyStemAttention: ["甲己合土"],
-              earthlyBranchAttention: ["寅巳相害"],
-              shenSha: ["国印"],
-            },
-          ],
-        },
-      ],
+      periods: Array.from({ length: 10 }, (_, offset) => fortunePeriod(offset)),
     },
     strength: {
       legacyScore: 52,
@@ -206,19 +219,19 @@ test.beforeEach(async ({ page }) => {
       contentType: "application/json",
       body: JSON.stringify({
         year: 1998,
-        months: [{
-          index: 1,
-          monthName: "正月",
-          ganZhi: "甲寅",
-          solarTermName: "立春",
-          solarTermDateTime: "1998-02-04 08:56:00",
+        months: Array.from({ length: 12 }, (_, index) => ({
+          index: index + 1,
+          monthName: monthNames[index],
+          ganZhi: monthGanZhi[index],
+          solarTermName: solarTerms[index],
+          solarTermDateTime: `1998-${String(index + 1).padStart(2, "0")}-04 08:56:00`,
           tenGods: ["偏印", "偏印"],
           hiddenStems: "甲,丙,戊",
           hiddenStemTenGods: ["偏印", "比肩", "食神"],
           heavenlyStemAttention: ["甲己合土"],
           earthlyBranchAttention: ["寅巳相害"],
           shenSha: ["国印"],
-        }],
+        })),
       }),
     });
   });
@@ -304,18 +317,49 @@ test("completes the in-session Shengping Zishi flow and preserves the form on ba
   await page.getByRole("button", { name: "开始排盘" }).click();
   await expect(page).toHaveURL(/\/paipan\/shengping-zishi\/result$/);
   await expect(page.getByRole("heading", { name: "同修" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "基本信息" })).toHaveCount(0);
+  await expect(page.locator(".bazi-profile-card .bazi-basic-grid")).toHaveCount(1);
   await expect(page.getByRole("heading", { name: /四柱命盘/ })).toBeVisible();
+  await expect(page.locator(".interpretation-entry-top")).toHaveCount(0);
+  await expect(page.locator(".interpretation-entry-bottom")).toHaveCount(1);
+  await page.evaluate(() => window.scrollTo(0, 0));
+  const firstPillarRowsBottom = await page.locator(".pillar-table .stem-row").evaluate((row) => Math.ceil(row.getBoundingClientRect().bottom));
+  const viewportHeight = await page.evaluate(() => window.innerHeight);
+  expect(firstPillarRowsBottom).toBeLessThanOrEqual(viewportHeight);
   await expect(page.getByRole("heading", { name: /十年大运/ })).toBeVisible();
   await expect(page.getByRole("heading", { name: /旺衰参考/ })).toBeVisible();
-  await expect(page.getByLabel("当前为乙亥大运，1998至2007年，9至18岁")).toContainText("乙亥大运");
-  await expect(page.getByLabel("当前为乙亥大运，1998至2007年，9至18岁")).toContainText("1998–2007年 · 9–18岁");
-  await expect(page.getByLabel("当前为戊寅流年，1998年，9岁")).toContainText("戊寅流年");
-  await expect(page.getByLabel("当前为戊寅流年，1998年，9岁")).toContainText("1998年 · 9岁");
-  await expect(page.getByRole("button", { name: /甲寅/ })).toBeVisible();
+  const fortuneViewToggle = page.getByRole("group", { name: "大运流年显示方式" });
+  const traditionalViewButton = fortuneViewToggle.getByRole("button", { name: /传统全景版/ });
+  const largeTypeViewButton = fortuneViewToggle.getByRole("button", { name: /大字简洁版/ });
+  await expect(traditionalViewButton).toHaveAttribute("aria-pressed", "true");
+  await expect(largeTypeViewButton).toHaveAttribute("aria-pressed", "false");
+  const traditionalBoard = page.locator(".traditional-fortune-board");
+  await expect(traditionalBoard).toBeVisible();
+  await expect(page.getByRole("group", { name: "大运全景选择" }).getByRole("button")).toHaveCount(10);
+  await expect(page.getByRole("group", { name: "流年全景选择" }).getByRole("button")).toHaveCount(10);
+  await expect(page.getByRole("group", { name: "流月全景选择" }).getByRole("button")).toHaveCount(12);
+  expect(await traditionalBoard.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true);
+  await expect(page.getByLabel("当前为乙亥大运，1998至2007年，9至18岁")).toContainText("大运乙亥9–18岁");
+  await expect(page.getByLabel("当前为戊寅流年，1998年，9岁")).toContainText("流年戊寅1998年 · 9岁");
+  const traditionalPeriods = page.getByRole("group", { name: "大运全景选择" }).getByRole("button");
+  await traditionalPeriods.nth(1).click();
+  await expect(traditionalPeriods.nth(1)).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByRole("group", { name: "流年全景选择" }).getByRole("button").first()).toHaveAttribute("aria-pressed", "true");
+  await traditionalPeriods.first().click();
+  await expect(traditionalPeriods.first()).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator(".profile-grid .info-value-primary").filter({ hasText: "一九八九年" })).toBeVisible();
   await expect(page.locator(".profile-grid .info-value-secondary").filter({ hasText: "腊月初五日·午时" })).toBeVisible();
   await expect(page.locator(".facts-grid .solar-term-name")).toHaveCount(2);
   await expect(page.locator(".facts-grid .info-value-secondary").filter({ hasText: "05:22·冬至" })).toBeVisible();
+  await largeTypeViewButton.click();
+  await expect(largeTypeViewButton).toHaveAttribute("aria-pressed", "true");
+  await expect(traditionalViewButton).toHaveAttribute("aria-pressed", "false");
+  await expect(traditionalBoard).toHaveCount(0);
+  await expect(page.getByRole("button", { name: /甲寅/ })).toBeVisible();
+  await expect(page.getByLabel("当前为乙亥大运，1998至2007年，9至18岁")).toContainText("乙亥大运");
+  await expect(page.getByLabel("当前为乙亥大运，1998至2007年，9至18岁")).toContainText("1998–2007年 · 9–18岁");
+  await expect(page.getByLabel("当前为戊寅流年，1998年，9岁")).toContainText("戊寅流年");
+  await expect(page.getByLabel("当前为戊寅流年，1998年，9岁")).toContainText("1998年 · 9岁");
   await page.evaluate(() => window.scrollTo(0, 900));
   await expect.poll(() => page.locator(".page-header").evaluate((header) => Math.round(header.getBoundingClientRect().top))).toBe(0);
   for (const selector of [".horizontal-selector", ".year-selector", ".month-selector"]) {
@@ -338,6 +382,7 @@ test("completes the in-session Shengping Zishi flow and preserves the form on ba
   await page.reload();
   await expect(page.getByRole("heading", { name: "同修" })).toBeVisible();
   await expect(page.getByRole("heading", { name: /四柱命盘/ })).toBeVisible();
+  await expect(page.getByRole("group", { name: "大运流年显示方式" }).getByRole("button", { name: /传统全景版/ })).toHaveAttribute("aria-pressed", "true");
 
   await page.getByRole("button", { name: "返回生平子时表单" }).click();
   await expect(page.locator('input[placeholder*="未填写时"]')).toHaveValue("");
@@ -391,8 +436,17 @@ test("supports all three birth modes and requires a four-pillar candidate choice
   await expect(lunarDateDialog.getByRole("listbox")).toHaveCount(3);
   await expect(lunarDateDialog.getByRole("listbox", { name: "月滚轮" }).getByRole("option", { name: "腊月（12）", exact: true })).toBeVisible();
   await expect(lunarDateDialog.getByRole("listbox", { name: "日滚轮" }).getByRole("option", { name: "初五（5）", exact: true })).toBeVisible();
-  await expect(lunarDateDialog.getByRole("button", { name: "闰月" })).toBeVisible();
-  await lunarDateDialog.getByRole("button", { name: "取消" }).click();
+  await expect(lunarDateDialog.getByText("月份类型", { exact: true })).toHaveCount(0);
+  await expect(lunarDateDialog.getByRole("button", { name: "平月", exact: true })).toHaveCount(0);
+  await expect(lunarDateDialog.getByRole("button", { name: "闰月", exact: true })).toHaveCount(0);
+  await expect(lunarDateDialog.getByRole("listbox", { name: "月滚轮" }).getByRole("option", { name: /^闰/ })).toHaveCount(0);
+  await lunarDateDialog.getByRole("listbox", { name: "年滚轮" }).getByRole("option", { name: "1990", exact: true }).click();
+  const leapMay = lunarDateDialog.getByRole("listbox", { name: "月滚轮" }).getByRole("option", { name: "闰五月（5）", exact: true });
+  await expect(leapMay).toBeVisible();
+  await leapMay.click();
+  await expect(lunarDateDialog.getByRole("listbox", { name: "日滚轮" }).getByRole("option", { name: "三十（30）", exact: true })).toHaveCount(0);
+  await lunarDateDialog.getByRole("button", { name: "确定" }).click();
+  await expect(lunarDatePicker).toContainText("1990年 闰五月（5）");
   await lunarTimePicker.click();
   await expect(page.getByRole("dialog", { name: "选择阴历出生时间" }).getByRole("listbox")).toHaveCount(2);
   await expect(page.getByRole("dialog", { name: "选择阴历出生时间" }).getByRole("option", { name: "12（午时）", exact: true })).toBeVisible();

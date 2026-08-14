@@ -18,7 +18,7 @@ type Panel = "time" | "random" | "number" | "specified" | "classics";
 const PANELS: Array<{ key: Panel; label: string; note: string; icon: typeof ClockCountdown }> = [
   { key: "time", label: "时间起盘", note: "按年月日时起卦", icon: ClockCountdown },
   { key: "random", label: "随机起盘", note: "随机取得上下卦与动爻", icon: DiceFive },
-  { key: "number", label: "报数起盘", note: "输入两个正整数", icon: Hash },
+  { key: "number", label: "报数起盘", note: "支持双数与三数起盘", icon: Hash },
   { key: "specified", label: "指定起盘", note: "直接选择卦象与动爻", icon: SlidersHorizontal },
   { key: "classics", label: "八宫六十四卦", note: "查阅卦辞、彖象与六爻", icon: BookOpenText },
 ];
@@ -52,8 +52,21 @@ export function MeihuaFormPage() {
       if (mode === "number") {
         const numberOne = Number(draft.numberOne);
         const numberTwo = Number(draft.numberTwo);
-        if (!Number.isInteger(numberOne) || numberOne < 1 || !Number.isInteger(numberTwo) || numberTwo < 1) throw new Error("请填写两个大于 0 的整数");
-        request = { chartDateTime, mode, numberOne, numberTwo, includeHour: draft.includeHour, school: draft.school };
+        const numberThree = draft.numberCount === 3 ? Number(draft.numberThree) : undefined;
+        const numbers = [numberOne, numberTwo, ...(numberThree === undefined ? [] : [numberThree])];
+        if (numbers.some((value) => !Number.isInteger(value) || value < 1 || value > 999_999_999)) {
+          throw new Error(`请填写${draft.numberCount === 3 ? "三个" : "两个"} 1–999999999 的整数`);
+        }
+        request = {
+          chartDateTime,
+          mode,
+          numberCount: draft.numberCount,
+          numberOne,
+          numberTwo,
+          ...(numberThree === undefined ? {} : { numberThree }),
+          includeHour: draft.includeHour,
+          school: draft.school,
+        };
       } else if (mode === "random") {
         request = { chartDateTime, mode, upperTrigram: Math.floor(Math.random() * 8) + 1, lowerTrigram: Math.floor(Math.random() * 8) + 1, movingLine: Math.floor(Math.random() * 6) + 1 };
       } else if (mode === "specified") {
@@ -90,7 +103,8 @@ export function MeihuaFormPage() {
           <div className="form-field picker-field"><SolarDateTimePicker subject="起盘" value={draft.chartDateTime} onChange={(value) => update("chartDateTime", value)} /></div>
 
           {panel === "number" && <>
-            <div className="meihua-number-grid"><label><span>第一个数</span><input type="number" inputMode="numeric" min="1" max="999999999" value={draft.numberOne} onChange={(event) => update("numberOne", event.target.value)} placeholder="请输入正整数" /></label><label><span>第二个数</span><input type="number" inputMode="numeric" min="1" max="999999999" value={draft.numberTwo} onChange={(event) => update("numberTwo", event.target.value)} placeholder="请输入正整数" /></label></div>
+            <fieldset className="form-field juece-choice-field"><legend>起盘数字</legend><div className="segment-control juece-two-tabs"><button type="button" className={draft.numberCount === 2 ? "active" : ""} aria-pressed={draft.numberCount === 2} onClick={() => update("numberCount", 2)}>双数起盘</button><button type="button" className={draft.numberCount === 3 ? "active" : ""} aria-pressed={draft.numberCount === 3} onClick={() => update("numberCount", 3)}>三数起盘</button></div></fieldset>
+            <div className={`meihua-number-grid${draft.numberCount === 3 ? " is-triple" : ""}`}><label><span>第一个数</span><input type="number" inputMode="numeric" min="1" max="999999999" value={draft.numberOne} onChange={(event) => update("numberOne", event.target.value)} placeholder="请输入正整数" /></label><label><span>第二个数</span><input type="number" inputMode="numeric" min="1" max="999999999" value={draft.numberTwo} onChange={(event) => update("numberTwo", event.target.value)} placeholder="请输入正整数" /></label>{draft.numberCount === 3 && <label className="meihua-third-number"><span>第三个数</span><input type="number" inputMode="numeric" min="1" max="999999999" value={draft.numberThree} onChange={(event) => update("numberThree", event.target.value)} placeholder="用于计算动爻" /></label>}</div>
             <fieldset className="form-field juece-choice-field"><legend>起卦流派</legend><div className="segment-control juece-two-tabs"><button type="button" className={draft.school === "digit_sum" ? "active" : ""} onClick={() => update("school", "digit_sum")}>朱昱／易谦老师</button><button type="button" className={draft.school === "raw_number" ? "active" : ""} onClick={() => update("school", "raw_number")}>广元老师</button></div></fieldset>
             <label className="meihua-hour-toggle"><input type="checkbox" checked={draft.includeHour} onChange={(event) => update("includeHour", event.target.checked)} /><span><strong>动爻计算加入时辰数</strong><small>上下卦仍按所选流派计算</small></span></label>
           </>}

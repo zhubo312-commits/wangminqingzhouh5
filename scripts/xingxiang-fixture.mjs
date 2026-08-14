@@ -8,7 +8,7 @@ const months = branches.map((palaceBranch, index) => ({ monthNumber: index + 1, 
 const annuals = Array.from({ length: 10 }, (_, index) => ({ age: 5 + index, year: 1993 + index, ganZhi: ["癸酉", "甲戌", "乙亥", "丙子", "丁丑", "戊寅", "己卯", "庚辰", "辛巳", "壬午"][index], palaceNames, transformations, months }));
 
 export const xingxiangChart = {
-  profile: { name: "测试", gender: "male", genderLabel: "男", yinYangGender: "阴男", solarDateTime: "1990-01-01 12:00", lunarDate: "一九八九年腊月初五日午时", fiveElementsBureau: "土五局", pillars: { year: "己巳", month: "丙子", day: "丙寅", hour: "甲午" } },
+  profile: { name: "测试", gender: "male", genderLabel: "男", yinYangGender: "阴男", solarDateTime: "1990-01-01 12:00", area: "北京市东城", areaCode: "110101", trueSolarTime: null, lunarDate: "一九八九年腊月初五日午时", fiveElementsBureau: "土五局", pillars: { year: "己巳", month: "丙子", day: "丙寅", hour: "甲午" } },
   palaces: branches.map((branch, index) => ({
     branch,
     name: names[index],
@@ -27,4 +27,4 @@ export const xingxiangChart = {
   periods: Array.from({ length: 12 }, (_, index) => ({ ganZhi: ["辛未", "庚午", "己巳", "戊辰", "丁卯", "丙寅", "乙丑", "甲子", "癸亥", "壬戌", "辛酉", "庚申"][index], startAge: 5 + index * 10, endAge: 14 + index * 10, startYear: 1993 + index * 10, endYear: 2002 + index * 10, palaceNames, transformations, annuals: annuals.map((annual) => ({ ...annual, age: annual.age + index * 10, year: annual.year + index * 10 })) })),
 };
 
-export const xingxiangRequest = { name: "测试", gender: "male", birthDateTime: "1990-01-01 12:00", school: "flying" };
+export const xingxiangRequest = { name: "测试", gender: "male", birthDateTime: "1990-01-01 12:00", areaCode: "110101", useTrueSolarTime: false, school: "flying" };

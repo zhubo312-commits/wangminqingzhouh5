@@ -12,6 +12,8 @@ public final class XingxiangModels {
             @NotBlank @Size(max = 10) String name,
             @NotBlank @Pattern(regexp = "male|female") String gender,
             @NotBlank @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}") String birthDateTime,
+            @NotBlank @Pattern(regexp = "\\d{6}") String areaCode,
+            boolean useTrueSolarTime,
             @NotBlank @Pattern(regexp = "flying") String school) {}
 
     public record Pillars(String year, String month, String day, String hour) {}
@@ -22,6 +24,9 @@ public final class XingxiangModels {
             String genderLabel,
             String yinYangGender,
             String solarDateTime,
+            String area,
+            String areaCode,
+            String trueSolarTime,
             String lunarDate,
             String fiveElementsBureau,
             Pillars pillars) {}

@@ -1419,14 +1419,28 @@ components:
             movingLine: { type: integer, minimum: 1, maximum: 6 }
         - type: object
           additionalProperties: false
-          required: [chartDateTime, mode, numberOne, numberTwo, includeHour, school]
+          required: [chartDateTime, mode, numberCount, numberOne, numberTwo, includeHour, school]
           properties:
             chartDateTime: { $ref: "#/components/schemas/BirthDateTime" }
             mode: { const: number }
+            numberCount: { type: integer, enum: [2, 3] }
             numberOne: { type: integer, minimum: 1, maximum: 999999999 }
             numberTwo: { type: integer, minimum: 1, maximum: 999999999 }
+            numberThree: { type: integer, minimum: 1, maximum: 999999999 }
             includeHour: { type: boolean }
             school: { type: string, enum: [digit_sum, raw_number] }
+          allOf:
+            - if:
+                properties:
+                  numberCount: { const: 3 }
+              then:
+                required: [numberThree]
+            - if:
+                properties:
+                  numberCount: { const: 2 }
+              then:
+                not:
+                  required: [numberThree]
         - type: object
           additionalProperties: false
           required: [chartDateTime, mode, upperTrigram, lowerTrigram, movingLine]
@@ -1471,7 +1485,7 @@ components:
       properties:
         overview:
           type: object
-          required: [method, solarDateTime, lunarDate, pillars, voidBranches, school, numberOne, numberTwo, includeHour]
+          required: [method, solarDateTime, lunarDate, pillars, voidBranches, school, numberCount, numberOne, numberTwo, numberThree, includeHour]
           properties:
             method: { type: string, enum: [时间起盘, 随机起盘, 报数起盘, 指定起盘] }
             solarDateTime: { $ref: "#/components/schemas/BirthDateTime" }
@@ -1479,8 +1493,10 @@ components:
             pillars: { $ref: "#/components/schemas/JuecePillars" }
             voidBranches: { type: string, minLength: 2, maxLength: 2 }
             school: { type: [string, "null"], enum: [digit_sum, raw_number, null] }
+            numberCount: { type: [integer, "null"], enum: [2, 3, null] }
             numberOne: { type: [integer, "null"] }
             numberTwo: { type: [integer, "null"] }
+            numberThree: { type: [integer, "null"] }
             includeHour: { type: boolean }
         upperTrigram: { type: integer, minimum: 1, maximum: 8 }
         lowerTrigram: { type: integer, minimum: 1, maximum: 8 }
@@ -1500,7 +1516,7 @@ components:
       type: object
       required: [schemaVersion, chartType, paipan_ref, generatedAt, expiresAt, chartRequest, chart]
       properties:
-        schemaVersion: { const: guoxue.paipan.meihua.v1 }
+        schemaVersion: { const: guoxue.paipan.meihua.v2 }
         chartType: { const: meihua }
         paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
         generatedAt: { type: string, format: date-time }
@@ -1678,12 +1694,22 @@ components:
     XingxiangChartRequest:
       type: object
       additionalProperties: false
-      required: [name, gender, birthDateTime, school]
+      required: [name, gender, birthDateTime, areaCode, useTrueSolarTime, school]
       properties:
         name: { type: string, minLength: 1, maxLength: 10 }
         gender: { type: string, enum: [male, female] }
         birthDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+        areaCode: { type: string, pattern: '^\d{6}$' }
+        useTrueSolarTime: { type: boolean }
         school: { const: flying }
+      allOf:
+        - if:
+            properties:
+              useTrueSolarTime: { const: true }
+          then:
+            properties:
+              areaCode:
+                not: { const: '999999' }
     XingxiangTransformation:
       type: object
       required: [transformation, star, targetBranch]
@@ -1775,13 +1801,18 @@ components:
       properties:
         profile:
           type: object
-          required: [name, gender, genderLabel, yinYangGender, solarDateTime, lunarDate, fiveElementsBureau, pillars]
+          required: [name, gender, genderLabel, yinYangGender, solarDateTime, area, areaCode, trueSolarTime, lunarDate, fiveElementsBureau, pillars]
           properties:
             name: { type: string }
             gender: { type: string, enum: [male, female] }
             genderLabel: { type: string, enum: [男, 女] }
             yinYangGender: { type: string, enum: [阳男, 阴男, 阳女, 阴女] }
             solarDateTime: { $ref: "#/components/schemas/BirthDateTime" }
+            area: { type: string, minLength: 1 }
+            areaCode: { type: string, pattern: '^\d{6}$' }
+            trueSolarTime:
+              type: [string, "null"]
+              pattern: '^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$'
             lunarDate: { type: string }
             fiveElementsBureau: { type: string, enum: [水二局, 木三局, 金四局, 土五局, 火六局] }
             pillars: { $ref: "#/components/schemas/JuecePillars" }
@@ -1810,7 +1841,7 @@ components:
       type: object
       required: [schemaVersion, chartType, paipan_ref, generatedAt, expiresAt, chartRequest, chart]
       properties:
-        schemaVersion: { const: guoxue.paipan.xingxiang.v2 }
+        schemaVersion: { const: guoxue.paipan.xingxiang.v3 }
         chartType: { const: xingxiang }
         paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
         generatedAt: { type: string, format: date-time }

@@ -90,10 +90,27 @@ function chart(clockDateTime: string) {
 
 test("completes, switches and restores the reference-aligned decision chart without overflow", async ({ page }) => {
   const received: Array<{ chartDateTime: string }> = [];
+  const resolvedLunarSolarDateTime = "1990-07-21 16:00";
+  let receivedBirthRequest: Record<string, unknown> | null = null;
   let latestRequest: Record<string, unknown> | null = null;
   let latestChart = chart("2026-08-11 16:00");
   let referenceIndex = 0;
 
+  await page.route("**/api/v1/paipan/bazi/resolve-birth", async (route) => {
+    receivedBirthRequest = route.request().postDataJSON() as Record<string, unknown>;
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        candidates: [{
+          id: resolvedLunarSolarDateTime,
+          solarDateTime: resolvedLunarSolarDateTime,
+          label: `${resolvedLunarSolarDateTime}（阳历）`,
+        }],
+        sect: 2,
+      }),
+    });
+  });
   await page.route("**/api/v1/paipan/areas", (route) => route.fulfill({
     status: 200,
     contentType: "application/json",
@@ -140,7 +157,23 @@ test("completes, switches and restores the reference-aligned decision chart with
 
   await page.getByRole("tab", { name: "阴历" }).click();
   await expect(page.getByRole("tab", { name: "阴历" })).toHaveAttribute("aria-selected", "true");
-  await page.getByRole("tab", { name: "阳历" }).click();
+  const lunarDatePicker = page.getByRole("button", { name: "选择阴历日期" });
+  await lunarDatePicker.click();
+  const lunarDateDialog = page.getByRole("dialog", { name: "选择阴历起盘日期" });
+  const yearWheel = lunarDateDialog.getByRole("listbox", { name: "年滚轮" });
+  const monthWheel = lunarDateDialog.getByRole("listbox", { name: "月滚轮" });
+  const dayWheel = lunarDateDialog.getByRole("listbox", { name: "日滚轮" });
+
+  await yearWheel.getByRole("option", { name: "1989", exact: true }).click();
+  await expect(monthWheel.getByRole("option", { name: /^闰/ })).toHaveCount(0);
+  await yearWheel.getByRole("option", { name: "1990", exact: true }).click();
+  const leapMay = monthWheel.getByRole("option", { name: "闰五月（5）", exact: true });
+  await expect(leapMay).toBeVisible();
+  await leapMay.click();
+  await expect(dayWheel.getByRole("option", { name: "三十（30）", exact: true })).toHaveCount(0);
+  expect(await lunarDateDialog.evaluate((dialog) => dialog.scrollWidth > dialog.clientWidth)).toBe(false);
+  await lunarDateDialog.getByRole("button", { name: "确定" }).click();
+  await expect(lunarDatePicker).toContainText("1990年 闰五月（5）");
 
   await page.getByRole("button", { name: "真太阳时" }).click();
   await expect(page.getByText("地区只用于本次时间校正")).toBeVisible();
@@ -166,6 +199,18 @@ test("completes, switches and restores the reference-aligned decision chart with
   });
   await expect(page).toHaveURL(/\/paipan\/juece\/result$/);
   expect(received).toHaveLength(1);
+  expect(receivedBirthRequest).toEqual({
+    mode: "lunar",
+    lunar: {
+      year: 1990,
+      month: 5,
+      day: 29,
+      hour: 16,
+      minute: 0,
+      leapMonth: true,
+    },
+  });
+  expect(received[0]!.chartDateTime).toBe(resolvedLunarSolarDateTime);
   await expect(page.getByRole("heading", { name: "阴遁5局" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "九宫主盘" })).toBeVisible();
   await expect(page.locator(".juece-palace")).toHaveCount(9);

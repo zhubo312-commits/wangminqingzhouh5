@@ -11,6 +11,8 @@ const request: XingxiangChartRequest = {
   name: "测试",
   gender: "male",
   birthDateTime: "1990-01-01 12:00",
+  areaCode: "110101",
+  useTrueSolarTime: false,
   school: "flying",
 };
 const branches = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"] as const;
@@ -45,6 +47,9 @@ const chart = XingxiangChartResponseSchema.parse({
     genderLabel: "男",
     yinYangGender: "阴男",
     solarDateTime: "1990-01-01 12:00",
+    area: "北京市东城",
+    areaCode: "110101",
+    trueSolarTime: null,
     lunarDate: "一九八九年腊月初五日午时",
     fiveElementsBureau: "土五局",
     pillars: { year: "己巳", month: "丙子", day: "丙寅", hour: "甲午" },
@@ -85,7 +90,7 @@ const chart = XingxiangChartResponseSchema.parse({
 describe("XingxiangResultPage", () => {
   beforeEach(() => {
     vi.mocked(useXingxiangSession).mockReturnValue({
-      draft: { name: "测试", gender: "male", birthDateTime: "1990-01-01T12:00" },
+      draft: { name: "测试", gender: "male", birthDateTime: "1990-01-01T12:00", areaCode: "110101", useTrueSolarTime: false },
       setDraft: vi.fn(),
       chart,
       chartRequest: request,
@@ -99,7 +104,7 @@ describe("XingxiangResultPage", () => {
     vi.clearAllMocks();
   });
 
-  it("matches the original default scope and restores the complete interactive palace board", () => {
+  it("uses one compact interactive palace board for both natal and temporal changes", () => {
     render(
       <MemoryRouter initialEntries={["/paipan/xingxiang/result"]}>
         <Routes>
@@ -119,43 +124,42 @@ describe("XingxiangResultPage", () => {
     const secondAnnual = within(periodBoard).getByRole("button", { name: /1994.*癸酉.*6岁/ });
     expect(firstAnnual).toHaveAttribute("aria-pressed", "false");
     expect(secondAnnual).toHaveAttribute("aria-pressed", "false");
-    expect(screen.getByText(/当前叠加：辛未大限 · 未选择流年/)).toBeVisible();
-
-    const temporalGrid = screen.getByLabelText("运限十二宫星盘");
-    expect(within(temporalGrid).getAllByRole("button")).toHaveLength(12);
-    expect(temporalGrid.querySelectorAll("button.is-period-life")).toHaveLength(1);
-    expect(temporalGrid.querySelectorAll("button.is-annual-life")).toHaveLength(0);
-    expect(temporalGrid.querySelectorAll(".xingxiang-palace-scopes .is-period-change")).toHaveLength(12);
-    expect(temporalGrid.querySelectorAll(".xingxiang-stars span.is-period-change")).toHaveLength(4);
-    expect(within(temporalGrid).getByRole("group", { name: "运限盘摘要" })).toHaveTextContent("运限副盘");
+    const changeSummary = document.querySelector(".xingxiang-change-summary") as HTMLElement;
+    expect(changeSummary).toHaveTextContent("辛未大限未选择流年");
+    expect(screen.queryByLabelText("运限十二宫星盘")).not.toBeInTheDocument();
 
     const grid = screen.getByLabelText("十二宫星盘");
     const boardShell = grid.closest(".xingxiang-board-shell") as HTMLElement;
+    expect(boardShell).toHaveClass("has-temporal-changes", "is-compact");
     for (const direction of ["南偏东", "正南方", "南偏西", "西偏南", "正西方", "西偏北", "北偏西", "正北方", "北偏东", "东偏北", "正东方", "东偏南"]) {
       expect(within(boardShell).getByText(direction)).toBeVisible();
     }
 
     expect(within(grid).getAllByRole("button")).toHaveLength(12);
+    expect(grid.querySelectorAll("button.is-period-life")).toHaveLength(1);
+    expect(grid.querySelectorAll("button.is-annual-life")).toHaveLength(0);
+    expect(grid.querySelectorAll(".xingxiang-palace-scopes .is-period-change")).toHaveLength(12);
+    expect(grid.querySelectorAll(".xingxiang-stars span.is-period-change")).toHaveLength(4);
+    expect(grid.querySelectorAll(".xingxiang-stars em.period")).toHaveLength(4);
     const center = within(grid).getByRole("group", { name: "命盘摘要" });
     expect(center).toHaveTextContent("飞星紫微");
-    expect(center).toHaveTextContent("阳历 1990-01-01 12:00");
-    expect(center).toHaveTextContent("农历 一九八九年腊月初五日午时");
-    expect(center).toHaveTextContent("己巳丙子丙寅甲午");
+    expect(center).toHaveTextContent("测试 · 阴男");
+    expect(center).not.toHaveTextContent("阳历 1990-01-01 12:00");
+    expect(center).not.toHaveTextContent("农历 一九八九年腊月初五日午时");
+    expect(within(center).queryByLabelText("中宫四柱")).not.toBeInTheDocument();
     const focusLine = grid.querySelector(".xingxiang-four-directions path")!;
     expect(focusLine).toHaveAttribute("d", "M25 100 L75 0");
 
     fireEvent.click(firstAnnual);
     expect(firstAnnual).toHaveAttribute("aria-pressed", "true");
-    expect(screen.getByText(/当前叠加：辛未大限 · 1993年癸酉流年/)).toBeVisible();
+    expect(changeSummary).toHaveTextContent("辛未大限1993年癸酉流年");
     expect(grid.querySelector(".xingxiang-four-directions path")).toHaveAttribute("d", "M75 100 L25 0");
-    expect(within(grid).getByText("正月 · 甲寅")).toBeVisible();
+    expect(within(grid).queryByText("正月 · 甲寅")).not.toBeInTheDocument();
+    expect(grid.querySelectorAll("button.is-annual-life")).toHaveLength(1);
+    expect(grid.querySelectorAll(".xingxiang-palace-scopes .is-annual-change")).toHaveLength(12);
+    expect(grid.querySelectorAll(".xingxiang-stars span.is-annual-change")).toHaveLength(4);
+    expect(grid.querySelectorAll(".xingxiang-stars em.period")).toHaveLength(4);
     expect(grid.querySelectorAll(".xingxiang-stars em.annual")).toHaveLength(4);
-    expect(screen.getByRole("heading", { name: "辛未大限 · 1993年癸酉流年星盘" })).toBeVisible();
-    expect(temporalGrid.querySelectorAll("button.is-annual-life")).toHaveLength(1);
-    expect(temporalGrid.querySelectorAll(".xingxiang-palace-scopes .is-annual-change")).toHaveLength(12);
-    expect(temporalGrid.querySelectorAll(".xingxiang-stars span.is-annual-change")).toHaveLength(4);
-    expect(temporalGrid.querySelectorAll(".xingxiang-stars em.period")).toHaveLength(4);
-    expect(temporalGrid.querySelectorAll(".xingxiang-stars em.annual")).toHaveLength(4);
 
     const siPalace = within(grid).getByRole("button", { name: /丙巳.*夫妻/ });
     const chenPalace = within(grid).getByRole("button", { name: /丙辰.*子女/ });
@@ -205,15 +209,20 @@ describe("XingxiangResultPage", () => {
     expect(within(dialog).getByRole("button", { name: "关闭放大查看" })).toBeVisible();
     expect(dialog.querySelector(".xingxiang-dialog-panel")).toBeVisible();
     expect(dialog.querySelector(".xingxiang-dialog-scroll")).toBeVisible();
-    expect(within(dialog).getByRole("group", { name: "命盘摘要" })).toBeVisible();
-    expect(within(dialog).getByLabelText("十二宫星盘")).toBeVisible();
+    const dialogGrid = within(dialog).getByLabelText("十二宫星盘");
+    const dialogCenter = within(dialogGrid).getByRole("group", { name: "命盘摘要" });
+    expect(dialogGrid.closest(".xingxiang-board-shell")).not.toHaveClass("is-compact");
+    expect(dialogCenter).toHaveTextContent("阳历 1990-01-01 12:00");
+    expect(dialogCenter).toHaveTextContent("农历 一九八九年腊月初五日午时");
+    expect(within(dialogCenter).getByLabelText("中宫四柱")).toHaveTextContent("己巳丙子丙寅甲午");
+    expect(within(dialogGrid).getByText("正月 · 甲寅")).toBeVisible();
     fireEvent.click(within(dialog).getByRole("button", { name: "关闭放大查看" }));
 
     fireEvent.click(secondRowPeriod);
     expect(secondRowPeriod).toHaveAttribute("aria-expanded", "true");
     expect(document.querySelector('[data-period-row="0"] > .xingxiang-period-detail')).not.toBeInTheDocument();
     expect(document.querySelector('[data-period-row="1"] > .xingxiang-period-detail')).toBeVisible();
-    expect(screen.getByText(/当前叠加：辛未大限 · 未选择流年/)).toBeVisible();
+    expect(changeSummary).toHaveTextContent("辛未大限未选择流年");
     expect(within(periodBoard).getAllByRole("button", { pressed: true })).toHaveLength(1);
     fireEvent.click(secondRowPeriod);
     expect(secondRowPeriod).toHaveAttribute("aria-expanded", "false");
@@ -221,5 +230,38 @@ describe("XingxiangResultPage", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "重新排盘" }));
     expect(screen.getByText("星像表单页")).toBeVisible();
+  });
+
+  it("shows original time, birthplace and corrected true solar time", () => {
+    vi.mocked(useXingxiangSession).mockReturnValue({
+      draft: { name: "测试", gender: "male", birthDateTime: "1990-01-01T01:30", areaCode: "650100", useTrueSolarTime: true },
+      setDraft: vi.fn(),
+      chart: {
+        ...chart,
+        profile: {
+          ...chart.profile,
+          solarDateTime: "1990-01-01 01:30",
+          area: "新疆维吾尔自治区乌鲁木齐市",
+          areaCode: "650100",
+          trueSolarTime: "1989-12-31 23:17",
+        },
+      },
+      chartRequest: {
+        name: "测试",
+        gender: "male",
+        birthDateTime: "1990-01-01 01:30",
+        areaCode: "650100",
+        useTrueSolarTime: true,
+        school: "flying",
+      },
+      isRestoring: false,
+      setResult: vi.fn(),
+    });
+
+    render(<MemoryRouter initialEntries={["/paipan/xingxiang/result"]}><Routes><Route path="/paipan/xingxiang/result" element={<XingxiangResultPage />} /></Routes></MemoryRouter>);
+
+    expect(screen.getAllByText("1990-01-01 01:30").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("1989-12-31 23:17").length).toBeGreaterThan(0);
+    expect(screen.getByText("新疆维吾尔自治区乌鲁木齐市")).toBeVisible();
   });
 });

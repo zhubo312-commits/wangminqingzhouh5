@@ -26,6 +26,8 @@ class XingxiangControllerTest {
                                   "name":"测试",
                                   "gender":"male",
                                   "birthDateTime":"1990-01-01 12:00",
+                                  "areaCode":"110101",
+                                  "useTrueSolarTime":false,
                                   "school":"flying"
                                 }
                                 """))
@@ -48,6 +50,8 @@ class XingxiangControllerTest {
                                   "name":"测试",
                                   "gender":"unknown",
                                   "birthDateTime":"2024-02-30 12:00",
+                                  "areaCode":"110101",
+                                  "useTrueSolarTime":false,
                                   "school":"flying"
                                 }
                                 """))

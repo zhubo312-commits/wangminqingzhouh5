@@ -33,7 +33,8 @@ class XingxiangReferenceParityTest {
     void matchesEveryFrozenBusinessField(String caseName, String dateTime, String gender) throws IOException {
         JsonNode data = JSON.readTree(Path.of("..", "..", "docs", "xingxiang-golden", caseName,
                 "reference-response.redacted.json").toFile()).path("data");
-        ChartResponse actual = engine.chart(new ChartRequest("测试", gender, dateTime, "flying"));
+        ChartResponse actual = engine.chart(new ChartRequest(
+                "测试", gender, dateTime, "110101", false, "flying"));
         JsonNode profile = data.path("mingZao");
         assertThat(actual.profile().solarDateTime()).isEqualTo(profile.path("completeDateTime").asText());
         assertThat(actual.profile().lunarDate()).isEqualTo(profile.path("completeLunarDateTime").asText());

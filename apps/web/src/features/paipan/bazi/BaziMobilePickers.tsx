@@ -1,5 +1,6 @@
 import type { PaipanAreaNode } from "@guoxue/contracts";
 import { CaretDown } from "@phosphor-icons/react";
+import { LunarYear } from "lunar-javascript";
 import { useCallback, useMemo, useState } from "react";
 import {
   MobileWheelPicker,
@@ -18,6 +19,12 @@ interface DateTimeParts {
 
 interface LunarParts extends DateTimeParts {
   leapMonth: boolean;
+}
+
+interface LunarMonthOption extends WheelOption {
+  month: number;
+  leapMonth: boolean;
+  dayCount: number;
 }
 
 interface FourPillarsValue {
@@ -98,15 +105,50 @@ const LUNAR_DAY_NAMES = [
   "三十",
 ];
 
-const LUNAR_MONTH_OPTIONS = LUNAR_MONTH_NAMES.map((label, index) => ({
-  value: String(index + 1),
-  label: `${label}（${index + 1}）`,
-}));
-
 const LUNAR_DAY_OPTIONS = LUNAR_DAY_NAMES.map((label, index) => ({
   value: String(index + 1),
   label: `${label}（${index + 1}）`,
 }));
+
+const LUNAR_MONTH_OPTIONS_BY_YEAR = new Map<number, LunarMonthOption[]>();
+
+export function lunarMonthOptionsForYear(year: number): LunarMonthOption[] {
+  const cached = LUNAR_MONTH_OPTIONS_BY_YEAR.get(year);
+  if (cached) return cached;
+
+  const options = LunarYear.fromYear(year).getMonthsInYear().map((lunarMonth) => {
+    const signedMonth = lunarMonth.getMonth();
+    const month = Math.abs(signedMonth);
+    const leapMonth = signedMonth < 0;
+    return {
+      value: String(signedMonth),
+      label: `${leapMonth ? "闰" : ""}${LUNAR_MONTH_NAMES[month - 1]}（${month}）`,
+      month,
+      leapMonth,
+      dayCount: lunarMonth.getDayCount(),
+    };
+  });
+  LUNAR_MONTH_OPTIONS_BY_YEAR.set(year, options);
+  return options;
+}
+
+function lunarMonthValue(value: Pick<LunarParts, "month" | "leapMonth">) {
+  return String(value.leapMonth ? -value.month : value.month);
+}
+
+function normalizeLunarParts(value: LunarParts): LunarParts {
+  const options = lunarMonthOptionsForYear(value.year);
+  const selected = options.find((option) => option.value === lunarMonthValue(value))
+    ?? options.find((option) => option.month === value.month && !option.leapMonth)
+    ?? options[0];
+  if (!selected) return value;
+  return {
+    ...value,
+    month: selected.month,
+    leapMonth: selected.leapMonth,
+    day: Math.min(value.day, selected.dayCount),
+  };
+}
 
 function daysInSolarMonth(year: number, month: number) {
   return new Date(year, month, 0).getDate();
@@ -247,9 +289,17 @@ export function LunarDateTimePicker({
   const [open, setOpen] = useState<"date" | "time" | null>(null);
   const [working, setWorking] = useState<LunarParts>(value);
   const close = useCallback(() => setOpen(null), []);
+  const monthOptions = useMemo(
+    () => lunarMonthOptionsForYear(working.year),
+    [working.year],
+  );
+  const selectedMonth = monthOptions.find(
+    (option) => option.value === lunarMonthValue(working),
+  ) ?? monthOptions[0];
+  const dayOptions = LUNAR_DAY_OPTIONS.slice(0, selectedMonth?.dayCount ?? 30);
 
   function openPicker(part: "date" | "time") {
-    setWorking(value);
+    setWorking(normalizeLunarParts(value));
     setOpen(part);
   }
 
@@ -257,10 +307,43 @@ export function LunarDateTimePicker({
     setWorking((current) => ({ ...current, [key]: Number(nextValue) }));
   }
 
+  function updateYear(nextValue: string) {
+    setWorking((current) => {
+      const year = Number(nextValue);
+      const options = lunarMonthOptionsForYear(year);
+      const selected = options.find((option) => option.value === lunarMonthValue(current))
+        ?? options.find((option) => option.month === current.month && !option.leapMonth)
+        ?? options[0];
+      if (!selected) return { ...current, year };
+      return {
+        ...current,
+        year,
+        month: selected.month,
+        leapMonth: selected.leapMonth,
+        day: Math.min(current.day, selected.dayCount),
+      };
+    });
+  }
+
+  function updateMonth(nextValue: string) {
+    setWorking((current) => {
+      const selected = lunarMonthOptionsForYear(current.year).find(
+        (option) => option.value === nextValue,
+      );
+      if (!selected) return current;
+      return {
+        ...current,
+        month: selected.month,
+        leapMonth: selected.leapMonth,
+        day: Math.min(current.day, selected.dayCount),
+      };
+    });
+  }
+
   const dateColumns: WheelColumn[] = [
-    { id: "lunar-year", label: "年", value: String(working.year), options: YEAR_OPTIONS, onChange: (next) => updatePart("year", next) },
-    { id: "lunar-month", label: "月", value: String(working.month), options: LUNAR_MONTH_OPTIONS, onChange: (next) => updatePart("month", next) },
-    { id: "lunar-day", label: "日", value: String(working.day), options: LUNAR_DAY_OPTIONS, onChange: (next) => updatePart("day", next) },
+    { id: "lunar-year", label: "年", value: String(working.year), options: YEAR_OPTIONS, onChange: updateYear },
+    { id: "lunar-month", label: "月", value: lunarMonthValue(working), options: monthOptions, onChange: updateMonth },
+    { id: "lunar-day", label: "日", value: String(working.day), options: dayOptions, onChange: (next) => updatePart("day", next) },
   ];
   const timeColumns: WheelColumn[] = [
     { id: "lunar-hour", label: "时（时辰）", value: String(working.hour), options: LUNAR_HOUR_OPTIONS, onChange: (next) => updatePart("hour", next) },
@@ -292,29 +375,6 @@ export function LunarDateTimePicker({
           onChange(working);
           close();
         }}
-        extraContent={
-          <fieldset className="leap-month-control">
-            <legend>月份类型</legend>
-            <div>
-              <button
-                type="button"
-                className={!working.leapMonth ? "active" : ""}
-                aria-pressed={!working.leapMonth}
-                onClick={() => setWorking((current) => ({ ...current, leapMonth: false }))}
-              >
-                平月
-              </button>
-              <button
-                type="button"
-                className={working.leapMonth ? "active" : ""}
-                aria-pressed={working.leapMonth}
-                onClick={() => setWorking((current) => ({ ...current, leapMonth: true }))}
-              >
-                闰月
-              </button>
-            </div>
-          </fieldset>
-        }
       />
       <MobileWheelPicker
         open={open === "time"}

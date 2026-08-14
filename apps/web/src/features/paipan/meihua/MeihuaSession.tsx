@@ -19,8 +19,10 @@ function localDateTimeValue() {
 
 export interface MeihuaDraft {
   chartDateTime: string;
+  numberCount: 2 | 3;
   numberOne: string;
   numberTwo: string;
+  numberThree: string;
   includeHour: boolean;
   school: "digit_sum" | "raw_number";
   upperTrigram: number;
@@ -30,8 +32,10 @@ export interface MeihuaDraft {
 
 const initialDraft: MeihuaDraft = {
   chartDateTime: localDateTimeValue(),
+  numberCount: 2,
   numberOne: "",
   numberTwo: "",
+  numberThree: "",
   includeHour: false,
   school: "digit_sum",
   upperTrigram: 1,
@@ -49,7 +53,7 @@ interface MeihuaSessionValue {
 }
 
 const MeihuaSessionContext = createContext<MeihuaSessionValue | null>(null);
-const STORAGE_KEY = "guoxue.paipan.meihua_ref.v1";
+const STORAGE_KEY = "guoxue.paipan.meihua_ref.v2";
 
 export function MeihuaSessionProvider({ children }: { children: ReactNode }) {
   const [draft, setDraft] = useState(initialDraft);

@@ -19,8 +19,10 @@ const chart = {
     pillars: { year: "丙午", month: "丙申", day: "丁巳", hour: "辛亥" },
     voidBranches: "子丑",
     school: null,
+    numberCount: null,
     numberOne: null,
     numberTwo: null,
+    numberThree: null,
     includeHour: false,
   },
   upperTrigram: 2,
@@ -37,12 +39,12 @@ async function assertNoOverflow(page, label) {
 }
 
 async function mockResult(page) {
-  await page.addInitScript(({ key, value }) => window.sessionStorage.setItem(key, value), { key: "guoxue.paipan.meihua_ref.v1", value: paipanRef });
+  await page.addInitScript(({ key, value }) => window.sessionStorage.setItem(key, value), { key: "guoxue.paipan.meihua_ref.v2", value: paipanRef });
   await page.route("**/api/v1/paipan/meihua/context", (route) => route.fulfill({
     status: 200,
     contentType: "application/json",
     body: JSON.stringify({
-      schemaVersion: "guoxue.paipan.meihua.v1",
+      schemaVersion: "guoxue.paipan.meihua.v2",
       chartType: "meihua",
       paipan_ref: paipanRef,
       generatedAt: "2026-08-12T00:00:00.000Z",
