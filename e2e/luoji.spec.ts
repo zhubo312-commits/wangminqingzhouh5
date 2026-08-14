@@ -33,13 +33,33 @@ test("covers all three Luoji methods, the six-line result and context restore wi
   expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)).toBe(false);
 
   await page.getByRole("button", { name: /盘名起盘法/ }).click();
-  await expect(page.locator(".luoji-name-grid select")).toHaveCount(2);
+  await expect(page.locator(".luoji-hexagram-select")).toHaveCount(2);
+  await expect(page.getByRole("button", { name: "选择本卦，当前乾为天" })).toContainText("䷀");
+  await page.getByRole("button", { name: "选择本卦，当前乾为天" }).click();
+  await expect(page.getByRole("dialog", { name: "选择本卦" })).toBeVisible();
+  await expect(page.locator(".luoji-palace-picker button")).toHaveCount(8);
+  await expect(page.locator(".luoji-hexagram-options button")).toHaveCount(8);
+  await page.getByRole("button", { name: /兑宫/ }).click();
+  await page.getByRole("button", { name: /泽水困/ }).click();
+  await expect(page.getByRole("button", { name: "选择本卦，当前泽水困" })).toContainText("䷮");
   await page.getByRole("button", { name: /硬币背数法/ }).click();
-  await expect(page.getByPlaceholder("例如：312101")).toBeVisible();
+  const backsInput = page.getByLabel("六次硬币背数");
+  await expect(backsInput).toHaveAttribute("inputmode", "numeric");
+  await expect(backsInput).toHaveAttribute("autocomplete", "one-time-code");
+  await expect(page.locator(".luoji-code-boxes > span")).toHaveCount(6);
+  await backsInput.fill("312101");
+  await expect(page.locator(".luoji-code-boxes b")).toHaveText(["3", "1", "2", "1", "0", "1"]);
+  await page.getByRole("button", { name: "重新起盘" }).click();
+  await expect(backsInput).toHaveValue("");
   await page.getByRole("button", { name: /铜钱摇盘法/ }).click();
-  await expect(page.locator(".luoji-back-sequence > span")).toHaveCount(6);
-  for (let index = 0; index < 6; index += 1) await page.getByRole("button", { name: /摇一次铜钱/ }).click();
-  await expect(page.getByRole("button", { name: "六爻已完成" })).toBeDisabled();
+  await expect(page.locator(".luoji-back-sequence > button")).toHaveCount(6);
+  const tossButton = page.locator(".luoji-toss");
+  for (let index = 0; index < 6; index += 1) {
+    await tossButton.click();
+    if (index < 5) await expect(tossButton).toBeEnabled();
+  }
+  await expect(tossButton).toBeDisabled();
+  await expect(tossButton).toContainText("六爻已完成");
   await page.getByPlaceholder("填写想要研究的事项").fill("项目安排");
   await page.getByRole("button", { name: "立即排盘" }).click();
 
@@ -50,6 +70,13 @@ test("covers all three Luoji methods, the six-line result and context restore wi
   await expect(page.locator(".luoji-line-row")).toHaveCount(6);
   await expect(page.locator(".luoji-line-row.moving")).toHaveCount(2);
   await expect(page.getByText("伏 妻财 丙子")).toBeVisible();
+  await expect(page.locator(".luoji-line-side small")).toHaveCount(12);
+  await expect(page.locator(".luoji-line-side small").filter({ hasText: "父母" }).first()).toBeVisible();
+  await expect(page.locator(".luoji-line-side small").filter({ hasText: "兄弟" }).first()).toBeVisible();
+  await expect(page.locator(".luoji-line-side small").filter({ hasText: "子孙" }).first()).toBeVisible();
+  await expect(page.locator(".luoji-line-side small").filter({ hasText: "官鬼" }).first()).toBeVisible();
+  await expect(page.locator(".luoji-chart-title > div > b")).toHaveCount(2);
+  await expect(page.getByRole("button", { name: "重新起盘" })).toHaveAttribute("data-paipan-action", "restart");
   expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)).toBe(false);
 
   await page.reload();

@@ -266,15 +266,16 @@ test("opens the internal eleven-item chart menu without horizontal overflow", as
   await expect(navigation.locator(":scope > *")).toHaveCount(11);
   await expect(page.getByRole("link", { name: "生平子时" })).toHaveCount(1);
   await expect(page.getByRole("link", { name: "遁甲学" })).toHaveCount(1);
-  await expect(page.getByRole("link", { name: "决策学" })).toHaveCount(1);
+  await expect(page.getByRole("link", { name: "时家决策学" })).toHaveCount(1);
   await expect(page.getByRole("link", { name: "阴盘决策" })).toHaveCount(1);
   await expect(page.getByRole("link", { name: "梅花学" })).toHaveCount(1);
   await expect(page.getByRole("link", { name: "逻辑学" })).toHaveCount(1);
   await expect(page.getByRole("link", { name: "星像学" })).toHaveCount(1);
+  await expect(page.getByRole("link", { name: "姓名学" })).toHaveCount(1);
   await expect(page.getByRole("link", { name: "山向决策" })).toHaveCount(1);
   await expect(page.getByRole("link", { name: "数字规律" })).toHaveCount(1);
   await expect(page.getByRole("link", { name: "玄空飞星" })).toHaveCount(1);
-  await expect(navigation.locator('[aria-disabled="true"]')).toHaveCount(1);
+  await expect(navigation.locator('[aria-disabled="true"]')).toHaveCount(0);
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
@@ -429,5 +430,5 @@ test("supports all three birth modes and requires a four-pillar candidate choice
 test("shows a recoverable state after directly refreshing the result route", async ({ page }) => {
   await page.goto(appPath("/paipan/shengping-zishi/result"));
   await expect(page.getByText("本次排盘信息已失效")).toBeVisible();
-  await expect(page.getByRole("button", { name: "重新排盘" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "重新排盘" })).toHaveAttribute("data-paipan-action", "restart");
 });

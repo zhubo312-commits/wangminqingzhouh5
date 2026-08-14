@@ -2457,7 +2457,7 @@ export const MEIHUA_CLASSICS = [
   },
   {
     "key": "zhengen",
-    "name": " 雷山小过",
+    "name": "雷山小过",
     "judgment": "小过：亨，利贞，可小事，不可大事。飞鸟遗之音，不宜上宜下，大吉。",
     "tuan": "《彖》曰：小过，小者过而亨也。过以利贞，与时行也。柔得中，是以小事吉也。刚失位而不中，是以不可大事也。有飞鸟之象焉，飞鸟遗之音，不宜上宜下大吉，上逆而下顺也。",
     "image": "《象》曰：山上有雷，小过；君子以行过乎恭，丧过乎哀，用过乎俭。",
@@ -2580,4 +2580,3 @@ export const MEIHUA_CLASSICS = [
 export function findMeihuaClassic(key: string): MeihuaClassicHexagram | undefined {
   return MEIHUA_CLASSICS.find((item) => item.key === key);
 }
-

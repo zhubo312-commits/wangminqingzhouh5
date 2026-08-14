@@ -1,5 +1,6 @@
 package cn.bavor.guoxue.paipan.api;
 
+import cn.bavor.guoxue.paipan.engine.XingmingDataException;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,19 @@ public class ApiExceptionHandler {
         String message = exception instanceof IllegalArgumentException ? exception.getMessage() : "请求内容格式有误";
         return ResponseEntity.unprocessableEntity()
                 .body(new ErrorResponse("VALIDATION_ERROR", message, List.of()));
+    }
+
+    @ExceptionHandler(XingmingDataException.class)
+    ResponseEntity<ErrorResponse> xingmingData(XingmingDataException exception) {
+        if (exception.integrityFailure()) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorResponse("XINGMING_DATA_INTEGRITY_ERROR", "姓名学数据不完整", List.of()));
+        }
+        return ResponseEntity.unprocessableEntity()
+                .body(new ErrorResponse(
+                        "XINGMING_DATA_UNAVAILABLE",
+                        exception.getMessage(),
+                        List.of(new FieldError(exception.field(), exception.getMessage()))));
     }
 
     @ExceptionHandler(Exception.class)

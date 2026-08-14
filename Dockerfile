@@ -14,6 +14,7 @@ COPY package.json package-lock.json tsconfig.base.json ./
 COPY apps/web/package.json ./apps/web/package.json
 COPY apps/server/package.json ./apps/server/package.json
 COPY packages/contracts/package.json ./packages/contracts/package.json
+COPY packages/kangxi-dictionary/package.json ./packages/kangxi-dictionary/package.json
 RUN npm ci
 
 COPY apps ./apps

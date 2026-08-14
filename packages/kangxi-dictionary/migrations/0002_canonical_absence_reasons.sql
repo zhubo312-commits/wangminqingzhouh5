@@ -1,0 +1,3 @@
+ALTER TABLE canonical_profiles ADD COLUMN modern_strokes_absence_reason TEXT;
+ALTER TABLE canonical_profiles ADD COLUMN naming_strokes_absence_reason TEXT;
+ALTER TABLE canonical_profiles ADD COLUMN strict_kangxi_strokes_absence_reason TEXT;

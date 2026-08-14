@@ -1,0 +1,68 @@
+{
+  "generatedOn": "2026-08-13",
+  "generatedFile": {
+    "path": "services/paipan/src/main/resources/xingming-dictionary-data.sql",
+    "sha256": "3d6500fa77808ec6158116038235c99acdf9098644cc26b647cbe41d80742e0c",
+    "rows": 17197,
+    "aliases": 19667,
+    "masterRelease": "kangxi-cn-20260813.r3",
+    "masterManifestSha256": "eeed5732a50ec7b555e611ab1f3994c7d310ac2fa3ec7efe53b8098991cfd4fd"
+  },
+  "numerologyGeneratedFile": {
+    "path": "services/paipan/src/main/resources/xingming-numerology-data.sql",
+    "sha256": "d192b216fc74f309ff3267d317adc4a1935232b9a863a54176436091fe92fe28",
+    "yp81Rows": 81,
+    "sancaiRows": 125,
+    "generator": "tools/xingming-data/generate_numerology_seed.mjs"
+  },
+  "sources": [
+    {
+      "name": "authorized kangxizidian.cn master snapshot",
+      "release": "kangxi-cn-20260813.r3",
+      "manifestSha256": "eeed5732a50ec7b555e611ab1f3994c7d310ac2fa3ec7efe53b8098991cfd4fd",
+      "acceptedCharacters": 19648,
+      "pageSuccess": 86008,
+      "assetSuccess": 134907,
+      "provenance": "authorized archival crawl; raw, parsed and canonical layers retained locally"
+    },
+    {
+      "name": "opencc-js",
+      "version": "1.4.1",
+      "purpose": "deterministic simplified-to-traditional input normalization",
+      "license": "MIT AND Apache-2.0"
+    }
+  ],
+  "numerologySources": [
+    {
+      "name": "developer-provided yp_81 MySQL export",
+      "sha256": "20145ccb397dbb074e266a15b2891dda5fdbc39808ceb840308f2fb61e732e2e",
+      "provenance": "project-internal authorized backup",
+      "acceptedRows": 81,
+      "rejectedRows": [999]
+    },
+    {
+      "name": "developer-provided yp_sancai MySQL export",
+      "sha256": "b9332f5191f647e3038481d7ecfbfcd54bdbe75866ef9e3ef56ed167fe04ad54",
+      "provenance": "project-internal authorized backup",
+      "acceptedRows": 125
+    }
+  ],
+  "policy": {
+    "status": "official",
+    "scope": "17,197 canonical rows projected from 19,648 accepted U+4E00-U+9FFF master characters",
+    "runtimeStroke": "authorized kangxizidian.cn strict Kangxi stroke of the normalized character",
+    "kangxiStroke": "same strict Kangxi stroke retained explicitly in kx_bihua",
+    "normalization": "opencc-js@1.4.1 s2t per character, accepted target or website-confirmed relation only",
+    "namingElement": "authorized website structured element after conflict audit",
+    "longFormDefinitions": "imported with source section titles; naming details stored separately",
+    "numerology": "yp_81 1-81 and all 125 five-element triples imported; audited num=999 test row rejected"
+  },
+  "targetPolicy": {
+    "runtimeStroke": "authorized kangxizidian.cn strict_kangxi_strokes",
+    "kangxiStroke": "authorized kangxizidian.cn strict_kangxi_strokes",
+    "modernStroke": "reference-only; never used for name calculations or Kangxi stroke substitution",
+    "unihanKangxiProperties": "kKangXi and kIRGKangXi are page indexes only",
+    "missingStroke": "NULL plus absence_reason; block or exclude from official projection",
+    "projection": "generated only by packages/kangxi-dictionary project-chinese after master release"
+  }
+}

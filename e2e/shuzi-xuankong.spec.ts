@@ -54,8 +54,17 @@ test("completes the digital-pattern mobile flow", async ({ page }) => {
   await page.getByRole("button", { name: "开始排盘" }).click();
   await expect(page).toHaveURL(/\/paipan\/shuzi-guilv\/result$/);
   await expect(page.getByRole("heading", { name: "测试者的数字盘" })).toBeVisible();
+  await expect(page.getByRole("table", { name: "先天数" })).toBeVisible();
+  await expect(page.getByRole("table", { name: "后天数" })).toBeVisible();
   await expect(page.getByText("6-12/12-6")).toBeVisible();
   await expect(page.getByText("出现 2 次")).toBeVisible();
+  await expect(page.getByText("先天与后天均命中该组合，已合并展示。")).toBeVisible();
+  await expect(page.getByText("数字组合", { exact: true })).toBeVisible();
+  await expect(page.getByText("特殊数组", { exact: true })).toBeVisible();
+  await expect(page.getByText("出现位置", { exact: true })).toBeVisible();
+  await expect(page.getByText("结果解读", { exact: true })).toBeVisible();
+  await expect(page.getByLabel(/^五行 /).locator("svg")).toHaveCount(8);
+  await expect(page.getByRole("button", { name: "重新排盘" })).toHaveAttribute("data-paipan-action", "restart");
   await noOverflow(page);
 });
 
@@ -65,8 +74,22 @@ test("completes the flying-star mobile flow and opens a palace", async ({ page }
   await page.getByRole("button", { name: "开始飞星排盘" }).click();
   await expect(page).toHaveURL(/\/paipan\/xuankong-feixing\/result$/);
   await expect(page.getByRole("heading", { name: "子山午向" })).toBeVisible();
-  await page.locator(".xuankong-palace").filter({ hasText: "坎1" }).click();
+  const board = page.getByLabel("子山午向九宫飞星盘");
+  await expect(board.locator(".xuankong-ring-label")).toHaveText(["子山", "艮", "震", "巽", "午向", "坤", "兑", "乾"]);
+  await expect(board.locator(".xuankong-palace")).toHaveCount(9);
+  await expect(board.locator(".xuankong-palace-temporal-labels small")).toHaveCount(36);
+  await expect(board.locator(".xuankong-palace-temporal-values b")).toHaveCount(36);
+  await page.getByRole("button", { name: /坎1宫/ }).click();
   await expect(page.getByText("坎1宫")).toBeVisible();
+  await expect.poll(() => page.evaluate(() => {
+    const detail = document.querySelector(".xuankong-palace-detail");
+    if (!detail) return false;
+    const rect = detail.getBoundingClientRect();
+    return rect.top >= 0 && rect.top < window.innerHeight;
+  })).toBe(true);
   await expect(page.getByRole("heading", { name: "年月日时飞星" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "年飞星" })).toBeVisible();
+  await expect(page.getByLabel("年飞星九宫顺序").getByText("九紫")).toBeVisible();
+  await expect(page.getByRole("button", { name: "按新时间重排" })).toHaveAttribute("data-paipan-action", "restart");
   await noOverflow(page);
 });

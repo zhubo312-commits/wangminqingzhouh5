@@ -1,11 +1,7 @@
 import type { JueceChartRequest, JuecePalace } from "@guoxue/contracts";
 import {
-  ArrowClockwise,
-  ArrowsOut,
   CalendarDots,
   CaretDown,
-  CaretLeft,
-  CaretRight,
   CompassRose,
   Horse,
   SealCheck,
@@ -16,6 +12,7 @@ import { Fragment, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PageHeader } from "../../../components/PageHeader";
 import { InfoGrid, InfoPair } from "../../../components/paipan/InfoGrid";
+import { PaipanActionButton } from "../../../components/paipan/PaipanActionButton";
 import { PaipanEmptyState } from "../../../components/paipan/PaipanEmptyState";
 import { PaipanPageShell } from "../../../components/paipan/PaipanPageShell";
 import { PaipanSectionCard } from "../../../components/paipan/PaipanSectionCard";
@@ -196,8 +193,8 @@ export function JueceResultPage() {
   if (isRestoring) {
     return (
       <PaipanPageShell pageClassName="result-page juece-result-page">
-        <PageHeader title="决策盘" backTo="/paipan/juece" backLabel="返回决策学表单" />
-        <PaipanEmptyState icon={<CalendarDots size={46} weight="light" aria-hidden="true" />} title="正在恢复决策盘" />
+        <PageHeader title="时家决策盘" backTo="/paipan/juece" backLabel="返回时家决策学表单" />
+        <PaipanEmptyState icon={<CalendarDots size={46} weight="light" aria-hidden="true" />} title="正在恢复时家决策盘" />
       </PaipanPageShell>
     );
   }
@@ -205,12 +202,12 @@ export function JueceResultPage() {
   if (!chart || !chartRequest) {
     return (
       <PaipanPageShell pageClassName="result-page juece-result-page">
-        <PageHeader title="决策盘" backTo="/paipan/juece" backLabel="返回决策学表单" />
+        <PageHeader title="时家决策盘" backTo="/paipan/juece" backLabel="返回时家决策学表单" />
         <PaipanEmptyState
           icon={<CalendarDots size={46} weight="light" aria-hidden="true" />}
-          title="本次决策盘已失效"
+          title="本次时家决策盘已失效"
           description="排盘引用不存在或已过期，请按原条件重新起盘。"
-          action={<button type="button" onClick={() => navigate("/paipan/juece")}>重新排盘</button>}
+          action={<PaipanActionButton variant="restart" onClick={() => navigate("/paipan/juece")}>重新排盘</PaipanActionButton>}
         />
       </PaipanPageShell>
     );
@@ -225,7 +222,7 @@ export function JueceResultPage() {
   );
   return (
     <PaipanPageShell pageClassName="result-page juece-result-page">
-      <PageHeader title="决策盘" backTo="/paipan/juece" backLabel="返回决策学表单" />
+      <PageHeader title="时家决策盘" backTo="/paipan/juece" backLabel="返回时家决策学表单" />
 
       <PaipanSectionCard className="juece-overview-card" labelledBy="juece-overview-heading">
         <div className="juece-result-hero">
@@ -259,14 +256,14 @@ export function JueceResultPage() {
           )}
         </div>
         <div className="juece-hour-switch" aria-label="时辰切换">
-          <button type="button" disabled={switching} onClick={() => void switchHour(-2)}><CaretLeft size={18} weight="bold" aria-hidden="true" /><span>上一时辰</span></button>
+          <PaipanActionButton variant="navigate" direction="previous" busy={switching} onClick={() => void switchHour(-2)}><span>上一时辰</span></PaipanActionButton>
           <span aria-live="polite">{switching ? "正在重新起盘…" : chartRequest.chartDateTime}</span>
-          <button type="button" disabled={switching} onClick={() => void switchHour(2)}><span>下一时辰</span><CaretRight size={18} weight="bold" aria-hidden="true" /></button>
+          <PaipanActionButton variant="navigate" direction="next" busy={switching} onClick={() => void switchHour(2)}><span>下一时辰</span></PaipanActionButton>
         </div>
         {switchError && (
           <div className="inline-error juece-switch-error" role="alert">
             <span>{switchError}，当前盘未改变。</span>
-            {retryDelta && <button type="button" disabled={switching} onClick={() => void switchHour(retryDelta)}><ArrowClockwise size={17} aria-hidden="true" />重试</button>}
+            {retryDelta && <PaipanActionButton variant="retry" busy={switching} onClick={() => void switchHour(retryDelta)}>重试</PaipanActionButton>}
           </div>
         )}
       </PaipanSectionCard>
@@ -274,7 +271,7 @@ export function JueceResultPage() {
       <PaipanSectionCard className="juece-chart-card" labelledBy="juece-chart-heading">
         <h2 className="result-section-title" id="juece-chart-heading"><span>01</span>九宫主盘</h2>
         <p className="dunjia-chart-hint">点击宫位，在当前行下方查看结构详情</p>
-        <div className="juece-nine-grid" role="group" aria-label="决策九宫盘">
+        <div className="juece-nine-grid" role="group" aria-label="时家决策九宫盘">
           {palaceRows.map((row, rowIndex) => {
             const selected = row.find((palace) => palace.index === selectedPalaceIndex);
             return (
@@ -293,8 +290,8 @@ export function JueceResultPage() {
           })}
         </div>
         <div className="juece-chart-actions">
-          <button type="button" onClick={() => setZoomed(true)}><ArrowsOut size={19} weight="bold" aria-hidden="true" />放大查看</button>
-          <button type="button" onClick={() => navigate("/paipan/juece")}><ArrowClockwise size={19} weight="bold" aria-hidden="true" />重新排盘</button>
+          <PaipanActionButton variant="zoom" onClick={() => setZoomed(true)}>放大查看</PaipanActionButton>
+          <PaipanActionButton variant="restart" onClick={() => navigate("/paipan/juece")}>重新排盘</PaipanActionButton>
         </div>
       </PaipanSectionCard>
 
@@ -345,7 +342,7 @@ export function JueceResultPage() {
             <div className="juece-zoom-heading"><div><small>{overview.method}</small><h2 id="juece-zoom-heading">九宫主盘放大图</h2></div><button type="button" aria-label="关闭放大查看" onClick={() => setZoomed(false)}><X size={23} weight="bold" aria-hidden="true" /></button></div>
             <p>横向滑动查看完整盘面；点击宫位可返回查看该宫详情。</p>
             <div className="juece-zoom-scroll">
-              <div className="juece-nine-grid juece-nine-grid-zoomed" role="group" aria-label="放大的决策九宫盘">
+              <div className="juece-nine-grid juece-nine-grid-zoomed" role="group" aria-label="放大的时家决策九宫盘">
                 {orderedPalaces.map((palace) => (
                   <PalaceCell key={`zoom-${palace.index}`} palace={palace} selected={false} onSelect={() => { setSelectedPalaceIndex(palace.index); setZoomed(false); }} />
                 ))}

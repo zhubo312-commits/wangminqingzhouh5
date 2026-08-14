@@ -40,6 +40,10 @@ import {
   type XuankongFeixingChartResponse,
   type XuankongFeixingChartWithReference,
   type XuankongFeixingContextResponse,
+  type XingmingChartRequest,
+  type XingmingChartResponse,
+  type XingmingChartWithReference,
+  type XingmingContextResponse,
 } from "@guoxue/contracts";
 import { GoneAppError, NotFoundAppError } from "../shared/errors/app-error.js";
 import { PaipanContextRepository } from "./paipan-context.repository.js";
@@ -197,6 +201,14 @@ export class PaipanContextService {
     return this.createRegistered("xuankongFeixing", chartRequest, chart, now) as XuankongFeixingChartWithReference;
   }
 
+  createXingming(
+    chartRequest: XingmingChartRequest,
+    chart: XingmingChartResponse,
+    now = new Date(),
+  ): XingmingChartWithReference {
+    return this.createRegistered("xingming", chartRequest, chart, now) as XingmingChartWithReference;
+  }
+
   resolve(paipanRef: string, now = new Date()): PaipanContextResponse {
     return this.resolveRegistered("bazi", paipanRef, now) as PaipanContextResponse;
   }
@@ -235,5 +247,9 @@ export class PaipanContextService {
 
   resolveXuankongFeixing(paipanRef: string, now = new Date()): XuankongFeixingContextResponse {
     return this.resolveRegistered("xuankongFeixing", paipanRef, now) as XuankongFeixingContextResponse;
+  }
+
+  resolveXingming(paipanRef: string, now = new Date()): XingmingContextResponse {
+    return this.resolveRegistered("xingming", paipanRef, now) as XingmingContextResponse;
   }
 }

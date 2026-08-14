@@ -18,6 +18,8 @@ import {
   ShuziGuilvContextResponseSchema,
   XuankongFeixingChartWithReferenceSchema,
   XuankongFeixingContextResponseSchema,
+  XingmingChartWithReferenceSchema,
+  XingmingContextResponseSchema,
   FlowMonthsResponseSchema,
   HomeResponseSchema,
   PaipanContextResponseSchema,
@@ -52,6 +54,9 @@ import {
   type XuankongFeixingChartRequest,
   type XuankongFeixingChartWithReference,
   type XuankongFeixingContextResponse,
+  type XingmingChartRequest,
+  type XingmingChartWithReference,
+  type XingmingContextResponse,
   type FlowMonthsRequest,
   type FlowMonthsResponse,
   type PaipanAreaNode,
@@ -347,6 +352,28 @@ export function fetchXuankongFeixingContext(
   signal?: AbortSignal,
 ): Promise<XuankongFeixingContextResponse> {
   return requestJson("/api/v1/paipan/xuankong-feixing/context", XuankongFeixingContextResponseSchema, {
+    method: "POST",
+    body: JSON.stringify({ paipan_ref: paipanRef }),
+    ...(signal ? { signal } : {}),
+  });
+}
+
+export function createXingmingChart(
+  request: XingmingChartRequest,
+  signal?: AbortSignal,
+): Promise<XingmingChartWithReference> {
+  return requestJson("/api/v1/paipan/xingming/chart", XingmingChartWithReferenceSchema, {
+    method: "POST",
+    body: JSON.stringify(request),
+    ...(signal ? { signal } : {}),
+  });
+}
+
+export function fetchXingmingContext(
+  paipanRef: string,
+  signal?: AbortSignal,
+): Promise<XingmingContextResponse> {
+  return requestJson("/api/v1/paipan/xingming/context", XingmingContextResponseSchema, {
     method: "POST",
     body: JSON.stringify({ paipan_ref: paipanRef }),
     ...(signal ? { signal } : {}),

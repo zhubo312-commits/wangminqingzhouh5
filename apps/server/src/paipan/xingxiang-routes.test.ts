@@ -16,15 +16,18 @@ const branches = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申",
 const names = ["交友", "迁移", "疾厄", "财帛", "子女", "夫妻", "兄弟", "命宫", "父母", "福德", "田宅", "官禄"] as const;
 const dynamicNames = branches.map((branch, index) => ({ branch, name: names[index]! }));
 const transformations = [
-  { transformation: "禄", star: "巨门" },
-  { transformation: "权", star: "太阳" },
-  { transformation: "科", star: "文曲" },
-  { transformation: "忌", star: "文昌" },
+  { transformation: "禄", star: "巨门", targetBranch: "巳" },
+  { transformation: "权", star: "太阳", targetBranch: "亥" },
+  { transformation: "科", star: "文曲", targetBranch: "戌" },
+  { transformation: "忌", star: "文昌", targetBranch: "辰" },
 ] as const;
-const annuals = Array.from({ length: 10 }, (_, index) => ({ age: 5 + index, year: 1993 + index, ganZhi: "癸酉", palaceNames: dynamicNames, transformations }));
+const monthNames = ["正月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "冬月", "腊月"] as const;
+const monthGanZhi = ["甲寅", "乙卯", "丙辰", "丁巳", "戊午", "己未", "庚申", "辛酉", "壬戌", "癸亥", "甲子", "乙丑"] as const;
+const months = branches.map((palaceBranch, index) => ({ monthNumber: index + 1, monthName: monthNames[index]!, ganZhi: monthGanZhi[index]!, palaceBranch }));
+const annuals = Array.from({ length: 10 }, (_, index) => ({ age: 5 + index, year: 1993 + index, ganZhi: "癸酉", palaceNames: dynamicNames, transformations, months }));
 const chart = {
   profile: { name: "测试", gender: "male", genderLabel: "男", yinYangGender: "阴男", solarDateTime: "1990-01-01 12:00", lunarDate: "一九八九年腊月初五日午时", fiveElementsBureau: "土五局", pillars: { year: "己巳", month: "丙子", day: "丙寅", hour: "甲午" } },
-  palaces: branches.map((branch, index) => ({ branch, name: names[index]!, heavenlyStem: "丙", bodyPalace: branch === "未", zodiacPalace: branch === "巳", originPalace: branch === "巳", stars: index === 0 ? [{ name: "破军", category: "major", brightness: "庙", natalTransformation: null }] : [], selfTransformations: index === 0 ? [{ transformation: "忌", star: "廉贞", inward: false }] : [] })),
+  palaces: branches.map((branch, index) => ({ branch, name: names[index]!, heavenlyStem: "丙", bodyPalace: branch === "未", zodiacPalace: branch === "巳", originPalace: branch === "巳", stars: index === 0 ? [{ name: "破军", category: "major", brightness: "庙", natalTransformation: null }] : [], flyingTransformations: transformations, selfTransformations: index === 0 ? [{ transformation: "忌", star: "廉贞", targetBranch: "午", inward: false, direction: "inward" }] : [] })),
   periods: Array.from({ length: 12 }, (_, index) => ({ ganZhi: "辛未", startAge: 5 + index * 10, endAge: 14 + index * 10, startYear: 1993 + index * 10, endYear: 2002 + index * 10, palaceNames: dynamicNames, transformations, annuals })),
 };
 
@@ -44,12 +47,21 @@ describe("Xingxiang public routes", () => {
     const response = await app.inject({ method: "POST", url: "/api/v1/paipan/xingxiang/chart", payload: request });
     expect(response.statusCode, response.body).toBe(200);
     const created = XingxiangChartWithReferenceSchema.parse(response.json());
-    expect(database.raw.prepare("SELECT reference_hash, chart_type, schema_version FROM paipan_contexts").get()).toEqual({ reference_hash: hashPaipanReference(created.paipan_ref), chart_type: "xingxiang", schema_version: "guoxue.paipan.xingxiang.v1" });
+    expect(database.raw.prepare("SELECT reference_hash, chart_type, schema_version FROM paipan_contexts").get()).toEqual({ reference_hash: hashPaipanReference(created.paipan_ref), chart_type: "xingxiang", schema_version: "guoxue.paipan.xingxiang.v2" });
     const restoredResponse = await app.inject({ method: "POST", url: "/api/v1/paipan/xingxiang/context", payload: { paipan_ref: created.paipan_ref } });
     expect(restoredResponse.statusCode).toBe(200);
     const restored = XingxiangContextResponseSchema.parse(restoredResponse.json());
     expect(restored.chartRequest).toEqual(request);
     expect(restored.chart.profile.fiveElementsBureau).toBe("土五局");
+
+    database.raw.prepare("UPDATE paipan_contexts SET schema_version = ? WHERE reference_hash = ?")
+      .run("guoxue.paipan.xingxiang.v1", hashPaipanReference(created.paipan_ref));
+    const staleResponse = await app.inject({ method: "POST", url: "/api/v1/paipan/xingxiang/context", payload: { paipan_ref: created.paipan_ref } });
+    expect(staleResponse.statusCode).toBe(404);
+    expect(staleResponse.json()).toMatchObject({
+      status: 404,
+      type: "https://guoxue.local/errors/paipan_context_not_found",
+    });
   });
 
   it("rejects invalid gender before Java", async () => {

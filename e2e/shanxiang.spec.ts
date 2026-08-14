@@ -72,7 +72,7 @@ test.beforeEach(async ({ page }) => {
   }));
 });
 
-test("completes, switches and restores the three-panel Shanxiang chart", async ({ page }) => {
+test("completes, displays and restores the three-panel Shanxiang chart", async ({ page }) => {
   await page.goto(appPath("/paipan/shanxiang-juece"));
   await expect(page.getByRole("heading", { name: "山向条件" })).toBeVisible();
   await page.getByLabel("排盘年份").fill("2026");
@@ -82,23 +82,28 @@ test("completes, switches and restores the three-panel Shanxiang chart", async (
 
   await page.getByRole("button", { name: "开始山向排盘" }).click();
   await expect(page).toHaveURL(/\/paipan\/shanxiang-juece\/result$/);
-  await expect(page.getByRole("heading", { name: "丁山癸向" })).toBeVisible();
-  await expect(page.getByRole("tab")).toHaveCount(3);
-  await expect(page.locator(".shanxiang-palace")).toHaveCount(9);
+  await expect(page.getByRole("heading", { name: "丁山癸向" })).toHaveCount(3);
+  await expect(page.getByRole("tab")).toHaveCount(0);
+  await expect(page.locator(".shanxiang-panel-card")).toHaveCount(3);
+  await expect(page.locator(".shanxiang-palace")).toHaveCount(27);
   await expect(page.locator(".interpretation-entry")).toHaveCount(0);
   expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)).toBe(false);
 
-  await page.getByRole("tab", { name: /5°/ }).click();
-  await expect(page.getByRole("tab", { name: /5°/ })).toHaveAttribute("aria-selected", "true");
-  await page.locator(".shanxiang-palace").filter({ hasText: "坎1" }).click();
-  await expect(page.getByText("生 · 迫")).toBeVisible();
+  const secondPanel = page.locator(".shanxiang-panel-card").nth(1);
+  await expect(secondPanel.getByText(/5° · 5~9/)).toBeVisible();
+  await secondPanel.locator(".shanxiang-palace").filter({ hasText: "坎1" }).click();
+  await expect(secondPanel.getByText("生 · 迫")).toBeVisible();
 
-  await page.getByRole("button", { name: "放大查看" }).click();
+  await expect(page.getByRole("button", { name: "放大查看" })).toHaveCount(3);
+  await expect(page.getByRole("button", { name: "放大查看" }).nth(1)).toHaveAttribute("data-paipan-action", "zoom");
+  await expect(page.getByRole("button", { name: "重新排盘" })).toHaveAttribute("data-paipan-action", "restart");
+  await page.getByRole("button", { name: "放大查看" }).nth(1).click();
   await expect(page.getByRole("dialog")).toBeVisible();
+  await expect(page.getByRole("dialog").getByText(/5° · 5~9/)).toBeVisible();
   await page.getByRole("button", { name: "关闭放大查看" }).click();
 
   await page.reload();
-  await expect(page.getByRole("heading", { name: "丁山癸向" })).toBeVisible();
-  await expect(page.locator(".shanxiang-palace")).toHaveCount(9);
+  await expect(page.getByRole("heading", { name: "丁山癸向" })).toHaveCount(3);
+  await expect(page.locator(".shanxiang-palace")).toHaveCount(27);
   expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)).toBe(false);
 });

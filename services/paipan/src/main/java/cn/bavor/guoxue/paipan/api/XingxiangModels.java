@@ -35,7 +35,14 @@ public final class XingxiangModels {
     public record SelfTransformation(
             String transformation,
             String star,
-            boolean inward) {}
+            boolean inward,
+            String direction,
+            String targetBranch) {}
+
+    public record Transformation(
+            String transformation,
+            String star,
+            String targetBranch) {}
 
     public record Palace(
             String branch,
@@ -45,18 +52,24 @@ public final class XingxiangModels {
             boolean zodiacPalace,
             boolean originPalace,
             List<Star> stars,
+            List<Transformation> flyingTransformations,
             List<SelfTransformation> selfTransformations) {}
 
     public record PalaceName(String branch, String name) {}
 
-    public record Transformation(String transformation, String star) {}
+    public record FlowMonth(
+            int monthNumber,
+            String monthName,
+            String ganZhi,
+            String palaceBranch) {}
 
     public record Annual(
             int age,
             int year,
             String ganZhi,
             List<PalaceName> palaceNames,
-            List<Transformation> transformations) {}
+            List<Transformation> transformations,
+            List<FlowMonth> months) {}
 
     public record Period(
             String ganZhi,

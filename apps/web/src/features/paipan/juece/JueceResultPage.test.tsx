@@ -103,7 +103,7 @@ describe("JueceResultPage", () => {
       <MemoryRouter initialEntries={["/paipan/juece/result"]}>
         <Routes>
           <Route path="/paipan/juece/result" element={<JueceResultPage />} />
-          <Route path="/paipan/juece" element={<div>决策学表单页</div>} />
+          <Route path="/paipan/juece" element={<div>时家决策学表单页</div>} />
         </Routes>
       </MemoryRouter>,
     );
@@ -126,6 +126,6 @@ describe("JueceResultPage", () => {
     expect(screen.queryByRole("dialog", { name: "九宫主盘放大图" })).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "重新排盘" }));
-    expect(screen.getByText("决策学表单页")).toBeVisible();
+    expect(screen.getByText("时家决策学表单页")).toBeVisible();
   });
 });

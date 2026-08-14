@@ -123,6 +123,16 @@ test("completes and restores the Dunjia chart without horizontal overflow", asyn
   await expect(page.locator(".dunjia-term-grid .info-pair").filter({ hasText: "立秋" })).toBeVisible();
   await expect(page.locator(".interpretation-entry")).toHaveCount(0);
   await expect(page.locator(".dunjia-palace")).toHaveCount(9);
+  const pillarDayStemMarker = page.locator('[data-day-stem-location="pillar"]');
+  await expect(pillarDayStemMarker).toHaveText("丁");
+  await expect(pillarDayStemMarker).toHaveCSS("color", "rgb(178, 77, 52)");
+  await expect(pillarDayStemMarker).toHaveCSS("border-top-color", "rgb(178, 77, 52)");
+  await expect(page.locator('[data-day-stem-location="heaven"]')).toHaveCount(1);
+  const dayStemPalace = page.locator(".dunjia-palace").filter({ hasText: "巽4" });
+  await expect(dayStemPalace.locator('[data-day-stem-location="heaven"]')).toHaveText("丁");
+  const matchingEarthOnlyPalace = page.locator(".dunjia-palace").filter({ hasText: "乾6" });
+  await expect(matchingEarthOnlyPalace).toContainText("地丁");
+  await expect(matchingEarthOnlyPalace.locator(".dunjia-day-stem-marker")).toHaveCount(0);
   expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)).toBe(false);
 
   const palaceEight = page.locator(".dunjia-palace").filter({ hasText: "艮8" });

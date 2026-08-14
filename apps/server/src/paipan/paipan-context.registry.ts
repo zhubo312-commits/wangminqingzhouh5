@@ -29,6 +29,9 @@ import {
   XuankongFeixingChartRequestSchema,
   XuankongFeixingChartResponseSchema,
   XuankongFeixingContextResponseSchema,
+  XingmingChartRequestSchema,
+  XingmingChartResponseSchema,
+  XingmingContextResponseSchema,
 } from "@guoxue/contracts";
 import type { z } from "zod";
 
@@ -100,7 +103,7 @@ export const paipanContextRegistry = {
   }),
   xingxiang: definePaipanContext({
     chartType: "xingxiang",
-    schemaVersion: "guoxue.paipan.xingxiang.v1",
+    schemaVersion: "guoxue.paipan.xingxiang.v2",
     requestSchema: XingxiangChartRequestSchema,
     chartSchema: XingxiangChartResponseSchema,
     contextSchema: XingxiangContextResponseSchema,
@@ -118,6 +121,13 @@ export const paipanContextRegistry = {
     requestSchema: XuankongFeixingChartRequestSchema,
     chartSchema: XuankongFeixingChartResponseSchema,
     contextSchema: XuankongFeixingContextResponseSchema,
+  }),
+  xingming: definePaipanContext({
+    chartType: "xingming",
+    schemaVersion: "guoxue.paipan.xingming.v2",
+    requestSchema: XingmingChartRequestSchema,
+    chartSchema: XingmingChartResponseSchema,
+    contextSchema: XingmingContextResponseSchema,
   }),
 } as const;
 

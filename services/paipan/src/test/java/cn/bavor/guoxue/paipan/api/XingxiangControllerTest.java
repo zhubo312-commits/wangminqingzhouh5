@@ -33,8 +33,10 @@ class XingxiangControllerTest {
                 .andExpect(jsonPath("$.profile.fiveElementsBureau").value("土五局"))
                 .andExpect(jsonPath("$.profile.pillars.year").value("己巳"))
                 .andExpect(jsonPath("$.palaces.length()").value(12))
+                .andExpect(jsonPath("$.palaces[0].flyingTransformations.length()").value(4))
                 .andExpect(jsonPath("$.periods.length()").value(12))
-                .andExpect(jsonPath("$.periods[0].annuals.length()").value(10));
+                .andExpect(jsonPath("$.periods[0].annuals.length()").value(10))
+                .andExpect(jsonPath("$.periods[0].annuals[0].months.length()").value(12));
     }
 
     @Test

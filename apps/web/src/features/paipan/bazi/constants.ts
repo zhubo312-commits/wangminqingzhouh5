@@ -4,11 +4,3 @@ const BRANCHES = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申",
 export const JIA_ZI = Array.from({ length: 60 }, (_, index) =>
   `${STEMS[index % STEMS.length]}${BRANCHES[index % BRANCHES.length]}`,
 );
-
-export const ELEMENT_CLASS: Record<string, string> = {
-  木: "element-wood",
-  火: "element-fire",
-  土: "element-earth",
-  金: "element-metal",
-  水: "element-water",
-};

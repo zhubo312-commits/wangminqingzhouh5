@@ -32,6 +32,9 @@ public class XingxiangEngine {
             "命宫", "兄弟", "夫妻", "子女", "财帛", "疾厄",
             "迁移", "交友", "官禄", "田宅", "福德", "父母");
     private static final List<String> TRANSFORMATIONS = List.of("禄", "权", "科", "忌");
+    private static final List<String> MONTH_NAMES = List.of(
+            "正月", "二月", "三月", "四月", "五月", "六月",
+            "七月", "八月", "九月", "十月", "冬月", "腊月");
     private static final Map<Character, List<String>> MUTAGENS = Map.ofEntries(
             Map.entry('甲', List.of("廉贞", "破军", "武曲", "太阳")),
             Map.entry('乙', List.of("天机", "天梁", "紫微", "太阴")),
@@ -61,6 +64,9 @@ public class XingxiangEngine {
         Lunar lunar = solar.getLunar();
         int timeIndex = timeIndex(dateTime.getHour());
         int lunarMonthIndex = Math.abs(lunar.getMonth()) - 1;
+        int flowMonthBirthMonth = Math.abs(lunar.getMonth())
+                + (lunar.getMonth() < 0 && lunar.getDay() > 15 ? 1 : 0);
+        int birthHourBranchIndex = BRANCHES.indexOf(lunar.getTimeZhi());
         int yearStemIndex = STEMS.indexOf(lunar.getYearGan());
         int yearBranchIndex = BRANCHES.indexOf(lunar.getYearZhi());
         if (yearStemIndex < 0 || yearBranchIndex < 0) throw new IllegalStateException("无法识别出生年干支");
@@ -96,6 +102,7 @@ public class XingxiangEngine {
                     false,
                     !"子丑".contains(branch) && stem.charAt(0) == lunar.getYearGan().charAt(0),
                     palaceStars,
+                    transformations(stem.charAt(0), stars),
                     selfTransformations(index, palaceStemIndices[index], stars)));
         }
 
@@ -112,7 +119,8 @@ public class XingxiangEngine {
                         lunar.getDayInGanZhi(), lunar.getTimeInGanZhi()));
         return new ChartResponse(profile, List.copyOf(palaces), periods(
                 soulIndex, palaceStemIndices, bureau, lunar.getYear(),
-                request.gender(), yearBranchIndex));
+                request.gender(), yearBranchIndex, stars,
+                flowMonthBirthMonth, birthHourBranchIndex));
     }
 
     private void placeMajorStars(
@@ -204,9 +212,13 @@ public class XingxiangEngine {
         for (int index = 0; index < mutagens.size(); index++) {
             String star = mutagens.get(index);
             if (containsStar(stars.get(palaceIndex), star)) {
-                result.add(new SelfTransformation(TRANSFORMATIONS.get(index), star, true));
+                result.add(new SelfTransformation(
+                        TRANSFORMATIONS.get(index), star, true, "outward",
+                        String.valueOf(branchAtPalace(palaceIndex))));
             } else if (containsStar(stars.get(fix(palaceIndex + 6)), star)) {
-                result.add(new SelfTransformation(TRANSFORMATIONS.get(index), star, false));
+                result.add(new SelfTransformation(
+                        TRANSFORMATIONS.get(index), star, false, "inward",
+                        String.valueOf(branchAtPalace(fix(palaceIndex + 6)))));
             }
         }
         return List.copyOf(result);
@@ -218,7 +230,10 @@ public class XingxiangEngine {
             String bureau,
             int lunarYear,
             String gender,
-            int yearBranchIndex) {
+            int yearBranchIndex,
+            List<List<Star>> stars,
+            int flowMonthBirthMonth,
+            int birthHourBranchIndex) {
         int bureauNumber = bureauNumber(bureau);
         boolean forward = ("male".equals(gender) && yearBranchIndex % 2 == 0)
                 || ("female".equals(gender) && yearBranchIndex % 2 == 1);
@@ -239,7 +254,8 @@ public class XingxiangEngine {
                         year,
                         yearGanZhi,
                         palaceNamesAt(annualBranch),
-                        transformations(yearGanZhi.charAt(0))));
+                        transformations(yearGanZhi.charAt(0), stars),
+                        flowMonths(yearGanZhi, flowMonthBirthMonth, birthHourBranchIndex)));
             }
             result.add(new Period(
                     ganZhi,
@@ -248,7 +264,7 @@ public class XingxiangEngine {
                     startYear,
                     startYear + 9,
                     palaceNamesAt(branchIndex),
-                    transformations(ganZhi.charAt(0)),
+                    transformations(ganZhi.charAt(0), stars),
                     List.copyOf(annuals)));
         }
         return List.copyOf(result);
@@ -264,13 +280,52 @@ public class XingxiangEngine {
         return List.copyOf(result);
     }
 
-    private List<Transformation> transformations(char stem) {
+    private List<Transformation> transformations(char stem, List<List<Star>> stars) {
         List<String> names = MUTAGENS.get(stem);
         List<Transformation> result = new ArrayList<>(4);
         for (int index = 0; index < 4; index++) {
-            result.add(new Transformation(TRANSFORMATIONS.get(index), names.get(index)));
+            String star = names.get(index);
+            result.add(new Transformation(
+                    TRANSFORMATIONS.get(index), star, branchOfStar(stars, star)));
         }
         return List.copyOf(result);
+    }
+
+    private List<FlowMonth> flowMonths(
+            String yearGanZhi,
+            int birthLunarMonth,
+            int birthHourBranchIndex) {
+        int yearStemIndex = STEMS.indexOf(yearGanZhi.charAt(0));
+        int yearBranchIndex = BRANCHES.indexOf(yearGanZhi.charAt(1));
+        int tigerStem = switch (yearStemIndex % 5) {
+            case 0 -> 2;
+            case 1 -> 4;
+            case 2 -> 6;
+            case 3 -> 8;
+            default -> 0;
+        };
+        int firstMonthPalaceBranch = fix(
+                yearBranchIndex - birthLunarMonth + birthHourBranchIndex + 1);
+        List<FlowMonth> result = new ArrayList<>(12);
+        for (int index = 0; index < 12; index++) {
+            String ganZhi = "" + STEMS.charAt((tigerStem + index) % 10)
+                    + BRANCHES.charAt(fix(index + 2));
+            result.add(new FlowMonth(
+                    index + 1,
+                    MONTH_NAMES.get(index),
+                    ganZhi,
+                    String.valueOf(BRANCHES.charAt(fix(firstMonthPalaceBranch + index)))));
+        }
+        return List.copyOf(result);
+    }
+
+    private String branchOfStar(List<List<Star>> stars, String target) {
+        for (int palaceIndex = 0; palaceIndex < stars.size(); palaceIndex++) {
+            if (containsStar(stars.get(palaceIndex), target)) {
+                return String.valueOf(branchAtPalace(palaceIndex));
+            }
+        }
+        throw new IllegalStateException("四化目标星未入盘：" + target);
     }
 
     private void addStar(

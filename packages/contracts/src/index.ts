@@ -838,14 +838,17 @@ export const XingxiangStarSchema = z.object({
   natalTransformation: z.enum(["禄", "权", "科", "忌"]).nullish().transform((value) => value ?? null),
 });
 
+const XingxiangBranchSchema = z.enum(["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]);
+
 export const XingxiangPalaceNameSchema = z.object({
-  branch: z.enum(["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]),
+  branch: XingxiangBranchSchema,
   name: z.enum(["命宫", "兄弟", "夫妻", "子女", "财帛", "疾厄", "迁移", "交友", "官禄", "田宅", "福德", "父母"]),
 });
 
 const XingxiangTransformationSchema = z.object({
   transformation: z.enum(["禄", "权", "科", "忌"]),
   star: z.string().min(1),
+  targetBranch: XingxiangBranchSchema,
 });
 
 export const XingxiangPalaceSchema = XingxiangPalaceNameSchema.extend({
@@ -854,7 +857,18 @@ export const XingxiangPalaceSchema = XingxiangPalaceNameSchema.extend({
   zodiacPalace: z.boolean(),
   originPalace: z.boolean(),
   stars: z.array(XingxiangStarSchema),
-  selfTransformations: z.array(XingxiangTransformationSchema.extend({ inward: z.boolean() })),
+  flyingTransformations: z.array(XingxiangTransformationSchema).length(4),
+  selfTransformations: z.array(XingxiangTransformationSchema.extend({
+    inward: z.boolean(),
+    direction: z.enum(["outward", "inward"]),
+  })),
+});
+
+const XingxiangFlowMonthSchema = z.object({
+  monthNumber: z.number().int().min(1).max(12),
+  monthName: z.enum(["正月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "冬月", "腊月"]),
+  ganZhi: z.string().length(2),
+  palaceBranch: XingxiangBranchSchema,
 });
 
 const XingxiangAnnualSchema = z.object({
@@ -863,6 +877,7 @@ const XingxiangAnnualSchema = z.object({
   ganZhi: z.string().length(2),
   palaceNames: z.array(XingxiangPalaceNameSchema).length(12),
   transformations: z.array(XingxiangTransformationSchema).length(4),
+  months: z.array(XingxiangFlowMonthSchema).length(12),
 });
 
 const XingxiangPeriodSchema = z.object({
@@ -1010,7 +1025,7 @@ export const ShanxiangContextResponseSchema = z.object({
 });
 
 export const XingxiangContextResponseSchema = z.object({
-  schemaVersion: z.literal("guoxue.paipan.xingxiang.v1"),
+  schemaVersion: z.literal("guoxue.paipan.xingxiang.v2"),
   chartType: z.literal("xingxiang"),
   paipan_ref: PaipanReferenceSchema,
   generatedAt: z.iso.datetime(),
@@ -1037,6 +1052,141 @@ export const XuankongFeixingContextResponseSchema = z.object({
   expiresAt: z.iso.datetime(),
   chartRequest: XuankongFeixingChartRequestSchema,
   chart: XuankongFeixingChartResponseSchema,
+});
+
+const HanNameSchema = z.string().trim().regex(/^\p{Script=Han}+$/u);
+const HanCharacterSchema = z.string().regex(/^\p{Script=Han}$/u);
+
+export const XingmingChartRequestSchema = z
+  .object({
+    surname: HanNameSchema.min(1).max(2),
+    givenName: HanNameSchema.min(1).max(3),
+    school: z.enum(["wuge", "liuge"]),
+  })
+  .superRefine((value, context) => {
+    if (value.school === "liuge" && [...value.givenName].length > 2) {
+      context.addIssue({
+        code: "custom",
+        path: ["givenName"],
+        message: "六格仅支持一字名或两字名",
+      });
+    }
+  });
+
+export const XingmingDatasetSchema = z.object({
+  status: z.enum(["provisional", "official"]),
+  version: z.string().min(1),
+  dictionaryVersion: z.string().min(1),
+  numerologyVersion: z.string().min(1),
+});
+
+export const XingmingNumberInterpretationSchema = z.object({
+  number: z.number().int().min(1).max(81),
+  yinYang: z.string().nullish().transform((value) => value ?? null),
+  rating: z.string().min(1),
+  summary: z.string().nullish().transform((value) => value ?? null),
+  categories: z.string().nullish().transform((value) => value ?? null),
+  foundation: z.string().nullish().transform((value) => value ?? null),
+  family: z.string().nullish().transform((value) => value ?? null),
+  health: z.string().nullish().transform((value) => value ?? null),
+  meaning: z.string().nullish().transform((value) => value ?? null),
+  detail: z.string().nullish().transform((value) => value ?? null),
+});
+
+export const XingmingGridSchema = z.object({
+  key: z.enum(["heaven", "person", "earth", "outer", "total", "change"]),
+  label: z.enum(["天格", "人格", "地格", "外格", "总格", "变格"]),
+  number: z.number().int().positive(),
+  interpretationNumber: z.number().int().min(1).max(81),
+  element: z.enum(["金", "木", "水", "火", "土"]),
+  rating: z.string().min(1),
+  interpretation: XingmingNumberInterpretationSchema,
+});
+
+export const XingmingChartResponseSchema = z.object({
+  dataset: XingmingDatasetSchema,
+  school: z.enum(["wuge", "liuge"]),
+  name: z.object({
+    surname: z.string().min(1).max(2),
+    givenName: z.string().min(1).max(3),
+    fullName: z.string().min(2).max(5),
+  }),
+  characters: z.array(z.object({
+    input: HanCharacterSchema,
+    simplified: HanCharacterSchema,
+    traditional: HanCharacterSchema,
+    pinyin: z.string().min(1),
+    radical: z.string().nullish().transform((value) => value ?? null),
+    kangxiStrokes: z.number().int().positive(),
+    calculationStrokes: z.number().int().positive(),
+    element: z.enum(["金", "木", "水", "火", "土"]),
+    rating: z.string().nullish().transform((value) => value ?? null),
+    common: z.boolean().nullish().transform((value) => value ?? null),
+    nameUsageClass: z.string().nullish().transform((value) => value ?? null),
+    nameExplanation: z.string().nullish().transform((value) => value ?? null),
+    namingMeaning: z.string().nullish().transform((value) => value ?? null),
+    namingImplication: z.string().nullish().transform((value) => value ?? null),
+    taboos: z.string().nullish().transform((value) => value ?? null),
+    usageReference: z.object({
+      recommendationPercent: z.number().int().min(0).max(100).nullish().transform((value) => value ?? null),
+      culturePercent: z.number().int().min(0).max(100).nullish().transform((value) => value ?? null),
+      genderTendency: z.number().int().min(0).max(9).nullish().transform((value) => value ?? null),
+      usageCount: z.number().int().nonnegative().nullish().transform((value) => value ?? null),
+      firstCharacterPercent: z.number().int().min(0).max(100).nullish().transform((value) => value ?? null),
+      malePercent: z.number().int().min(0).max(100).nullish().transform((value) => value ?? null),
+      femalePercent: z.number().int().min(0).max(100).nullish().transform((value) => value ?? null),
+      sourceNote: z.string().min(1),
+    }),
+  })).min(2).max(5),
+  grids: z.array(XingmingGridSchema).min(5).max(6),
+  threeTalents: z.object({
+    title: z.string().length(3),
+    rating: z.string().min(1),
+    summary: z.string().nullish().transform((value) => value ?? null),
+    foundationLuck: z.string().nullish().transform((value) => value ?? null),
+    foundationRating: z.string().nullish().transform((value) => value ?? null),
+    successLuck: z.string().nullish().transform((value) => value ?? null),
+    successRating: z.string().nullish().transform((value) => value ?? null),
+    relationships: z.string().nullish().transform((value) => value ?? null),
+    relationshipsRating: z.string().nullish().transform((value) => value ?? null),
+    personality: z.string().nullish().transform((value) => value ?? null),
+    liugeSummary: z.string().nullish().transform((value) => value ?? null),
+    liugeRating: z.string().nullish().transform((value) => value ?? null),
+  }),
+  elementRelations: z.array(z.object({
+    from: z.string().min(1),
+    to: z.string().min(1),
+    relation: z.enum(["比和", "相生", "受生", "相克", "受克"]),
+    summary: z.string().min(1),
+  })).length(2),
+  score: z.number().int().min(0).max(100),
+  scoreBreakdown: z.object({
+    components: z.array(z.object({
+      key: z.enum(["heaven", "earth", "person", "threeTalents"]),
+      label: z.enum(["天格", "地格", "人格", "三才"]),
+      weightPercent: z.number().int().min(0).max(100),
+      rawScore: z.number().int().min(0).max(100),
+      contribution: z.number().int().min(0).max(100),
+    })).length(4),
+    total: z.number().int().min(0).max(100),
+    note: z.string().min(1),
+  }),
+  totalGridDescription: XingmingNumberInterpretationSchema,
+});
+
+export const XingmingChartWithReferenceSchema = XingmingChartResponseSchema.extend({
+  paipan_ref: PaipanReferenceSchema,
+  expiresAt: z.iso.datetime(),
+});
+
+export const XingmingContextResponseSchema = z.object({
+  schemaVersion: z.literal("guoxue.paipan.xingming.v2"),
+  chartType: z.literal("xingming"),
+  paipan_ref: PaipanReferenceSchema,
+  generatedAt: z.iso.datetime(),
+  expiresAt: z.iso.datetime(),
+  chartRequest: XingmingChartRequestSchema,
+  chart: XingmingChartResponseSchema,
 });
 
 export const FlowMonthsRequestSchema = z.object({
@@ -1124,6 +1274,8 @@ export type ShanxiangContextResponse = z.infer<typeof ShanxiangContextResponseSc
 export type XingxiangChartRequest = z.infer<typeof XingxiangChartRequestSchema>;
 export type XingxiangStar = z.infer<typeof XingxiangStarSchema>;
 export type XingxiangPalace = z.infer<typeof XingxiangPalaceSchema>;
+export type XingxiangTransformation = z.infer<typeof XingxiangTransformationSchema>;
+export type XingxiangFlowMonth = z.infer<typeof XingxiangFlowMonthSchema>;
 export type XingxiangChartResponse = z.infer<typeof XingxiangChartResponseSchema>;
 export type XingxiangChartWithReference = z.infer<typeof XingxiangChartWithReferenceSchema>;
 export type XingxiangContextResponse = z.infer<typeof XingxiangContextResponseSchema>;
@@ -1137,6 +1289,12 @@ export type XuankongFeixingPalace = z.infer<typeof XuankongFeixingPalaceSchema>;
 export type XuankongFeixingChartResponse = z.infer<typeof XuankongFeixingChartResponseSchema>;
 export type XuankongFeixingChartWithReference = z.infer<typeof XuankongFeixingChartWithReferenceSchema>;
 export type XuankongFeixingContextResponse = z.infer<typeof XuankongFeixingContextResponseSchema>;
+export type XingmingChartRequest = z.infer<typeof XingmingChartRequestSchema>;
+export type XingmingDataset = z.infer<typeof XingmingDatasetSchema>;
+export type XingmingGrid = z.infer<typeof XingmingGridSchema>;
+export type XingmingChartResponse = z.infer<typeof XingmingChartResponseSchema>;
+export type XingmingChartWithReference = z.infer<typeof XingmingChartWithReferenceSchema>;
+export type XingmingContextResponse = z.infer<typeof XingmingContextResponseSchema>;
 export type FlowMonthsRequest = z.infer<typeof FlowMonthsRequestSchema>;
 export type FlowMonthsResponse = z.infer<typeof FlowMonthsResponseSchema>;
 export type ShenShaRequest = z.infer<typeof ShenShaRequestSchema>;

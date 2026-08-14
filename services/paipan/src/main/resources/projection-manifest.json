@@ -1,0 +1,186 @@
+{
+  "releaseId": "kangxi-cn-20260813.r3",
+  "sourceManifestSha256": "eeed5732a50ec7b555e611ab1f3994c7d310ac2fa3ec7efe53b8098991cfd4fd",
+  "generatedAt": "2026-08-13T22:39:29.013Z",
+  "target": "services/paipan H2 MySQL mode",
+  "output": {
+    "file": "xingming-dictionary-data.sql",
+    "sha256": "3d6500fa77808ec6158116038235c99acdf9098644cc26b647cbe41d80742e0c",
+    "rows": 17197,
+    "aliases": 19667
+  },
+  "mapping": {
+    "zi/jtz": "accepted traditional glyph and preferred simplified form; aliases normalize input to traditional",
+    "py/pinyin": "canonical primary pinyin without/with tone marks",
+    "wubi/bushou": "canonical website code and radical",
+    "bihua": "strict Kangxi strokes of the normalized traditional glyph used by the naming calculation",
+    "kx_bihua": "same strict Kangxi stroke value, retained for explicit provenance and compatibility",
+    "wx/jx": "reviewed naming element and auspiciousness",
+    "jijie/xiangjie": "sanitized naming summary and titled dictionary sections",
+    "chinese_dictionary_profile": "optional naming explanations, audited taboos, and source-site usage statistics"
+  },
+  "previous": {
+    "path": "/Users/zhubo/开发文件/轻舟发现页/services/paipan/src/main/resources/xingming-dictionary-data.sql",
+    "sha256": "3d6500fa77808ec6158116038235c99acdf9098644cc26b647cbe41d80742e0c",
+    "changed": false
+  },
+  "reviewedConflicts": [],
+  "normalizationPolicy": "opencc-js@1.4.1 s2t per character; merge only into an accepted target or a relation confirmed by the authorized website",
+  "normalizationGaps": [
+    {
+      "input": "众",
+      "openccTarget": "衆",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "伪",
+      "openccTarget": "僞",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "准",
+      "openccTarget": "準",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "凛",
+      "openccTarget": "凜",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "凶",
+      "openccTarget": "兇",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "刾",
+      "openccTarget": "㓨",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "卺",
+      "openccTarget": "巹",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "厩",
+      "openccTarget": "廄",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "吁",
+      "openccTarget": "籲",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "后",
+      "openccTarget": "後",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "囱",
+      "openccTarget": "囪",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "岽",
+      "openccTarget": "崬",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "愿",
+      "openccTarget": "願",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "擜",
+      "openccTarget": "㩵",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "斗",
+      "openccTarget": "鬥",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "暅",
+      "openccTarget": "𣈶",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "橱",
+      "openccTarget": "櫥",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "游",
+      "openccTarget": "遊",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "滤",
+      "openccTarget": "濾",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "碱",
+      "openccTarget": "鹼",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "粤",
+      "openccTarget": "粵",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "羡",
+      "openccTarget": "羨",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "膻",
+      "openccTarget": "羶",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "艳",
+      "openccTarget": "豔",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "辞",
+      "openccTarget": "辭",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "锨",
+      "openccTarget": "鍁",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "颓",
+      "openccTarget": "頹",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "饮",
+      "openccTarget": "飲",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "馍",
+      "openccTarget": "饃",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "鳚",
+      "openccTarget": "䲁",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    },
+    {
+      "input": "鹮",
+      "openccTarget": "䴉",
+      "resolution": "kept_as_self_target_not_in_accepted_corpus"
+    }
+  ]
+}

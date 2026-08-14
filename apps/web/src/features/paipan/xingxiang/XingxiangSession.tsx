@@ -29,7 +29,7 @@ export function XingxiangSessionProvider({ children }: { children: ReactNode }) 
   const [chart, setChart] = useState<XingxiangChartResponse | null>(null);
   const [chartRequest, setChartRequest] = useState<XingxiangChartRequest | null>(null);
   const { isRestoring, rememberReference } = usePaipanSessionRestore({
-    storageKey: "guoxue.paipan.xingxiang_ref.v1",
+    storageKey: "guoxue.paipan.xingxiang_ref.v2",
     fetchContext: fetchXingxiangContext,
     onRestore(value) { setChart(value.chart); setChartRequest(value.chartRequest); },
   });

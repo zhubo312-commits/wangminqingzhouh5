@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: 国学老师 H5 API
-  version: 2.5.0
+  version: 2.7.0
   description: 首页与专业排盘公开接口。出生或起盘信息和排盘引用仅通过 POST 请求体提交。
 paths:
   /api/v1/home:
@@ -614,6 +614,45 @@ paths:
           content:
             application/json:
               schema: { $ref: "#/components/schemas/XuankongFeixingContext" }
+        "404": { $ref: "#/components/responses/NotFound" }
+        "410": { $ref: "#/components/responses/Gone" }
+        "422": { $ref: "#/components/responses/ValidationError" }
+  /api/v1/paipan/xingming/chart:
+    post:
+      summary: 生成姓名学三才五格或六格盘
+      description: 姓名按正式字典逐字规范化为康熙繁体，并使用严格康熙笔画计算；字库未收录的输入返回 422，正式数理资源缺项返回 500。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/XingmingChartRequest" }
+      responses:
+        "200":
+          description: 含数据集状态的姓名学结果及短期排盘引用
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/XingmingChartWithReference" }
+        "422": { $ref: "#/components/responses/ValidationError" }
+        "502": { $ref: "#/components/responses/BadGateway" }
+        "504": { $ref: "#/components/responses/GatewayTimeout" }
+  /api/v1/paipan/xingming/context:
+    post:
+      summary: 使用短期排盘引用读取姓名学上下文
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [paipan_ref]
+              properties:
+                paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+      responses:
+        "200":
+          description: 带版本号的完整姓名学上下文
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/XingmingContext" }
         "404": { $ref: "#/components/responses/NotFound" }
         "410": { $ref: "#/components/responses/Gone" }
         "422": { $ref: "#/components/responses/ValidationError" }
@@ -1647,10 +1686,11 @@ components:
         school: { const: flying }
     XingxiangTransformation:
       type: object
-      required: [transformation, star]
+      required: [transformation, star, targetBranch]
       properties:
         transformation: { type: string, enum: [禄, 权, 科, 忌] }
         star: { type: string }
+        targetBranch: { type: string, enum: [子, 丑, 寅, 卯, 辰, 巳, 午, 未, 申, 酉, 戌, 亥] }
     XingxiangPalaceName:
       type: object
       required: [branch, name]
@@ -1659,13 +1699,26 @@ components:
         name: { type: string, enum: [命宫, 兄弟, 夫妻, 子女, 财帛, 疾厄, 迁移, 交友, 官禄, 田宅, 福德, 父母] }
     XingxiangAnnual:
       type: object
-      required: [age, year, ganZhi, palaceNames, transformations]
+      required: [age, year, ganZhi, palaceNames, transformations, months]
       properties:
         age: { type: integer, minimum: 1 }
         year: { type: integer }
         ganZhi: { type: string, minLength: 2, maxLength: 2 }
         palaceNames: { type: array, minItems: 12, maxItems: 12, items: { $ref: "#/components/schemas/XingxiangPalaceName" } }
         transformations: { type: array, minItems: 4, maxItems: 4, items: { $ref: "#/components/schemas/XingxiangTransformation" } }
+        months:
+          type: array
+          minItems: 12
+          maxItems: 12
+          items: { $ref: "#/components/schemas/XingxiangFlowMonth" }
+    XingxiangFlowMonth:
+      type: object
+      required: [monthNumber, monthName, ganZhi, palaceBranch]
+      properties:
+        monthNumber: { type: integer, minimum: 1, maximum: 12 }
+        monthName: { type: string, enum: [正月, 二月, 三月, 四月, 五月, 六月, 七月, 八月, 九月, 十月, 冬月, 腊月] }
+        ganZhi: { type: string, minLength: 2, maxLength: 2 }
+        palaceBranch: { type: string, enum: [子, 丑, 寅, 卯, 辰, 巳, 午, 未, 申, 酉, 戌, 亥] }
     XingxiangPeriod:
       type: object
       required: [ganZhi, startAge, endAge, startYear, endYear, palaceNames, transformations, annuals]
@@ -1682,7 +1735,7 @@ components:
       allOf:
         - $ref: "#/components/schemas/XingxiangPalaceName"
         - type: object
-          required: [heavenlyStem, bodyPalace, zodiacPalace, originPalace, stars, selfTransformations]
+          required: [heavenlyStem, bodyPalace, zodiacPalace, originPalace, stars, flyingTransformations, selfTransformations]
           properties:
             heavenlyStem: { type: string, enum: [甲, 乙, 丙, 丁, 戊, 己, 庚, 辛, 壬, 癸] }
             bodyPalace: { type: boolean }
@@ -1698,14 +1751,24 @@ components:
                   category: { type: string, enum: [major, soft, flower, tough, support] }
                   brightness: { type: string }
                   natalTransformation: { type: [string, "null"], enum: [禄, 权, 科, 忌, null] }
+            flyingTransformations:
+              type: array
+              minItems: 4
+              maxItems: 4
+              items: { $ref: "#/components/schemas/XingxiangTransformation" }
             selfTransformations:
               type: array
               items:
                 allOf:
                   - $ref: "#/components/schemas/XingxiangTransformation"
                   - type: object
-                    required: [inward]
-                    properties: { inward: { type: boolean } }
+                    required: [inward, direction]
+                    properties:
+                      inward:
+                        type: boolean
+                        deprecated: true
+                        description: 参考站 benGong 原始兼容值；新调用方应使用 direction。
+                      direction: { type: string, enum: [outward, inward] }
     XingxiangChartResponse:
       type: object
       required: [profile, palaces, periods]
@@ -1747,7 +1810,7 @@ components:
       type: object
       required: [schemaVersion, chartType, paipan_ref, generatedAt, expiresAt, chartRequest, chart]
       properties:
-        schemaVersion: { const: guoxue.paipan.xingxiang.v1 }
+        schemaVersion: { const: guoxue.paipan.xingxiang.v2 }
         chartType: { const: xingxiang }
         paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
         generatedAt: { type: string, format: date-time }
@@ -1920,6 +1983,157 @@ components:
         expiresAt: { type: string, format: date-time }
         chartRequest: { $ref: "#/components/schemas/XuankongFeixingChartRequest" }
         chart: { $ref: "#/components/schemas/XuankongFeixingChartResponse" }
+    XingmingChartRequest:
+      type: object
+      additionalProperties: false
+      required: [surname, givenName, school]
+      properties:
+        surname: { type: string, minLength: 1, maxLength: 2, pattern: '^\p{Script=Han}+$' }
+        givenName: { type: string, minLength: 1, maxLength: 3, pattern: '^\p{Script=Han}+$' }
+        school: { type: string, enum: [wuge, liuge] }
+    XingmingDataset:
+      type: object
+      required: [status, version, dictionaryVersion, numerologyVersion]
+      properties:
+        status: { type: string, enum: [provisional, official] }
+        version: { type: string }
+        dictionaryVersion: { type: string }
+        numerologyVersion: { type: string }
+    XingmingCharacter:
+      type: object
+      required: [input, simplified, traditional, pinyin, radical, kangxiStrokes, calculationStrokes, element, rating, common, nameUsageClass, nameExplanation, namingMeaning, namingImplication, taboos, usageReference]
+      properties:
+        input: { type: string, minLength: 1, maxLength: 1 }
+        simplified: { type: string, minLength: 1, maxLength: 1 }
+        traditional: { type: string, minLength: 1, maxLength: 1 }
+        pinyin: { type: string }
+        radical: { type: [string, "null"] }
+        kangxiStrokes: { type: integer, minimum: 1 }
+        calculationStrokes: { type: integer, minimum: 1 }
+        element: { type: string, enum: [金, 木, 水, 火, 土] }
+        rating: { type: [string, "null"] }
+        common: { type: [boolean, "null"] }
+        nameUsageClass: { type: [string, "null"] }
+        nameExplanation: { type: [string, "null"] }
+        namingMeaning: { type: [string, "null"] }
+        namingImplication: { type: [string, "null"] }
+        taboos: { type: [string, "null"] }
+        usageReference:
+          type: object
+          required: [recommendationPercent, culturePercent, genderTendency, usageCount, firstCharacterPercent, malePercent, femalePercent, sourceNote]
+          properties:
+            recommendationPercent: { type: [integer, "null"], minimum: 0, maximum: 100 }
+            culturePercent: { type: [integer, "null"], minimum: 0, maximum: 100 }
+            genderTendency: { type: [integer, "null"], minimum: 0, maximum: 9 }
+            usageCount: { type: [integer, "null"], minimum: 0 }
+            firstCharacterPercent: { type: [integer, "null"], minimum: 0, maximum: 100 }
+            malePercent: { type: [integer, "null"], minimum: 0, maximum: 100 }
+            femalePercent: { type: [integer, "null"], minimum: 0, maximum: 100 }
+            sourceNote: { type: string }
+    XingmingNumberInterpretation:
+      type: object
+      required: [number, yinYang, rating, summary, categories, foundation, family, health, meaning, detail]
+      properties:
+        number: { type: integer, minimum: 1, maximum: 81 }
+        yinYang: { type: [string, "null"] }
+        rating: { type: string }
+        summary: { type: [string, "null"] }
+        categories: { type: [string, "null"] }
+        foundation: { type: [string, "null"] }
+        family: { type: [string, "null"] }
+        health: { type: [string, "null"] }
+        meaning: { type: [string, "null"] }
+        detail: { type: [string, "null"] }
+    XingmingGrid:
+      type: object
+      required: [key, label, number, interpretationNumber, element, rating, interpretation]
+      properties:
+        key: { type: string, enum: [heaven, person, earth, outer, total, change] }
+        label: { type: string, enum: [天格, 人格, 地格, 外格, 总格, 变格] }
+        number: { type: integer, minimum: 1 }
+        interpretationNumber: { type: integer, minimum: 1, maximum: 81 }
+        element: { type: string, enum: [金, 木, 水, 火, 土] }
+        rating: { type: string }
+        interpretation: { $ref: "#/components/schemas/XingmingNumberInterpretation" }
+    XingmingChartResponse:
+      type: object
+      required: [dataset, school, name, characters, grids, threeTalents, elementRelations, score, scoreBreakdown, totalGridDescription]
+      properties:
+        dataset: { $ref: "#/components/schemas/XingmingDataset" }
+        school: { type: string, enum: [wuge, liuge] }
+        name:
+          type: object
+          required: [surname, givenName, fullName]
+          properties:
+            surname: { type: string }
+            givenName: { type: string }
+            fullName: { type: string }
+        characters:
+          type: array
+          minItems: 2
+          maxItems: 5
+          items: { $ref: "#/components/schemas/XingmingCharacter" }
+        grids:
+          type: array
+          minItems: 5
+          maxItems: 6
+          items: { $ref: "#/components/schemas/XingmingGrid" }
+        threeTalents:
+          type: object
+          required: [title, rating, summary, foundationLuck, foundationRating, successLuck, successRating, relationships, relationshipsRating, personality, liugeSummary, liugeRating]
+          properties:
+            title: { type: string, minLength: 3, maxLength: 3 }
+            rating: { type: string }
+            summary: { type: [string, "null"] }
+            foundationLuck: { type: [string, "null"] }
+            foundationRating: { type: [string, "null"] }
+            successLuck: { type: [string, "null"] }
+            successRating: { type: [string, "null"] }
+            relationships: { type: [string, "null"] }
+            relationshipsRating: { type: [string, "null"] }
+            personality: { type: [string, "null"] }
+            liugeSummary: { type: [string, "null"] }
+            liugeRating: { type: [string, "null"] }
+        elementRelations:
+          type: array
+          minItems: 2
+          maxItems: 2
+          items:
+            type: object
+            required: [from, to, relation, summary]
+            properties:
+              from: { type: string }
+              to: { type: string }
+              relation: { type: string, enum: [比和, 相生, 受生, 相克, 受克] }
+              summary: { type: string }
+        score: { type: integer, minimum: 0, maximum: 100 }
+        scoreBreakdown:
+          type: object
+          required: [components, total, note]
+          properties:
+            components: { type: array, minItems: 4, maxItems: 4, items: { type: object } }
+            total: { type: integer, minimum: 0, maximum: 100 }
+            note: { type: string }
+        totalGridDescription: { $ref: "#/components/schemas/XingmingNumberInterpretation" }
+    XingmingChartWithReference:
+      allOf:
+        - $ref: "#/components/schemas/XingmingChartResponse"
+        - type: object
+          required: [paipan_ref, expiresAt]
+          properties:
+            paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+            expiresAt: { type: string, format: date-time }
+    XingmingContext:
+      type: object
+      required: [schemaVersion, chartType, paipan_ref, generatedAt, expiresAt, chartRequest, chart]
+      properties:
+        schemaVersion: { const: guoxue.paipan.xingming.v2 }
+        chartType: { const: xingming }
+        paipan_ref: { $ref: "#/components/schemas/PaipanReference" }
+        generatedAt: { type: string, format: date-time }
+        expiresAt: { type: string, format: date-time }
+        chartRequest: { $ref: "#/components/schemas/XingmingChartRequest" }
+        chart: { $ref: "#/components/schemas/XingmingChartResponse" }
     FlowMonth:
       type: object
       required: [index, monthName, ganZhi, solarTermName, solarTermDateTime, tenGods, hiddenStems, hiddenStemTenGods, heavenlyStemAttention, earthlyBranchAttention, shenSha]

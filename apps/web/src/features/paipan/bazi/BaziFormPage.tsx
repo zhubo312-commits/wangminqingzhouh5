@@ -8,6 +8,7 @@ import { MapPin, SunHorizon } from "@phosphor-icons/react";
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { PageHeader } from "../../../components/PageHeader";
+import { PaipanActionButton } from "../../../components/paipan/PaipanActionButton";
 import { PaipanPageShell } from "../../../components/paipan/PaipanPageShell";
 import { PaipanSectionCard } from "../../../components/paipan/PaipanSectionCard";
 import {
@@ -259,7 +260,7 @@ export function BaziFormPage() {
             {areaError && (
               <div className="inline-error" role="alert">
                 <span>{areaError}</span>
-                <button type="button" onClick={() => void loadAreas()}>重试</button>
+                <PaipanActionButton variant="retry" onClick={() => void loadAreas()}>重试</PaipanActionButton>
               </div>
             )}
             <label className="solar-toggle">

@@ -1,8 +1,25 @@
 spring:
   application:
     name: paipan-service
+  datasource:
+    url: jdbc:h2:mem:xingming;MODE=MySQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
+    driver-class-name: org.h2.Driver
+  sql:
+    init:
+      mode: always
+      encoding: UTF-8
+      schema-locations: classpath:xingming-schema.sql
+      data-locations: classpath:xingming-dictionary-data.sql,classpath:xingming-numerology-data.sql
   jackson:
     default-property-inclusion: non_null
+xingming:
+  dataset:
+    status: official
+    version: xingming-20260814.r1
+    dictionary-version: kangxi-cn-20260813.r3
+    numerology-version: yp-20260813.r1
 server:
   port: ${PORT:8080}
   error:

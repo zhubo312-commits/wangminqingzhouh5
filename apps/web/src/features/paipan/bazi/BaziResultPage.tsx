@@ -1,37 +1,21 @@
 import type { FlowMonthsResponse } from "@guoxue/contracts";
-import { ArrowClockwise, CalendarDots, Coins, Drop, Flame, Mountains, Tree } from "@phosphor-icons/react";
+import { CalendarDots } from "@phosphor-icons/react";
 import { type ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PageHeader } from "../../../components/PageHeader";
 import { InterpretationEntry } from "../../../components/InterpretationEntry";
+import { ELEMENT_CLASS, FiveElementLabel } from "../../../components/paipan/FiveElementLabel";
 import { InfoGrid, InfoPair } from "../../../components/paipan/InfoGrid";
 import { InlineSelectionGrid } from "../../../components/paipan/InlineSelectionGrid";
+import { PaipanActionButton } from "../../../components/paipan/PaipanActionButton";
 import { PaipanEmptyState } from "../../../components/paipan/PaipanEmptyState";
 import { PaipanPageShell } from "../../../components/paipan/PaipanPageShell";
 import { fetchFlowMonths, fetchHome } from "../../../lib/api-client";
 import { useBaziSession } from "./BaziSession";
-import { ELEMENT_CLASS } from "./constants";
 
 function TextList({ values }: { values: string[] }) {
   if (values.length === 0) return <span className="empty-mark">—</span>;
   return <>{values.map((value, index) => <span className="stacked-text" key={`${value}-${index}`}>{value}</span>)}</>;
-}
-
-function FiveElementLabel({ element }: { element: string }) {
-  const iconProps = { size: 14, weight: "duotone" as const, "aria-hidden": true };
-  const icon = element === "金"
-    ? <Coins {...iconProps} />
-    : element === "木"
-      ? <Tree {...iconProps} />
-      : element === "水"
-        ? <Drop {...iconProps} />
-        : element === "火"
-          ? <Flame {...iconProps} />
-          : element === "土"
-            ? <Mountains {...iconProps} />
-            : null;
-
-  return <small className="five-element-label">{icon}<span>{element}</span></small>;
 }
 
 function TwoLineValue({ primary, secondary, numeric = false }: {
@@ -157,7 +141,7 @@ export function BaziResultPage() {
           icon={<CalendarDots size={46} weight="light" aria-hidden="true" />}
           title="本次排盘信息已失效"
           description="本次排盘引用不存在或已过期，请重新排盘。"
-          action={<button type="button" onClick={() => navigate("/paipan/shengping-zishi")}>重新排盘</button>}
+          action={<PaipanActionButton variant="restart" onClick={() => navigate("/paipan/shengping-zishi")}>重新排盘</PaipanActionButton>}
         />
       </PaipanPageShell>
     );
@@ -269,7 +253,7 @@ export function BaziResultPage() {
                 <span>{selectedYear.year}年 · {selectedYear.age}岁</span>
               </span>
             )}
-            {monthsError && <button type="button" className="icon-retry" onClick={() => void loadMonths()} aria-label="重新加载流月"><ArrowClockwise size={18} /></button>}
+            {monthsError && <PaipanActionButton variant="retry" iconOnly className="icon-retry" onClick={() => void loadMonths()} aria-label="重新加载流月" />}
           </div>
           {monthsLoading ? <div className="months-loading">正在推演流月…</div> : monthsError ? <div className="inline-error" role="alert">{monthsError}</div> : (
             <>

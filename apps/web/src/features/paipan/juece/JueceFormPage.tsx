@@ -10,6 +10,7 @@ import { CompassRose, MapPin, SunHorizon } from "@phosphor-icons/react";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { PageHeader } from "../../../components/PageHeader";
+import { PaipanActionButton } from "../../../components/paipan/PaipanActionButton";
 import { PaipanPageShell } from "../../../components/paipan/PaipanPageShell";
 import { PaipanSectionCard } from "../../../components/paipan/PaipanSectionCard";
 import {
@@ -137,7 +138,7 @@ export function JueceFormPage() {
 
   return (
     <PaipanPageShell pageClassName="form-page juece-form-page">
-      <PageHeader title="决策学" backTo="/paipan" backLabel="返回排盘导航" />
+      <PageHeader title="时家决策学" backTo="/paipan" backLabel="返回排盘导航" />
 
       <form className="bazi-form juece-form" onSubmit={onSubmit}>
         <PaipanSectionCard variant="form" labelledBy="juece-time-heading">
@@ -192,7 +193,7 @@ export function JueceFormPage() {
                 <AreaWheelPicker areas={areas} value={draft.areaCode} disabled={areasLoading || Boolean(areaError)} onChange={(value) => update("areaCode", value)} />
               </div>
               <p><SunHorizon size={17} aria-hidden="true" /> 地区只用于本次时间校正</p>
-              {areaError && <div className="inline-error" role="alert"><span>{areaError}</span><button type="button" onClick={() => void loadAreas()}>重试</button></div>}
+              {areaError && <div className="inline-error" role="alert"><span>{areaError}</span><PaipanActionButton variant="retry" onClick={() => void loadAreas()}>重试</PaipanActionButton></div>}
             </div>
           )}
         </PaipanSectionCard>

@@ -12,10 +12,42 @@ import { useNavigate } from "react-router-dom";
 import { PageHeader } from "../../../components/PageHeader";
 import { InfoGrid, InfoPair } from "../../../components/paipan/InfoGrid";
 import { PaipanEmptyState } from "../../../components/paipan/PaipanEmptyState";
+import { PaipanActionButton } from "../../../components/paipan/PaipanActionButton";
 import { PaipanPageShell } from "../../../components/paipan/PaipanPageShell";
 import { useDunjiaSession } from "./DunjiaSession";
 
 const PALACE_ORDER = [4, 9, 2, 3, 5, 7, 8, 1, 6] as const;
+
+function DayStemMarker({ stem, location }: {
+  stem: string;
+  location: "pillar" | "heaven";
+}) {
+  const label = location === "pillar" ? `日干 ${stem}` : `日干 ${stem} 落宫`;
+  return (
+    <span
+      className="dunjia-day-stem-marker"
+      data-day-stem-location={location}
+      aria-label={label}
+      title={label}
+    >
+      {stem}
+    </span>
+  );
+}
+
+function PlateStemValue({ value, dayStem, highlightDayStem = false }: {
+  value: string;
+  dayStem: string;
+  highlightDayStem?: boolean;
+}) {
+  return (
+    <span className="dunjia-plate-value">
+      {Array.from(value).map((stem, index) => highlightDayStem && stem === dayStem ? (
+        <DayStemMarker key={`${stem}-${index}`} stem={stem} location="heaven" />
+      ) : <span key={`${stem}-${index}`}>{stem}</span>)}
+    </span>
+  );
+}
 
 function PillarStrip({ pillars, voids }: {
   pillars: { year: string; month: string; day: string; hour: string };
@@ -29,9 +61,20 @@ function PillarStrip({ pillars, voids }: {
   ] as const;
   return (
     <div className="dunjia-pillar-strip" aria-label="四柱与空亡">
-      {items.map(([label, pillar, voidBranch]) => (
-        <div key={label}><small>{label}</small><strong>{pillar}</strong><span>空 {voidBranch}</span></div>
-      ))}
+      {items.map(([label, pillar, voidBranch]) => {
+        const isDayPillar = label === "日柱";
+        return (
+          <div key={label}>
+            <small>{label}</small>
+            <strong>
+              {isDayPillar ? (
+                <><DayStemMarker stem={pillar.charAt(0)} location="pillar" />{pillar.slice(1)}</>
+              ) : pillar}
+            </strong>
+            <span>空 {voidBranch}</span>
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -51,8 +94,9 @@ function HarmBadges({ palace }: { palace: DunjiaPalace }) {
   );
 }
 
-function PalaceCell({ palace, selected, onSelect }: {
+function PalaceCell({ palace, dayStem, selected, onSelect }: {
   palace: DunjiaPalace;
+  dayStem: string;
   selected: boolean;
   onSelect: () => void;
 }) {
@@ -76,8 +120,8 @@ function PalaceCell({ palace, selected, onSelect }: {
       </span>
       <span className="dunjia-door">{palace.door ? `${palace.door}门` : "—"}</span>
       <span className="dunjia-plates">
-        <span><small>天</small>{palace.heavenPlate}</span>
-        <span><small>地</small>{palace.earthPlate}</span>
+        <span><small>天</small><PlateStemValue value={palace.heavenPlate} dayStem={dayStem} highlightDayStem /></span>
+        <span><small>地</small><PlateStemValue value={palace.earthPlate} dayStem={dayStem} /></span>
       </span>
       <HarmBadges palace={palace} />
       {(palace.isChief || palace.isChiefDoor) && (
@@ -164,13 +208,14 @@ export function DunjiaResultPage() {
           icon={<CalendarDots size={46} weight="light" aria-hidden="true" />}
           title="本次遁甲盘已失效"
           description="排盘引用不存在或已过期，请重新起盘。"
-          action={<button type="button" onClick={() => navigate("/paipan/dunjia")}>重新排盘</button>}
+          action={<PaipanActionButton variant="restart" onClick={() => navigate("/paipan/dunjia")}>重新排盘</PaipanActionButton>}
         />
       </PaipanPageShell>
     );
   }
 
   const { overview } = chart;
+  const dayStem = overview.pillars.day.charAt(0);
   const heavenGates = chart.heavenEarthGates.filter((item) =>
     ["太冲", "小吉", "从魁"].some((name) => item.heavenGate.startsWith(name)),
   );
@@ -222,6 +267,7 @@ export function DunjiaResultPage() {
                     <PalaceCell
                       key={palace.index}
                       palace={palace}
+                      dayStem={dayStem}
                       selected={selectedPalaceIndex === palace.index}
                       onSelect={() => setSelectedPalaceIndex((current) => current === palace.index ? null : palace.index)}
                     />
@@ -259,6 +305,7 @@ export function DunjiaResultPage() {
         <section className="result-card dunjia-legend" aria-label="盘面标记说明">
           <h2 className="result-section-title"><span>注</span>盘面标记</h2>
           <div>
+            <span><i className="legend-day-stem" />日干落宫</span>
             <span><i className="legend-void" />旬空</span>
             <span><i className="legend-mu" />入墓</span>
             <span><i className="legend-xing" />击刑</span>

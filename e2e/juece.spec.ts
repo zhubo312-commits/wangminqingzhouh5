@@ -130,6 +130,7 @@ test("completes, switches and restores the reference-aligned decision chart with
   }));
 
   await page.goto(appPath("/paipan/juece"));
+  await expect(page.getByRole("heading", { name: "时家决策学" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "起盘条件" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "盘式与定局" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "标记与寄宫" })).toBeVisible();
@@ -184,7 +185,18 @@ test("completes, switches and restores the reference-aligned decision chart with
   await expect(page.locator("#juece-palace-detail")).toContainText("天盘长生");
   await expect(page.getByText("天门地户 · 出行辅助")).toBeVisible();
 
-  await page.getByRole("button", { name: "放大查看" }).click();
+  const zoomAction = page.getByRole("button", { name: "放大查看" });
+  const restartAction = page.getByRole("button", { name: "重新排盘" });
+  await expect(zoomAction).toHaveAttribute("data-paipan-action", "zoom");
+  await expect(restartAction).toHaveAttribute("data-paipan-action", "restart");
+  expect(await zoomAction.evaluate((button) => getComputedStyle(button).backgroundColor)).toBe("rgb(178, 77, 52)");
+  expect(await restartAction.evaluate((button) => getComputedStyle(button).backgroundColor)).toContain("178, 77, 52");
+  const previousAction = page.getByRole("button", { name: "上一时辰" });
+  const nextAction = page.getByRole("button", { name: "下一时辰" });
+  await expect(previousAction).toHaveAttribute("data-paipan-action", "navigate");
+  await expect(previousAction).toHaveAttribute("data-direction", "previous");
+  await expect(nextAction).toHaveAttribute("data-direction", "next");
+  await zoomAction.click();
   await expect(page.getByRole("dialog", { name: "九宫主盘放大图" })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)).toBe(false);
   await page.getByRole("button", { name: "关闭放大查看" }).click();
@@ -241,7 +253,10 @@ test("keeps the current chart when an hour switch fails", async ({ page }) => {
   await page.getByRole("button", { name: "下一时辰" }).click();
   await expect(page.getByRole("alert")).toContainText("当前盘未改变");
   await expect(page.locator(".juece-hour-switch > span")).toHaveText("2026-08-11 16:00");
-  await page.getByRole("button", { name: "重试" }).click();
+  const retryAction = page.getByRole("button", { name: "重试" });
+  await expect(retryAction).toHaveAttribute("data-paipan-action", "retry");
+  expect(await retryAction.evaluate((button) => getComputedStyle(button).backgroundColor)).toBe("rgb(178, 77, 52)");
+  await retryAction.click();
   await expect.poll(() => attempts).toBe(2);
 });
 
@@ -262,7 +277,7 @@ test("clears an expired reference and returns to re-charting", async ({ page }) 
   }));
 
   await page.goto(appPath("/paipan/juece/result"));
-  await expect(page.getByRole("heading", { name: "本次决策盘已失效" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "本次时家决策盘已失效" })).toBeVisible();
   expect(await page.evaluate(() => window.sessionStorage.getItem(
     "guoxue.paipan.shijia_juece_ref.v1",
   ))).toBeNull();

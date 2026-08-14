@@ -72,4 +72,57 @@ describe("LuojiFormPage coin toss", () => {
     const updater = setDraft.mock.calls[0]?.[0] as (current: LuojiDraft) => LuojiDraft;
     expect(updater(draft).coinBacks).toMatch(/^[0-3]$/);
   });
+
+  it("selects a named hexagram through palace then hexagram", () => {
+    vi.mocked(useLuojiSession).mockReturnValue({
+      draft: { ...draft, mode: "names" },
+      setDraft,
+      chart: null,
+      chartRequest: null,
+      isRestoring: false,
+      setResult: vi.fn(),
+    });
+    render(<MemoryRouter><LuojiFormPage /></MemoryRouter>);
+
+    fireEvent.click(screen.getByRole("button", { name: "选择本卦，当前乾为天" }));
+    expect(screen.getByRole("dialog", { name: "选择本卦" })).toBeVisible();
+    expect(screen.getAllByRole("button", { name: /宫/ })).toHaveLength(8);
+    fireEvent.click(screen.getByRole("button", { name: /兑宫/ }));
+    expect(screen.getByLabelText("兑宫八卦").querySelectorAll("button")).toHaveLength(8);
+    fireEvent.click(screen.getByRole("button", { name: /泽水困/ }));
+
+    const updater = setDraft.mock.calls.at(-1)?.[0] as (current: LuojiDraft) => LuojiDraft;
+    expect(updater({ ...draft, mode: "names" }).originalHexagram).toBe("泽水困");
+  });
+
+  it("uses one numeric input to flow valid digits into six visual boxes", () => {
+    vi.mocked(useLuojiSession).mockReturnValue({
+      draft: { ...draft, mode: "backs" },
+      setDraft,
+      chart: null,
+      chartRequest: null,
+      isRestoring: false,
+      setResult: vi.fn(),
+    });
+    const { rerender } = render(<MemoryRouter><LuojiFormPage /></MemoryRouter>);
+    const input = screen.getByLabelText("六次硬币背数");
+    expect(input).toHaveAttribute("inputmode", "numeric");
+    expect(input).toHaveAttribute("autocomplete", "one-time-code");
+    expect(document.querySelectorAll(".luoji-code-boxes > span")).toHaveLength(6);
+
+    fireEvent.change(input, { target: { value: "31a20b12" } });
+    const updater = setDraft.mock.calls.at(-1)?.[0] as (current: LuojiDraft) => LuojiDraft;
+    expect(updater({ ...draft, mode: "backs" }).coinBacks).toBe("312012");
+
+    vi.mocked(useLuojiSession).mockReturnValue({
+      draft: { ...draft, mode: "backs", coinBacks: "312012" },
+      setDraft,
+      chart: null,
+      chartRequest: null,
+      isRestoring: false,
+      setResult: vi.fn(),
+    });
+    rerender(<MemoryRouter><LuojiFormPage /></MemoryRouter>);
+    expect(Array.from(document.querySelectorAll(".luoji-code-boxes b"), (node) => node.textContent).join("")).toBe("312012");
+  });
 });

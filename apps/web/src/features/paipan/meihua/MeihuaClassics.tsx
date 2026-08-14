@@ -1,6 +1,32 @@
-import { BookOpenText, MagnifyingGlass, X } from "@phosphor-icons/react";
+import { CaretDown, MagnifyingGlass, X } from "@phosphor-icons/react";
 import { useMemo, useState } from "react";
+import { getHexagramMeta, HEXAGRAM_PALACES } from "../hexagram-palaces";
 import { MEIHUA_CLASSICS, type MeihuaClassicHexagram } from "./hexagrams";
+
+interface ClassicEntry {
+  classic: MeihuaClassicHexagram;
+  number: number;
+  symbol: string;
+}
+
+const CLASSICS_BY_NAME = new Map<string, ClassicEntry>(
+  MEIHUA_CLASSICS.map((classic) => {
+    const meta = getHexagramMeta(classic.name);
+    return [classic.name, {
+    classic: classic as MeihuaClassicHexagram,
+    number: meta?.number ?? 0,
+    symbol: meta?.symbol ?? "",
+  }];
+  }),
+);
+
+const PALACE_GROUPS = HEXAGRAM_PALACES.map((palace) => ({
+  ...palace,
+  classics: palace.hexagrams.flatMap((name) => {
+    const entry = CLASSICS_BY_NAME.get(name);
+    return entry ? [entry] : [];
+  }),
+}));
 
 export function MeihuaClassicContent({ classic }: { classic: MeihuaClassicHexagram }) {
   return (
@@ -28,20 +54,56 @@ export function MeihuaClassicDialog({ classic, onClose }: { classic: MeihuaClass
   );
 }
 
+function ClassicButton({ entry, onSelect }: { entry: ClassicEntry; onSelect: (classic: MeihuaClassicHexagram) => void }) {
+  return (
+    <button type="button" aria-label={`查看第${entry.number}卦 ${entry.classic.name}`} onClick={() => onSelect(entry.classic)}>
+      <small>{String(entry.number).padStart(2, "0")}</small>
+      <strong>{entry.classic.name}</strong>
+      <span className="meihua-classic-symbol" aria-hidden="true">{entry.symbol}</span>
+    </button>
+  );
+}
+
 export function MeihuaClassicBrowser() {
   const [query, setQuery] = useState("");
+  const [openPalace, setOpenPalace] = useState<string | null>(null);
   const [selected, setSelected] = useState<MeihuaClassicHexagram | null>(null);
   const results = useMemo(() => {
     const keyword = query.trim();
-    return keyword ? MEIHUA_CLASSICS.filter((item) => item.name.includes(keyword)) : MEIHUA_CLASSICS;
+    return keyword
+      ? Array.from(CLASSICS_BY_NAME.values()).filter((entry) => entry.classic.name.includes(keyword))
+      : [];
   }, [query]);
+  const searching = query.trim().length > 0;
+
   return (
     <div className="meihua-classic-browser">
       <div className="meihua-classic-search"><MagnifyingGlass size={19} aria-hidden="true" /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="搜索卦名，如：乾、未济" aria-label="搜索六十四卦" /></div>
-      <div className="meihua-classic-grid" aria-label="八宫六十四卦">
-        {results.map((item, index) => <button type="button" key={item.key} onClick={() => setSelected(item)}><small>{String(index + 1).padStart(2, "0")}</small><strong>{item.name}</strong><BookOpenText size={16} aria-hidden="true" /></button>)}
-      </div>
-      {results.length === 0 && <p className="meihua-no-classic">未找到对应卦象</p>}
+      {searching ? <>
+        <div className="meihua-classic-search-summary"><strong>跨八宫搜索</strong><span>{results.length} 卦</span></div>
+        {results.length > 0
+          ? <div className="meihua-classic-grid meihua-classic-grid--search" aria-label="六十四卦搜索结果">{results.map((entry) => <ClassicButton key={entry.classic.key} entry={entry} onSelect={setSelected} />)}</div>
+          : <p className="meihua-no-classic">未找到对应卦象</p>}
+      </> : <div className="meihua-palace-list" aria-label="八宫六十四卦">
+        {PALACE_GROUPS.map((palace) => {
+          const expanded = openPalace === palace.key;
+          const contentId = `meihua-palace-${palace.key}`;
+          const headingId = `${contentId}-heading`;
+          return (
+            <section className={`meihua-palace-group${expanded ? " expanded" : ""}`} key={palace.key}>
+              <h4 id={headingId}>
+                <button type="button" className="meihua-palace-trigger" aria-expanded={expanded} aria-controls={contentId} onClick={() => setOpenPalace(expanded ? null : palace.key)}>
+                  <span className="meihua-palace-symbol" aria-hidden="true">{palace.symbol}</span>
+                  <span className="meihua-palace-label"><strong>{palace.name}宫</strong><small>{palace.element} · 八卦</small></span>
+                  <span className="meihua-palace-count">8</span>
+                  <CaretDown size={18} weight="bold" aria-hidden="true" />
+                </button>
+              </h4>
+              {expanded && <div className="meihua-classic-grid" id={contentId} role="region" aria-labelledby={headingId}>{palace.classics.map((entry) => <ClassicButton key={entry.classic.key} entry={entry} onSelect={setSelected} />)}</div>}
+            </section>
+          );
+        })}
+      </div>}
       {selected && <MeihuaClassicDialog classic={selected} onClose={() => setSelected(null)} />}
     </div>
   );

@@ -51,10 +51,18 @@ test("covers the five Meihua entries, chart result, classics and context restore
   await expect(page.getByRole("button", { name: "广元老师" })).toBeVisible();
   await page.getByRole("button", { name: /指定起盘/ }).click();
   await expect(page.getByText(/日期时间仅用于展示/)).toBeVisible();
-  await expect(page.locator(".meihua-select-grid select")).toHaveCount(3);
+  await expect(page.locator(".meihua-select-grid .wheel-picker-trigger")).toHaveCount(3);
 
   await page.getByRole("button", { name: /八宫六十四卦/ }).click();
-  await expect(page.locator(".meihua-classic-grid button")).toHaveCount(64);
+  await expect(page.locator(".meihua-palace-trigger")).toHaveCount(8);
+  await expect(page.getByRole("button", { name: /乾宫/ })).toContainText("☰");
+  await page.getByRole("button", { name: /乾宫/ }).click();
+  await expect(page.getByRole("button", { name: /乾宫/ })).toHaveAttribute("aria-expanded", "true");
+  await expect(page.locator(".meihua-classic-grid button")).toHaveCount(8);
+  await expect(page.getByRole("button", { name: "查看第1卦 乾为天" })).toContainText("䷀");
+  await page.getByRole("button", { name: /兑宫/ }).click();
+  await expect(page.getByRole("button", { name: /乾宫/ })).toHaveAttribute("aria-expanded", "false");
+  await expect(page.getByRole("button", { name: /兑宫/ })).toHaveAttribute("aria-expanded", "true");
   await page.getByLabel("搜索六十四卦").fill("未济");
   await expect(page.locator(".meihua-classic-grid button")).toHaveCount(1);
   await page.locator(".meihua-classic-grid button").click();
@@ -69,6 +77,7 @@ test("covers the five Meihua entries, chart result, classics and context restore
   await expect(page.getByRole("heading", { name: "泽水困" }).first()).toBeVisible();
   await expect(page.locator(".meihua-hexagram-card")).toHaveCount(3);
   await expect(page.locator(".meihua-lines .moving")).toHaveCount(1);
+  await expect(page.getByRole("button", { name: /重新起盘或查阅六十四卦/ })).toHaveAttribute("data-paipan-action", "restart");
   expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)).toBe(false);
 
   await page.locator(".meihua-hexagram-card").first().click();

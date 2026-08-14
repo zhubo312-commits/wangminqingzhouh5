@@ -1,14 +1,14 @@
 import type { LuojiChartRequest } from "@guoxue/contracts";
-import { Coins, ListNumbers, ShuffleAngular, Trash } from "@phosphor-icons/react";
+import { Coins, ListNumbers, ShuffleAngular, X } from "@phosphor-icons/react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { PageHeader } from "../../../components/PageHeader";
-import { WheelSelectPicker } from "../../../components/WheelSelectPicker";
+import { PaipanActionButton } from "../../../components/paipan/PaipanActionButton";
 import { PaipanPageShell } from "../../../components/paipan/PaipanPageShell";
 import { PaipanSectionCard } from "../../../components/paipan/PaipanSectionCard";
 import { createLuojiChart } from "../../../lib/api-client";
 import { SolarDateTimePicker } from "../bazi/BaziMobilePickers";
-import { LUOJI_HEXAGRAM_NAMES } from "./hexagram-names";
+import { getHexagramMeta, HEXAGRAM_PALACES } from "../hexagram-palaces";
 import { useLuojiSession, type LuojiDraft } from "./LuojiSession";
 
 const MODES = [
@@ -17,9 +17,51 @@ const MODES = [
   { key: "backs", label: "硬币背数法", note: "填写六次抛币的背数", icon: ListNumbers },
 ] as const;
 const LINE_LABELS = ["初爻", "二爻", "三爻", "四爻", "五爻", "上爻"] as const;
-const HEXAGRAM_OPTIONS = LUOJI_HEXAGRAM_NAMES.map((name) => ({ value: name, label: name }));
 const COIN_TOSS_DURATION_MS = 720;
 const REDUCED_MOTION_TOSS_DURATION_MS = 120;
+type HexagramField = "originalHexagram" | "changedHexagram";
+
+function HexagramSelectButton({ label, value, onClick }: { label: string; value: string; onClick: () => void }) {
+  const meta = getHexagramMeta(value);
+  return (
+    <button type="button" className="luoji-hexagram-select" aria-label={`选择${label}，当前${value}`} onClick={onClick}>
+      <span className="luoji-selected-symbol" aria-hidden="true">{meta?.symbol}</span>
+      <span><small>{label}</small><strong>{value}</strong><em>{meta ? `${meta.palaceName}宫 · ${meta.element}` : "选择卦象"}</em></span>
+    </button>
+  );
+}
+
+function HexagramPickerDialog({ label, value, onClose, onSelect }: { label: string; value: string; onClose: () => void; onSelect: (value: string) => void }) {
+  const current = getHexagramMeta(value);
+  const [palaceKey, setPalaceKey] = useState(current?.palaceKey ?? HEXAGRAM_PALACES[0].key);
+  const palace = HEXAGRAM_PALACES.find((item) => item.key === palaceKey) ?? HEXAGRAM_PALACES[0];
+  return (
+    <div className="luoji-hexagram-overlay" role="dialog" aria-modal="true" aria-labelledby="luoji-hexagram-picker-heading">
+      <div className="luoji-hexagram-dialog">
+        <div className="luoji-hexagram-dialog-head"><div><small>先选宫，再选卦</small><h2 id="luoji-hexagram-picker-heading">选择{label}</h2></div><button type="button" aria-label={`关闭${label}选择`} onClick={onClose}><X size={21} aria-hidden="true" /></button></div>
+        <div className="luoji-palace-picker" aria-label="选择八宫">
+          {HEXAGRAM_PALACES.map((item) => <button type="button" key={item.key} className={item.key === palace.key ? "active" : ""} aria-pressed={item.key === palace.key} onClick={() => setPalaceKey(item.key)}><span aria-hidden="true">{item.symbol}</span><strong>{item.name}宫</strong><small>{item.element}</small></button>)}
+        </div>
+        <div className="luoji-hexagram-options" aria-label={`${palace.name}宫八卦`}>
+          {palace.hexagrams.map((name) => { const meta = getHexagramMeta(name); const selected = name === value; return <button type="button" key={name} className={selected ? "selected" : ""} aria-pressed={selected} onClick={() => onSelect(name)}><span aria-hidden="true">{meta?.symbol}</span><strong>{name}</strong><small>第 {meta?.number} 卦</small></button>; })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CoinBacksCodeInput({ value, onChange }: { value: string; onChange: (value: string) => void }) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  return (
+    <div className="luoji-code-field">
+      <span id="luoji-code-label">六次硬币背数</span>
+      <div className="luoji-code-input" onClick={() => inputRef.current?.focus()}>
+        <input ref={inputRef} aria-labelledby="luoji-code-label" aria-describedby="luoji-code-help" inputMode="numeric" pattern="[0-3]*" autoComplete="one-time-code" maxLength={6} value={value} onChange={(event) => onChange(event.target.value.replace(/[^0-3]/g, "").slice(0, 6))} />
+        <div className="luoji-code-boxes" aria-hidden="true">{LINE_LABELS.map((label, index) => <span key={label} className={`${value[index] !== undefined ? "filled" : ""}${index === value.length && value.length < 6 ? " current" : ""}`}><b>{value[index] ?? ""}</b><small>{label}</small></span>)}</div>
+      </div>
+    </div>
+  );
+}
 
 export function LuojiFormPage() {
   const navigate = useNavigate();
@@ -28,6 +70,7 @@ export function LuojiFormPage() {
   const [isTossing, setIsTossing] = useState(false);
   const [tossAnnouncement, setTossAnnouncement] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [hexagramField, setHexagramField] = useState<HexagramField | null>(null);
   const submissionLock = useRef(false);
   const tossTimerRef = useRef<number | null>(null);
 
@@ -110,7 +153,7 @@ export function LuojiFormPage() {
 
         <PaipanSectionCard variant="form" labelledBy="luoji-mode-heading">
           <div className="form-card-heading"><span>02</span><h3 id="luoji-mode-heading">选择起盘方式</h3></div>
-          <div className="luoji-mode-grid">{MODES.map((mode) => { const Icon = mode.icon; return <button type="button" key={mode.key} className={draft.mode === mode.key ? "active" : ""} aria-pressed={draft.mode === mode.key} onClick={() => { cancelToss(); update("mode", mode.key); setError(null); }}><Icon size={24} weight="duotone" aria-hidden="true" /><span><strong>{mode.label}</strong><small>{mode.note}</small></span></button>; })}</div>
+          <div className="luoji-mode-grid">{MODES.map((mode) => { const Icon = mode.icon; return <button type="button" key={mode.key} className={draft.mode === mode.key ? "active" : ""} aria-pressed={draft.mode === mode.key} onClick={() => { cancelToss(); setHexagramField(null); update("mode", mode.key); setError(null); }}><Icon size={24} weight="duotone" aria-hidden="true" /><span><strong>{mode.label}</strong><small>{mode.note}</small></span></button>; })}</div>
 
           {draft.mode === "coins" && <div className="luoji-coin-panel">
             <div className="luoji-back-sequence" aria-label="六次铜钱背数">{LINE_LABELS.map((label, index) => { const value = draft.coinBacks[index]; const filled = value !== undefined; const current = index === draft.coinBacks.length; const complete = draft.coinBacks.length >= 6; const actionLabel = complete ? `${label}背数${value}` : current ? `${label}未填写，点击摇此爻` : filled ? `${label}背数${value}，点击摇下一爻` : `${label}未填写，点击继续摇盘`; return <button type="button" key={label} className={`${filled ? "filled" : ""}${current ? " current" : ""}`} aria-label={actionLabel} disabled={isTossing || complete} onClick={tossCoins}><small>{label}</small><strong>{value ?? "—"}</strong></button>; })}</div>
@@ -119,14 +162,15 @@ export function LuojiFormPage() {
             <span className="sr-only" role="status" aria-live="polite">{tossAnnouncement}</span>
           </div>}
 
-          {draft.mode === "names" && <div className="luoji-name-grid"><WheelSelectPicker label="本卦" value={draft.originalHexagram} options={HEXAGRAM_OPTIONS} onChange={(value) => update("originalHexagram", value)} /><span>变</span><WheelSelectPicker label="变卦" value={draft.changedHexagram} options={HEXAGRAM_OPTIONS} onChange={(value) => update("changedHexagram", value)} /></div>}
+          {draft.mode === "names" && <div className="luoji-name-grid"><HexagramSelectButton label="本卦" value={draft.originalHexagram} onClick={() => setHexagramField("originalHexagram")} /><span>变</span><HexagramSelectButton label="变卦" value={draft.changedHexagram} onClick={() => setHexagramField("changedHexagram")} /></div>}
 
-          {draft.mode === "backs" && <div className="luoji-backs-panel"><label><span>六次硬币背数</span><input inputMode="numeric" maxLength={6} value={draft.coinBacks} onChange={(event) => update("coinBacks", event.target.value.replace(/[^0-3]/g, "").slice(0, 6))} placeholder="例如：312101" /></label><div className="luoji-back-help"><strong>填写顺序</strong><span>初爻 → 二爻 → 三爻 → 四爻 → 五爻 → 上爻</span><small>无背面记 0，一个记 1，两个记 2，三个记 3。</small></div></div>}
+          {draft.mode === "backs" && <div className="luoji-backs-panel"><CoinBacksCodeInput value={draft.coinBacks} onChange={(value) => update("coinBacks", value)} /><div className="luoji-back-help" id="luoji-code-help"><strong>填写顺序</strong><span>初爻 → 二爻 → 三爻 → 四爻 → 五爻 → 上爻</span><small>直接连续输入六位：无背面记 0，一个记 1，两个记 2，三个记 3。</small></div></div>}
 
           {error && <div className="form-error" role="alert">{error}</div>}
-          <div className="luoji-form-actions"><button type="button" disabled={isTossing} onClick={clearCurrent}><Trash size={18} aria-hidden="true" />重新起盘</button><button type="submit" disabled={submitting || isTossing}>{submitting ? "正在排盘…" : "立即排盘"}</button></div>
+          <div className="luoji-form-actions"><PaipanActionButton variant="restart" disabled={isTossing} onClick={clearCurrent}>重新起盘</PaipanActionButton><button type="submit" disabled={submitting || isTossing}>{submitting ? "正在排盘…" : "立即排盘"}</button></div>
         </PaipanSectionCard>
       </form>
+      {hexagramField && <HexagramPickerDialog label={hexagramField === "originalHexagram" ? "本卦" : "变卦"} value={draft[hexagramField]} onClose={() => setHexagramField(null)} onSelect={(value) => { update(hexagramField, value); setHexagramField(null); }} />}
       <p className="culture-notice form-notice">传统文化研究与娱乐参考，请理性看待推演结果</p>
     </PaipanPageShell>
   );

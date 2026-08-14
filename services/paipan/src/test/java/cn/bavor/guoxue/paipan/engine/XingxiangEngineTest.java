@@ -34,13 +34,13 @@ class XingxiangEngineTest {
         assertThat(palace(chart, "未").bodyPalace()).isTrue();
         assertThat(chart.palaces()).noneMatch(Palace::zodiacPalace);
         assertThat(palace(chart, "子").selfTransformations())
-                .containsExactly(new SelfTransformation("忌", "廉贞", false));
+                .containsExactly(new SelfTransformation("忌", "廉贞", false, "inward", "午"));
         assertThat(palace(chart, "丑").selfTransformations())
-                .containsExactly(new SelfTransformation("科", "天机", true));
+                .containsExactly(new SelfTransformation("科", "天机", true, "outward", "丑"));
         assertThat(palace(chart, "卯").selfTransformations())
                 .containsExactly(
-                        new SelfTransformation("禄", "太阴", true),
-                        new SelfTransformation("权", "天同", false));
+                        new SelfTransformation("禄", "太阴", true, "outward", "卯"),
+                        new SelfTransformation("权", "天同", false, "inward", "酉"));
 
         assertThat(chart.periods()).hasSize(12);
         Period first = chart.periods().get(0);
@@ -49,19 +49,32 @@ class XingxiangEngineTest {
                 .containsExactly(5, 14, 1993, 2002);
         assertThat(first.palaceNames().get(0)).isEqualTo(new PalaceName("子", "交友"));
         assertThat(first.transformations()).containsExactly(
-                new Transformation("禄", "巨门"),
-                new Transformation("权", "太阳"),
-                new Transformation("科", "文曲"),
-                new Transformation("忌", "文昌"));
+                new Transformation("禄", "巨门", "巳"),
+                new Transformation("权", "太阳", "亥"),
+                new Transformation("科", "文曲", "戌"),
+                new Transformation("忌", "文昌", "辰"));
         assertThat(first.annuals()).hasSize(10);
         Annual annual = first.annuals().get(0);
         assertThat(annual).extracting(Annual::age, Annual::year, Annual::ganZhi)
                 .containsExactly(5, 1993, "癸酉");
         assertThat(annual.transformations()).containsExactly(
-                new Transformation("禄", "破军"),
-                new Transformation("权", "巨门"),
-                new Transformation("科", "太阴"),
-                new Transformation("忌", "贪狼"));
+                new Transformation("禄", "破军", "子"),
+                new Transformation("权", "巨门", "巳"),
+                new Transformation("科", "太阴", "卯"),
+                new Transformation("忌", "贪狼", "辰"));
+        assertThat(annual.months()).containsExactly(
+                new FlowMonth(1, "正月", "甲寅", "辰"),
+                new FlowMonth(2, "二月", "乙卯", "巳"),
+                new FlowMonth(3, "三月", "丙辰", "午"),
+                new FlowMonth(4, "四月", "丁巳", "未"),
+                new FlowMonth(5, "五月", "戊午", "申"),
+                new FlowMonth(6, "六月", "己未", "酉"),
+                new FlowMonth(7, "七月", "庚申", "戌"),
+                new FlowMonth(8, "八月", "辛酉", "亥"),
+                new FlowMonth(9, "九月", "壬戌", "子"),
+                new FlowMonth(10, "十月", "癸亥", "丑"),
+                new FlowMonth(11, "冬月", "甲子", "寅"),
+                new FlowMonth(12, "腊月", "乙丑", "卯"));
     }
 
     @Test

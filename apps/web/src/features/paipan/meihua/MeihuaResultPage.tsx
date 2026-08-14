@@ -1,9 +1,10 @@
 import type { MeihuaHexagram } from "@guoxue/contracts";
-import { ArrowClockwise, BookOpenText, CalendarDots } from "@phosphor-icons/react";
+import { BookOpenText, CalendarDots } from "@phosphor-icons/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { InfoGrid, InfoPair } from "../../../components/paipan/InfoGrid";
 import { PageHeader } from "../../../components/PageHeader";
+import { PaipanActionButton } from "../../../components/paipan/PaipanActionButton";
 import { PaipanEmptyState } from "../../../components/paipan/PaipanEmptyState";
 import { PaipanPageShell } from "../../../components/paipan/PaipanPageShell";
 import { PaipanSectionCard } from "../../../components/paipan/PaipanSectionCard";
@@ -35,7 +36,7 @@ export function MeihuaResultPage() {
   const [classic, setClassic] = useState<MeihuaClassicHexagram | null>(null);
 
   if (isRestoring) return <PaipanPageShell pageClassName="result-page meihua-result-page"><PageHeader title="梅花学" backTo="/paipan/meihua" backLabel="返回梅花起盘" /><PaipanEmptyState icon={<CalendarDots size={46} aria-hidden="true" />} title="正在恢复梅花盘" /></PaipanPageShell>;
-  if (!chart || !chartRequest) return <PaipanPageShell pageClassName="result-page meihua-result-page"><PageHeader title="梅花学" backTo="/paipan/meihua" backLabel="返回梅花起盘" /><PaipanEmptyState icon={<CalendarDots size={46} aria-hidden="true" />} title="本次梅花盘已失效" description="排盘引用不存在或已过期，请重新起盘。" action={<button type="button" onClick={() => navigate("/paipan/meihua")}>重新起盘</button>} /></PaipanPageShell>;
+  if (!chart || !chartRequest) return <PaipanPageShell pageClassName="result-page meihua-result-page"><PageHeader title="梅花学" backTo="/paipan/meihua" backLabel="返回梅花起盘" /><PaipanEmptyState icon={<CalendarDots size={46} aria-hidden="true" />} title="本次梅花盘已失效" description="排盘引用不存在或已过期，请重新起盘。" action={<PaipanActionButton variant="restart" onClick={() => navigate("/paipan/meihua")}>重新起盘</PaipanActionButton>} /></PaipanPageShell>;
 
   const { overview } = chart;
   const schoolLabel = overview.school === "digit_sum" ? "朱昱／易谦老师" : overview.school === "raw_number" ? "广元老师" : null;
@@ -66,7 +67,7 @@ export function MeihuaResultPage() {
         </div>
       </PaipanSectionCard>
 
-      <button className="meihua-restart" type="button" onClick={() => navigate("/paipan/meihua")}><ArrowClockwise size={19} aria-hidden="true" />重新起盘或查阅六十四卦</button>
+      <PaipanActionButton variant="restart" className="meihua-restart" onClick={() => navigate("/paipan/meihua")}>重新起盘或查阅六十四卦</PaipanActionButton>
       <p className="culture-notice">传统文化研究与娱乐参考，请理性看待推演结果</p>
       {classic && <MeihuaClassicDialog classic={classic} onClose={() => setClassic(null)} />}
     </PaipanPageShell>

@@ -59,6 +59,14 @@ class XingxiangReferenceParityTest {
                     .containsExactlyElementsOf(normalizeReferenceStars(expected.path("starsList")));
             assertThat(normalizeActualSelf(palace.selfTransformations())).as(caseName + " " + branch + "宫自化")
                     .containsExactlyElementsOf(normalizeReferenceSelf(expected.path("gongZiHuaList")));
+            assertThat(normalizeActualSelfDirections(palace.selfTransformations()))
+                    .containsExactlyElementsOf(normalizeReferenceSelfDirections(expected.path("gongZiHuaList"), branch));
+            assertThat(palace.flyingTransformations()).hasSize(4);
+            for (Transformation transformation : palace.flyingTransformations()) {
+                assertThat(actualPalaces.get(transformation.targetBranch()).stars())
+                        .extracting(Star::name)
+                        .contains(transformation.star());
+            }
         }
 
         assertThat(actual.periods()).hasSize(12);
@@ -70,6 +78,7 @@ class XingxiangReferenceParityTest {
             assertThat(period.startYear()).isEqualTo(expected.path("yearStart").asInt());
             assertThat(normalizeActualNames(period.palaceNames())).containsExactlyElementsOf(normalizeReferenceNames(expected.path("gongweiNames")));
             assertThat(normalizeActualTransforms(period.transformations())).containsExactlyElementsOf(normalizeReferenceTransforms(expected.path("feixinStarList")));
+            assertTransformTargetsExist(actualPalaces, period.transformations());
             assertThat(period.annuals()).hasSize(10);
             for (int annualIndex = 0; annualIndex < 10; annualIndex++) {
                 Annual annual = period.annuals().get(annualIndex);
@@ -78,6 +87,8 @@ class XingxiangReferenceParityTest {
                         .containsExactly(expectedAnnual.path("age").asInt(), expectedAnnual.path("year").asInt(), expectedAnnual.path("ganZhi").asText());
                 assertThat(normalizeActualNames(annual.palaceNames())).containsExactlyElementsOf(normalizeReferenceNames(expectedAnnual.path("gongweiNames")));
                 assertThat(normalizeActualTransforms(annual.transformations())).containsExactlyElementsOf(normalizeReferenceTransforms(expectedAnnual.path("ziHuaStar")));
+                assertTransformTargetsExist(actualPalaces, annual.transformations());
+                assertThat(normalizeActualMonths(annual.months())).containsExactlyElementsOf(normalizeReferenceMonths(expectedAnnual.path("ziWeiLiuYue")));
             }
         }
     }
@@ -103,6 +114,32 @@ class XingxiangReferenceParityTest {
                 .sorted().toList();
     }
 
+    private List<String> normalizeActualSelfDirections(List<SelfTransformation> items) {
+        return items.stream().map(item -> item.star() + "|" + item.direction() + "|" + item.targetBranch()).sorted().toList();
+    }
+
+    private List<String> normalizeReferenceSelfDirections(JsonNode items, String sourceBranch) {
+        return StreamSupport.stream(items.spliterator(), false).map(item -> {
+            boolean samePalace = item.path("benGong").asBoolean();
+            return item.path("ziHuaXing").asText() + "|" + (samePalace ? "outward" : "inward") + "|"
+                    + (samePalace ? sourceBranch : oppositeBranch(sourceBranch));
+        }).sorted().toList();
+    }
+
+    private String oppositeBranch(String branch) {
+        String branches = "子丑寅卯辰巳午未申酉戌亥";
+        return String.valueOf(branches.charAt((branches.indexOf(branch) + 6) % 12));
+    }
+
+    private void assertTransformTargetsExist(Map<String, Palace> palaces, List<Transformation> transformations) {
+        assertThat(transformations).hasSize(4);
+        for (Transformation transformation : transformations) {
+            assertThat(palaces.get(transformation.targetBranch()).stars())
+                    .extracting(Star::name)
+                    .contains(transformation.star());
+        }
+    }
+
     private List<String> normalizeActualNames(List<PalaceName> names) {
         return names.stream().map(item -> item.branch() + "|" + item.name()).sorted().toList();
     }
@@ -115,6 +152,18 @@ class XingxiangReferenceParityTest {
 
     private List<String> normalizeActualTransforms(List<Transformation> items) {
         return items.stream().map(item -> item.transformation() + "|" + item.star()).sorted().toList();
+    }
+
+    private List<String> normalizeActualMonths(List<FlowMonth> items) {
+        return items.stream().map(item -> item.monthNumber() + "|" + item.monthName() + "|"
+                + item.ganZhi() + "|" + item.palaceBranch()).toList();
+    }
+
+    private List<String> normalizeReferenceMonths(JsonNode items) {
+        return StreamSupport.stream(items.spliterator(), false)
+                .map(item -> item.path("monthNumber").asInt() + "|" + item.path("monthName").asText()
+                        + "|" + item.path("ganzhi").asText() + "|" + item.path("gongAtDizi").asText())
+                .toList();
     }
 
     private List<String> normalizeReferenceTransforms(JsonNode items) {

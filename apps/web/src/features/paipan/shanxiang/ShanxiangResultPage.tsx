@@ -1,8 +1,9 @@
 import type { ShanxiangPanel, YinpanPalace } from "@guoxue/contracts";
-import { ArrowClockwise, ArrowsOut, CalendarDots, CompassRose, X } from "@phosphor-icons/react";
+import { CalendarDots, CompassRose, X } from "@phosphor-icons/react";
 import { Fragment, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PageHeader } from "../../../components/PageHeader";
+import { PaipanActionButton } from "../../../components/paipan/PaipanActionButton";
 import { InfoGrid, InfoPair } from "../../../components/paipan/InfoGrid";
 import { PaipanEmptyState } from "../../../components/paipan/PaipanEmptyState";
 import { PaipanPageShell } from "../../../components/paipan/PaipanPageShell";
@@ -41,25 +42,34 @@ function PanelChart({ panel, zoomed = false }: { panel: ShanxiangPanel; zoomed?:
   return <div className={`juece-nine-grid${zoomed ? " juece-nine-grid-zoomed" : ""}`} role="group" aria-label={`${panel.overview.direction}向九宫盘`}>{rows.map((row, rowIndex) => { const selected = row.find((palace) => palace.index === selectedPalace); return <Fragment key={rowIndex}>{row.map((palace) => <PalaceCell key={palace.index} palace={palace} selected={palace.index === selectedPalace} onSelect={() => setSelectedPalace((current) => current === palace.index ? null : palace.index)} />)}{selected && !zoomed && <PalaceDetail palace={selected} />}</Fragment>; })}</div>;
 }
 
+function PanelResult({ panel, index, year, question, onZoom }: { panel: ShanxiangPanel; index: number; year: number; question: string; onZoom: () => void }) {
+  const overview = panel.overview;
+  const headingId = `shanxiang-panel-${index}-heading`;
+  return <PaipanSectionCard className="juece-chart-card shanxiang-panel-card" labelledBy={headingId}>
+    <header className="shanxiang-panel-heading">
+      <div className="juece-result-hero shanxiang-result-hero"><span><CompassRose size={27} aria-hidden="true" /></span><div><small>第 {String(index + 1).padStart(2, "0")} 盘 · {year}年 · {overview.degrees}° · {overview.degreeRange}</small><h2 id={headingId}>{overview.mountain}山{overview.direction}向</h2></div></div>
+      <strong className="shanxiang-panel-ju">{overview.dunType}遁{overview.juNumber}局</strong>
+    </header>
+    <InfoGrid><InfoPair label="事项" value={question || "未填写"} /><InfoPair label="干支年份" value={overview.yearPillar} /><InfoPair label="山向时柱" value={overview.hourPillar} /><InfoPair label="旬首／空亡" value={`${overview.xunShou} · ${overview.voidBranches}`} /><InfoPair label="值符" value={`${overview.chiefStar.name} · ${overview.chiefStar.palace}宫`} /><InfoPair label="值使" value={`${overview.chiefDoor.name}门 · ${overview.chiefDoor.palace}宫`} /><InfoPair label="马星" value={`${overview.horse.branch} · ${overview.horse.palace}宫`} /><InfoPair label="黄泉八煞" value={overview.huangQuan} /></InfoGrid>
+    <div className="shanxiang-panel-chart-heading"><h3>山向九宫</h3><p>点击宫位查看刑墓迫与十二长生。</p></div>
+    <PanelChart panel={panel} />
+    <div className="juece-chart-actions shanxiang-panel-actions"><PaipanActionButton variant="zoom" onClick={onZoom}>放大查看</PaipanActionButton></div>
+  </PaipanSectionCard>;
+}
+
 export function ShanxiangResultPage() {
   const navigate = useNavigate();
   const { chart, isRestoring } = useShanxiangSession();
-  const [activePanel, setActivePanel] = useState(0);
-  const [zoomed, setZoomed] = useState(false);
+  const [zoomedPanelIndex, setZoomedPanelIndex] = useState<number | null>(null);
   if (isRestoring) return <PaipanPageShell pageClassName="result-page shanxiang-result-page"><PageHeader title="山向决策" backTo="/paipan/shanxiang-juece" backLabel="返回山向表单" /><PaipanEmptyState icon={<CalendarDots size={46} aria-hidden="true" />} title="正在恢复山向盘" /></PaipanPageShell>;
-  if (!chart) return <PaipanPageShell pageClassName="result-page shanxiang-result-page"><PageHeader title="山向决策" backTo="/paipan/shanxiang-juece" backLabel="返回山向表单" /><PaipanEmptyState icon={<CalendarDots size={46} aria-hidden="true" />} title="本次山向盘已失效" description="排盘引用不存在或已过期，请重新排盘。" action={<button type="button" onClick={() => navigate("/paipan/shanxiang-juece")}>重新排盘</button>} /></PaipanPageShell>;
-  const panel = chart.panels[activePanel]!;
-  const overview = panel.overview;
+  if (!chart) return <PaipanPageShell pageClassName="result-page shanxiang-result-page"><PageHeader title="山向决策" backTo="/paipan/shanxiang-juece" backLabel="返回山向表单" /><PaipanEmptyState icon={<CalendarDots size={46} aria-hidden="true" />} title="本次山向盘已失效" description="排盘引用不存在或已过期，请重新排盘。" action={<PaipanActionButton variant="restart" onClick={() => navigate("/paipan/shanxiang-juece")}>重新排盘</PaipanActionButton>} /></PaipanPageShell>;
+  const zoomedPanel = zoomedPanelIndex === null ? null : chart.panels[zoomedPanelIndex] ?? null;
   return <PaipanPageShell pageClassName="result-page shanxiang-result-page">
     <PageHeader title="山向决策" backTo="/paipan/shanxiang-juece" backLabel="返回山向表单" />
-    <PaipanSectionCard className="shanxiang-overview-card" labelledBy="shanxiang-overview-heading">
-      <div className="juece-result-hero shanxiang-result-hero"><span><CompassRose size={28} aria-hidden="true" /></span><div><small>{chart.overview.year}年 · {overview.degrees}° · {overview.degreeRange}</small><h2 id="shanxiang-overview-heading">{overview.mountain}山{overview.direction}向</h2></div></div>
-      <div className="shanxiang-panel-tabs" role="tablist" aria-label="三局分金">{chart.panels.map((item, index) => <button role="tab" aria-selected={activePanel === index} className={activePanel === index ? "active" : ""} type="button" key={item.overview.degrees} onClick={() => setActivePanel(index)}><strong>{item.overview.degrees}°</strong><small>{item.overview.dunType}遁{item.overview.juNumber}局</small></button>)}</div>
-      <InfoGrid><InfoPair label="事项" value={chart.overview.question || "未填写"} /><InfoPair label="干支年份" value={overview.yearPillar} /><InfoPair label="山向时柱" value={overview.hourPillar} /><InfoPair label="旬首／空亡" value={`${overview.xunShou} · ${overview.voidBranches}`} /><InfoPair label="值符" value={`${overview.chiefStar.name} · ${overview.chiefStar.palace}宫`} /><InfoPair label="值使" value={`${overview.chiefDoor.name}门 · ${overview.chiefDoor.palace}宫`} /><InfoPair label="马星" value={`${overview.horse.branch} · ${overview.horse.palace}宫`} /><InfoPair label="黄泉八煞" value={overview.huangQuan} /></InfoGrid>
-    </PaipanSectionCard>
-    <PaipanSectionCard className="juece-chart-card shanxiang-chart-card" labelledBy="shanxiang-chart-heading"><h2 className="result-section-title" id="shanxiang-chart-heading"><span>01</span>山向九宫</h2><p className="dunjia-chart-hint">点击宫位查看刑墓迫与十二长生；上方可切换同一山向区间的三组分金。</p><PanelChart panel={panel} /><div className="juece-chart-actions"><button type="button" onClick={() => setZoomed(true)}><ArrowsOut size={19} aria-hidden="true" />放大查看</button><button type="button" onClick={() => navigate("/paipan/shanxiang-juece")}><ArrowClockwise size={19} aria-hidden="true" />重新排盘</button></div></PaipanSectionCard>
+    {chart.panels.map((panel, index) => <PanelResult key={`${panel.overview.degrees}-${index}`} panel={panel} index={index} year={chart.overview.year} question={chart.overview.question} onZoom={() => setZoomedPanelIndex(index)} />)}
     <PaipanSectionCard className="juece-legend" label="盘面标记说明"><h2 className="result-section-title"><span>注</span>颜色与标记</h2><div><span><i className="void">空</i>空亡</span><span><i className="chief">符</i>值符</span><span><i className="chief-door">使</i>值使</span><span><i className="harm harm-墓">墓</i>入墓</span><span><i className="harm harm-刑">刑</i>击刑</span><span><i className="harm harm-迫">迫</i>门迫</span></div></PaipanSectionCard>
+    <PaipanActionButton variant="restart" className="shanxiang-restart" onClick={() => navigate("/paipan/shanxiang-juece")}>重新排盘</PaipanActionButton>
     <p className="culture-notice">传统文化研究与娱乐参考，请理性看待推演结果</p>
-    {zoomed && <div className="juece-zoom-overlay" role="dialog" aria-modal="true" aria-labelledby="shanxiang-zoom-heading"><div className="juece-zoom-panel"><div className="juece-zoom-heading"><div><small>{overview.degrees}° · {overview.degreeRange}</small><h2 id="shanxiang-zoom-heading">{overview.mountain}山{overview.direction}向放大图</h2></div><button type="button" aria-label="关闭放大查看" onClick={() => setZoomed(false)}><X size={23} aria-hidden="true" /></button></div><div className="juece-zoom-scroll"><PanelChart panel={panel} zoomed /></div></div></div>}
+    {zoomedPanel && <div className="juece-zoom-overlay" role="dialog" aria-modal="true" aria-labelledby="shanxiang-zoom-heading"><div className="juece-zoom-panel"><div className="juece-zoom-heading"><div><small>{zoomedPanel.overview.degrees}° · {zoomedPanel.overview.degreeRange}</small><h2 id="shanxiang-zoom-heading">{zoomedPanel.overview.mountain}山{zoomedPanel.overview.direction}向放大图</h2></div><button type="button" aria-label="关闭放大查看" onClick={() => setZoomedPanelIndex(null)}><X size={23} aria-hidden="true" /></button></div><div className="juece-zoom-scroll"><PanelChart panel={zoomedPanel} zoomed /></div></div></div>}
   </PaipanPageShell>;
 }

@@ -86,7 +86,7 @@ describe("homepage", () => {
     await waitFor(() => expect(fetch).toHaveBeenCalledWith("/api/v1/events", expect.anything()));
   });
 
-  it("shows exactly eleven chart entries and enables the ten completed charts", async () => {
+  it("shows and enables exactly eleven completed chart entries", async () => {
     window.history.pushState({}, "", "/paipan");
     render(<App />);
 
@@ -100,7 +100,7 @@ describe("homepage", () => {
       "href",
       "/paipan/dunjia",
     );
-    expect(screen.getByRole("link", { name: "决策学" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "时家决策学" })).toHaveAttribute(
       "href",
       "/paipan/juece",
     );
@@ -124,6 +124,10 @@ describe("homepage", () => {
       "href",
       "/paipan/xingxiang",
     );
+    expect(screen.getByRole("link", { name: "姓名学" })).toHaveAttribute(
+      "href",
+      "/paipan/xingming",
+    );
     expect(screen.getByRole("link", { name: "数字规律" })).toHaveAttribute(
       "href",
       "/paipan/shuzi-guilv",
@@ -132,8 +136,8 @@ describe("homepage", () => {
       "href",
       "/paipan/xuankong-feixing",
     );
-    expect(navigation.querySelectorAll('[aria-disabled="true"]')).toHaveLength(1);
-    expect(screen.getAllByText("即将上线")).toHaveLength(1);
+    expect(navigation.querySelectorAll('[aria-disabled="true"]')).toHaveLength(0);
+    expect(screen.queryByText("即将上线")).not.toBeInTheDocument();
   });
 
   it("registers the decision route in the normal build", async () => {

@@ -15,9 +15,10 @@
 | `placeMajorStars` | `lib/star/location.js#getStartIndex`、`lib/star/majorStar.js#getMajorStar` | 紫微/天府两星系共 14 主星 |
 | `placeMinorStars` | `lib/star/location.js`、`lib/star/minorStar.js#getMinorStar` | 左右昌曲、魁钺、禄羊陀马、空劫火铃共 14 辅煞星 |
 | `placeSelectedAdjectiveStars` | `lib/star/location.js#getTimelyStarIndex/getLuanXiIndex/getMonthlyStarIndex/getYearlyStarIndex`、`lib/star/adjectiveStar.js` | 参考页实际输出的台辅、封诰、红鸾、天喜、天姚、解神、天巫、天官、天福、天月、天刑、阴煞共 12 杂曜 |
-| `MUTAGENS` / `transformations` | `lib/data/heavenlyStems.js`、`lib/astro/analyzer.js#mutagensToStars` | 十天干禄权科忌 |
+| `MUTAGENS` / `transformations` / `branchOfStar` | `lib/data/heavenlyStems.js`、`lib/astro/analyzer.js#mutagensToStars` | 十天干禄权科忌及四颗目标星落宫；同一结构供大限、流年和宫干飞化使用 |
 | `selfTransformations` | `lib/astro/FunctionalPalace.js#selfMutaged/fliesTo/mutagedPlaces` | 宫干四化落本宫或对宫；参考字段 `benGong` 固化方向语义 |
 | `periods` / `palaceNamesAt` | `lib/astro/palace.js#getHoroscope/getPalaceNames`、`lib/astro/FunctionalAstrolabe.js` | 阳男阴女顺、阴男阳女逆，12 大限、虚岁与流年动态宫名/四化 |
+| `flowMonths` | `lib/astro/FunctionalAstrolabe.js` 的流月索引规则、`lib/data/constants.js#TIGER_RULE` | 流年地支逆数生月、顺数生时定正月宫，随后逐月顺行；五虎遁定月干支 |
 | 晚子时换日 | `lib/star/location.js#getStartIndex` 的 late-rat-day 处理 + 参考 case-03 | 23:00 起按次日农历日和日柱安盘，公历输入原样展示 |
 
 本地 Java 对上游做的是类型化、最小范围移植，不把 npm 包作为生产运行依赖。亮度以 iztro 主星/昌曲/火铃羊陀表为基础；参考站额外展示的左右、空劫、禄存亮度作为显示元数据冻结，并由三例逐宫测试覆盖。
@@ -42,5 +43,7 @@ Java Engine 对这 40 颗逐一安置，没有用页面可见性筛掉其中任�
 - 每宫全部自化及本宫/对宫方向；
 - 全部 12 大限的干支、年龄、起始年、动态 12 宫名与四化；
 - 每限 10 流年，即共 120 流年的年龄、年份、干支、动态 12 宫名与四化。
+- 每个流年的 12 个流月，即每例 1440 条、三例共 4320 条月份、月干支与落宫记录。
+- 大限、流年和宫干飞化的四颗目标星都必须存在于声明的目标宫；自化方向必须满足 `benGong=true` 为自化出、`false` 为自化入。
 
 三例分别覆盖阴男土五局、阳女木三局和阳男火六局晚子时；测试不是代表字段抽查，任一逐宫/星曜/运限差异都会失败。
