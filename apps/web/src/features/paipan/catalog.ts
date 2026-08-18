@@ -1,5 +1,7 @@
 import {
+  BookOpen,
   BookOpenText,
+  Books,
   CirclesThree,
   ClockCountdown,
   CompassRose,
@@ -18,7 +20,10 @@ export interface PaipanItem {
   icon: Icon;
   enabled: boolean;
   path?: string;
+  externalUrl?: string;
 }
+
+export const GUANFU_DICTIONARY_URL = "https://bqcjh742bk.coze.site/";
 
 export const PAIPAN_ITEMS: readonly PaipanItem[] = [
   {
@@ -34,7 +39,9 @@ export const PAIPAN_ITEMS: readonly PaipanItem[] = [
   { name: "逻辑学", icon: CirclesThree, enabled: true, path: "/paipan/luoji" },
   { name: "星像学", icon: Planet, enabled: true, path: "/paipan/xingxiang" },
   { name: "姓名学", icon: IdentificationCard, enabled: true, path: "/paipan/xingming" },
+  { name: "康熙字典", icon: BookOpen, enabled: true, path: "/paipan/kangxi" },
   { name: "数字规律", icon: SlidersHorizontal, enabled: true, path: "/paipan/shuzi-guilv" },
   { name: "山向决策", icon: CompassRose, enabled: true, path: "/paipan/shanxiang-juece" },
   { name: "玄空飞星", icon: StarFour, enabled: true, path: "/paipan/xuankong-feixing" },
+  { name: "观复字库", icon: Books, enabled: true, externalUrl: GUANFU_DICTIONARY_URL },
 ] as const;

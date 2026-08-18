@@ -6948,6 +6948,19 @@ footer {
   .xuankong-temporal > div { scroll-behavior: auto; }
 }
 
+/* 康熙字典：复用姓名用字数据，保持查字入口简洁。 */
+.kangxi-form { display: grid; gap: 12px; }
+.kangxi-form-intro { max-width: 52ch; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.75; }
+.kangxi-full-name-field { margin-top: 2px; }
+
+.kangxi-result-heading { display: grid; gap: 5px; }
+.kangxi-result-heading > span { color: #9b6b2b; font-size: 11px; font-weight: 750; letter-spacing: 0.08em; }
+.kangxi-result-heading h2 { margin: 0; color: var(--deep-red); font-family: var(--font-display); font-size: 30px; letter-spacing: 0.12em; }
+.kangxi-result-heading p { max-width: 58ch; margin: 2px 0 0; color: var(--hint); font-size: 12px; line-height: 1.65; }
+.kangxi-overview-card .xingming-name-groups { margin-top: 15px; }
+.kangxi-result-actions { display: grid; gap: 10px; margin-top: 2px; }
+.kangxi-restart { width: 100%; }
+
 /* 姓名学：以结果为主，内部数据说明不进入用户界面。 */
 .xingming-form { display: grid; }
 .xingming-school-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -7110,6 +7123,7 @@ footer {
 }
 
 @media (max-width: 390px) {
+  .kangxi-result-heading h2 { font-size: 28px; }
   .xingming-school-tabs button { min-height: 58px; padding-inline: 10px; }
   .xingming-score { width: 68px; height: 68px; }
   .xingming-character-record { gap: 8px; padding-inline: 8px; }

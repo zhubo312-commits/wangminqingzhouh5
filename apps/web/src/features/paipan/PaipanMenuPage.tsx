@@ -30,6 +30,20 @@ export function PaipanMenuPage() {
               </>
             );
 
+            if (item.enabled && item.externalUrl) {
+              return (
+                <a
+                  className="paipan-tile"
+                  href={item.externalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  key={item.name}
+                >
+                  {content}
+                </a>
+              );
+            }
+
             return item.enabled && item.path ? (
               <Link className="paipan-tile" to={item.path} key={item.name}>
                 {content}

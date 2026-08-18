@@ -21,6 +21,7 @@ import { XingxiangSessionProvider } from "./features/paipan/xingxiang/XingxiangS
 import { ShuziGuilvSessionProvider } from "./features/paipan/shuzi/ShuziGuilvSession";
 import { XuankongFeixingSessionProvider } from "./features/paipan/xuankong/XuankongFeixingSession";
 import { XingmingSessionProvider } from "./features/paipan/xingming/XingmingSession";
+import { KANGXI_SESSION_STORAGE_KEY } from "./features/paipan/kangxi/constants";
 
 const MeihuaFormPage = lazy(() => import("./features/paipan/meihua/MeihuaFormPage").then((module) => ({ default: module.MeihuaFormPage })));
 const MeihuaResultPage = lazy(() => import("./features/paipan/meihua/MeihuaResultPage").then((module) => ({ default: module.MeihuaResultPage })));
@@ -36,6 +37,8 @@ const XuankongFeixingFormPage = lazy(() => import("./features/paipan/xuankong/Xu
 const XuankongFeixingResultPage = lazy(() => import("./features/paipan/xuankong/XuankongFeixingResultPage").then((module) => ({ default: module.XuankongFeixingResultPage })));
 const XingmingFormPage = lazy(() => import("./features/paipan/xingming/XingmingFormPage").then((module) => ({ default: module.XingmingFormPage })));
 const XingmingResultPage = lazy(() => import("./features/paipan/xingming/XingmingResultPage").then((module) => ({ default: module.XingmingResultPage })));
+const KangxiFormPage = lazy(() => import("./features/paipan/kangxi/KangxiFormPage").then((module) => ({ default: module.KangxiFormPage })));
+const KangxiResultPage = lazy(() => import("./features/paipan/kangxi/KangxiResultPage").then((module) => ({ default: module.KangxiResultPage })));
 
 const routerBasename =
   import.meta.env.BASE_URL === "/"
@@ -84,6 +87,10 @@ function XuankongFeixingSessionLayout() {
 
 function XingmingSessionLayout() {
   return <XingmingSessionProvider><Suspense fallback={<div className="route-loading" role="status">正在载入姓名学…</div>}><Outlet /></Suspense></XingmingSessionProvider>;
+}
+
+function KangxiSessionLayout() {
+  return <XingmingSessionProvider storageKey={KANGXI_SESSION_STORAGE_KEY}><Suspense fallback={<div className="route-loading" role="status">正在载入康熙字典…</div>}><Outlet /></Suspense></XingmingSessionProvider>;
 }
 
 export default function App() {
@@ -141,6 +148,10 @@ export default function App() {
         <Route element={<XingmingSessionLayout />}>
           <Route path="/paipan/xingming" element={<XingmingFormPage />} />
           <Route path="/paipan/xingming/result" element={<XingmingResultPage />} />
+        </Route>
+        <Route element={<KangxiSessionLayout />}>
+          <Route path="/paipan/kangxi" element={<KangxiFormPage />} />
+          <Route path="/paipan/kangxi/result" element={<KangxiResultPage />} />
         </Route>
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>

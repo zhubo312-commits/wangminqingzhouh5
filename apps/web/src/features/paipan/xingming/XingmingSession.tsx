@@ -10,6 +10,7 @@ export interface XingmingDraft {
 }
 
 const initialDraft: XingmingDraft = { surname: "", givenName: "", school: "wuge" };
+export const XINGMING_SESSION_STORAGE_KEY = "guoxue.paipan.xingming_ref.v2";
 
 interface SessionValue {
   draft: XingmingDraft;
@@ -22,12 +23,18 @@ interface SessionValue {
 
 const Context = createContext<SessionValue | null>(null);
 
-export function XingmingSessionProvider({ children }: { children: ReactNode }) {
+export function XingmingSessionProvider({
+  children,
+  storageKey = XINGMING_SESSION_STORAGE_KEY,
+}: {
+  children: ReactNode;
+  storageKey?: string;
+}) {
   const [draft, setDraft] = useState(initialDraft);
   const [chart, setChart] = useState<XingmingChartResponse | null>(null);
   const [chartRequest, setChartRequest] = useState<XingmingChartRequest | null>(null);
   const { isRestoring, rememberReference } = usePaipanSessionRestore({
-    storageKey: "guoxue.paipan.xingming_ref.v2",
+    storageKey,
     fetchContext: fetchXingmingContext,
     onRestore(value) {
       setChart(value.chart);

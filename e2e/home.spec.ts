@@ -270,13 +270,13 @@ test("renders the complete mobile home without horizontal overflow", async ({ pa
   ).toBe("fixed");
 });
 
-test("opens the internal eleven-item chart menu without horizontal overflow", async ({ page }) => {
+test("opens the chart menu with a separate Guanfu dictionary link without horizontal overflow", async ({ page }) => {
   await page.goto(appPath("/"));
   await page.getByRole("link", { name: /专业排盘/ }).click();
 
   await expect(page).toHaveURL(/\/paipan$/);
   const navigation = page.getByRole("navigation", { name: "排盘方式" });
-  await expect(navigation.locator(":scope > *")).toHaveCount(11);
+  await expect(navigation.locator(":scope > *")).toHaveCount(13);
   await expect(page.getByRole("link", { name: "生平子时" })).toHaveCount(1);
   await expect(page.getByRole("link", { name: "遁甲学" })).toHaveCount(1);
   await expect(page.getByRole("link", { name: "时家决策学" })).toHaveCount(1);
@@ -285,9 +285,15 @@ test("opens the internal eleven-item chart menu without horizontal overflow", as
   await expect(page.getByRole("link", { name: "逻辑学" })).toHaveCount(1);
   await expect(page.getByRole("link", { name: "星像学" })).toHaveCount(1);
   await expect(page.getByRole("link", { name: "姓名学" })).toHaveCount(1);
+  await expect(page.getByRole("link", { name: "康熙字典" })).toHaveCount(1);
   await expect(page.getByRole("link", { name: "山向决策" })).toHaveCount(1);
   await expect(page.getByRole("link", { name: "数字规律" })).toHaveCount(1);
   await expect(page.getByRole("link", { name: "玄空飞星" })).toHaveCount(1);
+  const guanfuLink = page.getByRole("link", { name: "观复字库" });
+  await expect(guanfuLink).toHaveAttribute("href", "https://bqcjh742bk.coze.site/");
+  await expect(guanfuLink).toHaveAttribute("target", "_blank");
+  await expect(guanfuLink).toHaveAttribute("rel", "noopener noreferrer");
+  await expect(navigation.locator(":scope > *").last()).toHaveText("观复字库");
   await expect(navigation.locator('[aria-disabled="true"]')).toHaveCount(0);
   expect(
     await page.evaluate(

@@ -1,6 +1,5 @@
 import { IdentificationCard } from "@phosphor-icons/react";
 import type { XingmingChartResponse } from "@guoxue/contracts";
-import type { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { PageHeader } from "../../../components/PageHeader";
 import { FiveElementLabel } from "../../../components/paipan/FiveElementLabel";
@@ -8,18 +7,14 @@ import { PaipanActionButton } from "../../../components/paipan/PaipanActionButto
 import { PaipanEmptyState } from "../../../components/paipan/PaipanEmptyState";
 import { PaipanPageShell } from "../../../components/paipan/PaipanPageShell";
 import { PaipanSectionCard } from "../../../components/paipan/PaipanSectionCard";
+import {
+  XingmingCharacterReferenceList,
+  XingmingDetail,
+  XingmingNameCharacterGroups,
+  type XingmingCharacter,
+} from "./XingmingCharacterDetails";
 import { XingmingNameEditor } from "./XingmingNameEditor";
 import { useXingmingSession } from "./XingmingSession";
-
-function Detail({ title, meta, children, open = false }: { title: string; meta?: ReactNode; children: ReactNode; open?: boolean }) {
-  return <details className="xingming-detail" open={open}><summary><span>{title}</span>{meta && <small>{meta}</small>}</summary><div className="xingming-detail-body">{children}</div></details>;
-}
-
-function TextRow({ label, value }: { label: string; value: string | null }) {
-  return value ? <div className="xingming-text-row"><strong>{label}</strong><p>{value}</p></div> : null;
-}
-
-type XingmingCharacter = XingmingChartResponse["characters"][number];
 type XingmingGrid = XingmingChartResponse["grids"][number];
 
 const GRID_ROLE_TEXT: Record<XingmingGrid["key"], string> = {
@@ -55,33 +50,6 @@ function GridExplanation({ grid, duplicateOf }: { grid: XingmingGrid; duplicateO
         </div>}
       </>}
   </div>;
-}
-
-function CharacterRecord({ character, groupLabel }: { character: XingmingCharacter; groupLabel: "姓氏" | "名字" }) {
-  const fields = [
-    ["拼音", character.pinyin],
-    ["简体字", character.simplified],
-    ["繁体字", character.traditional],
-    ["笔画（计入）", character.calculationStrokes],
-  ] as const;
-
-  return <article className="xingming-character-record" aria-label={`${groupLabel}用字 ${character.traditional}`}>
-    <div className="xingming-character-glyph-stack"><strong className="xingming-character-glyph">{character.traditional}</strong><FiveElementLabel element={character.element} iconSize={13} /></div>
-    <dl className="xingming-character-fields">
-      {fields.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
-    </dl>
-    <div className="xingming-kangxi-strokes"><span>康熙笔画</span><p><strong>{character.kangxiStrokes}</strong><small>画</small></p></div>
-  </article>;
-}
-
-function NameCharacterGroup({ label, name, characters }: { label: "姓氏" | "名字"; name: string; characters: XingmingCharacter[] }) {
-  const columnCount = Math.min(characters.length, 3);
-  return <section className={`xingming-name-group xingming-name-group--${label === "姓氏" ? "surname" : "given"}`} aria-label={`${label} ${name}`}>
-    <header className="xingming-name-group-heading"><span>{label}</span><strong>{name}</strong></header>
-    <div className={`xingming-name-character-list xingming-name-character-list--${columnCount}`}>
-      {characters.map((character, index) => <CharacterRecord key={`${character.traditional}-${index}`} character={character} groupLabel={label} />)}
-    </div>
-  </section>;
 }
 
 function FiveGridValue({ grid, className = "" }: { grid: XingmingGrid; className?: string }) {
@@ -145,16 +113,13 @@ export function XingmingResultPage() {
   if (isRestoring) return <PaipanPageShell pageClassName="result-page xingming-result-page"><PageHeader title="姓名学" backTo="/paipan/xingming" backLabel="返回姓名学表单" /><PaipanEmptyState icon={<IdentificationCard size={46} />} title="正在恢复姓名盘" /></PaipanPageShell>;
   if (!chart) return <PaipanPageShell pageClassName="result-page xingming-result-page"><PageHeader title="姓名学" backTo="/paipan/xingming" backLabel="返回姓名学表单" /><PaipanEmptyState icon={<IdentificationCard size={46} />} title="本次姓名盘已失效" description="排盘引用不存在、版本已升级或已过期，请重新排盘。" action={<PaipanActionButton variant="restart" onClick={() => navigate("/paipan/xingming")}>重新排盘</PaipanActionButton>} /></PaipanPageShell>;
 
-  const surnameCharacterCount = Array.from(chart.name.surname).length;
-  const surnameCharacters = chart.characters.slice(0, surnameCharacterCount);
-  const givenNameCharacters = chart.characters.slice(surnameCharacterCount);
   const firstGridByNumber = new Map<number, string>();
   const gridDetails = chart.grids.map((grid) => {
     const duplicateOf = firstGridByNumber.get(grid.interpretationNumber);
     if (!duplicateOf) firstGridByNumber.set(grid.interpretationNumber, grid.label);
-    return <Detail key={grid.key} title={`${grid.label} ${grid.number}`} meta={<><FiveElementLabel element={grid.element} iconSize={13} /><span>· {grid.rating}</span></>} open>
+    return <XingmingDetail key={grid.key} title={`${grid.label} ${grid.number}`} meta={<><FiveElementLabel element={grid.element} iconSize={13} /><span>· {grid.rating}</span></>} open>
       <GridExplanation grid={grid} duplicateOf={duplicateOf} />
-    </Detail>;
+    </XingmingDetail>;
   });
 
   return <PaipanPageShell pageClassName="result-page xingming-result-page">
@@ -162,10 +127,7 @@ export function XingmingResultPage() {
 
     <PaipanSectionCard className="xingming-overview-card" labelledBy="xingming-overview-heading">
       <div className="xingming-result-hero"><div><small>{chart.school === "wuge" ? "三才五格" : "三才六格"}</small><h2 id="xingming-overview-heading">{chart.name.fullName}</h2></div><div className="xingming-score"><strong>{chart.score}</strong><span>参考分</span></div></div>
-      <div className="xingming-name-groups" aria-label="姓名用字信息">
-        <NameCharacterGroup label="姓氏" name={chart.name.surname} characters={surnameCharacters} />
-        <NameCharacterGroup label="名字" name={chart.name.givenName} characters={givenNameCharacters} />
-      </div>
+      <XingmingNameCharacterGroups chart={chart} />
       <XingmingNameEditor surname={chartRequest?.surname ?? chart.name.surname} givenName={chartRequest?.givenName ?? chart.name.givenName} school={chart.school} />
     </PaipanSectionCard>
 
@@ -188,10 +150,7 @@ export function XingmingResultPage() {
 
     <PaipanSectionCard className="xingming-character-detail-card" labelledBy="xingming-character-heading">
       <h2 className="result-section-title" id="xingming-character-heading"><span>03</span>逐字用字参考</h2>
-      <div className="xingming-detail-stack">{chart.characters.map((character, index) => <Detail key={`${character.input}-${index}`} title={`${character.traditional} · ${character.pinyin}`} meta={<><FiveElementLabel element={character.element} iconSize={13} /><span>· {character.kangxiStrokes} 画</span></>}>
-        <div className="xingming-character-meta"><span>康熙 {character.kangxiStrokes} 画</span>{character.radical && <span>部首 {character.radical}</span>}{character.common !== null && <span>{character.common ? "常用字" : "非常用字"}</span>}</div>
-        <div className="xingming-character-reading"><TextRow label="字义" value={character.nameExplanation} /><TextRow label="取名寓意" value={character.namingImplication ?? character.namingMeaning} /></div>
-      </Detail>)}</div>
+      <XingmingCharacterReferenceList characters={chart.characters} />
     </PaipanSectionCard>
 
     <PaipanActionButton variant="restart" className="xingming-restart" onClick={() => navigate("/paipan/xingming")}>重新排盘</PaipanActionButton>

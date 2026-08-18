@@ -86,12 +86,12 @@ describe("homepage", () => {
     await waitFor(() => expect(fetch).toHaveBeenCalledWith("/api/v1/events", expect.anything()));
   });
 
-  it("shows and enables exactly eleven completed chart entries", async () => {
+  it("shows twelve chart entries and the separate Guanfu dictionary link", async () => {
     window.history.pushState({}, "", "/paipan");
     render(<App />);
 
     const navigation = screen.getByRole("navigation", { name: "排盘方式" });
-    expect(navigation.children).toHaveLength(11);
+    expect(navigation.children).toHaveLength(13);
     expect(screen.getByRole("link", { name: "生平子时" })).toHaveAttribute(
       "href",
       "/paipan/shengping-zishi",
@@ -128,6 +128,10 @@ describe("homepage", () => {
       "href",
       "/paipan/xingming",
     );
+    expect(screen.getByRole("link", { name: "康熙字典" })).toHaveAttribute(
+      "href",
+      "/paipan/kangxi",
+    );
     expect(screen.getByRole("link", { name: "数字规律" })).toHaveAttribute(
       "href",
       "/paipan/shuzi-guilv",
@@ -136,6 +140,13 @@ describe("homepage", () => {
       "href",
       "/paipan/xuankong-feixing",
     );
+    expect(navigation.lastElementChild).toBe(screen.getByRole("link", { name: "观复字库" }));
+    expect(screen.getByRole("link", { name: "观复字库" })).toHaveAttribute(
+      "href",
+      "https://bqcjh742bk.coze.site/",
+    );
+    expect(screen.getByRole("link", { name: "观复字库" })).toHaveAttribute("target", "_blank");
+    expect(screen.getByRole("link", { name: "观复字库" })).toHaveAttribute("rel", "noopener noreferrer");
     expect(navigation.querySelectorAll('[aria-disabled="true"]')).toHaveLength(0);
     expect(screen.queryByText("即将上线")).not.toBeInTheDocument();
   });
